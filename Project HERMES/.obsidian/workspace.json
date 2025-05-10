@@ -1,0 +1,221 @@
+{
+  "main": {
+    "id": "aa0df63274ef785b",
+    "type": "split",
+    "children": [
+      {
+        "id": "77cc56e0bb6872dd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4506ad2060d78c11",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Теоретическая работа системы/Техническая работа системы.canvas",
+                "viewState": {
+                  "x": -136.5344931455291,
+                  "y": 2064.44921828828,
+                  "zoom": -0.6666666666666667
+                }
+              },
+              "pinned": true,
+              "icon": "lucide-layout-dashboard",
+              "title": "Техническая работа системы"
+            }
+          },
+          {
+            "id": "d44f3fc3e0dba6c9",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Суть проекта/Суть проекта.canvas",
+                "viewState": {
+                  "x": 577.8504065040651,
+                  "y": 513.5077974024828,
+                  "zoom": -1.2744738022375104
+                }
+              },
+              "pinned": true,
+              "icon": "lucide-layout-dashboard",
+              "title": "Суть проекта"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e5bd207b2875f55c",
+    "type": "split",
+    "children": [
+      {
+        "id": "96467d7f3e3572c7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "871a4b8148490dd5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "60bb04d1f7456aca",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "dbe975cd71e080b5",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "a68dfd5c9a1ba94e",
+    "type": "split",
+    "children": [
+      {
+        "id": "d7a76c260325a11f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d914c08d466aeddb",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Теоретическая работа системы/Техническая работа системы.canvas",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Техническая работа системы"
+            }
+          },
+          {
+            "id": "ec566df83538381b",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Теоретическая работа системы/Техническая работа системы.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Техническая работа системы"
+            }
+          },
+          {
+            "id": "d8821c62b973553d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "dc29c76d9125c660",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Теоретическая работа системы/Техническая работа системы.canvas",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Техническая работа системы"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "4506ad2060d78c11",
+  "lastOpenFiles": [
+    "Суть проекта/Суть проекта.canvas",
+    "Теоретическая работа системы/Техническая работа системы.canvas",
+    "Теоретическая работа системы/Подрядчик/Поиск заказов.md",
+    "Теоретическая работа системы/Заказчик/Объявления от заказчиков.md",
+    "Теоретическая работа системы/По окончании.md",
+    "Теоретическая работа системы/Подрядчик/Объявления от подрядчиков.md",
+    "Теоретическая работа системы/Заказчик/Поиск подрядов.md",
+    "Теоретическая работа системы/Подрядчик/Регистрация физ. лица.md",
+    "Теоретическая работа системы/Подрядчик/Регистрация юр. лица.md",
+    "Суть проекта/Подрядчик.md",
+    "Суть проекта/Заказчик.md",
+    "Теоретическая работа системы/Заказчик/Регистрация заказчика.md",
+    "Теоретическое исполнение программы/Подрядчик/Регистрация подрядчика.md",
+    "Теоретическое исполнение программы/Untitled",
+    "Теоретическая работа системы/Подрядчик",
+    "Теоретическая работа системы/Заказчик",
+    "Суть проекта/Тема.md",
+    "Суть проекта/Где я могу быть неправ.md",
+    "Проект ГЕРМЕС.md",
+    "Теоретическая работа системы",
+    "Суть проекта/Что я понял.md",
+    "Суть проекта",
+    "Welcome.md"
+  ]
+}

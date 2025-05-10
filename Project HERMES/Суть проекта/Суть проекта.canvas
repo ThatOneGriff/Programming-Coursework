@@ -1,0 +1,24 @@
+{
+	"nodes":[
+		{"id":"45cee16eaa033a15","type":"file","file":"Проект ГЕРМЕС.md","x":-44,"y":-166,"width":400,"height":186},
+		{"id":"a782b7444443aff5","type":"file","file":"Суть проекта/Тема.md","x":-44,"y":80,"width":400,"height":220},
+		{"id":"26a8dc2448daf0d7","type":"text","text":"Уточнить у Салий, в чём смысл","x":300,"y":80,"width":208,"height":60,"color":"3"},
+		{"id":"d738ff822f9354f6","type":"text","text":"**Дедлайн:** 19 мая","x":300,"y":-166,"width":200,"height":60,"color":"3"},
+		{"id":"2723db4d9703fa13","type":"text","text":"<h2>Что я понял</h2>","x":48,"y":360,"width":216,"height":60},
+		{"id":"36c91655b524d260","type":"text","text":"Этакий аналог **hh.ru** и **Avito**.","x":248,"y":360,"width":292,"height":60,"color":"4"},
+		{"id":"5a44393942c9c85d","type":"text","text":"Можно переназвать во что-то, более связанное с торговлей.\n\n- **Город** на пересечении торговых путей;\n- Знаменитый древний торговец.\n- Что-то **античное**.","x":560,"y":-223,"width":250,"height":303,"color":"2"},
+		{"id":"943d43d1102b21ce","type":"text","text":"Из того, что мне объясняла Салий, прав всё же мой вариант.","x":-680,"y":550,"width":200,"height":137,"color":"1"},
+		{"id":"37e42f742ff29df7","type":"text","text":"Такая система банально скучнее.","x":-480,"y":550,"width":200,"height":69,"color":"1"},
+		{"id":"c101548caa46c797","type":"file","file":"Суть проекта/Где я могу быть неправ.md","x":-680,"y":230,"width":400,"height":320},
+		{"id":"e957becbf14de014","type":"file","file":"Суть проекта/Подрядчик.md","x":280,"y":687,"width":400,"height":793},
+		{"id":"34c74ae1009d190e","type":"file","file":"Суть проекта/Заказчик.md","x":-380,"y":687,"width":400,"height":593}
+	],
+	"edges":[
+		{"id":"ad2cd62c0e30a07d","fromNode":"45cee16eaa033a15","fromSide":"bottom","toNode":"a782b7444443aff5","toSide":"top"},
+		{"id":"ba69b4f6ca337b6a","fromNode":"a782b7444443aff5","fromSide":"bottom","toNode":"2723db4d9703fa13","toSide":"top"},
+		{"id":"174957ff3399a4c2","fromNode":"2723db4d9703fa13","fromSide":"bottom","toNode":"34c74ae1009d190e","toSide":"top"},
+		{"id":"f0b7ca5e106ac77a","fromNode":"2723db4d9703fa13","fromSide":"bottom","toNode":"e957becbf14de014","toSide":"top"},
+		{"id":"724407251a2bbc81","fromNode":"2723db4d9703fa13","fromSide":"left","toNode":"c101548caa46c797","toSide":"right"},
+		{"id":"88bb897a0cd24378","fromNode":"45cee16eaa033a15","fromSide":"right","toNode":"5a44393942c9c85d","toSide":"left"}
+	]
+}

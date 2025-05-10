@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Programming-Coursework\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0317482C-94FD-9DA1-788D-7FA3FD09480C}|Programming-Coursework\\Programming-Coursework.vcxproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Programming-Coursework\\Programming-Coursework\\MyForm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form",
+      "RelativeMoniker": "D:0:0:{0317482C-94FD-9DA1-788D-7FA3FD09480C}|Programming-Coursework\\Programming-Coursework.vcxproj|solutionrelative:Programming-Coursework\\MyForm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MyForm.h [Design]",
+              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Programming-Coursework\\Programming-Coursework\\MyForm.h",
+              "RelativeDocumentMoniker": "Programming-Coursework\\MyForm.h",
+              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Programming-Coursework\\Programming-Coursework\\MyForm.h [Design]",
+              "RelativeToolTip": "Programming-Coursework\\MyForm.h [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-10T09:00:13.545Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
