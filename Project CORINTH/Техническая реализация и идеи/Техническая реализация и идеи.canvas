@@ -1,6 +1,6 @@
 {
 	"nodes":[
-		{"id":"3c119b5cc195db2e","x":-120,"y":-240,"width":400,"height":400,"type":"file","file":"Техническая реализация и идеи/Подготовка проекта Visual Studio.md"}
+		{"id":"3c119b5cc195db2e","type":"file","file":"Техническая реализация и идеи/Подготовка проекта Visual Studio.md","x":-120,"y":-240,"width":400,"height":460,"color":"#ffffff"}
 	],
 	"edges":[]
 }

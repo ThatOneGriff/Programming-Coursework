@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FE164B8B-BB82-206B-DFAC-11E913DF83FF}|Corinth\\Corinth.vcxproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\Corinth\\MyForm.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FE164B8B-BB82-206B-DFAC-11E913DF83FF}|Corinth\\Corinth.vcxproj|solutionrelative:Corinth\\MyForm.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE164B8B-BB82-206B-DFAC-11E913DF83FF}|Corinth\\Corinth.vcxproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\Corinth\\MyForm.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form",
+      "RelativeMoniker": "D:0:0:{FE164B8B-BB82-206B-DFAC-11E913DF83FF}|Corinth\\Corinth.vcxproj|solutionrelative:Corinth\\MyForm.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE164B8B-BB82-206B-DFAC-11E913DF83FF}|Corinth\\Corinth.vcxproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\Corinth\\MyForm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FE164B8B-BB82-206B-DFAC-11E913DF83FF}|Corinth\\Corinth.vcxproj|solutionrelative:Corinth\\MyForm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MyForm.hpp",
+              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\Corinth\\MyForm.hpp",
+              "RelativeDocumentMoniker": "Corinth\\MyForm.hpp",
+              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\Corinth\\MyForm.hpp",
+              "RelativeToolTip": "Corinth\\MyForm.hpp",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAAkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-12T18:31:51.317Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MyForm.cpp",
+              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\Corinth\\MyForm.cpp",
+              "RelativeDocumentMoniker": "Corinth\\MyForm.cpp",
+              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\Corinth\\MyForm.cpp",
+              "RelativeToolTip": "Corinth\\MyForm.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-12T18:22:18.229Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MyForm.hpp [Design]",
+              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\Corinth\\MyForm.hpp",
+              "RelativeDocumentMoniker": "Corinth\\MyForm.hpp",
+              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Desktop\\Corinth\\Corinth\\MyForm.hpp [Design]",
+              "RelativeToolTip": "Corinth\\MyForm.hpp [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-12T18:20:23.84Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

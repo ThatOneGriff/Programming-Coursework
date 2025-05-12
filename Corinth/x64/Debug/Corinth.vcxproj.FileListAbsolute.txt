@@ -1,0 +1,3 @@
+C:\Users\Артём\Desktop\Corinth\Corinth\x64\Debug\Corinth.vcxproj.AssemblyReference.cache
+C:\Users\Артём\Desktop\Corinth\Corinth\x64\Debug\Corinth.MyForm.resources
+C:\Users\Артём\Desktop\Corinth\Corinth\x64\Debug\Corinth.vcxproj.GenerateResource.cache
