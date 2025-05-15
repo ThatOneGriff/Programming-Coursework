@@ -1,3 +1,0 @@
-C:\Users\Артём\Desktop\Agora\Agora\x64\Release\Agora.vcxproj.AssemblyReference.cache
-C:\Users\Артём\Desktop\Agora\Agora\x64\Release\Agora.MyForm.resources
-C:\Users\Артём\Desktop\Agora\Agora\x64\Release\Agora.vcxproj.GenerateResource.cache
