@@ -1,9 +1,0 @@
-{
-	"nodes":[
-		{"id":"3c119b5cc195db2e","type":"file","file":"Техническая реализация и идеи/Прелюдии/Подготовка проекта Visual Studio.md","x":-120,"y":-240,"width":400,"height":460,"color":"#ffffff"},
-		{"id":"643b867941fca2c4","x":360,"y":-240,"width":400,"height":216,"color":"#ffffff","type":"file","file":"Техническая реализация и идеи/Прелюдии/Если сломалось.md"}
-	],
-	"edges":[
-		{"id":"0a965e90b3aa5f66","fromNode":"3c119b5cc195db2e","fromSide":"right","toNode":"643b867941fca2c4","toSide":"left","color":"1"}
-	]
-}
