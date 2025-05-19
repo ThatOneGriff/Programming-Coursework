@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(473, 455);
             this.Name = "Registration";
             this.Text = "Agora";
+            this.Load += new System.EventHandler(this.Registration_Load);
             this.ResumeLayout(false);
 
         }
