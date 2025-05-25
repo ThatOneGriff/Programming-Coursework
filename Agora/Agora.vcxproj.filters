@@ -29,16 +29,22 @@
     <ClInclude Include="Utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\Components\Phone_Number.hpp">
+    <ClInclude Include="User\Contacts\Phone_Number.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menus\Registration.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\Components\Contacts.hpp">
+    <ClInclude Include="User\Contacts.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\Components\Email.hpp">
+    <ClInclude Include="User\Contacts\Email.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="User\Components\Contractor_Info.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="User\Components\Name.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
 #pragma once
-#include "User/Components/Contacts.hpp" //TEST
+#include "User/Contacts.hpp" //TEST
 #include "Menus/Registration.hpp"
 #include "Utils.hpp"
 

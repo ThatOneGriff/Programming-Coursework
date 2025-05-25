@@ -2,10 +2,9 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
-#include <iostream>
-#include <time.h>
-
-using namespace System;
+#include <iostream>	    // strings (TRY <string>?)
+#include <time.h>		// random
+using namespace System; // all things CLR
 
 
 #pragma region = Random =
@@ -40,13 +39,23 @@ System::String^ to_dotnet_string(const std::string& target)
 }
 
 
+std::string to_cpp_string(System::String^ target)
+{
+	// copied code
+	std::string result;
+	using namespace Runtime::InteropServices;
+	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(target)).ToPointer();
+	result = chars;
+	Marshal::FreeHGlobal(IntPtr((void*)chars));
+	return result;
+}
+
+
 std::string transliterate(const std::string& target)
 {
-	/*for (int i = 0; i < target.size(); i+=2)
-	{
-		std::string letter = std::string() + target[i-1] + target[i];
-		std::cout << letter;
-	}*/
+	// WARNING: may break without <wstring>
+
+
 
 	return "-1";
 }

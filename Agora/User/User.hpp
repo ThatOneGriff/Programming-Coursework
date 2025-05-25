@@ -4,7 +4,7 @@
 
 #include "../Utils.hpp";
 #include "Contacts.hpp";
-#include "Contractor_Info.hpp"
+#include "Components/Contractor_Info.hpp"
 
 /// Here be:
 class User;
@@ -51,10 +51,10 @@ class Company : public User
 {
 public:
 
+	//Company(const std::string& _company_name, )
 
 private:
 	
-	//TODO: categories and experience for each of them
 };
 
 

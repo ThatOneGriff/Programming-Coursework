@@ -123,13 +123,15 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="User\Components\Contacts.hpp" />
-    <ClInclude Include="User\Components\Email.hpp" />
+    <ClInclude Include="User\Contacts.hpp" />
+    <ClInclude Include="User\Contacts\Email.hpp" />
+    <ClInclude Include="User\Components\Name.hpp" />
+    <ClInclude Include="User\Components\Contractor_Info.hpp" />
     <ClInclude Include="User\User.hpp" />
     <ClInclude Include="Menus\Registration.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="User\Components\Phone_Number.hpp" />
+    <ClInclude Include="User\Contacts\Phone_Number.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Main_Menu.hpp">
       <FileType>CppForm</FileType>
