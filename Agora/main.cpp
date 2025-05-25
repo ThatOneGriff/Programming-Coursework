@@ -4,7 +4,7 @@
 using namespace Agora;
 
 
-int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+int WINAPI WinMain(const HINSTANCE, const HINSTANCE, const LPSTR, const int)
 {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
