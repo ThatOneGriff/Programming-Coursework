@@ -32,5 +32,8 @@
     <ClInclude Include="Utils\Contacts.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Menus\Registration.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

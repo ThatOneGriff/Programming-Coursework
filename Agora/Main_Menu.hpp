@@ -1,4 +1,5 @@
 #pragma once
+#include "Menus/Registration.hpp"
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -27,6 +28,8 @@ namespace Agora {
 				delete components;
 		}
 
+	protected:
+
 	private:
 		System::ComponentModel::Container ^components;
 
@@ -49,6 +52,5 @@ namespace Agora {
 		#pragma endregion
 
 	private:
-
 	};
 }
