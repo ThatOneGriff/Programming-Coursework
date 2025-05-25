@@ -23,16 +23,22 @@
     <ClInclude Include="Main_Menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\User_Types\User.hpp">
+    <ClInclude Include="User\User.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Utils.hpp">
+    <ClInclude Include="Utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Contacts.hpp">
+    <ClInclude Include="User\Components\Phone_Number.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menus\Registration.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="User\Components\Contacts.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="User\Components\Email.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
