@@ -2,9 +2,19 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
-#include <iostream>	    // strings (TRY <string>?)
-#include <time.h>		// random
-using namespace System; // all things CLR
+#include <iostream>	     // strings (try removing)
+#include <time.h>		 // random
+#include <string>		 // 'std::wstring'
+#include <unordered_map> // mapping chars for transliteration
+using namespace System;  // all things CLR
+
+/// Here be:
+int randint(const unsigned int min, const unsigned int max);
+int randint(const unsigned int max);
+System::String^ to_dotnet_string(const std::wstring& target);
+std::wstring	to_std_wstring(System::String^ target);
+std::wstring	transliterate(const std::wstring& target);
+
 
 
 #pragma region = Random =
@@ -18,11 +28,11 @@ int randint(const unsigned int min, const unsigned int max)
 	return rand() % (max+1 - min) + min;
 }
 
-// [1, max]
+// [0, max]
 int randint(const unsigned int max)
 {
 	srand(++_seed);
-	return rand() % (max) + 1;
+	return rand() % (max+1);
 }
 
 #pragma endregion
@@ -30,34 +40,24 @@ int randint(const unsigned int max)
 
 #pragma region = Strings =
 
-System::String^ to_dotnet_string(const std::string& target)
+System::String^ to_dotnet_string(const std::wstring& target)
 {
 	System::String^ result = "";
-	for (const char& c : target)
+	for (const wchar_t& c : target)
 		result += System::Convert::ToChar(c);
 	return result;
 }
 
 
-std::string to_cpp_string(System::String^ target)
+std::wstring to_std_wstring(System::String^ target)
 {
-	// copied code
-	std::string result;
+	/// copied code
+	std::wstring result;
 	using namespace Runtime::InteropServices;
-	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(target)).ToPointer();
+	const wchar_t* chars = (const wchar_t*)(Marshal::StringToHGlobalAnsi(target)).ToPointer();
 	result = chars;
 	Marshal::FreeHGlobal(IntPtr((void*)chars));
 	return result;
-}
-
-
-std::string transliterate(const std::string& target)
-{
-	// WARNING: may break without <wstring>
-
-
-
-	return "-1";
 }
 
 #pragma endregion

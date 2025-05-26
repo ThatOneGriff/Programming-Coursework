@@ -60,6 +60,7 @@ private:
 
 
 
+// TODO: refactor
 std::string _get_random_carrier_code(const bool corporate/*= false*/)
 {
 	int operator_type = randint(7 + corporate); // so that individuals don't get a (800) operator code

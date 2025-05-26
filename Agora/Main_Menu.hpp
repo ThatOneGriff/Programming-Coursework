@@ -15,7 +15,6 @@ namespace Agora {
 
 	public ref class Main_Menu : public System::Windows::Forms::Form
 	{
-	#pragma region = Winforms Code =
 
 	public:
 		Main_Menu(void)
@@ -32,32 +31,14 @@ namespace Agora {
 				delete components;
 		}
 
-	protected:
+	#pragma region = Winforms Code =
 
-    protected:
-    private: System::Windows::Forms::ContextMenuStrip^ contextMenuStrip1;
 	private: System::Windows::Forms::TextBox^ output_test;
-
 	private: System::ComponentModel::IContainer^ components;
-
-	protected:
-
-	private:
-
-
-
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
-			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->output_test = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
-			// 
-			// contextMenuStrip1
-			// 
-			this->contextMenuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->contextMenuStrip1->Name = L"contextMenuStrip1";
-			this->contextMenuStrip1->Size = System::Drawing::Size(61, 4);
 			// 
 			// output_test
 			// 

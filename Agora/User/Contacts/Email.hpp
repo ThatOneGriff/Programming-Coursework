@@ -10,6 +10,7 @@
 /// - Random e-mail generator.
 
 class Email;
+const Email _EMPTY_EMAIL; /// default argument for constructors which don't require email
 
 
 //NOTE: current implementation is de-facto constant.

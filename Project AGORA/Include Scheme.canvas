@@ -4,7 +4,9 @@
 		{"id":"035e1ebdaab913a6","type":"text","text":"Phone_Number.hpp","x":-360,"y":-264,"width":210,"height":60},
 		{"id":"73cf2537b81ea7b9","type":"text","text":"Contacts.hpp","x":-220,"y":-120,"width":168,"height":60},
 		{"id":"e6715adac6691039","type":"text","text":"Utils.hpp","x":40,"y":-520,"width":250,"height":60},
-		{"id":"dc34bf5d908ba650","type":"text","text":"User.hpp","x":-136,"y":40,"width":250,"height":60}
+		{"id":"dc34bf5d908ba650","type":"text","text":"User.hpp","x":-136,"y":40,"width":250,"height":60},
+		{"id":"cd09aa189d715067","x":140,"y":-264,"width":150,"height":55,"type":"text","text":"Name.hpp"},
+		{"id":"92b6df9288101560","x":320,"y":-264,"width":250,"height":55,"type":"text","text":"Contractor_Info.hpp"}
 	],
 	"edges":[
 		{"id":"b8b1100edf56e67c","fromNode":"035e1ebdaab913a6","fromSide":"bottom","toNode":"73cf2537b81ea7b9","toSide":"top"},
@@ -12,6 +14,8 @@
 		{"id":"da3f33af50d8a616","fromNode":"e6715adac6691039","fromSide":"bottom","toNode":"035e1ebdaab913a6","toSide":"top"},
 		{"id":"ccb31b2b86c6c7b4","fromNode":"e6715adac6691039","fromSide":"bottom","toNode":"9915da3e2a02b9ef","toSide":"top"},
 		{"id":"4cc04ff365510510","fromNode":"73cf2537b81ea7b9","fromSide":"bottom","toNode":"dc34bf5d908ba650","toSide":"top"},
-		{"id":"bb715e6cd2f91fa7","fromNode":"e6715adac6691039","fromSide":"bottom","toNode":"dc34bf5d908ba650","toSide":"top"}
+		{"id":"b795c2b97e6df2a8","fromNode":"e6715adac6691039","fromSide":"bottom","toNode":"dc34bf5d908ba650","toSide":"top"},
+		{"id":"defe67a11a455783","fromNode":"cd09aa189d715067","fromSide":"bottom","toNode":"dc34bf5d908ba650","toSide":"top"},
+		{"id":"dc5b3e745c03e998","fromNode":"92b6df9288101560","fromSide":"bottom","toNode":"dc34bf5d908ba650","toSide":"top"}
 	]
 }
