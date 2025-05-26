@@ -7,6 +7,7 @@
 //Email		 _get_random_email(std::wstring domain/* = L""*/); // email must be generated according to the name transliteration
 Phone_Number	_get_random_phone_number(const bool corporate/* = false*/);
 Individual_Name	_get_random_individual_name();
+//Company_Name   _get_random_company_name(); // As for that, I suppose I will just have a set of predefined companies.
 
 
 
