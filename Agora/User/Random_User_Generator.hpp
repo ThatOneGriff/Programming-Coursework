@@ -10,9 +10,21 @@
 Individual get_random_individual();
 
 Email		    _get_email(const Individual_Name& name); // email must be generated according to the name transliteration
-Phone_Number    _get_random_phone_number(const bool corporate/* = false*/);
+Phone_Number    _get_random_phone_number(const bool corporate = false);
 Individual_Name	_get_random_individual_name();
 //Company_Name   _get_random_company_name();
+
+
+Individual get_random_individual()
+{
+	Individual_Name name = _get_random_individual_name();
+	Phone_Number  number = _get_random_phone_number();
+	Email		   email = _get_email(name);
+
+	Individual result(name, number);
+	result.set_email (email);
+	return result;
+}
 
 
 
@@ -23,6 +35,7 @@ const std::wstring names[30] = {
 	L"Егор",	  L"Захар",  L"Иван",   L"Илья",   L"Кирилл",  L"Константин", L"Лев",	  L"Леонид", L"Марк",	 L"Матвей",
 	L"Мирон",	  L"Михаил", L"Никита", L"Пётр",   L"Роман",   L"Руслан",	  L"Савелий", L"Степан", L"Тихон",   L"Фёдор"
 };
+// TODO: "Тимофеев" is sometimes causing problems
 const std::wstring surnames[30] = {
 	L"Андреев",	   L"Беляев", L"Васильев", L"Валерьев", L"Волков",	 L"Высоцкий", L"Горохов",  L"Гришин",   L"Громов",  L"Зайцев",
 	L"Захарченко", L"Иванов", L"Киселев",  L"Козлов",	L"Копылов",  L"Миронов",  L"Моисеев",  L"Носов",	L"Орлов",   L"Павлов",
@@ -69,7 +82,7 @@ const int _carrier_code_limits[8][2] = {
 	{910, 919}, {903, 909}, {900, 908}, {920, 937},
 	{980, 989}, {960, 976}, {991, 999}, {800, 800}
 };
-Phone_Number _get_random_phone_number(const bool corporate = false)
+Phone_Number _get_random_phone_number(const bool corporate/* = false*/)
 {
 	int operator_type = randint(6 + corporate); // so that individuals don't get a 800 [i = 7] operator code
 	int code = randint(_carrier_code_limits[operator_type][0], _carrier_code_limits[operator_type][1]);

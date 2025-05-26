@@ -22,10 +22,13 @@ namespace Agora {
 		{
 			InitializeComponent();
 			
-			for (int i = 0; i < 15; i++)
+			for (int i = 0; i < 5; i++)
 			{
-				Phone_Number num = _get_random_phone_number();
-				test_box->Items->Add(to_dotnet_string(num.as_text()));
+				Individual individual = get_random_individual();
+				std::wstring info = individual.name.get_short() + L'\n'
+								  + individual.phone_number.as_text() + L'\n'
+								  + individual.email.get() + L"\n\n";
+				test_box->Text += to_dotnet_string(info);
 			}
 		}
 
@@ -35,7 +38,9 @@ namespace Agora {
 			if (components)
 				delete components;
 		}
-	private: System::Windows::Forms::ListBox^ test_box;
+	private: System::Windows::Forms::RichTextBox^ test_box;
+	protected:
+
 	protected:
 
 	#pragma region = Winforms Code =
@@ -44,17 +49,16 @@ namespace Agora {
 	private: System::ComponentModel::IContainer^ components;
 		void InitializeComponent(void)
 		{
-			this->test_box = (gcnew System::Windows::Forms::ListBox());
+			this->test_box = (gcnew System::Windows::Forms::RichTextBox());
 			this->SuspendLayout();
 			// 
 			// test_box
 			// 
-			this->test_box->FormattingEnabled = true;
-			this->test_box->ItemHeight = 16;
-			this->test_box->Location = System::Drawing::Point(392, 19);
+			this->test_box->Location = System::Drawing::Point(327, 23);
 			this->test_box->Name = L"test_box";
-			this->test_box->Size = System::Drawing::Size(197, 420);
+			this->test_box->Size = System::Drawing::Size(300, 420);
 			this->test_box->TabIndex = 0;
+			this->test_box->Text = L"";
 			// 
 			// Main_Menu
 			// 

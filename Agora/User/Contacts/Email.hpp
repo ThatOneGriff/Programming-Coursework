@@ -27,12 +27,19 @@ public:
 		return *this;
 	}
 
-	Email()
-	{}
 
 	Email(const std::wstring& _body, const std::wstring& _domain)
 	: body(_body), domain(_domain)
 	{}
+
+	Email()
+	{}
+
+
+	std::wstring get()
+	{
+		return body + L'@' + domain;
+	}
 	
 private:
 	std::wstring body,

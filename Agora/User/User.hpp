@@ -29,13 +29,6 @@ public:
 	User(const Phone_Number& _phone_number, const std::wstring& _extra_contacts/* = L""*/)
 	: phone_number(_phone_number), extra_contacts(_extra_contacts)
 	{}
-
-protected:
-
-	void set_email(const Email& _email)
-	{
-		email = _email;
-	}
 };
 
 
@@ -47,10 +40,20 @@ public:
 	Individual_Name name;
 
 
-	Individual(const Individual_Name& _name,	   const Phone_Number& _phone_number,
+	Individual(const Individual_Name& _name, const Phone_Number& _phone_number,
 			   const std::wstring& _extra_contacts = L"")
 	: name(_name), User(_phone_number, _extra_contacts)
 	{}
+
+
+	/// It's only needed here because it's optional for 'Individual'.
+	/// Rather than clutter the codebase with empty ctor for an optional email argument,
+	/// I decided to go with this workaround.
+	/// !!! That being said, the default 'Email' ctor is still needed... for something.
+	void set_email(const Email& _email)
+	{
+		email = _email;
+	}
 };
 
 
