@@ -1,5 +1,6 @@
 #pragma once
 #include "User/Contacts.hpp" //TEST
+#include "User/Random_User_Generator.hpp" //TEST
 #include "Menus/Registration.hpp"
 #include "Utils.hpp"
 
@@ -17,11 +18,15 @@ namespace Agora {
 	{
 
 	public:
-		Main_Menu(void)
+		Main_Menu()
 		{
 			InitializeComponent();
-			Phone_Number num;
-			output_test->Text = to_dotnet_string(num.as_text());
+			
+			for (int i = 0; i < 15; i++)
+			{
+				Phone_Number num = _get_random_phone_number();
+				test_box->Items->Add(to_dotnet_string(num.as_text()));
+			}
 		}
 
 	protected:
@@ -30,33 +35,36 @@ namespace Agora {
 			if (components)
 				delete components;
 		}
+	private: System::Windows::Forms::ListBox^ test_box;
+	protected:
 
 	#pragma region = Winforms Code =
 
-	private: System::Windows::Forms::TextBox^ output_test;
+
 	private: System::ComponentModel::IContainer^ components;
 		void InitializeComponent(void)
 		{
-			this->output_test = (gcnew System::Windows::Forms::TextBox());
+			this->test_box = (gcnew System::Windows::Forms::ListBox());
 			this->SuspendLayout();
 			// 
-			// output_test
+			// test_box
 			// 
-			this->output_test->Location = System::Drawing::Point(255, 174);
-			this->output_test->Name = L"output_test";
-			this->output_test->Size = System::Drawing::Size(100, 22);
-			this->output_test->TabIndex = 2;
+			this->test_box->FormattingEnabled = true;
+			this->test_box->ItemHeight = 16;
+			this->test_box->Location = System::Drawing::Point(392, 35);
+			this->test_box->Name = L"test_box";
+			this->test_box->Size = System::Drawing::Size(197, 388);
+			this->test_box->TabIndex = 0;
 			// 
 			// Main_Menu
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(639, 455);
-			this->Controls->Add(this->output_test);
+			this->Controls->Add(this->test_box);
 			this->Name = L"Main_Menu";
 			this->Text = L"Main_Menu";
 			this->ResumeLayout(false);
-			this->PerformLayout();
 
 		}
 

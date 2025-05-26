@@ -6,21 +6,37 @@
 #include <string>
 #include "../../Utils.hpp"
 
-/// - The concept of e-mail;
-/// - Random e-mail generator.
+/// - The concept of e-mail.
 
 class Email;
-const Email _EMPTY_EMAIL; /// default argument for constructors which don't require email
 
 
-//NOTE: current implementation is de-facto constant.
 class Email
 {
 public:
 
+	Email()
+	{}
+
+	Email(const std::wstring& _body, const std::wstring& _domain)
+	: body(_body), domain(_domain)
+	{}
+
+	Email& operator=(const Email& to_set)
+	{
+		if (this == &to_set) {
+			return *this;
+		}
+
+		this->body   = to_set.body;
+		this->domain = to_set.domain;
+
+		return *this;
+	}
+	
 private:
-	const std::string body,
-					  domain;
+	std::wstring body,
+				 domain;
 };
 
 

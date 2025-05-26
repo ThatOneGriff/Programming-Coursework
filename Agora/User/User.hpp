@@ -12,12 +12,7 @@ class User;
 class Individual;
 class Company;
 
-Individual random_individual();
-Company	   random_company();
 
-
-
-#pragma region = Classes =
 
 /// Parent class for 'Individual' and 'Company'
 class User
@@ -31,9 +26,16 @@ public:
 	Contractor_Info contractor_info;
 
 
-	User(const Phone_Number& _phone_number, const Email& _email/* = _EMPTY*/, const std::wstring& _extra_contacts/* = L""*/)
-	: phone_number(_phone_number), email(_email), extra_contacts(_extra_contacts)
+	User(const Phone_Number& _phone_number, const std::wstring& _extra_contacts/* = L""*/)
+	: phone_number(_phone_number), extra_contacts(_extra_contacts)
 	{}
+
+protected:
+
+	void set_email(const Email& _email)
+	{
+		email = _email;
+	}
 };
 
 
@@ -46,8 +48,8 @@ public:
 
 
 	Individual(const Individual_Name& _name,	   const Phone_Number& _phone_number,
-			   const Email& _email = _EMPTY_EMAIL, const std::wstring& _extra_contacts = L"")
-	: name(_name), User(_phone_number, _email, _extra_contacts)
+			   const std::wstring& _extra_contacts = L"")
+	: name(_name), User(_phone_number, _extra_contacts)
 	{}
 };
 
@@ -60,26 +62,11 @@ public:
 	Company_Name name;
 	std::wstring website;
 
-	Company(const Company_Name& _name, const Phone_Number& _phone_number,
-			const Email& _email,	   const std::wstring& _website,
-			const std::wstring& _extra_contacts = L"")
-	: name(_name), User(_phone_number, _email, _extra_contacts), website(_website)
+
+	Company(const Company_Name& _name,    const Phone_Number& _phone_number,
+		    const std::wstring& _website, const std::wstring& _extra_contacts = L"")
+	: name(_name), User(_phone_number, _extra_contacts), website(_website)
 	{}
 };
-
-#pragma endregion
-
-
-
-#pragma region = Functions =
-
-Individual random_invididual()
-{
-	// Random name, random phone number, random email
-}
-
-#pragma endregion
-
-
 
 #endif

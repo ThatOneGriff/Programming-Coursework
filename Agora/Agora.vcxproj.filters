@@ -47,5 +47,8 @@
     <ClInclude Include="User\Components\Name.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="User\Random_User_Generator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -127,6 +127,7 @@
     <ClInclude Include="User\Contacts\Email.hpp" />
     <ClInclude Include="User\Components\Name.hpp" />
     <ClInclude Include="User\Components\Contractor_Info.hpp" />
+    <ClInclude Include="User\Random_User_Generator.hpp" />
     <ClInclude Include="User\User.hpp" />
     <ClInclude Include="Menus\Registration.hpp">
       <FileType>CppForm</FileType>

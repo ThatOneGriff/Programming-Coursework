@@ -4,87 +4,100 @@
     "type": "split",
     "children": [
       {
-        "id": "77cc56e0bb6872dd",
-        "type": "tabs",
+        "id": "9b5811af792b0ef4",
+        "type": "split",
         "children": [
           {
-            "id": "d44f3fc3e0dba6c9",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Суть проекта/Суть проекта.canvas",
-                "viewState": {
-                  "x": 390.23192626716957,
-                  "y": 1270.962800734842,
-                  "zoom": -0.824943942794005
+            "id": "dd826a50af68dec4",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "ea1ec20d5c23c142",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "canvas",
+                  "state": {
+                    "file": "Include Scheme.canvas",
+                    "viewState": {
+                      "x": 402.97394078404756,
+                      "y": -91.20572833519685,
+                      "zoom": -0.6666666666666667
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "lucide-layout-dashboard",
+                  "title": "Include Scheme"
                 }
-              },
-              "pinned": true,
-              "icon": "lucide-layout-dashboard",
-              "title": "Суть проекта"
-            }
+              }
+            ]
           },
           {
-            "id": "4506ad2060d78c11",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Теоретическая работа системы/Техническая работа системы.canvas",
-                "viewState": {
-                  "x": -199.58872833393545,
-                  "y": -279.19038784351915,
-                  "zoom": -0.6427178510427864
+            "id": "77cc56e0bb6872dd",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "d44f3fc3e0dba6c9",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "canvas",
+                  "state": {
+                    "file": "Суть проекта/Суть проекта.canvas",
+                    "viewState": {
+                      "x": 390.23192626716957,
+                      "y": 1270.962800734842,
+                      "zoom": -0.824943942794005
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "lucide-layout-dashboard",
+                  "title": "Суть проекта"
                 }
               },
-              "pinned": true,
-              "icon": "lucide-layout-dashboard",
-              "title": "Техническая работа системы"
-            }
-          },
-          {
-            "id": "5e39889663386afc",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Схема работы программы/Схема работы программы.canvas",
-                "viewState": {
-                  "x": -399.958122766153,
-                  "y": 1578.6714653398913,
-                  "zoom": -1.3333333333333333
+              {
+                "id": "4506ad2060d78c11",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "canvas",
+                  "state": {
+                    "file": "Теоретическая работа системы/Техническая работа системы.canvas",
+                    "viewState": {
+                      "x": -199.58872833393545,
+                      "y": -279.19038784351915,
+                      "zoom": -0.6427178510427864
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "lucide-layout-dashboard",
+                  "title": "Техническая работа системы"
                 }
               },
-              "pinned": true,
-              "icon": "lucide-layout-dashboard",
-              "title": "Схема работы программы"
-            }
-          },
-          {
-            "id": "ea1ec20d5c23c142",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Include Scheme.canvas",
-                "viewState": {
-                  "x": 507.1075079255242,
-                  "y": -164.86113956870315,
-                  "zoom": -0.6666666666666667
+              {
+                "id": "5e39889663386afc",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "canvas",
+                  "state": {
+                    "file": "Схема работы программы/Схема работы программы.canvas",
+                    "viewState": {
+                      "x": -399.958122766153,
+                      "y": 1578.6714653398913,
+                      "zoom": -1.3333333333333333
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "lucide-layout-dashboard",
+                  "title": "Схема работы программы"
                 }
-              },
-              "pinned": true,
-              "icon": "lucide-layout-dashboard",
-              "title": "Include Scheme"
-            }
+              }
+            ],
+            "currentTab": 1
           }
         ],
-        "currentTab": 1
+        "direction": "horizontal"
       }
     ],
     "direction": "vertical"
@@ -231,10 +244,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4506ad2060d78c11",
+  "active": "ea1ec20d5c23c142",
   "lastOpenFiles": [
-    "Include Scheme.canvas",
     "Теоретическая работа системы/Техническая работа системы.canvas",
+    "Include Scheme.canvas",
     "Схема работы программы/Схема работы программы.canvas",
     "Суть проекта/Суть проекта.canvas",
     "Схема работы программы/Регистрация/Регистрация юр. лица.md",
