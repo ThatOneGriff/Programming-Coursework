@@ -51,9 +51,9 @@ namespace Agora {
 			// 
 			this->test_box->FormattingEnabled = true;
 			this->test_box->ItemHeight = 16;
-			this->test_box->Location = System::Drawing::Point(392, 35);
+			this->test_box->Location = System::Drawing::Point(392, 19);
 			this->test_box->Name = L"test_box";
-			this->test_box->Size = System::Drawing::Size(197, 388);
+			this->test_box->Size = System::Drawing::Size(197, 420);
 			this->test_box->TabIndex = 0;
 			// 
 			// Main_Menu

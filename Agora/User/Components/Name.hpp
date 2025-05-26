@@ -26,6 +26,7 @@ public:
 	{}
 
 protected:
+
 	std::wstring name;
 };
 
@@ -62,25 +63,25 @@ class Individual_Name: public Name
 {
 public:
 
-	Individual_Name(const std::wstring& _name, const std::wstring& _second_name, const std::wstring& _patronym)
-	: Name(_name), second_name(_second_name), patronym(_patronym)
+	Individual_Name(const std::wstring& _name, const std::wstring& _surname, const std::wstring& _patronym)
+	: Name(_name), surname(_surname), patronym(_patronym)
 	{}
 
 	// Иванов Иван Иванович
 	std::wstring get_full()
 	{
-		return second_name + L' ' + name + L' ' + patronym;
+		return surname + L' ' + name + L' ' + patronym;
 	}
 
 	// Иванов И.И.
 	std::wstring get_short()
 	{
-		return second_name + L' ' + name[0] + L'.' + patronym[0] + L'.';
+		return surname + L' ' + name[0] + L'.' + patronym[0] + L'.';
 	}
 
 private:
 
-	std::wstring second_name,
+	std::wstring surname,
 				 patronym;
 };
 
