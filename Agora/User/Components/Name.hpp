@@ -16,6 +16,7 @@ class Individual_Name;
 class Name
 {
 public:
+
 	virtual std::wstring get_full() = 0;
 	virtual std::wstring get_short() = 0;
 
@@ -59,6 +60,8 @@ private:
 
 class Individual_Name: public Name
 {
+public:
+
 	Individual_Name(const std::wstring& _name, const std::wstring& _second_name, const std::wstring& _patronym)
 	: Name(_name), second_name(_second_name), patronym(_patronym)
 	{}
