@@ -15,13 +15,6 @@ class Email
 {
 public:
 
-	Email()
-	{}
-
-	Email(const std::wstring& _body, const std::wstring& _domain)
-	: body(_body), domain(_domain)
-	{}
-
 	Email& operator=(const Email& to_set)
 	{
 		if (this == &to_set) {
@@ -33,6 +26,13 @@ public:
 
 		return *this;
 	}
+
+	Email()
+	{}
+
+	Email(const std::wstring& _body, const std::wstring& _domain)
+	: body(_body), domain(_domain)
+	{}
 	
 private:
 	std::wstring body,

@@ -4,10 +4,15 @@
 
 #include "User.hpp"
 
-//Email		 _get_random_email(std::wstring domain/* = L""*/); // email must be generated according to the name transliteration
-Phone_Number	_get_random_phone_number(const bool corporate/* = false*/);
+/// There will be no random company generator, nor related things:
+/// I'm gonna have a predefined set of companies.
+
+Individual get_random_individual();
+
+Email		    _get_email(const Individual_Name& name); // email must be generated according to the name transliteration
+Phone_Number    _get_random_phone_number(const bool corporate/* = false*/);
 Individual_Name	_get_random_individual_name();
-//Company_Name   _get_random_company_name(); // As for that, I suppose I will just have a set of predefined companies.
+//Company_Name   _get_random_company_name();
 
 
 
@@ -43,6 +48,21 @@ Individual_Name _get_random_individual_name()
 
 
 #pragma region = Contacts
+
+const std::wstring _email_domains[3] = {L"gmail.com", L"mail.ru", L"yandex.ru"};
+Email _get_email(const Individual_Name& name)
+{
+	// igor_ivanov245@domain.com
+	std::wstring body = transliterate_for_email(name.name) + L'_'
+					  + transliterate_for_email(name.surname)
+					  + std::to_wstring(randint(100, 999));
+	std::wstring domain = _email_domains[randint(2)];
+
+	Email result(body, domain);
+	return result;
+}
+
+
 
 // |    MTS	   |  BeeLine  |   Tele2   |   Misc   |
 const int _carrier_code_limits[8][2] = {

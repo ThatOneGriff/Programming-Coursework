@@ -13,7 +13,7 @@ int randint(const unsigned int min, const unsigned int max);
 int randint(const unsigned int max);
 System::String^ to_dotnet_string(const std::wstring& target);
 std::wstring	to_std_wstring(System::String^ target);
-std::wstring	transliterate(const std::wstring& target);
+std::wstring	transliterate_for_email(const std::wstring& target);
 
 
 
@@ -65,12 +65,15 @@ const std::unordered_map<wchar_t, std::wstring> _char_transliterations {
 	{L'à', L"a"},  {L'á', L"b"},  {L'â', L"v"},   {L'ã', L"g"}, {L'ä', L"d"}, {L'å', L"e"}, {L'¸', L"yo"}, {L'æ', L"zh"},
 	{L'ç', L"z"},  {L'è', L"i"},  {L'é', L"y"},   {L'ê', L"k"}, {L'ë', L"l"}, {L'ì', L"m"}, {L'í', L"n"},  {L'î', L"o"},
 	{L'ï', L"p"},  {L'ð', L"r"},  {L'ñ', L"s"},   {L'ò', L"t"}, {L'ó', L"u"}, {L'ô', L"f"}, {L'õ', L"kh"}, {L'ö', L"ts"},
-	{L'÷', L"ch"}, {L'ø', L"sh"}, {L'ù', L"sch"}, {L'ú', L"y"}, {L'û', L"y"}, {L'ü', L"y"}, {L'ý', L"e"},  {L'þ', L"yu"},
+	{L'÷', L"ch"}, {L'ø', L"sh"}, {L'ù', L"sch"}, {L'ú', L"y"}, {L'û', L"y"}, {L'ü', L""},  {L'ý', L"e"},  {L'þ', L"yu"},
 	{L'ÿ', L"ya"}
 };
 std::wstring transliterate_for_email(const std::wstring& target)
 {
-
+	std::wstring result = L"";
+	for (const wchar_t& c : target)
+		result += _char_transliterations.at(towlower(c));
+	return result;
 }
 
 #pragma endregion
