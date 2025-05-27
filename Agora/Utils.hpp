@@ -20,8 +20,6 @@ std::wstring	to_std_wstring(System::String^ target);
 std::wstring	transliterate_for_email(const std::wstring& target);
 
 
-
-
 #pragma region = Random =
 
 int _seed = time(NULL);
