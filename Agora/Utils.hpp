@@ -11,9 +11,14 @@ using namespace System;  // all things CLR
 /// Here be:
 int randint(const unsigned int min, const unsigned int max);
 int randint(const unsigned int max);
+bool	is_digit(const System::Char target);
+bool	is_letter(const wchar_t target);
+bool	is_letter(const System::Char target);
+wchar_t lower(wchar_t target);
 System::String^ to_dotnet_string(const std::wstring& target);
 std::wstring	to_std_wstring(System::String^ target);
 std::wstring	transliterate_for_email(const std::wstring& target);
+
 
 
 
@@ -39,6 +44,23 @@ int randint(const unsigned int max)
 
 
 #pragma region = Strings =
+
+
+bool is_digit(const System::Char target)
+{
+	return (target >= L'0' && target <= L'9');
+}
+
+
+// I suppose 'System::Char' is just 'wchar' without directly stating it. Gods I hate .net
+bool is_letter(const System::Char target)
+{
+	// Might get some additional chars btw
+	return (target >= L'À' && target <= L'ÿ')
+		|| (target == L'¨' || target == L'¸')
+		|| (target >= L'A' && target <= L'z');
+}
+
 
 wchar_t lower(wchar_t target)
 {

@@ -1,4 +1,7 @@
 #pragma once
+#ifndef MAIN_MENU_HPP
+#define MAIN_MENU_HPP
+
 #include "User/Contacts.hpp" //TEST
 #include "User/Random_User_Generator.hpp" //TEST
 #include "Menus/Registration.hpp"
@@ -58,3 +61,5 @@ namespace Agora {
 	private:
 	};
 }
+
+#endif

@@ -1,4 +1,6 @@
 #pragma once
+#ifndef REGISTRATION_HPP
+#define REGISTRATION_HPP
 
 namespace Agora {
 
@@ -50,6 +52,8 @@ namespace Agora {
 
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::TextBox^ input_phone_number_body;
+	private: System::Windows::Forms::GroupBox^ groupBox1;
+	private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
 
 
 
@@ -91,6 +95,8 @@ namespace Agora {
 			this->input_surname = (gcnew System::Windows::Forms::TextBox());
 			this->label_name = (gcnew System::Windows::Forms::Label());
 			this->input_name = (gcnew System::Windows::Forms::TextBox());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->registration_individual->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -161,6 +167,7 @@ namespace Agora {
 			this->registration_individual->Controls->Add(this->label1);
 			this->registration_individual->Controls->Add(this->label_if_you_have);
 			this->registration_individual->Controls->Add(this->label_patronym);
+			this->registration_individual->Controls->Add(this->groupBox1);
 			this->registration_individual->Controls->Add(this->input_patronym);
 			this->registration_individual->Controls->Add(this->label_surname);
 			this->registration_individual->Controls->Add(this->input_surname);
@@ -171,23 +178,25 @@ namespace Agora {
 			this->registration_individual->Size = System::Drawing::Size(404, 242);
 			this->registration_individual->TabIndex = 5;
 			this->registration_individual->TabStop = false;
+			this->registration_individual->Text = L"ФИО";
 			// 
 			// input_phone_number_body
 			// 
 			this->input_phone_number_body->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->input_phone_number_body->Location = System::Drawing::Point(160, 166);
+			this->input_phone_number_body->Location = System::Drawing::Point(279, 145);
 			this->input_phone_number_body->MaxLength = 9;
 			this->input_phone_number_body->Name = L"input_phone_number_body";
-			this->input_phone_number_body->Size = System::Drawing::Size(169, 26);
+			this->input_phone_number_body->Size = System::Drawing::Size(90, 26);
 			this->input_phone_number_body->TabIndex = 9;
+			this->input_phone_number_body->TextChanged += gcnew System::EventHandler(this, &Registration::input_phone_number_body_TextChanged);
 			this->input_phone_number_body->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_take_digits);
 			// 
 			// input_country_code
 			// 
 			this->input_country_code->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_country_code->Location = System::Drawing::Point(65, 166);
+			this->input_country_code->Location = System::Drawing::Point(184, 145);
 			this->input_country_code->Name = L"input_country_code";
 			this->input_country_code->ReadOnly = true;
 			this->input_country_code->Size = System::Drawing::Size(38, 26);
@@ -198,7 +207,7 @@ namespace Agora {
 			// 
 			this->input_carrier_code->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_carrier_code->Location = System::Drawing::Point(109, 166);
+			this->input_carrier_code->Location = System::Drawing::Point(228, 145);
 			this->input_carrier_code->MaxLength = 5;
 			this->input_carrier_code->Name = L"input_carrier_code";
 			this->input_carrier_code->Size = System::Drawing::Size(45, 26);
@@ -209,11 +218,11 @@ namespace Agora {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label1->Location = System::Drawing::Point(17, 137);
+			this->label1->Location = System::Drawing::Point(22, 148);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(121, 17);
+			this->label1->Size = System::Drawing::Size(155, 20);
 			this->label1->TabIndex = 8;
 			this->label1->Text = L"Номер телефона";
 			// 
@@ -222,7 +231,7 @@ namespace Agora {
 			this->label_if_you_have->AutoSize = true;
 			this->label_if_you_have->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_if_you_have->Location = System::Drawing::Point(200, 111);
+			this->label_if_you_have->Location = System::Drawing::Point(200, 115);
 			this->label_if_you_have->Name = L"label_if_you_have";
 			this->label_if_you_have->Size = System::Drawing::Size(102, 17);
 			this->label_if_you_have->TabIndex = 6;
@@ -244,9 +253,11 @@ namespace Agora {
 			this->input_patronym->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->input_patronym->Location = System::Drawing::Point(113, 82);
+			this->input_patronym->MaxLength = 20;
 			this->input_patronym->Name = L"input_patronym";
 			this->input_patronym->Size = System::Drawing::Size(275, 26);
 			this->input_patronym->TabIndex = 4;
+			this->input_patronym->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_take_letters);
 			// 
 			// label_surname
 			// 
@@ -264,9 +275,11 @@ namespace Agora {
 			this->input_surname->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->input_surname->Location = System::Drawing::Point(113, 53);
+			this->input_surname->MaxLength = 20;
 			this->input_surname->Name = L"input_surname";
 			this->input_surname->Size = System::Drawing::Size(275, 26);
 			this->input_surname->TabIndex = 2;
+			this->input_surname->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_take_letters);
 			// 
 			// label_name
 			// 
@@ -284,10 +297,20 @@ namespace Agora {
 			this->input_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->input_name->Location = System::Drawing::Point(113, 21);
+			this->input_name->MaxLength = 20;
 			this->input_name->Name = L"input_name";
 			this->input_name->Size = System::Drawing::Size(275, 26);
 			this->input_name->TabIndex = 0;
-			this->input_name->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_take_cyrillic_letters);
+			this->input_name->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_take_letters);
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Location = System::Drawing::Point(0, 131);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(404, 111);
+			this->groupBox1->TabIndex = 10;
+			this->groupBox1->TabStop = false;
+			this->groupBox1->Text = L"Контакты";
 			// 
 			// Registration
 			// 
@@ -313,12 +336,12 @@ namespace Agora {
 private:
 
 	#define BACKSPACE (char)8
-	
 
-	System::Void only_take_cyrillic_letters(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
+
+	System::Void only_take_letters(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
-		if ((key == 'р') && key != BACKSPACE)
+		if (! is_letter(key) && key != BACKSPACE && key != L'\'' && key != L'-' && key != L' ')
 			e->Handled = true;
 	}
 
@@ -326,29 +349,52 @@ private:
 	System::Void only_take_digits(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
-		if ((key < '0' || key > '9') && key != BACKSPACE)
+		if (! is_digit(key) && key != BACKSPACE)
 			e->Handled = true;
 	}
 
 
-	int carrier_code_previous_length = 0;
+	int _carrier_code_previous_length = 0;
 	System::Void input_carrier_code_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
 		// inserting '('
-		if (input_carrier_code->Text->Length == 1 && carrier_code_previous_length == 0)
+		if (input_carrier_code->Text->Length == 1 && _carrier_code_previous_length == 0)
 		{
 			input_carrier_code->Text = "(" + input_carrier_code->Text;
 			input_carrier_code->SelectionStart = 2;
 		}
 
 		// inserting ')'
-		else if (input_carrier_code->Text->Length == 4 && carrier_code_previous_length == 3)
+		else if (input_carrier_code->Text->Length == 4 && _carrier_code_previous_length == 3)
 		{
-			input_carrier_code->Text += ")";
+			input_carrier_code->Text += L')';
 			input_carrier_code->SelectionStart = 5;
 		}
 
-		carrier_code_previous_length = input_carrier_code->Text->Length;
+		_carrier_code_previous_length = input_carrier_code->Text->Length;
+	}
+
+
+	int _phone_number_body_previous_length = 0;
+	System::Void input_phone_number_body_TextChanged(System::Object^ sender, System::EventArgs^ e)
+	{
+		// inserting first '-'
+		if (input_phone_number_body->Text->Length == 3 && _phone_number_body_previous_length == 2)
+		{
+			input_phone_number_body->Text += L'-';
+			input_phone_number_body->SelectionStart = 4;
+		}
+
+		// inserting second '-'
+		else if (input_phone_number_body->Text->Length == 6 && _phone_number_body_previous_length == 5)
+		{
+			input_phone_number_body->Text += L'-';
+			input_phone_number_body->SelectionStart = 7;
+		}
+
+		_phone_number_body_previous_length = input_phone_number_body->Text->Length;
 	}
 };
 }
+
+#endif
