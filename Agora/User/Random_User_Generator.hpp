@@ -12,7 +12,6 @@ Individual get_random_individual();
 Email		    _get_email(const Individual_Name& name); // email must be generated according to the name transliteration
 Phone_Number    _get_random_phone_number(const bool corporate = false);
 Individual_Name	_get_random_individual_name();
-//Company_Name   _get_random_company_name();
 
 
 Individual get_random_individual()
@@ -27,7 +26,6 @@ Individual get_random_individual()
 }
 
 
-
 #pragma region = Names =
 
 const std::wstring names[30] = {
@@ -35,7 +33,7 @@ const std::wstring names[30] = {
 	L"Егор",	  L"Захар",  L"Иван",   L"Илья",   L"Кирилл",  L"Константин", L"Лев",	  L"Леонид", L"Марк",	 L"Матвей",
 	L"Мирон",	  L"Михаил", L"Никита", L"Пётр",   L"Роман",   L"Руслан",	  L"Савелий", L"Степан", L"Тихон",   L"Фёдор"
 };
-// TODO: "Тимофеев" is sometimes causing problems
+// TODO: "Тимофеев" is causing problems
 const std::wstring surnames[30] = {
 	L"Андреев",	   L"Беляев", L"Васильев", L"Валерьев", L"Волков",	 L"Высоцкий", L"Горохов",  L"Гришин",   L"Громов",  L"Зайцев",
 	L"Захарченко", L"Иванов", L"Киселев",  L"Козлов",	L"Копылов",  L"Миронов",  L"Моисеев",  L"Носов",	L"Орлов",   L"Павлов",
@@ -57,7 +55,6 @@ Individual_Name _get_random_individual_name()
 }
 
 #pragma endregion
-
 
 
 #pragma region = Contacts

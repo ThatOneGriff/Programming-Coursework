@@ -63,19 +63,23 @@ class Individual_Name: public Name
 {
 public:
 
-	Individual_Name(const std::wstring& _name, const std::wstring& _surname, const std::wstring& _patronym)
+	Individual_Name(const std::wstring& _name, const std::wstring& _surname, const std::wstring& _patronym = L"-1")
 	: Name(_name), surname(_surname), patronym(_patronym)
 	{}
 
 	// Иванов Иван Иванович
 	std::wstring get_full()
 	{
+		if (patronym == L"-1")
+			return surname + L' ' + name;
 		return surname + L' ' + name + L' ' + patronym;
 	}
 
 	// Иванов И.И.
 	std::wstring get_short()
 	{
+		if (patronym == L"-1")
+			return surname + L' ' + name[0] + L'.';
 		return surname + L' ' + name[0] + L'.' + patronym[0] + L'.';
 	}
 
