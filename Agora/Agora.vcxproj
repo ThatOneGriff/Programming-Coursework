@@ -137,6 +137,8 @@
     <ClInclude Include="Main_Menu.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Utils\Random.hpp" />
+    <ClInclude Include="Utils\Strings.hpp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Main_Menu.resx">

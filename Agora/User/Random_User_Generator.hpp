@@ -63,8 +63,8 @@ const std::wstring _email_domains[3] = {L"gmail.com", L"mail.ru", L"yandex.ru"};
 Email _get_email(const Individual_Name& name)
 {
 	// igor_ivanov245@domain.com
-	std::wstring body = transliterate_for_email(name.name) + L'_'
-					  + transliterate_for_email(name.surname)
+	std::wstring body = translit_CtoL(name.name) + L'_'
+					  + translit_CtoL(name.surname)
 					  + std::to_wstring(randint(100, 999));
 	std::wstring domain = _email_domains[randint(2)];
 
