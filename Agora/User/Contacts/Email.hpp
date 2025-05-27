@@ -6,9 +6,30 @@
 #include <string>
 #include "../../Utils.hpp"
 
-/// - The concept of e-mail.
 
 class Email;
+bool  is_email(const std::wstring& target);
+Email to_email(const std::wstring& target);
+
+
+bool is_email(const std::wstring& target)
+{
+	// Presence of ONE '@'
+	if (std::count(target.begin(), target.end(), L'@') != 1)
+		return false;
+
+	// "*@gmail.com" - looking for ONE dot and 2+ symbols after it
+	int dot_count = 0, symbols_after_dot = 0;
+	for (int i = target.find(L'@'); i < target.size(); i++)
+	{
+		if (target[i] == L'.' && ++dot_count > 1)
+			return false;
+		if (dot_count == 1)
+			++symbols_after_dot;
+	}
+
+	return (dot_count == 1 && symbols_after_dot >= 2);
+}
 
 
 class Email
