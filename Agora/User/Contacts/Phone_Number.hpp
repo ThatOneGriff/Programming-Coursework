@@ -31,7 +31,7 @@ public:
 	std::wstring concealed()
 	{
 		std::wstring concealed_num = this->as_text();
-		for (int i = concealed_num.size() - 4; i >= concealed_num.size() - 9; i--)
+		for (unsigned int i = concealed_num.size() - 4; i >= concealed_num.size() - 9; i--)
 		{
 			if (concealed_num[i] != L'-')
 				concealed_num[i] = L'*';

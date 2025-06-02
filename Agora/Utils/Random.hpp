@@ -9,7 +9,7 @@ int randint(const unsigned int min, const unsigned int max);
 int randint(const unsigned int max);
 
 
-int _seed = time(NULL);
+unsigned int _seed = time(NULL);
 
 // [min, max]
 int randint(const unsigned int min, const unsigned int max)

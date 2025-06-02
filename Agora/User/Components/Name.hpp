@@ -5,11 +5,9 @@
 #include <iostream>
 #include <string>
 
-class Name; /// virtual class
-class Company_Name;
+class Name; /// abstract class
 class Individual_Name;
-
-/// Всё	работает на 'wstring'-ах.
+class Company_Name;
 
 
 
@@ -28,33 +26,6 @@ public:
 protected:
 
 	std::wstring name;
-};
-
-
-
-class Company_Name : public Name
-{
-public:
-
-	Company_Name(const std::wstring& _legal_form, const std::wstring& _name)
-	: legal_form(_legal_form), Name(_name)
-	{}
-
-	// ООО "Тмывбабла"
-	std::wstring get_full()
-	{
-		return legal_form + L" \"" + name + L'"';
-	}
-
-	// Тмывбабла
-	std::wstring get_short()
-	{
-		return name;
-	}
-
-private:
-
-	std::wstring legal_form;
 };
 
 
@@ -89,6 +60,33 @@ private:
 				 patronym;
 
 friend Email _get_email(const Individual_Name& name);
+};
+
+
+
+class Company_Name : public Name
+{
+public:
+
+	Company_Name(const std::wstring& _legal_form, const std::wstring& _name)
+	: legal_form(_legal_form), Name(_name)
+	{}
+
+	// ООО "Тмывбабла"
+	std::wstring get_full()
+	{
+		return legal_form + L" \"" + name + L'"';
+	}
+
+	// Тмывбабла
+	std::wstring get_short()
+	{
+		return name;
+	}
+
+private:
+
+	std::wstring legal_form;
 };
 
 
