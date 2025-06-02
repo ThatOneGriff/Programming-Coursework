@@ -2,9 +2,7 @@
 #ifndef MAIN_MENU_HPP
 #define MAIN_MENU_HPP
 
-#include "User/Contacts.hpp" //TEST
-#include "User/Random_User_Generator.hpp" //TEST
-#include "Menus/Registration.hpp"
+#include "Menus/Registration/Registration.hpp"
 #include "Utils.hpp"
 
 using namespace System;
@@ -26,14 +24,14 @@ namespace Agora {
 			InitializeComponent();
 		}
 
+	#pragma region = Winforms Code =
+
 	protected:
 		~Main_Menu()
 		{
 			if (components)
 				delete components;
 		}
-
-	#pragma region = Winforms Code =
 
 
 	private: System::ComponentModel::IContainer^ components;

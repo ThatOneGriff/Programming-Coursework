@@ -2,10 +2,10 @@
 #ifndef USER_HPP
 #define USER_HPP
 
-#include			"Contacts.hpp";
-#include "Components/Contractor_Info.hpp"
-#include "Components/Name.hpp"
-#include		 "../Utils.hpp";
+#include			"User/Contacts.hpp";
+#include "User/Components/Contractor_Info.hpp"
+#include "User/Components/Name.hpp"
+#include			  "../Utils.hpp";
 
 /// Here be:
 class User;

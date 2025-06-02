@@ -123,20 +123,22 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="User\Contacts.hpp" />
-    <ClInclude Include="User\Contacts\Email.hpp" />
-    <ClInclude Include="User\Components\Name.hpp" />
-    <ClInclude Include="User\Components\Contractor_Info.hpp" />
-    <ClInclude Include="User\Random_User_Generator.hpp" />
-    <ClInclude Include="User\User.hpp" />
-    <ClInclude Include="Menus\Registration.hpp">
+    <ClInclude Include="Classes\Listing.hpp" />
+    <ClInclude Include="Classes\User\Contacts.hpp" />
+    <ClInclude Include="Classes\User\Contacts\Email.hpp" />
+    <ClInclude Include="Classes\User\Components\Name.hpp" />
+    <ClInclude Include="Classes\User\Components\Contractor_Info.hpp" />
+    <ClInclude Include="Classes\User\Random_User_Generator.hpp" />
+    <ClInclude Include="Classes\User.hpp" />
+    <ClInclude Include="Menus\Registration\Registration.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="User\Contacts\Phone_Number.hpp" />
+    <ClInclude Include="Classes\User\Contacts\Phone_Number.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Main_Menu.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Utils\Date_Time.hpp" />
     <ClInclude Include="Utils\Random.hpp" />
     <ClInclude Include="Utils\Strings.hpp" />
   </ItemGroup>
@@ -144,8 +146,8 @@
     <EmbeddedResource Include="Main_Menu.resx">
       <DependentUpon>Main_Menu.hpp</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Menus\Registration.resx">
-      <DependentUpon>Menus\Registration.hpp</DependentUpon>
+    <EmbeddedResource Include="Menus\Registration\Registration.resx">
+      <DependentUpon>Menus\Registration\Registration.hpp</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

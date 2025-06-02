@@ -2,7 +2,6 @@
 #ifndef EMAIL_HPP
 #define EMAIL_HPP
 
-#include <iostream>
 #include <string>
 #include "../../Utils.hpp"
 

@@ -2,6 +2,10 @@
 #ifndef REGISTRATION_HPP
 #define REGISTRATION_HPP
 
+#include "Classes/Listing.hpp"
+#include "Classes/User.hpp"
+
+
 namespace Agora {
 
 	using namespace System;
@@ -21,14 +25,14 @@ namespace Agora {
 			set_greeting_time_based();
 		}
 
+    #pragma region ========== WinForms code ==========
+
 	protected:
 		~Registration()
 		{
 			if (components)
 				delete components;
 		}
-
-	#pragma region = WinForms code =
 
 	private: System::Windows::Forms::Label^ label_registration;
 	private: System::Windows::Forms::Label^ label_kalimera;
@@ -94,6 +98,13 @@ namespace Agora {
 
 	private: System::Windows::Forms::Button^ button_register;
 	private: System::Windows::Forms::ComboBox^ input_legal_form;
+	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::TextBox^ textBox4;
+	private: System::Windows::Forms::ComboBox^ comboBox1;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::TextBox^ textBox5;
+
 
 
 
@@ -135,6 +146,12 @@ namespace Agora {
 			this->label_company_name = (gcnew System::Windows::Forms::Label());
 			this->input_company_name = (gcnew System::Windows::Forms::TextBox());
 			this->button_register = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->registration_individual->SuspendLayout();
 			this->contacts->SuspendLayout();
 			this->registration_company->SuspendLayout();
@@ -368,7 +385,7 @@ namespace Agora {
 			this->contacts->Controls->Add(this->label_email);
 			this->contacts->Location = System::Drawing::Point(50, 287);
 			this->contacts->Name = L"contacts";
-			this->contacts->Size = System::Drawing::Size(404, 147);
+			this->contacts->Size = System::Drawing::Size(404, 132);
 			this->contacts->TabIndex = 3;
 			this->contacts->TabStop = false;
 			this->contacts->Text = L"Êîíòàêòû";
@@ -378,7 +395,7 @@ namespace Agora {
 			this->label_if_you_have_extra->AutoSize = true;
 			this->label_if_you_have_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->label_if_you_have_extra->Location = System::Drawing::Point(200, 124);
+			this->label_if_you_have_extra->Location = System::Drawing::Point(23, 110);
 			this->label_if_you_have_extra->Name = L"label_if_you_have_extra";
 			this->label_if_you_have_extra->Size = System::Drawing::Size(102, 17);
 			this->label_if_you_have_extra->TabIndex = 1000;
@@ -388,7 +405,7 @@ namespace Agora {
 			// 
 			this->input_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_extra->Location = System::Drawing::Point(169, 95);
+			this->input_extra->Location = System::Drawing::Point(169, 87);
 			this->input_extra->MaxLength = 50;
 			this->input_extra->Name = L"input_extra";
 			this->input_extra->Size = System::Drawing::Size(219, 26);
@@ -403,7 +420,7 @@ namespace Agora {
 			this->label_extra->AutoSize = true;
 			this->label_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_extra->Location = System::Drawing::Point(22, 98);
+			this->label_extra->Location = System::Drawing::Point(22, 90);
 			this->label_extra->Name = L"label_extra";
 			this->label_extra->Size = System::Drawing::Size(147, 20);
 			this->label_extra->TabIndex = 1000;
@@ -414,7 +431,7 @@ namespace Agora {
 			this->label_if_you_have_email->AutoSize = true;
 			this->label_if_you_have_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->label_if_you_have_email->Location = System::Drawing::Point(200, 75);
+			this->label_if_you_have_email->Location = System::Drawing::Point(23, 69);
 			this->label_if_you_have_email->Name = L"label_if_you_have_email";
 			this->label_if_you_have_email->Size = System::Drawing::Size(102, 17);
 			this->label_if_you_have_email->TabIndex = 1000;
@@ -446,6 +463,12 @@ namespace Agora {
 			// 
 			// registration_company
 			// 
+			this->registration_company->Controls->Add(this->textBox5);
+			this->registration_company->Controls->Add(this->label3);
+			this->registration_company->Controls->Add(this->textBox4);
+			this->registration_company->Controls->Add(this->comboBox1);
+			this->registration_company->Controls->Add(this->label2);
+			this->registration_company->Controls->Add(this->label1);
 			this->registration_company->Controls->Add(this->input_legal_form);
 			this->registration_company->Controls->Add(this->textBox1);
 			this->registration_company->Controls->Add(this->textBox2);
@@ -535,7 +558,7 @@ namespace Agora {
 			// 
 			this->input_company_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_company_name->Location = System::Drawing::Point(160, 19);
+			this->input_company_name->Location = System::Drawing::Point(160, 18);
 			this->input_company_name->MaxLength = 20;
 			this->input_company_name->Name = L"input_company_name";
 			this->input_company_name->Size = System::Drawing::Size(228, 26);
@@ -546,18 +569,84 @@ namespace Agora {
 			this->button_register->Enabled = false;
 			this->button_register->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_register->Location = System::Drawing::Point(154, 440);
+			this->button_register->Location = System::Drawing::Point(153, 425);
 			this->button_register->Name = L"button_register";
 			this->button_register->Size = System::Drawing::Size(220, 35);
 			this->button_register->TabIndex = 100;
 			this->button_register->Text = L"Çàðåãèñòðèðîâàòüñÿ";
 			this->button_register->UseVisualStyleBackColor = true;
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label1->Location = System::Drawing::Point(18, 56);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(107, 20);
+			this->label1->TabIndex = 1002;
+			this->label1->Text = L"Íà ðûíêå ñ:";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label2->Location = System::Drawing::Point(18, 88);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(56, 20);
+			this->label2->TabIndex = 1003;
+			this->label2->Text = L"Ñàéò:";
+			// 
+			// comboBox1
+			// 
+			this->comboBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->comboBox1->FormattingEnabled = true;
+			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(8) {
+				L"ÎÎÎ", L"ÈÏ", L"ÏÀÎ", L"ÍÏÀÎ", L"ÍÊÎ", L"ÏÊ",
+					L"ÃÓÏ", L"ÌÓÏ"
+			});
+			this->comboBox1->Location = System::Drawing::Point(124, 53);
+			this->comboBox1->MaxLength = 4;
+			this->comboBox1->Name = L"comboBox1";
+			this->comboBox1->Size = System::Drawing::Size(109, 28);
+			this->comboBox1->TabIndex = 1004;
+			// 
+			// textBox4
+			// 
+			this->textBox4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox4->Location = System::Drawing::Point(239, 53);
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->Size = System::Drawing::Size(89, 26);
+			this->textBox4->TabIndex = 1005;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label3->Location = System::Drawing::Point(343, 56);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(21, 20);
+			this->label3->TabIndex = 1006;
+			this->label3->Text = L"ã.";
+			// 
+			// textBox5
+			// 
+			this->textBox5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox5->Location = System::Drawing::Point(69, 85);
+			this->textBox5->Name = L"textBox5";
+			this->textBox5->Size = System::Drawing::Size(319, 26);
+			this->textBox5->TabIndex = 1007;
+			// 
 			// Registration
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(507, 484);
+			this->ClientSize = System::Drawing::Size(507, 467);
 			this->Controls->Add(this->button_register);
 			this->Controls->Add(this->button_company);
 			this->Controls->Add(this->contacts);
@@ -590,6 +679,8 @@ private:
 		MAX_FOCUS = _MAX_FOCUS_INDIVIDUAL;
 		input_surname->Focus();
 
+		label_if_you_have_email->Show();
+
 		sufficient_input_for_individual_registration_check(nullptr, nullptr);
 		registration_individual->BringToFront();
 	}
@@ -598,6 +689,9 @@ private:
 	System::Void pick_as_company(System::Object^ sender, System::EventArgs^ e)
 	{
 		input_legal_form->Focus();
+
+		label_if_you_have_email->Hide();
+
 		registration_company->BringToFront();
 	}
 
@@ -616,7 +710,7 @@ private:
 	}
 
 
-	#pragma region = Focus (Common) =
+	#pragma region ========== Focus (Common) ==========
 
 	int focus = 0;
 	int MAX_FOCUS;
@@ -660,7 +754,8 @@ private:
 	#pragma endregion
 
 
-	#pragma region = Input limiting (Common) =
+
+	#pragma region ========== Input limiting (Common) ==========
 
 	System::Void only_digits(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
@@ -682,38 +777,8 @@ private:
 	#pragma endregion
 
 
-	#pragma region = Input (Individual) =
 
-	// TODO: Get it into utils?
-	const int _MAX_FOCUS_INDIVIDUAL = 6;
-	void get_focusable_nodes_individual()
-	{
-		/// Why am I writing such a shitty code?
-		/// Take a wild fucking guess.
-		/// .NET doesn't allow me to create a constant array in-place, instead forcing me to do... this
-		/// DOTNET SUCKS BALLS
-		FOCUSABLE_NODES[0] = input_surname;
-		FOCUSABLE_NODES[1] = input_name;
-		FOCUSABLE_NODES[2] = input_patronym;
-
-		FOCUSABLE_NODES[3] = input_carrier_code;
-		FOCUSABLE_NODES[4] = input_phone_number_body;
-
-		FOCUSABLE_NODES[5] = input_email;
-		FOCUSABLE_NODES[6] = input_extra;
-	}
-
-
-	System::Void sufficient_input_for_individual_registration_check(System::Object^ sender, System::EventArgs^ e)
-	{
-		button_register->Enabled =
-		   (input_surname->Text->Length  >= 2 &&
-			input_name->Text->Length     >= 2 &&
-
-			input_carrier_code->Text->Length	  == 5 &&
-			input_phone_number_body->Text->Length == 9);
-	}
-
+	#pragma region ========== Input (Contacts) ==========
 
 	int _carrier_code_previous_length = 0;
 	System::Void on_carrier_code_input(System::Object^ sender, System::EventArgs^ e)
@@ -762,6 +827,50 @@ private:
 		_phone_number_body_previous_length = input_phone_number_body->Text->Length;
 		sufficient_input_for_individual_registration_check(nullptr, nullptr);
 	}
+
+	#pragma endregion
+
+
+
+	#pragma region ========== Input (Individual) ==========
+	
+	const int _MAX_FOCUS_INDIVIDUAL = 6;
+	void get_focusable_nodes_individual()
+	{
+		/// Why am I writing such a shitty code?
+		/// Take a wild fucking guess.
+		/// .NET doesn't allow me to create a constant array in-place, instead forcing me to do... *this.*
+		/// DOTNET SUCKS BALLS
+		FOCUSABLE_NODES[0] = input_surname;
+		FOCUSABLE_NODES[1] = input_name;
+		FOCUSABLE_NODES[2] = input_patronym;
+
+		FOCUSABLE_NODES[3] = input_carrier_code;
+		FOCUSABLE_NODES[4] = input_phone_number_body;
+
+		FOCUSABLE_NODES[5] = input_email;
+		FOCUSABLE_NODES[6] = input_extra;
+	}
+
+
+	System::Void sufficient_input_for_individual_registration_check(System::Object^ sender, System::EventArgs^ e)
+	{
+		button_register->Enabled = (
+			input_surname->Text->Length >= 2 &&
+			input_name->Text->Length    >= 2 &&
+
+			input_carrier_code->Text->Length	  == 5 &&
+			input_phone_number_body->Text->Length == 9
+		);
+	}
+
+	#pragma endregion
+
+
+
+	#pragma region ========== Input (Company) ==========
+
+
 
 	#pragma endregion
 };

@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include "Main_Menu.hpp"
-#include "Menus/Registration.hpp"
+#include "Menus/Registration/Registration.hpp"
 using namespace Agora;
 
 

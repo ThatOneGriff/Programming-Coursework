@@ -54,37 +54,18 @@
               "state": {
                 "file": "Схема работы программы/Схема работы программы.canvas",
                 "viewState": {
-                  "x": -399.958122766153,
-                  "y": 1578.6714653398913,
-                  "zoom": -1.3333333333333333
+                  "x": -180.28719079894148,
+                  "y": -46.822189186436034,
+                  "zoom": -0.3333333333333334
                 }
               },
               "pinned": true,
               "icon": "lucide-layout-dashboard",
               "title": "Схема работы программы"
             }
-          },
-          {
-            "id": "ee20e58a4d3abd24",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Include Scheme.canvas",
-                "viewState": {
-                  "x": 105,
-                  "y": -210,
-                  "zoom": 0
-                }
-              },
-              "pinned": true,
-              "icon": "lucide-layout-dashboard",
-              "title": "Include Scheme"
-            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -231,12 +212,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ee20e58a4d3abd24",
+  "active": "5e39889663386afc",
   "lastOpenFiles": [
-    "Суть проекта/Суть проекта.canvas",
-    "Include Scheme.canvas",
-    "Теоретическая работа системы/Техническая работа системы.canvas",
     "Схема работы программы/Схема работы программы.canvas",
+    "Include Scheme.canvas",
+    "Суть проекта/Суть проекта.canvas",
+    "Теоретическая работа системы/Техническая работа системы.canvas",
     "Схема работы программы/Регистрация/Регистрация юр. лица.md",
     "Схема работы программы/Регистрация/Регистрация физ. лица.md",
     "Схема работы программы/Регистрация",

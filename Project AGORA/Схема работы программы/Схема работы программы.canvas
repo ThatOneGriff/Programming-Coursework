@@ -5,7 +5,6 @@
 		{"id":"0ca2d053ba168f7c","type":"text","text":"<h1>Загрузка программы без открытия окна</h1>\n","x":-94,"y":-480,"width":359,"height":101,"color":"5"},
 		{"id":"9ee4137ef2cbbf13","type":"text","text":"<h1>Основное окно</h1>","x":78,"y":480,"width":280,"height":56,"color":"5"},
 		{"id":"09493df79c553db6","type":"file","file":"Теоретическая работа системы/Регистрация физ. лица.md","x":-850,"y":-195,"width":260,"height":320,"color":"#ffffff"},
-		{"id":"aea90e6495ef0da1","type":"file","file":"Теоретическая работа системы/Регистрация юр. лица.md","x":-510,"y":-195,"width":260,"height":360,"color":"#ffffff"},
 		{"id":"3132943a14e2cab6","type":"text","text":"Предложение **дорегистрации** на подрядчика","x":-630,"y":265,"width":184,"height":100,"color":"2"},
 		{"id":"4096a21b3fcd66f4","type":"text","text":"<h1>Окно регистрации</h1>\n","x":-714,"y":-379,"width":328,"height":65,"color":"5"},
 		{"id":"8268b07cb4490c13","type":"file","file":"Теоретическая работа системы/Подрядчик/Поиск заказов.md","x":-1100,"y":1213,"width":310,"height":260,"color":"#ffffff"},
@@ -34,8 +33,9 @@
 		{"id":"aa0a8a23cb782e56","type":"text","text":"**При окончании**","x":-326,"y":1248,"width":186,"height":50,"color":"2"},
 		{"id":"24cdad08d0e9372a","type":"text","text":"Завершённые","x":20,"y":1248,"width":186,"height":50},
 		{"id":"8294f689ffdb148b","type":"file","file":"Теоретическая работа системы/Подрядчик/Дорегистрация подрядчика.md","x":-910,"y":480,"width":280,"height":360,"color":"#ffffff"},
-		{"id":"f5b24c233c743169","x":-871,"y":1720,"width":224,"height":86,"color":"2","type":"text","text":"*(? Физ.лицо)*\n**Раскрытие контактов**"},
-		{"id":"4bcd47b6dbf77bb0","type":"text","text":"Добавление","x":-565,"y":1667,"width":164,"height":56,"color":"4"}
+		{"id":"f5b24c233c743169","type":"text","text":"*(? Физ.лицо)*\n**Раскрытие контактов**","x":-871,"y":1720,"width":224,"height":86,"color":"2"},
+		{"id":"4bcd47b6dbf77bb0","type":"text","text":"Добавление","x":-565,"y":1667,"width":164,"height":56,"color":"4"},
+		{"id":"aea90e6495ef0da1","type":"file","file":"Теоретическая работа системы/Регистрация юр. лица.md","x":-516,"y":-232,"width":260,"height":395,"color":"#ffffff"}
 	],
 	"edges":[
 		{"id":"3fa63c4ab3496c14","fromNode":"4096a21b3fcd66f4","fromSide":"bottom","toNode":"09493df79c553db6","toSide":"top"},

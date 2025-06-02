@@ -16,6 +16,7 @@
 *.o
 x64/
 x32/
+x86/
 
 # Build results
 [Dd]ebug/

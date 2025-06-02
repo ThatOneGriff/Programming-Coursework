@@ -23,37 +23,43 @@
     <ClInclude Include="Main_Menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\User.hpp">
+    <ClInclude Include="Classes\User.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\Contacts\Phone_Number.hpp">
+    <ClInclude Include="Classes\User\Contacts\Phone_Number.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menus\Registration.hpp">
+    <ClInclude Include="Menus\Registration\Registration.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\Contacts.hpp">
+    <ClInclude Include="Classes\User\Contacts.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\Contacts\Email.hpp">
+    <ClInclude Include="Classes\User\Contacts\Email.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\Components\Contractor_Info.hpp">
+    <ClInclude Include="Classes\User\Components\Contractor_Info.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\Components\Name.hpp">
+    <ClInclude Include="Classes\User\Components\Name.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User\Random_User_Generator.hpp">
+    <ClInclude Include="Classes\User\Random_User_Generator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Random.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Strings.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Listing.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Date_Time.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
