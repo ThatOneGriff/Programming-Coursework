@@ -33,10 +33,6 @@ namespace Agora {
 				delete components;
 		}
 
-	protected:
-
-	protected:
-
 	#pragma region = Winforms Code =
 
 

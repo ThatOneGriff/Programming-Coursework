@@ -19,6 +19,7 @@ namespace Agora {
 		{
 			InitializeComponent();
 			input_name->Focus();
+			set_greeting_time_based();
 		}
 
 	protected:
@@ -157,11 +158,11 @@ namespace Agora {
 			this->label_kalimera->AutoSize = true;
 			this->label_kalimera->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_kalimera->Location = System::Drawing::Point(141, 46);
+			this->label_kalimera->Location = System::Drawing::Point(199, 45);
 			this->label_kalimera->Name = L"label_kalimera";
-			this->label_kalimera->Size = System::Drawing::Size(222, 20);
+			this->label_kalimera->Size = System::Drawing::Size(52, 20);
 			this->label_kalimera->TabIndex = 1000;
-			this->label_kalimera->Text = L"Доброе утро/день/вечер!";
+			this->label_kalimera->Text = L"Добр";
 			// 
 			// label_no_account
 			// 
@@ -232,7 +233,7 @@ namespace Agora {
 			this->input_phone_number_body->Size = System::Drawing::Size(90, 26);
 			this->input_phone_number_body->TabIndex = 4;
 			this->input_phone_number_body->TabStop = false;
-			this->input_phone_number_body->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::on_manual_input_pick);
+			this->input_phone_number_body->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_phone_number_body->TextChanged += gcnew System::EventHandler(this, &Registration::on_phone_number_body_input);
 			this->input_phone_number_body->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_digits);
 			// 
@@ -258,7 +259,7 @@ namespace Agora {
 			this->input_carrier_code->Size = System::Drawing::Size(45, 26);
 			this->input_carrier_code->TabIndex = 3;
 			this->input_carrier_code->TabStop = false;
-			this->input_carrier_code->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::on_manual_input_pick);
+			this->input_carrier_code->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_carrier_code->TextChanged += gcnew System::EventHandler(this, &Registration::on_carrier_code_input);
 			this->input_carrier_code->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_digits);
 			// 
@@ -331,9 +332,9 @@ namespace Agora {
 			this->input_extra->Size = System::Drawing::Size(219, 26);
 			this->input_extra->TabIndex = 6;
 			this->input_extra->TabStop = false;
-			this->input_extra->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::on_manual_input_pick);
+			this->input_extra->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_extra->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
-			this->input_extra->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::manual_focus_switch_check);
+			this->input_extra->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
 			// 
 			// label_extra
 			// 
@@ -367,9 +368,8 @@ namespace Agora {
 			this->input_email->Size = System::Drawing::Size(264, 26);
 			this->input_email->TabIndex = 5;
 			this->input_email->TabStop = false;
-			this->input_email->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::on_manual_input_pick);
-			this->input_email->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
-			this->input_email->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::manual_focus_switch_check);
+			this->input_email->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_email->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
 			// 
 			// label_email
 			// 
@@ -387,12 +387,12 @@ namespace Agora {
 			this->input_patronym->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->input_patronym->Location = System::Drawing::Point(113, 82);
-			this->input_patronym->MaxLength = 20;
+			this->input_patronym->MaxLength = 40;
 			this->input_patronym->Name = L"input_patronym";
 			this->input_patronym->Size = System::Drawing::Size(275, 26);
 			this->input_patronym->TabIndex = 2;
 			this->input_patronym->TabStop = false;
-			this->input_patronym->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::on_manual_input_pick);
+			this->input_patronym->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_patronym->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
 			this->input_patronym->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_letters);
 			// 
@@ -412,15 +412,15 @@ namespace Agora {
 			this->input_surname->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->input_surname->Location = System::Drawing::Point(114, 21);
-			this->input_surname->MaxLength = 20;
+			this->input_surname->MaxLength = 40;
 			this->input_surname->Name = L"input_surname";
 			this->input_surname->Size = System::Drawing::Size(274, 26);
 			this->input_surname->TabIndex = 0;
 			this->input_surname->TabStop = false;
-			this->input_surname->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::on_manual_input_pick);
+			this->input_surname->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_surname->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
 			this->input_surname->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_letters);
-			this->input_surname->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::on_manual_input_pick);
+			this->input_surname->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// label_name
 			// 
@@ -438,11 +438,11 @@ namespace Agora {
 			this->input_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->input_name->Location = System::Drawing::Point(113, 50);
-			this->input_name->MaxLength = 20;
+			this->input_name->MaxLength = 40;
 			this->input_name->Name = L"input_name";
 			this->input_name->Size = System::Drawing::Size(275, 26);
 			this->input_name->TabIndex = 1;
-			this->input_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::on_manual_input_pick);
+			this->input_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_name->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
 			this->input_name->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_letters);
 			// 
@@ -627,7 +627,7 @@ namespace Agora {
 			this->button_register->Enabled = false;
 			this->button_register->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_register->Location = System::Drawing::Point(234, 426);
+			this->button_register->Location = System::Drawing::Point(145, 426);
 			this->button_register->Name = L"button_register";
 			this->button_register->Size = System::Drawing::Size(220, 35);
 			this->button_register->TabIndex = 100;
@@ -675,6 +675,7 @@ private:
 
 		registration_company->Enabled = false;
 		registration_company->Hide();
+		sufficient_input_for_individual_registration_check(nullptr, nullptr);
 	}
 
 
@@ -685,6 +686,20 @@ private:
 
 		registration_individual->Enabled = false;
 		registration_individual->Hide();
+	}
+
+
+	void set_greeting_time_based()
+	{
+		int time = get_time();
+		if (time < 40000)
+			label_kalimera->Text += "ый вечер!";
+		else if (time < 120000)
+			label_kalimera->Text += "ое утро!";
+		else if (time < 170000)
+			label_kalimera->Text += "ый день!";
+		else
+			label_kalimera->Text += "ый вечер!";
 	}
 
 
@@ -709,7 +724,21 @@ private:
 	}
 
 
-	System::Void on_manual_input_pick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
+	System::Void keyboard_focus_switch_check(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
+	{
+		System::Char key = e->KeyChar;
+		if (key == ENTER)
+			next_focus();
+		else if (key == BACKSPACE)
+		{
+			Control^ source = safe_cast<Control^>(sender);
+			if (source->Text == "")
+				prev_focus();
+		}
+	}
+
+
+	System::Void mouse_focus_switch_check(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
 		Control^ source = safe_cast<Control^>(sender);
 		focus = source->TabIndex;
@@ -723,32 +752,18 @@ private:
 	System::Void only_digits(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
-		if (! is_digit(key) && key != BACKSPACE)
+		if (! is_digit(key))
 			e->Handled = true;
-		manual_focus_switch_check(sender, e);
+		keyboard_focus_switch_check(sender, e);
 	}
 
 
 	System::Void only_letters(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
-		if (! is_letter(key) && key != BACKSPACE && key != L'\'' && key != L'-' && key != L' ')
+		if (! is_letter(key))
 			e->Handled = true;
-		manual_focus_switch_check(sender, e);
-	}
-
-
-	System::Void manual_focus_switch_check(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
-	{
-		System::Char key = e->KeyChar;
-		if (key == ENTER)
-			next_focus();
-		else if (key == BACKSPACE)
-		{
-			Control^ source = safe_cast<Control^>(sender);
-			if (source->Text == "")
-				prev_focus();
-		}
+		keyboard_focus_switch_check(sender, e);
 	}
 
 	#pragma endregion
@@ -756,6 +771,7 @@ private:
 
 	#pragma region = Input (Individual) =
 
+	// TODO: Get it into utils?
 	const int _MAX_FOCUS_INDIVIDUAL = 6;
 	void get_focusable_nodes_individual()
 	{
@@ -775,10 +791,14 @@ private:
 	}
 
 
-
 	System::Void sufficient_input_for_individual_registration_check(System::Object^ sender, System::EventArgs^ e)
 	{
+		button_register->Enabled =
+		   (input_surname->Text->Length  >= 2 &&
+			input_name->Text->Length     >= 2 &&
 
+			input_carrier_code->Text->Length	  == 5 &&
+			input_phone_number_body->Text->Length == 9);
 	}
 
 
@@ -801,6 +821,7 @@ private:
 		}
 
 		_carrier_code_previous_length = input_carrier_code->Text->Length;
+		sufficient_input_for_individual_registration_check(nullptr, nullptr);
 	}
 
 
@@ -826,6 +847,7 @@ private:
 			next_focus();
 
 		_phone_number_body_previous_length = input_phone_number_body->Text->Length;
+		sufficient_input_for_individual_registration_check(nullptr, nullptr);
 	}
 
 	#pragma endregion
