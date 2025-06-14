@@ -95,6 +95,7 @@ std::unordered_map<wchar_t, std::wstring> _char_transliterations {
 	{L'÷', L"ch"}, {L'ø', L"sh"}, {L'ù', L"sch"}, {L'ú', L"y"}, {L'û', L"y"}, {L'ü', L""},  {L'ý', L"e"},  {L'þ', L"yu"},
 	{L'ÿ', L"ya"}
 };
+/// Also lowers, because I don't want to check for both low and high chars, and I'm too lazy to convert
 std::wstring translit_CtoL(const std::wstring& target)
 {
 	std::wstring result = L"";
@@ -102,8 +103,9 @@ std::wstring translit_CtoL(const std::wstring& target)
 	{
 		// Avoiding accidental insert
 		if (_char_transliterations.find(lower(c)) == _char_transliterations.end())
-			continue;
-		result += _char_transliterations[lower(c)];
+			result += lower(c);
+		else
+			result += _char_transliterations[lower(c)];
 	}
 	return result;
 }
