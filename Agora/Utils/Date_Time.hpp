@@ -5,6 +5,20 @@
 #include <time.h> /// time
 #include <string> /// 'std::wstring' 
 
+///  Here be:
+//class Date;
+int get_time();
+
+
+/*class Date
+{
+public:
+
+private:
+
+	const std::wstring day, month, year;
+};*/
+
 
 int get_time()
 {

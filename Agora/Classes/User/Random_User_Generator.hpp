@@ -2,14 +2,14 @@
 #ifndef RANDOM_USER_GENERATOR_HPP
 #define RANDOM_USER_GENERATOR_HPP
 
-#include "User.hpp"
+#include "..\User.hpp"
 
 /// There will be no random company generator, nor related things:
 /// I'm gonna have a predefined set of companies.
 
 Individual get_random_individual();
 
-Email		    _get_email(const Individual_Name& name); // email must be generated according to the name transliteration
+std::wstring	_get_email(const Individual_Name& name); // email must be generated according to the name transliteration
 Phone_Number    _get_random_phone_number(const bool corporate = false);
 Individual_Name	_get_random_individual_name();
 
@@ -18,7 +18,7 @@ Individual get_random_individual()
 {
 	Individual_Name name = _get_random_individual_name();
 	Phone_Number  number = _get_random_phone_number();
-	Email		   email = _get_email(name);
+	std::wstring  email  = _get_email(name);
 
 	Individual result(name, number);
 	result.set_email (email);
@@ -60,7 +60,7 @@ Individual_Name _get_random_individual_name()
 #pragma region = Contacts
 
 const std::wstring _email_domains[3] = {L"gmail.com", L"mail.ru", L"yandex.ru"};
-Email _get_email(const Individual_Name& name)
+std::wstring _get_email(const Individual_Name& name)
 {
 	// igor_ivanov245@domain.com
 	std::wstring body = translit_CtoL(name.name) + L'_'
@@ -68,8 +68,7 @@ Email _get_email(const Individual_Name& name)
 					  + std::to_wstring(randint(100, 999));
 	std::wstring domain = _email_domains[randint(2)];
 
-	Email result(body, domain);
-	return result;
+	return body + L'@' + domain;
 }
 
 

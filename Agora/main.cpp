@@ -4,6 +4,7 @@
 using namespace Agora;
 
 
+[System::STAThread]
 int WINAPI WinMain(const HINSTANCE, const HINSTANCE, const LPSTR, const int)
 {
     Application::EnableVisualStyles();

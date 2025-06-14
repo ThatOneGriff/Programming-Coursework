@@ -99,11 +99,20 @@ namespace Agora {
 	private: System::Windows::Forms::Button^ button_register;
 	private: System::Windows::Forms::ComboBox^ input_legal_form;
 	private: System::Windows::Forms::Label^ label3;
-	private: System::Windows::Forms::TextBox^ textBox4;
-	private: System::Windows::Forms::ComboBox^ comboBox1;
-	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::TextBox^ textBox5;
+	private: System::Windows::Forms::TextBox^ input_year;
+
+
+	private: System::Windows::Forms::ComboBox^ input_month;
+	private: System::Windows::Forms::Label^ label_site;
+	private: System::Windows::Forms::Label^ label_est;
+
+
+
+	private: System::Windows::Forms::TextBox^ input_site;
+
+	private: System::Windows::Forms::Label^ label_month;
+	private: System::Windows::Forms::Label^ label_year;
+
 
 
 
@@ -138,6 +147,14 @@ namespace Agora {
 			this->input_email = (gcnew System::Windows::Forms::TextBox());
 			this->label_email = (gcnew System::Windows::Forms::Label());
 			this->registration_company = (gcnew System::Windows::Forms::GroupBox());
+			this->label_year = (gcnew System::Windows::Forms::Label());
+			this->label_month = (gcnew System::Windows::Forms::Label());
+			this->input_site = (gcnew System::Windows::Forms::TextBox());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->input_year = (gcnew System::Windows::Forms::TextBox());
+			this->input_month = (gcnew System::Windows::Forms::ComboBox());
+			this->label_site = (gcnew System::Windows::Forms::Label());
+			this->label_est = (gcnew System::Windows::Forms::Label());
 			this->input_legal_form = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
@@ -146,12 +163,6 @@ namespace Agora {
 			this->label_company_name = (gcnew System::Windows::Forms::Label());
 			this->input_company_name = (gcnew System::Windows::Forms::TextBox());
 			this->button_register = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
-			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->registration_individual->SuspendLayout();
 			this->contacts->SuspendLayout();
 			this->registration_company->SuspendLayout();
@@ -294,7 +305,6 @@ namespace Agora {
 			this->input_surname->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_surname->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
 			this->input_surname->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_letters);
-			this->input_surname->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// label_name
 			// 
@@ -333,6 +343,7 @@ namespace Agora {
 			this->input_phone_number_body->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_phone_number_body->TextChanged += gcnew System::EventHandler(this, &Registration::on_phone_number_body_input);
 			this->input_phone_number_body->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_digits);
+			this->input_phone_number_body->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// input_country_code
 			// 
@@ -359,6 +370,7 @@ namespace Agora {
 			this->input_carrier_code->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_carrier_code->TextChanged += gcnew System::EventHandler(this, &Registration::on_carrier_code_input);
 			this->input_carrier_code->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_digits);
+			this->input_carrier_code->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// label_phone
 			// 
@@ -414,6 +426,7 @@ namespace Agora {
 			this->input_extra->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_extra->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
 			this->input_extra->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
+			this->input_extra->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// label_extra
 			// 
@@ -449,6 +462,7 @@ namespace Agora {
 			this->input_email->TabStop = false;
 			this->input_email->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_email->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
+			this->input_email->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// label_email
 			// 
@@ -463,12 +477,14 @@ namespace Agora {
 			// 
 			// registration_company
 			// 
-			this->registration_company->Controls->Add(this->textBox5);
+			this->registration_company->Controls->Add(this->label_year);
+			this->registration_company->Controls->Add(this->label_month);
+			this->registration_company->Controls->Add(this->input_site);
 			this->registration_company->Controls->Add(this->label3);
-			this->registration_company->Controls->Add(this->textBox4);
-			this->registration_company->Controls->Add(this->comboBox1);
-			this->registration_company->Controls->Add(this->label2);
-			this->registration_company->Controls->Add(this->label1);
+			this->registration_company->Controls->Add(this->input_year);
+			this->registration_company->Controls->Add(this->input_month);
+			this->registration_company->Controls->Add(this->label_site);
+			this->registration_company->Controls->Add(this->label_est);
 			this->registration_company->Controls->Add(this->input_legal_form);
 			this->registration_company->Controls->Add(this->textBox1);
 			this->registration_company->Controls->Add(this->textBox2);
@@ -483,20 +499,127 @@ namespace Agora {
 			this->registration_company->TabStop = false;
 			this->registration_company->Text = L"Äàííûå êîìïàíèè";
 			// 
+			// label_year
+			// 
+			this->label_year->AutoSize = true;
+			this->label_year->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_year->Location = System::Drawing::Point(265, 85);
+			this->label_year->Name = L"label_year";
+			this->label_year->Size = System::Drawing::Size(37, 17);
+			this->label_year->TabIndex = 1009;
+			this->label_year->Text = L"ãîäà";
+			// 
+			// label_month
+			// 
+			this->label_month->AutoSize = true;
+			this->label_month->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_month->Location = System::Drawing::Point(150, 85);
+			this->label_month->Name = L"label_month";
+			this->label_month->Size = System::Drawing::Size(56, 17);
+			this->label_month->TabIndex = 1008;
+			this->label_month->Text = L"ìåñÿöà";
+			// 
+			// input_site
+			// 
+			this->input_site->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->input_site->Location = System::Drawing::Point(69, 106);
+			this->input_site->Name = L"input_site";
+			this->input_site->Size = System::Drawing::Size(319, 26);
+			this->input_site->TabIndex = 2;
+			this->input_site->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_site->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
+			this->input_site->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
+			this->input_site->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label3->Location = System::Drawing::Point(343, 60);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(21, 20);
+			this->label3->TabIndex = 1006;
+			this->label3->Text = L"ã.";
+			// 
+			// input_year
+			// 
+			this->input_year->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->input_year->Location = System::Drawing::Point(239, 57);
+			this->input_year->MaxLength = 4;
+			this->input_year->Name = L"input_year";
+			this->input_year->Size = System::Drawing::Size(89, 26);
+			this->input_year->TabIndex = 1;
+			this->input_year->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_year->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
+			this->input_year->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_digits);
+			this->input_year->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			// 
+			// input_month
+			// 
+			this->input_month->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Append;
+			this->input_month->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
+			this->input_month->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->input_month->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->input_month->FormattingEnabled = true;
+			this->input_month->Items->AddRange(gcnew cli::array< System::Object^  >(12) {
+				L"ÿíâàðÿ", L"ôåâðàëÿ", L"ìàðòà", L"àïðåëÿ", L"ìàÿ",
+					L"èþíÿ", L"èþëÿ", L"àâãóñòà", L"ñåíòÿáðÿ", L"îêòÿáðÿ", L"íîÿáðÿ", L"äåêàáðÿ"
+			});
+			this->input_month->Location = System::Drawing::Point(124, 57);
+			this->input_month->MaxLength = 4;
+			this->input_month->Name = L"input_month";
+			this->input_month->Size = System::Drawing::Size(109, 28);
+			this->input_month->TabIndex = 1004;
+			this->input_month->SelectedValueChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
+			this->input_month->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			// 
+			// label_site
+			// 
+			this->label_site->AutoSize = true;
+			this->label_site->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_site->Location = System::Drawing::Point(18, 109);
+			this->label_site->Name = L"label_site";
+			this->label_site->Size = System::Drawing::Size(56, 20);
+			this->label_site->TabIndex = 1003;
+			this->label_site->Text = L"Ñàéò:";
+			// 
+			// label_est
+			// 
+			this->label_est->AutoSize = true;
+			this->label_est->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_est->Location = System::Drawing::Point(18, 60);
+			this->label_est->Name = L"label_est";
+			this->label_est->Size = System::Drawing::Size(107, 20);
+			this->label_est->TabIndex = 1002;
+			this->label_est->Text = L"Íà ðûíêå ñ:";
+			// 
 			// input_legal_form
 			// 
+			this->input_legal_form->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Append;
+			this->input_legal_form->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
+			this->input_legal_form->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->input_legal_form->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->input_legal_form->FormattingEnabled = true;
 			this->input_legal_form->Items->AddRange(gcnew cli::array< System::Object^  >(8) {
-				L"ÎÎÎ", L"ÈÏ", L"ÏÀÎ", L"ÍÏÀÎ", L"ÍÊÎ",
-					L"ÏÊ", L"ÃÓÏ", L"ÌÓÏ"
+				L"ÈÏ", L"ÏÊ", L"ÃÓÏ", L"ÌÓÏ", L"ÍÊÎ", L"ÎÎÎ",
+					L"ÏÀÎ", L"ÍÏÀÎ"
 			});
 			this->input_legal_form->Location = System::Drawing::Point(69, 19);
 			this->input_legal_form->MaxLength = 4;
 			this->input_legal_form->Name = L"input_legal_form";
 			this->input_legal_form->Size = System::Drawing::Size(85, 28);
 			this->input_legal_form->TabIndex = 1001;
+			this->input_legal_form->SelectedValueChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
+			this->input_legal_form->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// textBox1
 			// 
@@ -563,6 +686,10 @@ namespace Agora {
 			this->input_company_name->Name = L"input_company_name";
 			this->input_company_name->Size = System::Drawing::Size(228, 26);
 			this->input_company_name->TabIndex = 0;
+			this->input_company_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_company_name->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
+			this->input_company_name->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
+			this->input_company_name->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// button_register
 			// 
@@ -575,72 +702,6 @@ namespace Agora {
 			this->button_register->TabIndex = 100;
 			this->button_register->Text = L"Çàðåãèñòðèðîâàòüñÿ";
 			this->button_register->UseVisualStyleBackColor = true;
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->label1->Location = System::Drawing::Point(18, 56);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(107, 20);
-			this->label1->TabIndex = 1002;
-			this->label1->Text = L"Íà ðûíêå ñ:";
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->label2->Location = System::Drawing::Point(18, 88);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(56, 20);
-			this->label2->TabIndex = 1003;
-			this->label2->Text = L"Ñàéò:";
-			// 
-			// comboBox1
-			// 
-			this->comboBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(8) {
-				L"ÎÎÎ", L"ÈÏ", L"ÏÀÎ", L"ÍÏÀÎ", L"ÍÊÎ", L"ÏÊ",
-					L"ÃÓÏ", L"ÌÓÏ"
-			});
-			this->comboBox1->Location = System::Drawing::Point(124, 53);
-			this->comboBox1->MaxLength = 4;
-			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(109, 28);
-			this->comboBox1->TabIndex = 1004;
-			// 
-			// textBox4
-			// 
-			this->textBox4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->textBox4->Location = System::Drawing::Point(239, 53);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(89, 26);
-			this->textBox4->TabIndex = 1005;
-			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->label3->Location = System::Drawing::Point(343, 56);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(21, 20);
-			this->label3->TabIndex = 1006;
-			this->label3->Text = L"ã.";
-			// 
-			// textBox5
-			// 
-			this->textBox5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->textBox5->Location = System::Drawing::Point(69, 85);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(319, 26);
-			this->textBox5->TabIndex = 1007;
 			// 
 			// Registration
 			// 
@@ -673,29 +734,6 @@ namespace Agora {
 
 private:
 
-	System::Void pick_as_individual(System::Object^ sender, System::EventArgs^ e)
-	{
-		get_focusable_nodes_individual();
-		MAX_FOCUS = _MAX_FOCUS_INDIVIDUAL;
-		input_surname->Focus();
-
-		label_if_you_have_email->Show();
-
-		sufficient_input_for_individual_registration_check(nullptr, nullptr);
-		registration_individual->BringToFront();
-	}
-
-
-	System::Void pick_as_company(System::Object^ sender, System::EventArgs^ e)
-	{
-		input_legal_form->Focus();
-
-		label_if_you_have_email->Hide();
-
-		registration_company->BringToFront();
-	}
-
-
 	void set_greeting_time_based()
 	{
 		int time = get_time();
@@ -710,11 +748,133 @@ private:
 	}
 
 
+
+	#pragma region ========== Individual ==========
+
+	System::Void pick_as_individual(System::Object^ sender, System::EventArgs^ e)
+	{
+		FOCUSABLE_NODES = focus_params_individual();
+		node_manipulations_individual();
+		sufficient_input_for_individual_registration_check(nullptr, nullptr);
+	}
+
+
+	array<Control^>^ focus_params_individual()
+	{
+		/// Why am I writing such a shitty code?
+		/// Take a wild fucking guess.
+		/// .NET doesn't allow me to create a constant array in-place, instead forcing me to do... *this.*
+		/// DOTNET SUCKS BALLS
+		
+		array<Control^>^ result = gcnew array<Control^>(7);
+
+		result[0] = input_surname;
+		result[1] = input_name;
+		result[2] = input_patronym;
+
+		result[3] = input_carrier_code;
+		result[4] = input_phone_number_body;
+
+		result[5] = input_email;
+		result[6] = input_extra;
+
+		MAX_FOCUS = 6;
+		focus = 0;
+		input_surname->Focus();
+
+		return result;
+	}
+
+
+	void node_manipulations_individual()
+	{
+		label_if_you_have_email->Show();
+		registration_individual->BringToFront();
+	}
+	
+	
+	System::Void sufficient_input_for_individual_registration_check(System::Object^ sender, System::EventArgs^ e)
+	{
+		button_register->Enabled = (
+			input_surname->Text->Length >= 2 &&
+			input_name->Text->Length    >= 2 &&
+
+			input_carrier_code->Text->Length	  == 5 &&
+			input_phone_number_body->Text->Length == 9
+		);
+	}
+
+	#pragma endregion
+
+
+
+	#pragma region ========== Company ==========
+
+	System::Void pick_as_company(System::Object^ sender, System::EventArgs^ e)
+	{
+		FOCUSABLE_NODES = focus_params_company();
+		node_manipulations_company();
+		sufficient_input_for_company_registration_check(nullptr, nullptr);
+	}
+
+
+	array<Control^>^ focus_params_company()
+	{
+		array<Control^>^ result = gcnew array<Control^>(9);
+
+		result[0] = input_company_name;
+
+		result[1] = input_year;
+
+		result[2] = input_site;
+
+		result[3] = input_carrier_code;
+		result[4] = input_phone_number_body;
+
+		result[5] = input_email;
+		result[6] = input_extra;
+
+		MAX_FOCUS = 6;
+		focus = 0;
+		input_company_name->Focus();
+
+		return result;
+	}
+
+
+	void node_manipulations_company()
+	{
+		label_if_you_have_email->Hide();
+		registration_company->BringToFront();
+	}
+	
+	
+	System::Void sufficient_input_for_company_registration_check(System::Object^ sender, System::EventArgs^ e)
+	{
+		button_register->Enabled = (
+			input_legal_form->SelectedIndex  > -1 &&
+			input_company_name->Text->Length > 0  &&
+
+			input_month->SelectedIndex > -1 &&
+			input_year->Text->Length == 4   &&
+
+			input_site->Text->Length >= 3/* &&
+			is_email(to_std_wstring(input_email->Text))*/ &&
+
+			input_carrier_code->Text->Length	  == 5 &&
+			input_phone_number_body->Text->Length == 9
+		);
+	}
+
+	#pragma endregion
+
+
+
 	#pragma region ========== Focus (Common) ==========
 
 	int focus = 0;
 	int MAX_FOCUS;
-	array<Control^>^ FOCUSABLE_NODES = gcnew array<Control^>(7);
+	array<Control^>^ FOCUSABLE_NODES;
 
 	
 	void next_focus()
@@ -827,50 +987,6 @@ private:
 		_phone_number_body_previous_length = input_phone_number_body->Text->Length;
 		sufficient_input_for_individual_registration_check(nullptr, nullptr);
 	}
-
-	#pragma endregion
-
-
-
-	#pragma region ========== Input (Individual) ==========
-	
-	const int _MAX_FOCUS_INDIVIDUAL = 6;
-	void get_focusable_nodes_individual()
-	{
-		/// Why am I writing such a shitty code?
-		/// Take a wild fucking guess.
-		/// .NET doesn't allow me to create a constant array in-place, instead forcing me to do... *this.*
-		/// DOTNET SUCKS BALLS
-		FOCUSABLE_NODES[0] = input_surname;
-		FOCUSABLE_NODES[1] = input_name;
-		FOCUSABLE_NODES[2] = input_patronym;
-
-		FOCUSABLE_NODES[3] = input_carrier_code;
-		FOCUSABLE_NODES[4] = input_phone_number_body;
-
-		FOCUSABLE_NODES[5] = input_email;
-		FOCUSABLE_NODES[6] = input_extra;
-	}
-
-
-	System::Void sufficient_input_for_individual_registration_check(System::Object^ sender, System::EventArgs^ e)
-	{
-		button_register->Enabled = (
-			input_surname->Text->Length >= 2 &&
-			input_name->Text->Length    >= 2 &&
-
-			input_carrier_code->Text->Length	  == 5 &&
-			input_phone_number_body->Text->Length == 9
-		);
-	}
-
-	#pragma endregion
-
-
-
-	#pragma region ========== Input (Company) ==========
-
-
 
 	#pragma endregion
 };

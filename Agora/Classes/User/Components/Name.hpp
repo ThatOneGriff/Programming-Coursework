@@ -58,7 +58,7 @@ private:
 	std::wstring surname,
 				 patronym;
 
-friend Email _get_email(const Individual_Name& name);
+friend std::wstring _get_email(const Individual_Name& name);
 };
 
 

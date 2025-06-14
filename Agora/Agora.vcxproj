@@ -124,8 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Listing.hpp" />
-    <ClInclude Include="Classes\User\Contacts.hpp" />
-    <ClInclude Include="Classes\User\Contacts\Email.hpp" />
     <ClInclude Include="Classes\User\Components\Name.hpp" />
     <ClInclude Include="Classes\User\Components\Contractor_Info.hpp" />
     <ClInclude Include="Classes\User\Random_User_Generator.hpp" />
@@ -133,7 +131,7 @@
     <ClInclude Include="Menus\Registration\Registration.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Classes\User\Contacts\Phone_Number.hpp" />
+    <ClInclude Include="Classes\User\Phone_Number.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Main_Menu.hpp">
       <FileType>CppForm</FileType>

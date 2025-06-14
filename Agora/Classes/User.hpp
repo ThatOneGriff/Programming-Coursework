@@ -2,10 +2,10 @@
 #ifndef USER_HPP
 #define USER_HPP
 
-#include			"User/Contacts.hpp";
 #include "User/Components/Contractor_Info.hpp"
 #include "User/Components/Name.hpp"
-#include			  "../Utils.hpp";
+#include			"User/Phone_Number.hpp"
+#include			  "../Utils.hpp"
 
 /// Here be:
 class User;
@@ -20,7 +20,7 @@ class User
 public:
 
 	Phone_Number phone_number;
-	Email email;
+	std::wstring email;
 	std::wstring extra_contacts;
 
 	Contractor_Info contractor_info;
@@ -46,11 +46,11 @@ public:
 	{}
 
 
-	/// It's only needed here because it's optional for 'Individual'.
+	/// It's only needed here because e-mail is optional for 'Individual'.
 	/// Rather than clutter the codebase with empty ctor for an optional email argument,
 	/// I decided to go with this workaround.
 	/// !!! That being said, the default 'Email' ctor is still needed... for something.
-	void set_email(const Email& _email)
+	void set_email(const std::wstring& _email)
 	{
 		email = _email;
 	}
