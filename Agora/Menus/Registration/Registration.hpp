@@ -785,7 +785,7 @@ private:
 		else if (button_company->Checked)
 		{
 			std::wstring website = to_std_wstring(input_website->Text);
-			Company_Name name(to_std_wstring(input_legal_form->SelectedText), to_std_wstring(input_company_name->Text));
+			Company_Name name(to_std_wstring(input_legal_form->Text), to_std_wstring(input_company_name->Text));
 			Company new_user(name, phone_number, email, website, extra_contacts);
 			save(&new_user);
 		}
@@ -902,7 +902,8 @@ private:
 			input_month->SelectedIndex > -1 &&
 			input_year->Text->Length == 4   &&
 
-			input_website->Text->Length >= 3 &&
+			input_email->Text->Length	> 0 &&
+			input_website->Text->Length > 0 &&
 
 			input_carrier_code->Text->Length	  == 5 &&
 			input_phone_number_body->Text->Length == 9
