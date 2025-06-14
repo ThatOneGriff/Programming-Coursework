@@ -5,6 +5,8 @@
 #include "Classes/Listing.hpp"
 #include "Classes/User.hpp"
 
+#include "..\..\Save_Load.hpp"
+
 
 namespace Agora {
 
@@ -703,6 +705,7 @@ namespace Agora {
 			this->button_register->TabIndex = 100;
 			this->button_register->Text = L"Зарегистрироваться";
 			this->button_register->UseVisualStyleBackColor = true;
+			this->button_register->Click += gcnew System::EventHandler(this, &Registration::registration);
 			// 
 			// Registration
 			// 
@@ -746,6 +749,25 @@ private:
 			label_kalimera->Text += "ый день!";
 		else
 			label_kalimera->Text += "ый вечер!";
+	}
+
+
+	System::Void registration(System::Object^ sender, System::EventArgs^ e)
+	{
+		/// Common between 'Individual' and 'Company'.
+		// Maybe we could define '=' between 'std::wstring' and 'System::String'?
+		std::wstring email = to_std_wstring(input_email->Text);
+		std::wstring extra_contacts = to_std_wstring(input_extra->Text);
+
+		if (button_individual->Checked)
+		{
+			Individual_Name name(to_std_wstring(input_name->Text), to_std_wstring(input_surname->Text), to_std_wstring(input_patronym->Text));
+			Phone_Number phone_number(to_std_wstring(input_country_code->Text), to_std_wstring(input_carrier_code->Text), to_std_wstring(input_phone_number_body->Text));
+
+			Individual new_user(name, phone_number, email, extra_contacts);
+			MessageBox::Show(to_dotnet_string(new_user.serialize()));
+			save(&new_user);
+		}
 	}
 
 

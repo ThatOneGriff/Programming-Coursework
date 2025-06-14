@@ -2,6 +2,7 @@
 #ifndef STRINGS_HPP
 #define STRINGS_HPP
 
+#include <msclr\marshal_cppstd.h> // string type magic
 #include <string>		 // 'std::wstring'
 #include <unordered_map> // mapping chars for transliteration
 using namespace System;  // all things CLR
@@ -49,24 +50,17 @@ wchar_t lower(wchar_t target)
 }
 
 
+// Copied from: https://stackoverflow.com/a/1405251/15540979
 System::String^ to_dotnet_string(const std::wstring& target)
 {
-	System::String^ result = "";
-	for (const wchar_t& c : target)
-		result += System::Convert::ToChar(c);
-	return result;
+	return msclr::interop::marshal_as<System::String^>(target);
 }
 
 
+// Copied from: https://stackoverflow.com/a/1405251/15540979
 std::wstring to_std_wstring(System::String^ target)
 {
-	/// copied code
-	std::wstring result;
-	using namespace Runtime::InteropServices;
-	const wchar_t* chars = (const wchar_t*)(Marshal::StringToHGlobalAnsi(target)).ToPointer();
-	result = chars;
-	Marshal::FreeHGlobal(IntPtr((void*)chars));
-	return result;
+	return msclr::interop::marshal_as<std::wstring>(target);
 }
 
 
