@@ -45,7 +45,7 @@ namespace Agora {
 
 
 	private: System::Windows::Forms::GroupBox^ registration_individual;
-	private: System::Windows::Forms::TextBox^ input_name;
+
 
 
 	private: System::Windows::Forms::Label^ label_name;
@@ -115,6 +115,10 @@ namespace Agora {
 
 	private: System::Windows::Forms::Label^ label_month;
 	private: System::Windows::Forms::Label^ label_year;
+	private: System::Windows::Forms::TextBox^ input_name;
+
+
+
 
 
 
@@ -137,7 +141,6 @@ namespace Agora {
 			this->label_surname = (gcnew System::Windows::Forms::Label());
 			this->input_surname = (gcnew System::Windows::Forms::TextBox());
 			this->label_name = (gcnew System::Windows::Forms::Label());
-			this->input_name = (gcnew System::Windows::Forms::TextBox());
 			this->input_phone_number_body = (gcnew System::Windows::Forms::TextBox());
 			this->input_country_code = (gcnew System::Windows::Forms::TextBox());
 			this->input_carrier_code = (gcnew System::Windows::Forms::TextBox());
@@ -166,6 +169,7 @@ namespace Agora {
 			this->label_company_name = (gcnew System::Windows::Forms::Label());
 			this->input_company_name = (gcnew System::Windows::Forms::TextBox());
 			this->button_register = (gcnew System::Windows::Forms::Button());
+			this->input_name = (gcnew System::Windows::Forms::TextBox());
 			this->registration_individual->SuspendLayout();
 			this->contacts->SuspendLayout();
 			this->registration_company->SuspendLayout();
@@ -234,13 +238,13 @@ namespace Agora {
 			// 
 			// registration_individual
 			// 
+			this->registration_individual->Controls->Add(this->input_name);
 			this->registration_individual->Controls->Add(this->label_if_you_have_patronym);
 			this->registration_individual->Controls->Add(this->label_patronym);
 			this->registration_individual->Controls->Add(this->input_patronym);
 			this->registration_individual->Controls->Add(this->label_surname);
 			this->registration_individual->Controls->Add(this->input_surname);
 			this->registration_individual->Controls->Add(this->label_name);
-			this->registration_individual->Controls->Add(this->input_name);
 			this->registration_individual->Location = System::Drawing::Point(50, 142);
 			this->registration_individual->Name = L"registration_individual";
 			this->registration_individual->Size = System::Drawing::Size(404, 139);
@@ -319,19 +323,6 @@ namespace Agora {
 			this->label_name->Size = System::Drawing::Size(47, 20);
 			this->label_name->TabIndex = 1000;
 			this->label_name->Text = L"Èìÿ:";
-			// 
-			// input_name
-			// 
-			this->input_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->input_name->Location = System::Drawing::Point(113, 50);
-			this->input_name->MaxLength = 40;
-			this->input_name->Name = L"input_name";
-			this->input_name->Size = System::Drawing::Size(275, 26);
-			this->input_name->TabIndex = 1;
-			this->input_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
-			this->input_name->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
-			this->input_name->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_letters);
 			// 
 			// input_phone_number_body
 			// 
@@ -707,6 +698,17 @@ namespace Agora {
 			this->button_register->UseVisualStyleBackColor = true;
 			this->button_register->Click += gcnew System::EventHandler(this, &Registration::registration);
 			// 
+			// input_name
+			// 
+			this->input_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->input_name->Location = System::Drawing::Point(114, 50);
+			this->input_name->MaxLength = 40;
+			this->input_name->Name = L"input_name";
+			this->input_name->Size = System::Drawing::Size(274, 26);
+			this->input_name->TabIndex = 1001;
+			this->input_name->TabStop = false;
+			// 
 			// Registration
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -762,7 +764,14 @@ private:
 		if (button_individual->Checked)
 		{
 			Individual_Name name(to_std_wstring(input_name->Text), to_std_wstring(input_surname->Text), to_std_wstring(input_patronym->Text));
-			Phone_Number phone_number(to_std_wstring(input_country_code->Text), to_std_wstring(input_carrier_code->Text), to_std_wstring(input_phone_number_body->Text));
+
+			std::wstring carrier_code = to_std_wstring(input_carrier_code->Text);
+			carrier_code.erase(0); // '('
+			carrier_code.erase(3); // ')', taking the previous removal and the resulting shift of positions into account
+			std::wstring body = to_std_wstring(input_phone_number_body->Text);
+			body.erase(3); // '-'
+			body.erase(5); // '-'
+			Phone_Number phone_number(to_std_wstring(input_country_code->Text), carrier_code, body);
 
 			Individual new_user(name, phone_number, email, extra_contacts);
 			MessageBox::Show(to_dotnet_string(new_user.serialize()));
@@ -803,7 +812,7 @@ private:
 
 		MAX_FOCUS = 6;
 		focus = 0;
-		input_surname->Focus();
+		result[0]->Focus();
 
 		return result;
 	}
@@ -859,7 +868,7 @@ private:
 
 		MAX_FOCUS = 6;
 		focus = 0;
-		input_company_name->Focus();
+		result[0]->Focus();
 
 		return result;
 	}
@@ -901,14 +910,16 @@ private:
 	
 	void next_focus()
 	{
-		if (++focus > MAX_FOCUS) focus = 0;
+		// Focus wrapping had been decided to be disabled.
+		if (++focus > MAX_FOCUS) focus = MAX_FOCUS; //0;
 		FOCUSABLE_NODES[focus]->Focus();
 	}
 
 
 	void prev_focus()
 	{
-		if (--focus < 0) focus = MAX_FOCUS;
+		// Focus wrapping had been decided to be disabled.
+		if (--focus < 0) focus = 0; //MAX_FOCUS;
 		FOCUSABLE_NODES[focus]->Focus();
 	}
 

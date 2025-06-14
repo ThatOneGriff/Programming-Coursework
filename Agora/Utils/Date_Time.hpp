@@ -21,7 +21,6 @@ std::wstring get_date()
 	localtime_s(&timeinfo, &rawtime);
 
 	wcsftime(buffer, 20, L"%d.%m.%Y", &timeinfo);
-
 	return buffer;
 }
 

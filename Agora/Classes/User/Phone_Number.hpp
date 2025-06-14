@@ -38,10 +38,15 @@ public:
 		return concealed_num;
 	}
 
+
+	// +7 123 4567890
+	std::wstring serialized()
+	{
+		return country_code + L' ' + carrier_code + L' ' + body;
+	}
+
 private:
-	const std::wstring country_code,
-					   carrier_code;
-		  std::wstring body;
+	std::wstring country_code, carrier_code, body;
 };
 
 

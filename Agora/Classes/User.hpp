@@ -53,10 +53,10 @@ public:
 	std::wstring serialize()
 	{
 		std::wstring result =
-			L"ind\n"
+			L"individual\n"
 			+ account_creation_date  + L'\n'
 			+ name.get_full()		 + L'\n'
-			+ phone_number.as_text() + L'\n'
+			+ phone_number.serialized() + L'\n'
 			+ email			 + L'\n'
 			+ extra_contacts + L'\n';
 
@@ -83,7 +83,7 @@ public:
 	std::wstring serialize()
 	{
 		std::wstring result =
-			L"com\n"
+			L"company\n"
 			+ account_creation_date  + L'\n'
 			+ name.get_full()		 + L'\n'
 			+ phone_number.as_text() + L'\n'
