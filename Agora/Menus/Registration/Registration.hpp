@@ -4,8 +4,7 @@
 
 #include "Classes/Listing.hpp"
 #include "Classes/User.hpp"
-
-#include "..\..\Save_Load.hpp"
+#include   "..\..\Save_Load.hpp"
 
 
 namespace Agora {
@@ -106,12 +105,14 @@ namespace Agora {
 
 
 	private: System::Windows::Forms::ComboBox^ input_month;
-	private: System::Windows::Forms::Label^ label_site;
+	private: System::Windows::Forms::Label^ label_website;
+
 	private: System::Windows::Forms::Label^ label_est;
+	private: System::Windows::Forms::TextBox^ input_website;
 
 
 
-	private: System::Windows::Forms::TextBox^ input_site;
+
 
 	private: System::Windows::Forms::Label^ label_month;
 	private: System::Windows::Forms::Label^ label_year;
@@ -135,6 +136,7 @@ namespace Agora {
 			this->button_individual = (gcnew System::Windows::Forms::RadioButton());
 			this->button_company = (gcnew System::Windows::Forms::RadioButton());
 			this->registration_individual = (gcnew System::Windows::Forms::GroupBox());
+			this->input_name = (gcnew System::Windows::Forms::TextBox());
 			this->label_if_you_have_patronym = (gcnew System::Windows::Forms::Label());
 			this->label_patronym = (gcnew System::Windows::Forms::Label());
 			this->input_patronym = (gcnew System::Windows::Forms::TextBox());
@@ -155,11 +157,11 @@ namespace Agora {
 			this->registration_company = (gcnew System::Windows::Forms::GroupBox());
 			this->label_year = (gcnew System::Windows::Forms::Label());
 			this->label_month = (gcnew System::Windows::Forms::Label());
-			this->input_site = (gcnew System::Windows::Forms::TextBox());
+			this->input_website = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->input_year = (gcnew System::Windows::Forms::TextBox());
 			this->input_month = (gcnew System::Windows::Forms::ComboBox());
-			this->label_site = (gcnew System::Windows::Forms::Label());
+			this->label_website = (gcnew System::Windows::Forms::Label());
 			this->label_est = (gcnew System::Windows::Forms::Label());
 			this->input_legal_form = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -169,7 +171,6 @@ namespace Agora {
 			this->label_company_name = (gcnew System::Windows::Forms::Label());
 			this->input_company_name = (gcnew System::Windows::Forms::TextBox());
 			this->button_register = (gcnew System::Windows::Forms::Button());
-			this->input_name = (gcnew System::Windows::Forms::TextBox());
 			this->registration_individual->SuspendLayout();
 			this->contacts->SuspendLayout();
 			this->registration_company->SuspendLayout();
@@ -251,6 +252,20 @@ namespace Agora {
 			this->registration_individual->TabIndex = 0;
 			this->registration_individual->TabStop = false;
 			this->registration_individual->Text = L"ФИО";
+			// 
+			// input_name
+			// 
+			this->input_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->input_name->Location = System::Drawing::Point(114, 50);
+			this->input_name->MaxLength = 40;
+			this->input_name->Name = L"input_name";
+			this->input_name->Size = System::Drawing::Size(274, 26);
+			this->input_name->TabIndex = 1001;
+			this->input_name->TabStop = false;
+			this->input_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_name->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
+			this->input_name->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_letters);
 			// 
 			// label_if_you_have_patronym
 			// 
@@ -418,7 +433,7 @@ namespace Agora {
 			this->input_extra->TabIndex = 6;
 			this->input_extra->TabStop = false;
 			this->input_extra->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
-			this->input_extra->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
+			this->input_extra->TextChanged += gcnew System::EventHandler(this, &Registration::common_contacts_sufficient_input_check);
 			this->input_extra->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
 			this->input_extra->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
@@ -455,6 +470,7 @@ namespace Agora {
 			this->input_email->TabIndex = 5;
 			this->input_email->TabStop = false;
 			this->input_email->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_email->TextChanged += gcnew System::EventHandler(this, &Registration::common_contacts_sufficient_input_check);
 			this->input_email->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
 			this->input_email->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
@@ -473,11 +489,11 @@ namespace Agora {
 			// 
 			this->registration_company->Controls->Add(this->label_year);
 			this->registration_company->Controls->Add(this->label_month);
-			this->registration_company->Controls->Add(this->input_site);
+			this->registration_company->Controls->Add(this->input_website);
 			this->registration_company->Controls->Add(this->label3);
 			this->registration_company->Controls->Add(this->input_year);
 			this->registration_company->Controls->Add(this->input_month);
-			this->registration_company->Controls->Add(this->label_site);
+			this->registration_company->Controls->Add(this->label_website);
 			this->registration_company->Controls->Add(this->label_est);
 			this->registration_company->Controls->Add(this->input_legal_form);
 			this->registration_company->Controls->Add(this->textBox1);
@@ -515,18 +531,18 @@ namespace Agora {
 			this->label_month->TabIndex = 1008;
 			this->label_month->Text = L"месяца";
 			// 
-			// input_site
+			// input_website
 			// 
-			this->input_site->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_site->Location = System::Drawing::Point(69, 106);
-			this->input_site->Name = L"input_site";
-			this->input_site->Size = System::Drawing::Size(319, 26);
-			this->input_site->TabIndex = 2;
-			this->input_site->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
-			this->input_site->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
-			this->input_site->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
-			this->input_site->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_website->Location = System::Drawing::Point(69, 106);
+			this->input_website->Name = L"input_website";
+			this->input_website->Size = System::Drawing::Size(319, 26);
+			this->input_website->TabIndex = 2;
+			this->input_website->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_website->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
+			this->input_website->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
+			this->input_website->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// label3
 			// 
@@ -573,16 +589,16 @@ namespace Agora {
 			this->input_month->SelectedValueChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
 			this->input_month->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
-			// label_site
+			// label_website
 			// 
-			this->label_site->AutoSize = true;
-			this->label_site->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_website->AutoSize = true;
+			this->label_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_site->Location = System::Drawing::Point(18, 109);
-			this->label_site->Name = L"label_site";
-			this->label_site->Size = System::Drawing::Size(56, 20);
-			this->label_site->TabIndex = 1003;
-			this->label_site->Text = L"Сайт:";
+			this->label_website->Location = System::Drawing::Point(18, 109);
+			this->label_website->Name = L"label_website";
+			this->label_website->Size = System::Drawing::Size(56, 20);
+			this->label_website->TabIndex = 1003;
+			this->label_website->Text = L"Сайт:";
 			// 
 			// label_est
 			// 
@@ -698,17 +714,6 @@ namespace Agora {
 			this->button_register->UseVisualStyleBackColor = true;
 			this->button_register->Click += gcnew System::EventHandler(this, &Registration::registration);
 			// 
-			// input_name
-			// 
-			this->input_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->input_name->Location = System::Drawing::Point(114, 50);
-			this->input_name->MaxLength = 40;
-			this->input_name->Name = L"input_name";
-			this->input_name->Size = System::Drawing::Size(274, 26);
-			this->input_name->TabIndex = 1001;
-			this->input_name->TabStop = false;
-			// 
 			// Registration
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -721,8 +726,8 @@ namespace Agora {
 			this->Controls->Add(this->label_no_account);
 			this->Controls->Add(this->label_kalimera);
 			this->Controls->Add(this->label_registration);
-			this->Controls->Add(this->registration_individual);
 			this->Controls->Add(this->registration_company);
+			this->Controls->Add(this->registration_individual);
 			this->Name = L"Registration";
 			this->Text = L"Регистрация";
 			this->registration_individual->ResumeLayout(false);
@@ -761,20 +766,27 @@ private:
 		std::wstring email = to_std_wstring(input_email->Text);
 		std::wstring extra_contacts = to_std_wstring(input_extra->Text);
 
+		std::wstring carrier_code = to_std_wstring(input_carrier_code->Text);
+		carrier_code = erase_at(carrier_code, 0); // '('
+		carrier_code = erase_at(carrier_code, 3); // ')', taking the previous removal and the resulting shift of positions into account
+		std::wstring body = to_std_wstring(input_phone_number_body->Text);
+		body = erase_at(body, 3); // '-'
+		body = erase_at(body, 5); // '-'
+
+		Phone_Number phone_number(to_std_wstring(input_country_code->Text), carrier_code, body);
+
 		if (button_individual->Checked)
 		{
 			Individual_Name name(to_std_wstring(input_name->Text), to_std_wstring(input_surname->Text), to_std_wstring(input_patronym->Text));
-
-			std::wstring carrier_code = to_std_wstring(input_carrier_code->Text);
-			carrier_code.erase(0); // '('
-			carrier_code.erase(3); // ')', taking the previous removal and the resulting shift of positions into account
-			std::wstring body = to_std_wstring(input_phone_number_body->Text);
-			body.erase(3); // '-'
-			body.erase(5); // '-'
-			Phone_Number phone_number(to_std_wstring(input_country_code->Text), carrier_code, body);
-
 			Individual new_user(name, phone_number, email, extra_contacts);
-			MessageBox::Show(to_dotnet_string(new_user.serialize()));
+			save(&new_user);
+		}
+
+		else if (button_company->Checked)
+		{
+			std::wstring website = to_std_wstring(input_website->Text);
+			Company_Name name(to_std_wstring(input_legal_form->SelectedText), to_std_wstring(input_company_name->Text));
+			Company new_user(name, phone_number, email, website, extra_contacts);
 			save(&new_user);
 		}
 	}
@@ -812,7 +824,7 @@ private:
 
 		MAX_FOCUS = 6;
 		focus = 0;
-		result[0]->Focus();
+		result[0]->Select();
 
 		return result;
 	}
@@ -858,7 +870,7 @@ private:
 
 		result[1] = input_year;
 
-		result[2] = input_site;
+		result[2] = input_website;
 
 		result[3] = input_carrier_code;
 		result[4] = input_phone_number_body;
@@ -868,7 +880,7 @@ private:
 
 		MAX_FOCUS = 6;
 		focus = 0;
-		result[0]->Focus();
+		result[0]->Select();
 
 		return result;
 	}
@@ -890,7 +902,7 @@ private:
 			input_month->SelectedIndex > -1 &&
 			input_year->Text->Length == 4   &&
 
-			input_site->Text->Length >= 3 &&
+			input_website->Text->Length >= 3 &&
 
 			input_carrier_code->Text->Length	  == 5 &&
 			input_phone_number_body->Text->Length == 9
@@ -973,6 +985,15 @@ private:
 
 	#pragma region ========== Input (Contacts) ==========
 
+	void common_contacts_sufficient_input_check(System::Object^ sender, System::EventArgs^ e)
+	{
+		if (button_individual->Checked)
+			sufficient_input_for_individual_registration_check(nullptr, nullptr);
+		else if (button_company->Checked)
+			sufficient_input_for_company_registration_check(nullptr, nullptr);
+	}
+
+
 	int _carrier_code_previous_length = 0;
 	System::Void on_carrier_code_input(System::Object^ sender, System::EventArgs^ e)
 	{
@@ -992,7 +1013,7 @@ private:
 		}
 
 		_carrier_code_previous_length = input_carrier_code->Text->Length;
-		sufficient_input_for_individual_registration_check(nullptr, nullptr);
+		common_contacts_sufficient_input_check(nullptr, nullptr);
 	}
 
 
@@ -1018,7 +1039,7 @@ private:
 			next_focus();
 
 		_phone_number_body_previous_length = input_phone_number_body->Text->Length;
-		sufficient_input_for_individual_registration_check(nullptr, nullptr);
+		common_contacts_sufficient_input_check(nullptr, nullptr);
 	}
 
 	#pragma endregion

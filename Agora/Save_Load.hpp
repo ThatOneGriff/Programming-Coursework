@@ -8,10 +8,23 @@
 #include "Classes/User.hpp"
 #include "Utils.hpp"
 
+/// Here be:
+User* load(const std::wstring address);
+void  save(User* user, std::wstring address = L"");
 
-void save(User* user)
+
+/*User* load(const std::wstring address)
 {
-	std::wofstream savefile("user.txt");
+	std::wifstream savefile(address);
+	
+}*/
+
+
+void save(User* user, std::wstring address/* = L""*/)
+{
+	if (address == L"")
+		address = user->name->as_filename() + L".txt";
+	std::wofstream savefile(address);
 	savefile << user->serialize();
 	savefile.close();
 }

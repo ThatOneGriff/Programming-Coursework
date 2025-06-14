@@ -11,13 +11,28 @@ using namespace System;  // all things CLR
 #define ENTER	  '\r'
 
 
+std::wstring erase_at(const std::wstring& target, const unsigned int index);
 bool	is_digit (const System::Char target);
 bool	is_letter(System::Char target, const std::wstring additional_symbols = L"-' ¸");
-wchar_t lower(wchar_t target);
+wchar_t		 lower(wchar_t target);
+std::wstring lower(std::wstring target);
 System::String^ to_dotnet_string(const std::wstring& target);
 std::wstring	to_std_wstring(System::String^ target);
 std::wstring	translit_CtoL(const std::wstring& target);
 
+
+/// Because 'wstring::erase' simply refused to work.
+std::wstring erase_at(const std::wstring& target, const unsigned int index)
+{
+	std::wstring result = L"";
+	for (int i = 0; i < target.size(); i++)
+	{
+		if (i == index)
+			continue;
+		result += target[i];
+	}
+	return result;
+}
 
 
 bool is_digit(const System::Char target)
@@ -28,7 +43,7 @@ bool is_digit(const System::Char target)
 }
 
 
-// I suppose 'System::Char' is just 'wchar' without directly stating it. Gods I hate .NET
+// I suppose 'System::Char' is just 'wchar' without directly stating it. Gods, I hate .NET
 bool is_letter(System::Char target, const std::wstring additional_symbols/* = L"-' ¸"*/)
 {
 	target = lower(target);
@@ -47,6 +62,14 @@ wchar_t lower(wchar_t target)
 		return target - (L'A' - L'a');
 	else
 		return target;
+}
+
+
+std::wstring lower(std::wstring target)
+{
+	for (int i = 0; i < target.size(); i++)
+		target[i] = lower(target[i]);
+	return target;
 }
 
 

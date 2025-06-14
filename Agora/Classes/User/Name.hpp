@@ -3,6 +3,7 @@
 #define NAME_HPP
 
 #include <string>
+#include "..\..\Utils.hpp"
 
 class Name; /// abstract class
 class Individual_Name;
@@ -14,13 +15,13 @@ class Name
 {
 public:
 
-	virtual std::wstring get_full() = 0;
-	virtual std::wstring get_short() = 0;
-
-
 	Name(const std::wstring& _name)
 	: name(_name)
 	{}
+
+	virtual std::wstring as_filename() = 0;
+	virtual std::wstring get_full() = 0;
+	virtual std::wstring get_short() = 0;
 
 protected:
 
@@ -36,6 +37,12 @@ public:
 	Individual_Name(const std::wstring& _name, const std::wstring& _surname, const std::wstring& _patronym = L"")
 	: Name(_name), surname(_surname), patronym(_patronym)
 	{}
+
+	// ivanov_ivan_ivanovich
+	std::wstring as_filename()
+	{
+		return lower(translit_CtoL(surname + L'_' + name + L'_' + patronym));
+	}
 
 	// Иванов Иван Иванович
 	std::wstring get_full()
@@ -70,6 +77,12 @@ public:
 	Company_Name(const std::wstring& _legal_form, const std::wstring& _name)
 	: legal_form(_legal_form), Name(_name)
 	{}
+
+	// tmyvbabla
+	std::wstring as_filename()
+	{
+		return lower(translit_CtoL(name));
+	}
 
 	// ООО "Тмывбабла"
 	std::wstring get_full()
