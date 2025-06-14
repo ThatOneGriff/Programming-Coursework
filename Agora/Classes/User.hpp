@@ -2,10 +2,9 @@
 #ifndef USER_HPP
 #define USER_HPP
 
-#include "User/Components/Contractor_Info.hpp"
-#include "User/Components/Name.hpp"
-#include			"User/Phone_Number.hpp"
-#include			  "../Utils.hpp"
+#include "User/Name.hpp"
+#include "User/Phone_Number.hpp"
+#include   "../Utils.hpp"
 
 /// Here be:
 class User;
@@ -23,12 +22,13 @@ public:
 	std::wstring email;
 	std::wstring extra_contacts;
 
-	Contractor_Info contractor_info;
-
 
 	User(const Phone_Number& _phone_number, const std::wstring& _extra_contacts/* = L""*/)
 	: phone_number(_phone_number), extra_contacts(_extra_contacts)
 	{}
+
+	/// Temporary measure before (and if) I decide to go with JSON.
+	virtual std::wstring serialize() = 0;
 };
 
 

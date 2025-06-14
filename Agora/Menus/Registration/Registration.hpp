@@ -23,6 +23,7 @@ namespace Agora {
 		{
 			InitializeComponent();
 			set_greeting_time_based();
+			pick_as_individual(nullptr, nullptr);
 		}
 
     #pragma region ========== WinForms code ==========
@@ -715,8 +716,8 @@ namespace Agora {
 			this->Controls->Add(this->label_no_account);
 			this->Controls->Add(this->label_kalimera);
 			this->Controls->Add(this->label_registration);
-			this->Controls->Add(this->registration_company);
 			this->Controls->Add(this->registration_individual);
+			this->Controls->Add(this->registration_company);
 			this->Name = L"Registration";
 			this->Text = L"Регистрация";
 			this->registration_individual->ResumeLayout(false);
@@ -858,8 +859,7 @@ private:
 			input_month->SelectedIndex > -1 &&
 			input_year->Text->Length == 4   &&
 
-			input_site->Text->Length >= 3/* &&
-			is_email(to_std_wstring(input_email->Text))*/ &&
+			input_site->Text->Length >= 3 &&
 
 			input_carrier_code->Text->Length	  == 5 &&
 			input_phone_number_body->Text->Length == 9

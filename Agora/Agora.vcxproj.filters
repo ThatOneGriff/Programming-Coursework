@@ -35,10 +35,7 @@
     <ClInclude Include="Menus\Registration\Registration.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\User\Components\Contractor_Info.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\User\Components\Name.hpp">
+    <ClInclude Include="Classes\User\Name.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Classes\User\Random_User_Generator.hpp">

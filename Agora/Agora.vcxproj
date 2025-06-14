@@ -124,8 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Listing.hpp" />
-    <ClInclude Include="Classes\User\Components\Name.hpp" />
-    <ClInclude Include="Classes\User\Components\Contractor_Info.hpp" />
+    <ClInclude Include="Classes\User\Name.hpp" />
     <ClInclude Include="Classes\User\Random_User_Generator.hpp" />
     <ClInclude Include="Classes\User.hpp" />
     <ClInclude Include="Menus\Registration\Registration.hpp">

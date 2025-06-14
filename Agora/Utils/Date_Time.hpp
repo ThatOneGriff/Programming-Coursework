@@ -6,18 +6,24 @@
 #include <string> /// 'std::wstring' 
 
 ///  Here be:
-//class Date;
+std::wstring get_date();
 int get_time();
 
 
-/*class Date
+std::wstring get_date()
 {
-public:
+	/// Copied from https://stackoverflow.com/a/68124506/15540979
+	time_t rawtime;
+	struct tm timeinfo;
+	wchar_t buffer[20];
 
-private:
+	time(&rawtime);
+	localtime_s(&timeinfo, &rawtime);
 
-	const std::wstring day, month, year;
-};*/
+	wcsftime(buffer, 20, L"%d.%m.%Y", &timeinfo);
+
+	return buffer;
+}
 
 
 int get_time()
