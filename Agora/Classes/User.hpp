@@ -2,6 +2,8 @@
 #ifndef USER_HPP
 #define USER_HPP
 
+#include <vector>
+
 #include "User/Name.hpp"
 #include "User/Phone_Number.hpp"
 #include   "../Utils.hpp"
@@ -25,8 +27,9 @@ public:
 	std::wstring extra_contacts;
 
 
-	User(Name* _name, const Phone_Number& _phone_number, const std::wstring& _email /* = L""*/, const std::wstring& _extra_contacts/* = L""*/)
-	: name(_name), phone_number(_phone_number), email(_email), extra_contacts(_extra_contacts), account_creation_date(get_date())
+	User(Name* _name, const Phone_Number& _phone_number,			 const std::wstring& _email/* = L""*/,
+					  const std::wstring& _extra_contacts/* = L""*/, const std::wstring& _account_creation_date/* = get_date()*/)
+	: name(_name), phone_number(_phone_number), email(_email), extra_contacts(_extra_contacts), account_creation_date(_account_creation_date)
 	{}
 
 	/// Temporary measure before (and if) I decide to go with JSON.
@@ -43,9 +46,10 @@ class Individual : public User
 {
 public:
 
-	Individual(Individual_Name& _name, const Phone_Number& _phone_number,
-			   const std::wstring& _email = L"", const std::wstring& _extra_contacts = L"")
-	: User(&_name, _phone_number, _email, _extra_contacts)
+	Individual(   Individual_Name& _name,		 const Phone_Number& _phone_number,
+			   const std::wstring& _email = L"", const std::wstring& _extra_contacts = L"",
+			   const std::wstring& _account_creation_date = get_date())
+	: User(&_name, _phone_number, _email, _extra_contacts, _account_creation_date)
 	{}
 
 
@@ -72,9 +76,10 @@ public:
 	std::wstring website;
 
 
-	Company(Company_Name& _name, const Phone_Number& _phone_number, const std::wstring& _email,
-		    const std::wstring& _website, const std::wstring& _extra_contacts = L"")
-	: User(&_name, _phone_number, _email, _extra_contacts), website(_website)
+	Company(	  Company_Name& _name,	const Phone_Number& _phone_number,
+			const std::wstring& _email, const std::wstring& _website,
+			const std::wstring& _extra_contacts = L"", const std::wstring& _account_creation_date = get_date())
+	: User(&_name, _phone_number, _email, _extra_contacts, _account_creation_date), website(_website)
 	{}
 
 
@@ -86,8 +91,8 @@ public:
 			+ name->get_full()		 + L'\n'
 			+ phone_number.serialized() + L'\n'
 			+ email			 + L'\n'
-			+ website		 + L'\n'
-			+ extra_contacts + L'\n';
+			+ extra_contacts + L'\n'
+			+ website		 + L'\n';
 
 		return result;
 	}

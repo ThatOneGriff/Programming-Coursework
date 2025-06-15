@@ -3,6 +3,7 @@
 #define PHONE_NUMBER_HPP
 
 #include <string>
+#include <vector>
 #include "../../Utils.hpp"
 
 /// - The concept of a phone number.
@@ -12,6 +13,10 @@ class Phone_Number;
 class Phone_Number
 {
 public:
+
+	Phone_Number(const std::vector<std::wstring>& separated_raw_data)
+	: country_code(separated_raw_data[0]), carrier_code(separated_raw_data[1]), body(separated_raw_data[2])
+	{}
 	
 	Phone_Number(const std::wstring& _country_code, const std::wstring& _carrier_code, const std::wstring& _body)
 	: country_code(_country_code), carrier_code(_carrier_code), body(_body)

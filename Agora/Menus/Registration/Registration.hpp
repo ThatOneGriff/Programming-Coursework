@@ -775,19 +775,21 @@ private:
 
 		Phone_Number phone_number(to_std_wstring(input_country_code->Text), carrier_code, body);
 
+		// Saving an individual
 		if (button_individual->Checked)
 		{
 			Individual_Name name(to_std_wstring(input_name->Text), to_std_wstring(input_surname->Text), to_std_wstring(input_patronym->Text));
 			Individual new_user(name, phone_number, email, extra_contacts);
-			save(&new_user);
+			save(&new_user, USER_SAVEFILE_NAME);
 		}
 
+		// Saving a company
 		else if (button_company->Checked)
 		{
 			std::wstring website = to_std_wstring(input_website->Text);
 			Company_Name name(to_std_wstring(input_legal_form->Text), to_std_wstring(input_company_name->Text));
 			Company new_user(name, phone_number, email, website, extra_contacts);
-			save(&new_user);
+			save(&new_user, USER_SAVEFILE_NAME);
 		}
 	}
 

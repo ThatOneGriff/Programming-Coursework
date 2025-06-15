@@ -3,6 +3,8 @@
 #define NAME_HPP
 
 #include <string>
+#include <vector>
+
 #include "..\..\Utils.hpp"
 
 class Name; /// abstract class
@@ -33,6 +35,10 @@ protected:
 class Individual_Name: public Name
 {
 public:
+
+	Individual_Name(const std::vector<std::wstring>& separated_raw_data)
+	: surname(separated_raw_data[0]), Name(separated_raw_data[1]), patronym(separated_raw_data[2])
+	{}
 
 	Individual_Name(const std::wstring& _name, const std::wstring& _surname, const std::wstring& _patronym = L"")
 	: Name(_name), surname(_surname), patronym(_patronym)
@@ -73,6 +79,11 @@ friend std::wstring _get_email(const Individual_Name& name);
 class Company_Name : public Name
 {
 public:
+
+	Company_Name(const std::vector<std::wstring>& separated_raw_data)
+	: legal_form(separated_raw_data[0]), Name(separated_raw_data[1])
+	{}
+
 
 	Company_Name(const std::wstring& _legal_form, const std::wstring& _name)
 	: legal_form(_legal_form), Name(_name)

@@ -4,7 +4,9 @@
 
 #include <msclr\marshal_cppstd.h> // string type magic
 #include <string>		 // 'std::wstring'
+#include <sstream>
 #include <unordered_map> // mapping chars for transliteration
+#include <vector>
 using namespace System;  // all things CLR
 
 #define BACKSPACE (char)8
@@ -16,6 +18,7 @@ bool	is_digit (const System::Char target);
 bool	is_letter(System::Char target, const std::wstring additional_symbols = L"-' ¸");
 wchar_t		 lower(wchar_t target);
 std::wstring lower(std::wstring target);
+std::vector<std::wstring> separate(const std::wstring& raw_data);
 System::String^ to_dotnet_string(const std::wstring& target);
 std::wstring	to_std_wstring(System::String^ target);
 std::wstring	translit_CtoL(std::wstring target);
@@ -70,6 +73,20 @@ std::wstring lower(std::wstring target)
 	for (int i = 0; i < target.size(); i++)
 		target[i] = lower(target[i]);
 	return target;
+}
+
+
+std::vector<std::wstring> separate(const std::wstring& raw_data)
+{
+	std::vector<std::wstring> result;
+	std::wstringstream raw_data_sstr;
+	raw_data_sstr << raw_data;
+
+	std::wstring word;
+	while(raw_data_sstr >> word)
+		result.push_back(word);
+
+	return result;
 }
 
 

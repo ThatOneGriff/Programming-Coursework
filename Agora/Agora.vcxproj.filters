@@ -56,5 +56,8 @@
     <ClInclude Include="Save_Load.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\Files.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
