@@ -787,7 +787,8 @@ private:
 			std::wstring website = to_std_wstring(input_website->Text);
 			Company_Name name(to_std_wstring(input_legal_form->Text), to_std_wstring(input_company_name->Text));
 			Company new_user(name, phone_number, email, website, extra_contacts);
-			save(&new_user);
+			MessageBox::Show(to_dotnet_string(new_user.name->as_filename()));
+			//save(&new_user);
 		}
 	}
 

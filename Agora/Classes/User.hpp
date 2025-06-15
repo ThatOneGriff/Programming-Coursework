@@ -18,9 +18,8 @@ class User
 {
 public:
 
-	/// POSSIBLE MEMORY LEAK
+	/// POSSIBLE MEMORY LEAK: Trying to wrap it in a destructor caused errors I have no time to fix.
 	Name* name;
-	/// Trying to wrap it in a destructor caused errors I have no time to fix.
 	Phone_Number phone_number;
 	std::wstring email;
 	std::wstring extra_contacts;

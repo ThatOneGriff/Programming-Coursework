@@ -41,7 +41,7 @@ public:
 	// ivanov_ivan_ivanovich
 	std::wstring as_filename()
 	{
-		return translit_CtoL(surname + L'_' + name + L'_' + patronym);
+		return translit_CtoL(surname) + L'_' + translit_CtoL(name) + L'_' + translit_CtoL(patronym);
 	}
 
 	// Иванов Иван Иванович
@@ -78,10 +78,10 @@ public:
 	: legal_form(_legal_form), Name(_name)
 	{}
 
-	// tmyvbabla
+	// ooo_tmyvbabla
 	std::wstring as_filename()
 	{
-		return translit_CtoL(name);
+		return translit_CtoL(legal_form) + L'_' + translit_CtoL(name);
 	}
 
 	// ООО "Тмывбабла"

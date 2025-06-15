@@ -18,7 +18,7 @@ wchar_t		 lower(wchar_t target);
 std::wstring lower(std::wstring target);
 System::String^ to_dotnet_string(const std::wstring& target);
 std::wstring	to_std_wstring(System::String^ target);
-std::wstring	translit_CtoL(const std::wstring& target);
+std::wstring	translit_CtoL(std::wstring target);
 
 
 /// Because 'wstring::erase' simply refused to work.
@@ -56,9 +56,9 @@ bool is_letter(System::Char target, const std::wstring additional_symbols/* = L"
 
 wchar_t lower(wchar_t target)
 {
-	if (target < L'à' && target >= L'À')
+	if (target < L'à' && target >= L'À') // ru-RU
 		return target - (L'À' - L'à');
-	else if (target < L'a' && target >= L'A')
+	else if (target < L'a' && target >= L'A') // en-EN
 		return target - (L'A' - L'a');
 	else
 		return target;
@@ -81,7 +81,7 @@ System::String^ to_dotnet_string(const std::wstring& target)
 
 
 // Copied from: https://stackoverflow.com/a/1405251/15540979
-std::wstring to_std_wstring(System::String^ target)
+std::wstring to_std_wstring(System::String^ target) // System::String^ doesn't like to be const
 {
 	return msclr::interop::marshal_as<std::wstring>(target);
 }
@@ -95,19 +95,18 @@ std::unordered_map<wchar_t, std::wstring> _char_transliterations {
 	{L'÷', L"ch"}, {L'ø', L"sh"}, {L'ù', L"sch"}, {L'ú', L"y"}, {L'û', L"y"}, {L'ü', L""},  {L'ý', L"e"},  {L'þ', L"yu"},
 	{L'ÿ', L"ya"}
 };
-/// Also lowers, because I don't want to check for both low and high chars, and I'm too lazy to convert
-std::wstring translit_CtoL(const std::wstring& target)
+/// Lowers, because I don't want to check for both low and high chars, and I'm too lazy to convert
+std::wstring translit_CtoL(std::wstring target)
 {
-	std::wstring result = L"";
-	for (const wchar_t& c : target)
+	for (int i = 0; i < target.size(); i++)
 	{
-		// Avoiding accidental insert
-		if (_char_transliterations.find(lower(c)) == _char_transliterations.end())
-			result += lower(c);
+		wchar_t c = lower(target[i]);
+		if (_char_transliterations.find(c) == _char_transliterations.end())
+			target[i] = c;
 		else
-			result += _char_transliterations[lower(c)];
+			target.insert(i, _char_transliterations[c]); // 'insert' because some transliterations are 2 (sh) or even 3 (sch) symbols long
 	}
-	return result;
+	return target;
 }
 
 #endif
