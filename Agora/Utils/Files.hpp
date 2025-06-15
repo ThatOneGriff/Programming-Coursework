@@ -15,8 +15,7 @@ std::vector<std::wstring> to_string_bundle(std::wifstream& file, const unsigned 
 // Copied from https://stackoverflow.com/a/2390938/15540979
 bool is_empty(std::wifstream& file)
 {
-	/// (Location of cursor) \  (				File emptiness                 )
-	return file.tellg() == 0 && file.peek() == std::ifstream::traits_type::eof();
+	return file.peek() == std::wifstream::traits_type::eof();
 }
 
 

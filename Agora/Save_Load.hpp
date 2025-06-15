@@ -36,7 +36,6 @@ User* load(const std::wstring address)
 	// Empty check
 	if (is_empty(savefile))
 	{
-		MessageBox::Show(L"'" + to_dotnet_string(address) + L"' пуст или недоступен!");
 		savefile.close();
 		return nullptr;
 	}
