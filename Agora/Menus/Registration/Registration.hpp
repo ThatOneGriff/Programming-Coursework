@@ -6,6 +6,9 @@
 #include "Classes/User.hpp"
 #include   "..\..\Save_Load.hpp"
 
+#include <string>
+#include <vector>
+
 
 namespace Agora {
 
@@ -20,11 +23,42 @@ namespace Agora {
 	public ref class Registration : public System::Windows::Forms::Form
 	{
 	public:
-		Registration()
+		Registration(User* data_to_fill, const std::wstring& account_type)
 		{
 			InitializeComponent();
 			set_greeting_time_based();
 			pick_as_individual(nullptr, nullptr);
+
+			/// = Re-registration-related =
+
+			if (data_to_fill == nullptr)
+				return;
+
+			if (account_type == L"individual")
+			{
+				button_individual->Select();
+				pick_as_individual(nullptr, nullptr);
+
+				std::vector<std::wstring> name  = separate(data_to_fill->name->get_full());
+				this->input_surname->Text  = to_dotnet_string(name[0]);
+				this->input_name->Text =	 to_dotnet_string(name[1]);
+				this->input_patronym->Text = to_dotnet_string(name[2]);
+			}
+			else if (account_type == L"company")
+			{
+				button_company->Select();
+				pick_as_company(nullptr, nullptr);
+			
+			}
+
+			/// = Common between both account types =
+			std::vector<std::wstring> phone = separate(data_to_fill->phone_number.as_text());
+			this->input_country_code->Text = to_dotnet_string(phone[0]);
+			this->input_carrier_code->Text = to_dotnet_string(phone[1]);
+			this->input_phone_number_body->Text = to_dotnet_string(phone[2]);
+
+			this->input_email->Text = to_dotnet_string(data_to_fill->email);
+			this->input_extra->Text = to_dotnet_string(data_to_fill->extra_contacts);
 		}
 
     #pragma region ========== WinForms code ==========
