@@ -80,7 +80,7 @@ std::vector<std::wstring> separate(const std::wstring& raw_data)
 {
 	std::vector<std::wstring> result;
 	std::wstringstream raw_data_sstr;
-	raw_data_sstr << raw_data;
+	raw_data_sstr.str(raw_data);
 
 	std::wstring word;
 	while(raw_data_sstr >> word)

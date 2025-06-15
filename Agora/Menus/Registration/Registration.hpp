@@ -791,6 +791,8 @@ private:
 			Company new_user(name, phone_number, email, website, extra_contacts);
 			save(&new_user, USER_SAVEFILE_NAME);
 		}
+
+		this->Close();
 	}
 
 
