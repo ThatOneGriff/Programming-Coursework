@@ -27,9 +27,9 @@ public:
 	std::wstring extra_contacts;
 
 
-	User(Name* _name, const Phone_Number& _phone_number,			 const std::wstring& _email/* = L""*/,
-					  const std::wstring& _extra_contacts/* = L""*/, const std::wstring& _account_creation_date/* = get_date()*/)
-	: name(_name), phone_number(_phone_number), email(_email), extra_contacts(_extra_contacts), account_creation_date(_account_creation_date)
+	User(const Phone_Number& _phone_number,			    const std::wstring& _email/* = L""*/,
+		 const std::wstring& _extra_contacts/* = L""*/, const std::wstring& _account_creation_date/* = get_date()*/)
+	: phone_number(_phone_number), email(_email), extra_contacts(_extra_contacts), account_creation_date(_account_creation_date)
 	{}
 
 	/// Temporary measure before (and if) I decide to go with JSON.
@@ -46,11 +46,16 @@ class Individual : public User
 {
 public:
 
-	Individual(   Individual_Name& _name,		 const Phone_Number& _phone_number,
+	Individual(const Individual_Name& _name,	 const Phone_Number& _phone_number,
 			   const std::wstring& _email = L"", const std::wstring& _extra_contacts = L"",
 			   const std::wstring& _account_creation_date = get_date())
-	: User(&_name, _phone_number, _email, _extra_contacts, _account_creation_date)
-	{}
+	: name_obj(_name), User(_phone_number, _email, _extra_contacts, _account_creation_date)
+	{
+		/// Pointer magic. Basically, 'name' used to be a pointer
+		/// to an object you gave the constructor. It resulted in
+		/// a problem where 'name' kinda existed, but kinda was in this limbo
+		name = &name_obj;
+	}
 
 
 	std::wstring serialize()
@@ -65,6 +70,10 @@ public:
 
 		return result;
 	}
+
+private:
+
+	Individual_Name name_obj;
 };
 
 
@@ -76,11 +85,16 @@ public:
 	std::wstring website;
 
 
-	Company(	  Company_Name& _name,	const Phone_Number& _phone_number,
+	Company(const Company_Name& _name,	const Phone_Number& _phone_number,
 			const std::wstring& _email, const std::wstring& _website,
 			const std::wstring& _extra_contacts = L"", const std::wstring& _account_creation_date = get_date())
-	: User(&_name, _phone_number, _email, _extra_contacts, _account_creation_date), website(_website)
-	{}
+	: name_obj(_name), User(_phone_number, _email, _extra_contacts, _account_creation_date), website(_website)
+	{
+		/// Pointer magic. Basically, 'name' used to be a pointer
+		/// to an object you gave the constructor. It resulted in
+		/// a problem where 'name' kinda existed, but kinda was in this limbo
+		name = &name_obj;
+	}
 
 
 	std::wstring serialize()
@@ -96,6 +110,10 @@ public:
 
 		return result;
 	}
+
+private:
+
+	Company_Name name_obj;
 };
 
 #endif

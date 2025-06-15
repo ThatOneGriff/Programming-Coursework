@@ -43,7 +43,6 @@ public:
 		return concealed_num;
 	}
 
-
 	// +7 123 4567890
 	std::wstring serialized()
 	{

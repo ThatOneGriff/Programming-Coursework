@@ -10,6 +10,9 @@
 #include "Classes/User.hpp"
 #include "Utils.hpp"
 
+/// This file is for saving and loading 'User's.
+/// [!!!] IF YOU'RE LOOKING FOR FILE MANIPULATION, consult 'Utils/Files.hpp'.
+
 /// Here be:
 User* load(const std::wstring address);
 void  save(User* user, std::wstring address = L"");

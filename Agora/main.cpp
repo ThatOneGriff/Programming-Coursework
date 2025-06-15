@@ -26,7 +26,7 @@ int WINAPI WinMain(const HINSTANCE, const HINSTANCE, const LPSTR, const int)
 	/// - window cycle
 	/// - preemptive savefile check
 
-	System::Windows::Forms::MessageBox::Show(to_dotnet_string(user->serialize()));
+	MessageBox::Show(to_dotnet_string(user->serialize()));
     Application::Run(gcnew Main_Menu);
 
     return 0;
