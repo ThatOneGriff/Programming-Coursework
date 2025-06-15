@@ -19,7 +19,7 @@ public:
 	: name(_name)
 	{}
 
-	virtual std::wstring as_filename() = 0;
+	virtual std::wstring as_filename(const std::wstring& extension) = 0;
 	virtual std::wstring get_full() = 0;
 	virtual std::wstring get_short() = 0;
 
@@ -38,10 +38,10 @@ public:
 	: Name(_name), surname(_surname), patronym(_patronym)
 	{}
 
-	// ivanov_ivan_ivanovich
-	std::wstring as_filename()
+	// ivanov_ivan_ivanovich<...>
+	std::wstring as_filename(const std::wstring& extension)
 	{
-		return translit_CtoL(surname) + L'_' + translit_CtoL(name) + L'_' + translit_CtoL(patronym);
+		return translit_CtoL(surname) + L'_' + translit_CtoL(name) + L'_' + translit_CtoL(patronym) + extension;
 	}
 
 	// Иванов Иван Иванович
@@ -78,10 +78,10 @@ public:
 	: legal_form(_legal_form), Name(_name)
 	{}
 
-	// ooo_tmyvbabla
-	std::wstring as_filename()
+	// tmyvbabla<...>
+	std::wstring as_filename(const std::wstring& extension)
 	{
-		return translit_CtoL(legal_form) + L'_' + translit_CtoL(name);
+		return translit_CtoL(name) + extension;
 	}
 
 	// ООО "Тмывбабла"

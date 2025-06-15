@@ -84,7 +84,7 @@ public:
 			L"company\n"
 			+ account_creation_date  + L'\n'
 			+ name->get_full()		 + L'\n'
-			+ phone_number.as_text() + L'\n'
+			+ phone_number.serialized() + L'\n'
 			+ email			 + L'\n'
 			+ website		 + L'\n'
 			+ extra_contacts + L'\n';

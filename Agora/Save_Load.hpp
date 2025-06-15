@@ -23,7 +23,7 @@ void  save(User* user, std::wstring address = L"");
 void save(User* user, std::wstring address/* = L""*/)
 {
 	if (address == L"")
-		address = user->name->as_filename() + L".txt";
+		address = user->name->as_filename(L".txt");
 	std::wofstream savefile(address);
 	savefile << user->serialize();
 	savefile.close();
