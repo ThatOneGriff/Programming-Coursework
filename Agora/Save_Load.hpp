@@ -27,8 +27,13 @@ User* load(const std::wstring address)
 	/// For 'MessageBox'
 	using namespace System::Windows::Forms;
 
-	// Empty check
 	std::wifstream savefile(address);
+	// Copied from: https://stackoverflow.com/a/3950840/15540979
+	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
+	savefile.imbue(loc);
+	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
+
+	// Empty check
 	if (is_empty(savefile))
 	{
 		MessageBox::Show(L"'" + to_dotnet_string(address) + L"' пуст или недоступен!");
@@ -65,6 +70,7 @@ User* load(const std::wstring address)
 	/// Absolutely no checks in place. This shit can break in so many ways
 
 	Phone_Number phone_number(separate(_phone_number));
+	MessageBox::Show(to_dotnet_string(_name));
 	if (account_type == L"individual")
 	{
 		Individual_Name name(separate(_name));

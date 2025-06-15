@@ -25,6 +25,7 @@ int WINAPI WinMain(const HINSTANCE, const HINSTANCE, const LPSTR, const int)
 	/// = Known Errors =
 	/// - window cycle
 	/// - preemptive savefile check
+	/// - cyrillic is fucking broken
 
 	MessageBox::Show(to_dotnet_string(user->serialize()));
     Application::Run(gcnew Main_Menu);
