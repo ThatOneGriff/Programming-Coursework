@@ -69,7 +69,6 @@ User* load(const std::wstring address)
 	/// Absolutely no checks in place. This shit can break in so many ways
 
 	Phone_Number phone_number(separate(_phone_number));
-	MessageBox::Show(to_dotnet_string(_name));
 	if (account_type == L"individual")
 	{
 		Individual_Name name(separate(_name));
