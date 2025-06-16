@@ -57,8 +57,6 @@ namespace Agora {
 				pick_as_company(nullptr, nullptr);
 				
 				this->input_legal_form->SelectedItem = to_dotnet_string(name[0]);
-				// this is for erasing automatically-added quote marks, so that they don't snowball
-				//name[1] = name[1].substr(1, name[1].size() - 2);
 				this->input_company_name->Text = to_dotnet_string(name[1]);
 				
 				this->input_website->Text = to_dotnet_string(data_to_fill->website);

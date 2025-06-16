@@ -33,6 +33,7 @@ int WINAPI WinMain(const HINSTANCE, const HINSTANCE, const LPSTR, const int)
 	/// = TODO =
 	/// - we could define a '=' between 'System::String^' and 'std::wstring'
 	/// - string split by char
+	/// - headings for every 'MessageBox'
 	
 	/// Debug admin account.
 	#ifdef DEBUG

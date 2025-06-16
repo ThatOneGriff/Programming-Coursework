@@ -28,6 +28,15 @@ public:
 	: user(_user)
 	{
 		InitializeComponent();
+		/// Flipping through menus without gluing them to one another.
+		System::Drawing::Point location(12, 12);
+		menu_account->Location = location;
+		menu_feed->Location = location;
+		menu_search->Location = location;
+
+		/// Centering everything
+		center_x(label_search_will_be, menu_search);
+		center_x(label_in_future_updates, menu_search);
 	}
 
 	#pragma region = Winforms Code =
@@ -69,13 +78,28 @@ private: System::Windows::Forms::TextBox^ output_account_website;
 private: System::Windows::Forms::Panel^ menu_feed;
 private: System::Windows::Forms::Label^ label_feed;
 private: System::Windows::Forms::PictureBox^ bg_feed;
-private: System::Windows::Forms::GroupBox^ group_active_duties;
+
 
 
 private: System::Windows::Forms::GroupBox^ group_offers;
 private: System::Windows::Forms::GroupBox^ group_orders;
 private: System::Windows::Forms::Button^ button_feed_update;
 private: System::Windows::Forms::Timer^ timer;
+private: System::Windows::Forms::Panel^ menu_search;
+private: System::Windows::Forms::Label^ label_in_future_updates;
+
+private: System::Windows::Forms::Label^ label_search_will_be;
+
+private: System::Windows::Forms::Button^ button_search;
+
+private: System::Windows::Forms::TextBox^ input_search;
+
+private: System::Windows::Forms::Label^ label_search;
+private: System::Windows::Forms::PictureBox^ pictureBox1;
+
+
+
+
 
 
 
@@ -101,7 +125,6 @@ private: System::Windows::Forms::Timer^ timer;
 			this->menu_button_account = (gcnew System::Windows::Forms::Button());
 			this->menu_button_feed = (gcnew System::Windows::Forms::Button());
 			this->menu_account = (gcnew System::Windows::Forms::Panel());
-			this->group_active_duties = (gcnew System::Windows::Forms::GroupBox());
 			this->group_account_data = (gcnew System::Windows::Forms::GroupBox());
 			this->output_account_website = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
@@ -118,12 +141,21 @@ private: System::Windows::Forms::Timer^ timer;
 			this->label_feed = (gcnew System::Windows::Forms::Label());
 			this->bg_feed = (gcnew System::Windows::Forms::PictureBox());
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->menu_search = (gcnew System::Windows::Forms::Panel());
+			this->label_in_future_updates = (gcnew System::Windows::Forms::Label());
+			this->label_search_will_be = (gcnew System::Windows::Forms::Label());
+			this->button_search = (gcnew System::Windows::Forms::Button());
+			this->input_search = (gcnew System::Windows::Forms::TextBox());
+			this->label_search = (gcnew System::Windows::Forms::Label());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->sidebar->SuspendLayout();
 			this->menu_account->SuspendLayout();
 			this->group_account_data->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->BeginInit();
 			this->menu_feed->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->BeginInit();
+			this->menu_search->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menu_button_search
@@ -137,6 +169,7 @@ private: System::Windows::Forms::Timer^ timer;
 			this->menu_button_search->Size = System::Drawing::Size(75, 75);
 			this->menu_button_search->TabIndex = 1;
 			this->menu_button_search->UseVisualStyleBackColor = false;
+			this->menu_button_search->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_search);
 			// 
 			// sidebar
 			// 
@@ -163,6 +196,7 @@ private: System::Windows::Forms::Timer^ timer;
 			this->menu_button_info->Size = System::Drawing::Size(75, 75);
 			this->menu_button_info->TabIndex = 4;
 			this->menu_button_info->UseVisualStyleBackColor = false;
+			this->menu_button_info->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_info);
 			// 
 			// menu_button_settings
 			// 
@@ -205,23 +239,13 @@ private: System::Windows::Forms::Timer^ timer;
 			// menu_account
 			// 
 			this->menu_account->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->menu_account->Controls->Add(this->group_active_duties);
 			this->menu_account->Controls->Add(this->group_account_data);
 			this->menu_account->Controls->Add(this->label_my_account);
 			this->menu_account->Controls->Add(this->bg_my_account);
-			this->menu_account->Location = System::Drawing::Point(12, 12);
+			this->menu_account->Location = System::Drawing::Point(662, 449);
 			this->menu_account->Name = L"menu_account";
 			this->menu_account->Size = System::Drawing::Size(534, 415);
 			this->menu_account->TabIndex = 2;
-			// 
-			// group_active_duties
-			// 
-			this->group_active_duties->Location = System::Drawing::Point(281, 157);
-			this->group_active_duties->Name = L"group_active_duties";
-			this->group_active_duties->Size = System::Drawing::Size(248, 250);
-			this->group_active_duties->TabIndex = 5;
-			this->group_active_duties->TabStop = false;
-			this->group_active_duties->Text = L"Активные подряды";
 			// 
 			// group_account_data
 			// 
@@ -333,7 +357,7 @@ private: System::Windows::Forms::Timer^ timer;
 			this->menu_feed->Controls->Add(this->group_offers);
 			this->menu_feed->Controls->Add(this->label_feed);
 			this->menu_feed->Controls->Add(this->bg_feed);
-			this->menu_feed->Location = System::Drawing::Point(12, 12);
+			this->menu_feed->Location = System::Drawing::Point(662, 12);
 			this->menu_feed->Name = L"menu_feed";
 			this->menu_feed->Size = System::Drawing::Size(534, 415);
 			this->menu_feed->TabIndex = 3;
@@ -396,15 +420,92 @@ private: System::Windows::Forms::Timer^ timer;
 			this->timer->Interval = 500;
 			this->timer->Tick += gcnew System::EventHandler(this, &Main_Menu::update_feed);
 			// 
+			// menu_search
+			// 
+			this->menu_search->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->menu_search->Controls->Add(this->label_in_future_updates);
+			this->menu_search->Controls->Add(this->label_search_will_be);
+			this->menu_search->Controls->Add(this->button_search);
+			this->menu_search->Controls->Add(this->input_search);
+			this->menu_search->Controls->Add(this->label_search);
+			this->menu_search->Controls->Add(this->pictureBox1);
+			this->menu_search->Location = System::Drawing::Point(12, 12);
+			this->menu_search->Name = L"menu_search";
+			this->menu_search->Size = System::Drawing::Size(534, 415);
+			this->menu_search->TabIndex = 7;
+			// 
+			// label_in_future_updates
+			// 
+			this->label_in_future_updates->AutoSize = true;
+			this->label_in_future_updates->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->label_in_future_updates->Location = System::Drawing::Point(47, 227);
+			this->label_in_future_updates->Name = L"label_in_future_updates";
+			this->label_in_future_updates->Size = System::Drawing::Size(431, 20);
+			this->label_in_future_updates->TabIndex = 4;
+			this->label_in_future_updates->Text = L"...в будущих обновлениях. Спасибо, что вы с нами!\r\n";
+			// 
+			// label_search_will_be
+			// 
+			this->label_search_will_be->AutoSize = true;
+			this->label_search_will_be->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_search_will_be->Location = System::Drawing::Point(191, 194);
+			this->label_search_will_be->Name = L"label_search_will_be";
+			this->label_search_will_be->Size = System::Drawing::Size(161, 25);
+			this->label_search_will_be->TabIndex = 3;
+			this->label_search_will_be->Text = L"Поиску - быть!";
+			// 
+			// button_search
+			// 
+			this->button_search->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_search.BackgroundImage")));
+			this->button_search->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->button_search->Location = System::Drawing::Point(16, 155);
+			this->button_search->Name = L"button_search";
+			this->button_search->Size = System::Drawing::Size(35, 35);
+			this->button_search->TabIndex = 2;
+			this->button_search->UseVisualStyleBackColor = true;
+			// 
+			// input_search
+			// 
+			this->input_search->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->input_search->Location = System::Drawing::Point(51, 157);
+			this->input_search->Name = L"input_search";
+			this->input_search->Size = System::Drawing::Size(465, 30);
+			this->input_search->TabIndex = 1;
+			// 
+			// label_search
+			// 
+			this->label_search->AutoSize = true;
+			this->label_search->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_search->Location = System::Drawing::Point(9, 12);
+			this->label_search->Name = L"label_search";
+			this->label_search->Size = System::Drawing::Size(229, 29);
+			this->label_search->TabIndex = 0;
+			this->label_search->Text = L"Поиск и фильтры";
+			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.BackgroundImage")));
+			this->pictureBox1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->pictureBox1->Location = System::Drawing::Point(-1, -1);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(534, 152);
+			this->pictureBox1->TabIndex = 5;
+			this->pictureBox1->TabStop = false;
+			// 
 			// Main_Menu
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(639, 437);
-			this->Controls->Add(this->sidebar);
+			this->ClientSize = System::Drawing::Size(647, 433);
 			this->Controls->Add(this->menu_feed);
 			this->Controls->Add(this->menu_account);
+			this->Controls->Add(this->sidebar);
+			this->Controls->Add(this->menu_search);
 			this->DoubleBuffered = true;
 			this->Name = L"Main_Menu";
 			this->Text = L"Agora";
@@ -417,6 +518,9 @@ private: System::Windows::Forms::Timer^ timer;
 			this->menu_feed->ResumeLayout(false);
 			this->menu_feed->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->EndInit();
+			this->menu_search->ResumeLayout(false);
+			this->menu_search->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -424,6 +528,15 @@ private: System::Windows::Forms::Timer^ timer;
 		#pragma endregion
 
 private:
+
+	void center_x(Control^ target, Control^ relative_to)
+	{
+		/// Don't y'all love variables that don't state they're readonly?
+		System::Drawing::Size size = TextRenderer::MeasureText(target->Text, target->Font);
+		target->Size = size;
+		System::Drawing::Point location((relative_to->Width - size.Width) / 2, target->Location.Y);
+		target->Location = location;
+	}
 
 	#pragma region ======= Feed =======
 
@@ -444,7 +557,6 @@ private:
 	}
 
 	#pragma endregion
-
 
 
 	#pragma region ======= Account =======
@@ -491,6 +603,27 @@ private:
 		output_account_extra->Text = to_dotnet_string(user->extra_contacts);
 		if (output_account_extra->Text == "")
 			output_account_extra->Text = "-";
+	}
+
+	#pragma endregion
+
+
+	#pragma region ======= Misc. menus =======
+
+	System::String^ program_info =
+						   "Agora v.1.0 от 16.06.2025\n"
+						 + "Курсовой проект от Первакова А.И.\n"
+						 + "КубГАУ, Прикладная информатика, ИТ2403";
+	void sidebar_pick_info(System::Object^ sender, System::EventArgs^ e)
+	{
+		MessageBox::Show(program_info, "О программе", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+
+
+	void sidebar_pick_search(System::Object^ sender, System::EventArgs^ e)
+	{
+		this->Text = "Agora: Поиск объявлений и аккаунтов";
+		menu_search->BringToFront();
 	}
 
 	#pragma endregion
