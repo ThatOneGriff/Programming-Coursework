@@ -23,32 +23,48 @@ namespace Agora {
 	public ref class Registration : public System::Windows::Forms::Form
 	{
 	public:
-		Registration(User* data_to_fill, const std::wstring& account_type)
+		Registration(User* data_to_fill)
 		{
 			InitializeComponent();
-			set_greeting_time_based();
 			pick_as_individual(nullptr, nullptr);
 
-			/// = Re-registration-related =
-
-			if (data_to_fill == nullptr)
+			if (data_to_fill == nullptr) // not re-registration
+			{
+				set_greeting_time_based();
 				return;
+			}
 
-			if (account_type == L"individual")
+			/// = Re-registration =
+			
+			label_registration->Text = "Редактирование";
+			center_x(label_registration);
+			label_kalimera->Text =	   "Изменение данных";
+			center_x(label_kalimera);
+			label_no_account->Text =   "Текущие данные вашего аккаунта введены.";
+			center_x(label_no_account);
+
+			std::vector<std::wstring> name = separate(data_to_fill->name->get_full());
+			if (typeid(*data_to_fill) == typeid(Individual))
 			{
 				button_individual->Select();
 				pick_as_individual(nullptr, nullptr);
 
-				std::vector<std::wstring> name  = separate(data_to_fill->name->get_full());
 				this->input_surname->Text  = to_dotnet_string(name[0]);
 				this->input_name->Text =	 to_dotnet_string(name[1]);
 				this->input_patronym->Text = to_dotnet_string(name[2]);
 			}
-			else if (account_type == L"company")
+			else if (typeid(*data_to_fill) == typeid(Company))
 			{
 				button_company->Select();
 				pick_as_company(nullptr, nullptr);
-			
+				
+				this->input_legal_form->SelectedItem = to_dotnet_string(name[0]);
+				this->input_company_name->Text =	   to_dotnet_string(name[1]);
+			}
+			else
+			{
+				MessageBox::Show("Type error: couldn't resolve user's account type");
+				this->Close();
 			}
 
 			/// = Common between both account types =
@@ -114,10 +130,10 @@ namespace Agora {
 
 	private: System::Windows::Forms::Label^ label_extra;
 	private: System::Windows::Forms::GroupBox^ registration_company;
-	private: System::Windows::Forms::TextBox^ textBox1;
-	private: System::Windows::Forms::TextBox^ textBox2;
-	private: System::Windows::Forms::TextBox^ textBox3;
-	private: System::Windows::Forms::Label^ label_;
+
+
+
+
 
 
 
@@ -134,7 +150,8 @@ namespace Agora {
 
 	private: System::Windows::Forms::Button^ button_register;
 	private: System::Windows::Forms::ComboBox^ input_legal_form;
-	private: System::Windows::Forms::Label^ label3;
+private: System::Windows::Forms::Label^ label_y;
+
 	private: System::Windows::Forms::TextBox^ input_year;
 
 
@@ -192,16 +209,12 @@ namespace Agora {
 			this->label_year = (gcnew System::Windows::Forms::Label());
 			this->label_month = (gcnew System::Windows::Forms::Label());
 			this->input_website = (gcnew System::Windows::Forms::TextBox());
-			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label_y = (gcnew System::Windows::Forms::Label());
 			this->input_year = (gcnew System::Windows::Forms::TextBox());
 			this->input_month = (gcnew System::Windows::Forms::ComboBox());
 			this->label_website = (gcnew System::Windows::Forms::Label());
 			this->label_est = (gcnew System::Windows::Forms::Label());
 			this->input_legal_form = (gcnew System::Windows::Forms::ComboBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-			this->label_ = (gcnew System::Windows::Forms::Label());
 			this->label_company_name = (gcnew System::Windows::Forms::Label());
 			this->input_company_name = (gcnew System::Windows::Forms::TextBox());
 			this->button_register = (gcnew System::Windows::Forms::Button());
@@ -226,7 +239,7 @@ namespace Agora {
 			this->label_kalimera->AutoSize = true;
 			this->label_kalimera->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_kalimera->Location = System::Drawing::Point(199, 45);
+			this->label_kalimera->Location = System::Drawing::Point(187, 44);
 			this->label_kalimera->Name = L"label_kalimera";
 			this->label_kalimera->Size = System::Drawing::Size(52, 20);
 			this->label_kalimera->TabIndex = 1000;
@@ -524,16 +537,12 @@ namespace Agora {
 			this->registration_company->Controls->Add(this->label_year);
 			this->registration_company->Controls->Add(this->label_month);
 			this->registration_company->Controls->Add(this->input_website);
-			this->registration_company->Controls->Add(this->label3);
+			this->registration_company->Controls->Add(this->label_y);
 			this->registration_company->Controls->Add(this->input_year);
 			this->registration_company->Controls->Add(this->input_month);
 			this->registration_company->Controls->Add(this->label_website);
 			this->registration_company->Controls->Add(this->label_est);
 			this->registration_company->Controls->Add(this->input_legal_form);
-			this->registration_company->Controls->Add(this->textBox1);
-			this->registration_company->Controls->Add(this->textBox2);
-			this->registration_company->Controls->Add(this->textBox3);
-			this->registration_company->Controls->Add(this->label_);
 			this->registration_company->Controls->Add(this->label_company_name);
 			this->registration_company->Controls->Add(this->input_company_name);
 			this->registration_company->Location = System::Drawing::Point(50, 142);
@@ -578,16 +587,16 @@ namespace Agora {
 			this->input_website->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
 			this->input_website->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
-			// label3
+			// label_y
 			// 
-			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_y->AutoSize = true;
+			this->label_y->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label3->Location = System::Drawing::Point(343, 60);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(21, 20);
-			this->label3->TabIndex = 1006;
-			this->label3->Text = L"г.";
+			this->label_y->Location = System::Drawing::Point(343, 60);
+			this->label_y->Name = L"label_y";
+			this->label_y->Size = System::Drawing::Size(21, 20);
+			this->label_y->TabIndex = 1006;
+			this->label_y->Text = L"г.";
 			// 
 			// input_year
 			// 
@@ -665,51 +674,6 @@ namespace Agora {
 			this->input_legal_form->SelectedValueChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
 			this->input_legal_form->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
-			// textBox1
-			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->textBox1->Location = System::Drawing::Point(279, 145);
-			this->textBox1->MaxLength = 9;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(90, 26);
-			this->textBox1->TabIndex = 4;
-			this->textBox1->TabStop = false;
-			// 
-			// textBox2
-			// 
-			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->textBox2->Location = System::Drawing::Point(184, 145);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->ReadOnly = true;
-			this->textBox2->Size = System::Drawing::Size(38, 26);
-			this->textBox2->TabIndex = 1000;
-			this->textBox2->TabStop = false;
-			this->textBox2->Text = L"+7";
-			// 
-			// textBox3
-			// 
-			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->textBox3->Location = System::Drawing::Point(228, 145);
-			this->textBox3->MaxLength = 5;
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(45, 26);
-			this->textBox3->TabIndex = 3;
-			this->textBox3->TabStop = false;
-			// 
-			// label_
-			// 
-			this->label_->AutoSize = true;
-			this->label_->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->label_->Location = System::Drawing::Point(22, 148);
-			this->label_->Name = L"label_";
-			this->label_->Size = System::Drawing::Size(160, 20);
-			this->label_->TabIndex = 1000;
-			this->label_->Text = L"Номер телефона:";
-			// 
 			// label_company_name
 			// 
 			this->label_company_name->AutoSize = true;
@@ -760,8 +724,8 @@ namespace Agora {
 			this->Controls->Add(this->label_no_account);
 			this->Controls->Add(this->label_kalimera);
 			this->Controls->Add(this->label_registration);
-			this->Controls->Add(this->registration_company);
 			this->Controls->Add(this->registration_individual);
+			this->Controls->Add(this->registration_company);
 			this->Name = L"Registration";
 			this->Text = L"Регистрация";
 			this->registration_individual->ResumeLayout(false);
@@ -778,6 +742,15 @@ namespace Agora {
 		#pragma endregion
 
 private:
+
+	void center_x(Control^ target)
+	{
+		/// Don't y'all love variables that don't state they're readonly?
+		System::Drawing::Size size = TextRenderer::MeasureText(target->Text, target->Font);
+		target->Size = size;
+		System::Drawing::Point location((this->Width - size.Width) / 2, target->Location.Y);
+		target->Location = location;
+	}
 
 	void set_greeting_time_based()
 	{

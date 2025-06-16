@@ -327,8 +327,16 @@ private:
 
 	void edit_account_data(System::Object^ sender, System::EventArgs^ e)
 	{
-		Registration^ registration = gcnew Registration(user, L"individual");
+		Registration^ registration = gcnew Registration(user);
 		registration->ShowDialog();
+		user = load(USER_SAVEFILE_NAME);
+		if (user == nullptr)
+		{
+			MessageBox::Show("Couldn't read updated data.");
+			exit(1);
+		}
+
+		fill_account_menu();
 	}
 
 
