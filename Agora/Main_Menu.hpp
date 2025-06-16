@@ -2,6 +2,8 @@
 #ifndef MAIN_MENU_HPP
 #define MAIN_MENU_HPP
 
+#include <stdio.h> // File removal
+
 #include "Menus/Registration/Registration.hpp"
 
 #include "Classes/User.hpp"
@@ -61,8 +63,9 @@ private: System::Windows::Forms::TextBox^ output_account_extra;
 
 
 
-private: System::Windows::Forms::Button^ button2;
+
 private: System::Windows::Forms::Button^ button1;
+private: System::Windows::Forms::TextBox^ output_account_website;
 
 
 
@@ -82,7 +85,6 @@ private: System::Windows::Forms::Button^ button1;
 			this->menu_button_feed = (gcnew System::Windows::Forms::Button());
 			this->menu_account = (gcnew System::Windows::Forms::Panel());
 			this->group_account_data = (gcnew System::Windows::Forms::GroupBox());
-			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->output_account_extra = (gcnew System::Windows::Forms::TextBox());
 			this->output_account_email = (gcnew System::Windows::Forms::TextBox());
@@ -90,6 +92,7 @@ private: System::Windows::Forms::Button^ button1;
 			this->output_account_name = (gcnew System::Windows::Forms::TextBox());
 			this->label_my_account = (gcnew System::Windows::Forms::Label());
 			this->bg_my_account = (gcnew System::Windows::Forms::PictureBox());
+			this->output_account_website = (gcnew System::Windows::Forms::TextBox());
 			this->sidebar->SuspendLayout();
 			this->menu_account->SuspendLayout();
 			this->group_account_data->SuspendLayout();
@@ -184,7 +187,7 @@ private: System::Windows::Forms::Button^ button1;
 			// 
 			// group_account_data
 			// 
-			this->group_account_data->Controls->Add(this->button2);
+			this->group_account_data->Controls->Add(this->output_account_website);
 			this->group_account_data->Controls->Add(this->button1);
 			this->group_account_data->Controls->Add(this->output_account_extra);
 			this->group_account_data->Controls->Add(this->output_account_email);
@@ -197,28 +200,13 @@ private: System::Windows::Forms::Button^ button1;
 			this->group_account_data->TabStop = false;
 			this->group_account_data->Text = L"Данные";
 			// 
-			// button2
-			// 
-			this->button2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)), static_cast<System::Int32>(static_cast<System::Byte>(191)),
-				static_cast<System::Int32>(static_cast<System::Byte>(202)));
-			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->button2->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(190)), static_cast<System::Int32>(static_cast<System::Byte>(49)),
-				static_cast<System::Int32>(static_cast<System::Byte>(68)));
-			this->button2->Location = System::Drawing::Point(6, 204);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(255, 40);
-			this->button2->TabIndex = 4;
-			this->button2->Text = L"Удалить аккаунт";
-			this->button2->UseVisualStyleBackColor = false;
-			// 
 			// button1
 			// 
 			this->button1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)), static_cast<System::Int32>(static_cast<System::Byte>(191)),
 				static_cast<System::Int32>(static_cast<System::Byte>(202)));
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button1->Location = System::Drawing::Point(6, 158);
+			this->button1->Location = System::Drawing::Point(6, 204);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(255, 40);
 			this->button1->TabIndex = 3;
@@ -230,7 +218,7 @@ private: System::Windows::Forms::Button^ button1;
 			// 
 			this->output_account_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->output_account_extra->Location = System::Drawing::Point(6, 117);
+			this->output_account_extra->Location = System::Drawing::Point(6, 150);
 			this->output_account_extra->Name = L"output_account_extra";
 			this->output_account_extra->ReadOnly = true;
 			this->output_account_extra->Size = System::Drawing::Size(255, 26);
@@ -289,6 +277,16 @@ private: System::Windows::Forms::Button^ button1;
 			this->bg_my_account->TabIndex = 1;
 			this->bg_my_account->TabStop = false;
 			// 
+			// output_account_website
+			// 
+			this->output_account_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->output_account_website->Location = System::Drawing::Point(6, 118);
+			this->output_account_website->Name = L"output_account_website";
+			this->output_account_website->ReadOnly = true;
+			this->output_account_website->Size = System::Drawing::Size(255, 26);
+			this->output_account_website->TabIndex = 4;
+			// 
 			// Main_Menu
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -344,14 +342,20 @@ private:
 	void fill_account_menu()
 	{
 		if (typeid(*user) == typeid(Individual))
-				output_account_name->Text =	to_dotnet_string(user->name->get_short());
+			output_account_name->Text =	 to_dotnet_string(user->name->get_short());
 		else if (typeid(*user) == typeid(Company))
-				output_account_name->Text =	to_dotnet_string(user->name->get_full()); // A question rises: do companies even need short names?
+		{
+			output_account_name->Text  = to_dotnet_string(user->name->get_full()); // A question rises: do companies even need short names?
+			output_account_website->Text = to_dotnet_string(user->website); // I genuinely have no time to try and fit extra contacts into 'Company'
+		}
+		
 		output_account_phone_number->Text = to_dotnet_string(user->phone_number.as_text());
 		output_account_email->Text =		to_dotnet_string(user->email);
-		if (output_account_email->Text == "") output_account_email->Text = "-";
-		output_account_extra->Text =		to_dotnet_string(user->extra_contacts);
-		if (output_account_extra->Text == "") output_account_extra->Text = "-";
+		if (output_account_email->Text == "")
+			output_account_email->Text = "-";
+		output_account_extra->Text = to_dotnet_string(user->extra_contacts);
+		if (output_account_extra->Text == "")
+			output_account_extra->Text = "-";
 	}
 
 	#pragma endregion

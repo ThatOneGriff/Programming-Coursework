@@ -17,7 +17,8 @@
 User* load(const std::wstring address);
 void  save(User* user, std::wstring address = L"");
 
-std::wstring USER_SAVEFILE_NAME = L"user.txt";
+std::string  USER_SAVEFILE_NAME_S = "user.txt";
+std::wstring USER_SAVEFILE_NAME   = L"user.txt";
 
 
 

@@ -3,5 +3,5 @@ company
 ИП "Артём Перваков"
 +7 123 4567890
 test@test.com
-01.01.1970
+
 test.com
