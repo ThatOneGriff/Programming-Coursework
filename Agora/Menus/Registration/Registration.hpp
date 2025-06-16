@@ -23,12 +23,12 @@ namespace Agora {
 	public ref class Registration : public System::Windows::Forms::Form
 	{
 	public:
-		Registration(User* data_to_fill)
+		Registration(User* user)
 		{
 			InitializeComponent();
 			pick_as_individual(nullptr, nullptr);
 
-			if (data_to_fill == nullptr) // not re-registration
+			if (user == nullptr) // fresh user
 			{
 				set_greeting_time_based();
 				return;
@@ -41,8 +41,8 @@ namespace Agora {
 			label_kalimera->Text =	   "Изменение данных.";
 			label_no_account->Text =   "Текущие данные вашего аккаунта введены.";
 
-			std::vector<std::wstring> name = data_to_fill->name->as_vector();
-			if (typeid(*data_to_fill) == typeid(Individual))
+			std::vector<std::wstring> name = user->name->as_vector();
+			if (typeid(*user) == typeid(Individual))
 			{
 				button_individual->Select();
 				pick_as_individual(nullptr, nullptr);
@@ -51,7 +51,7 @@ namespace Agora {
 				this->input_name->Text =	 to_dotnet_string(name[1]);
 				this->input_patronym->Text = to_dotnet_string(name[2]);
 			}
-			else if (typeid(*data_to_fill) == typeid(Company))
+			else if (typeid(*user) == typeid(Company))
 			{
 				button_company->Select();
 				pick_as_company(nullptr, nullptr);
@@ -59,7 +59,7 @@ namespace Agora {
 				this->input_legal_form->SelectedItem = to_dotnet_string(name[0]);
 				this->input_company_name->Text = to_dotnet_string(name[1]);
 				
-				this->input_website->Text = to_dotnet_string(data_to_fill->website);
+				this->input_website->Text = to_dotnet_string(user->website);
 			}
 			else
 			{
@@ -68,13 +68,13 @@ namespace Agora {
 			}
 
 			/// = Common between both account types =
-			std::vector<std::wstring> phone = separate(data_to_fill->phone_number.as_text());
+			std::vector<std::wstring> phone = separate(user->phone_number.as_text());
 			this->input_country_code->Text = to_dotnet_string(phone[0]);
 			this->input_carrier_code->Text = to_dotnet_string(phone[1]);
 			this->input_phone_number_body->Text = to_dotnet_string(phone[2]);
 
-			this->input_email->Text = to_dotnet_string(data_to_fill->email);
-			this->input_extra->Text = to_dotnet_string(data_to_fill->extra_contacts);
+			this->input_email->Text = to_dotnet_string(user->email);
+			this->input_extra->Text = to_dotnet_string(user->extra_contacts);
 		}
 
     #pragma region ========== WinForms code ==========
@@ -792,6 +792,7 @@ private:
 			Individual_Name name(to_std_wstring(input_name->Text), to_std_wstring(input_surname->Text), to_std_wstring(input_patronym->Text));
 			Individual new_user(name, phone_number, email, extra_contacts);
 			save(&new_user, USER_SAVEFILE_NAME);
+			// SETTING USER IN-PROGRAM, NOT READING FILES
 		}
 
 		// Saving a company
@@ -803,6 +804,7 @@ private:
 			save(&new_user, USER_SAVEFILE_NAME);
 		}
 
+		user = new_user;
 		this->Close();
 	}
 

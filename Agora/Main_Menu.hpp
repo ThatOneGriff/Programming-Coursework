@@ -37,6 +37,9 @@ public:
 		/// Centering everything
 		center_x(label_search_will_be, menu_search);
 		center_x(label_in_future_updates, menu_search);
+
+		System::Drawing::Size size(665, 485);
+		this->Size = size;
 	}
 
 	#pragma region = Winforms Code =
@@ -96,6 +99,7 @@ private: System::Windows::Forms::TextBox^ input_search;
 
 private: System::Windows::Forms::Label^ label_search;
 private: System::Windows::Forms::PictureBox^ pictureBox1;
+private: System::Windows::Forms::GroupBox^ group_active_contracts;
 
 
 
@@ -125,6 +129,7 @@ private: System::Windows::Forms::PictureBox^ pictureBox1;
 			this->menu_button_account = (gcnew System::Windows::Forms::Button());
 			this->menu_button_feed = (gcnew System::Windows::Forms::Button());
 			this->menu_account = (gcnew System::Windows::Forms::Panel());
+			this->group_active_contracts = (gcnew System::Windows::Forms::GroupBox());
 			this->group_account_data = (gcnew System::Windows::Forms::GroupBox());
 			this->output_account_website = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
@@ -203,6 +208,7 @@ private: System::Windows::Forms::PictureBox^ pictureBox1;
 			this->menu_button_settings->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
 				static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
 			this->menu_button_settings->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
+			this->menu_button_settings->Enabled = false;
 			this->menu_button_settings->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_settings.Image")));
 			this->menu_button_settings->Location = System::Drawing::Point(5, 253);
 			this->menu_button_settings->Name = L"menu_button_settings";
@@ -239,6 +245,7 @@ private: System::Windows::Forms::PictureBox^ pictureBox1;
 			// menu_account
 			// 
 			this->menu_account->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->menu_account->Controls->Add(this->group_active_contracts);
 			this->menu_account->Controls->Add(this->group_account_data);
 			this->menu_account->Controls->Add(this->label_my_account);
 			this->menu_account->Controls->Add(this->bg_my_account);
@@ -246,6 +253,15 @@ private: System::Windows::Forms::PictureBox^ pictureBox1;
 			this->menu_account->Name = L"menu_account";
 			this->menu_account->Size = System::Drawing::Size(534, 415);
 			this->menu_account->TabIndex = 2;
+			// 
+			// group_active_contracts
+			// 
+			this->group_active_contracts->Location = System::Drawing::Point(281, 157);
+			this->group_active_contracts->Name = L"group_active_contracts";
+			this->group_active_contracts->Size = System::Drawing::Size(248, 250);
+			this->group_active_contracts->TabIndex = 5;
+			this->group_active_contracts->TabStop = false;
+			this->group_active_contracts->Text = L"Активные контракты";
 			// 
 			// group_account_data
 			// 
@@ -501,12 +517,13 @@ private: System::Windows::Forms::PictureBox^ pictureBox1;
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(647, 433);
+			this->ClientSize = System::Drawing::Size(647, 438);
 			this->Controls->Add(this->menu_feed);
 			this->Controls->Add(this->menu_account);
 			this->Controls->Add(this->sidebar);
 			this->Controls->Add(this->menu_search);
 			this->DoubleBuffered = true;
+			this->MaximumSize = System::Drawing::Size(665, 485);
 			this->Name = L"Main_Menu";
 			this->Text = L"Agora";
 			this->sidebar->ResumeLayout(false);
