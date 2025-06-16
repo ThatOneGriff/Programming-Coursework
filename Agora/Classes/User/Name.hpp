@@ -22,6 +22,7 @@ public:
 	{}
 
 	virtual std::wstring as_filename(const std::wstring& extension) = 0;
+	virtual std::vector<std::wstring> as_vector() = 0;
 	virtual std::wstring get_full() = 0;
 	virtual std::wstring get_short() = 0;
 
@@ -43,6 +44,12 @@ public:
 	Individual_Name(const std::wstring& _name, const std::wstring& _surname, const std::wstring& _patronym = L"")
 	: Name(_name), surname(_surname), patronym(_patronym)
 	{}
+
+	std::vector<std::wstring> as_vector()
+	{
+		const std::vector<std::wstring> result = {surname, name, patronym};
+		return result;
+	}
 
 	// ivanov_ivan_ivanovich<...>
 	std::wstring as_filename(const std::wstring& extension)
@@ -82,12 +89,22 @@ public:
 
 	Company_Name(const std::vector<std::wstring>& separated_raw_data)
 	: legal_form(separated_raw_data[0]), Name(separated_raw_data[1])
-	{}
+	{
+		// adding the rest of the name. Kinda dirty code
+		for (int i = 2; i < separated_raw_data.size(); i++)
+			name += L" " + separated_raw_data[i];
+	}
 
 
 	Company_Name(const std::wstring& _legal_form, const std::wstring& _name)
 	: legal_form(_legal_form), Name(_name)
 	{}
+
+	std::vector<std::wstring> as_vector()
+	{
+		const std::vector<std::wstring> result = {legal_form, name};
+		return result;
+	}
 
 	// tmyvbabla<...>
 	std::wstring as_filename(const std::wstring& extension)
@@ -95,7 +112,7 @@ public:
 		return translit_CtoL(name) + extension;
 	}
 
-	// ООО "Тмывбабла"
+	// ООО "Тмывбабла" / ООО Тмывбабла [для сохранения в файл]
 	std::wstring get_full()
 	{
 		return legal_form + L" \"" + name + L'"';

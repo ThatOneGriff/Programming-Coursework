@@ -36,14 +36,12 @@ namespace Agora {
 
 			/// = Re-registration =
 			
+			this->Text = "Редактирование данных аккаунта";
 			label_registration->Text = "Редактирование";
-			center_x(label_registration);
-			label_kalimera->Text =	   "Изменение данных";
-			center_x(label_kalimera);
+			label_kalimera->Text =	   "Изменение данных.";
 			label_no_account->Text =   "Текущие данные вашего аккаунта введены.";
-			center_x(label_no_account);
 
-			std::vector<std::wstring> name = separate(data_to_fill->name->get_full());
+			std::vector<std::wstring> name = data_to_fill->name->as_vector();
 			if (typeid(*data_to_fill) == typeid(Individual))
 			{
 				button_individual->Select();
@@ -59,7 +57,11 @@ namespace Agora {
 				pick_as_company(nullptr, nullptr);
 				
 				this->input_legal_form->SelectedItem = to_dotnet_string(name[0]);
-				this->input_company_name->Text =	   to_dotnet_string(name[1]);
+				// this is for erasing automatically-added quote marks, so that they don't snowball
+				name[1] = name[1].substr(1, name[1].size() - 2);
+				this->input_company_name->Text = to_dotnet_string(name[1]);
+				
+				this->input_website->Text = to_dotnet_string(data_to_fill->website);
 			}
 			else
 			{
@@ -233,6 +235,7 @@ private: System::Windows::Forms::Label^ label_y;
 			this->label_registration->Size = System::Drawing::Size(142, 25);
 			this->label_registration->TabIndex = 1000;
 			this->label_registration->Text = L"Регистрация";
+			this->label_registration->TextChanged += gcnew System::EventHandler(this, &Registration::center_x);
 			// 
 			// label_kalimera
 			// 
@@ -244,6 +247,7 @@ private: System::Windows::Forms::Label^ label_y;
 			this->label_kalimera->Size = System::Drawing::Size(52, 20);
 			this->label_kalimera->TabIndex = 1000;
 			this->label_kalimera->Text = L"Добр";
+			this->label_kalimera->TextChanged += gcnew System::EventHandler(this, &Registration::center_x);
 			// 
 			// label_no_account
 			// 
@@ -255,6 +259,7 @@ private: System::Windows::Forms::Label^ label_y;
 			this->label_no_account->Size = System::Drawing::Size(408, 20);
 			this->label_no_account->TabIndex = 1000;
 			this->label_no_account->Text = L"Ваш аккаунт не был обнаружен в системе. Вы...";
+			this->label_no_account->TextChanged += gcnew System::EventHandler(this, &Registration::center_x);
 			// 
 			// button_individual
 			// 
@@ -696,7 +701,7 @@ private: System::Windows::Forms::Label^ label_y;
 			this->input_company_name->TabIndex = 0;
 			this->input_company_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_company_name->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
-			this->input_company_name->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::keyboard_focus_switch_check);
+			this->input_company_name->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_letters);
 			this->input_company_name->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// button_register
@@ -743,8 +748,9 @@ private: System::Windows::Forms::Label^ label_y;
 
 private:
 
-	void center_x(Control^ target)
+	void center_x(System::Object^ sender, System::EventArgs^ e)
 	{
+		Control^ target = safe_cast<Control^>(sender);
 		/// Don't y'all love variables that don't state they're readonly?
 		System::Drawing::Size size = TextRenderer::MeasureText(target->Text, target->Font);
 		target->Size = size;

@@ -76,7 +76,7 @@ User* load(const std::wstring address)
 	}
 	else if (account_type == L"company")
 	{
-		std::wstring website = raw_data[6];
+		std::wstring website = raw_data[5];
 		Company_Name name(separate(_name));
 		return new Company(name, phone_number, email, website, extra_contacts, account_creation_date);
 	}
@@ -92,10 +92,12 @@ void save(User* user, std::wstring address/* = L""*/)
 	if (address == L"")
 		address = user->name->as_filename(L".txt");
 	std::wofstream savefile(address);
+
 	// Copied from: https://stackoverflow.com/a/3950840/15540979
 	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
 	savefile.imbue(loc);
 	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
+
 	savefile << user->serialize();
 	savefile.close();
 }

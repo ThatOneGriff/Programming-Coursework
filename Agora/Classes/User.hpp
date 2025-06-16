@@ -20,6 +20,10 @@ class User
 {
 public:
 
+	std::wstring website;
+	/// This is dirty, but doing something about websites available only with 'Companies' would make it even dirtier.
+	/// It's inaccessible from 'Individual' anyway.
+
 	/// POSSIBLE MEMORY LEAK: Trying to wrap it in a destructor caused errors I have no time to fix.
 	Name* name;
 	Phone_Number phone_number;
@@ -82,14 +86,12 @@ class Company : public User
 {
 public:
 
-	std::wstring website;
-
-
 	Company(const Company_Name& _name,	const Phone_Number& _phone_number,
 			const std::wstring& _email, const std::wstring& _website,
 			const std::wstring& _extra_contacts = L"", const std::wstring& _account_creation_date = get_date())
-	: name_obj(_name), User(_phone_number, _email, _extra_contacts, _account_creation_date), website(_website)
+	: name_obj(_name), User(_phone_number, _email, _extra_contacts, _account_creation_date)
 	{
+		website = _website;
 		/// Pointer magic. Basically, 'name' used to be a pointer
 		/// to an object you gave the constructor. It resulted in
 		/// a problem where 'name' kinda existed, but kinda was in this limbo

@@ -333,7 +333,8 @@ private:
 		if (user == nullptr)
 		{
 			MessageBox::Show("Couldn't read updated data.");
-			exit(1);
+			this->Close();
+			return;
 		}
 
 		fill_account_menu();
@@ -342,7 +343,10 @@ private:
 
 	void fill_account_menu()
 	{
-		output_account_name->Text =			to_dotnet_string(user->name->get_short());
+		if (typeid(*user) == typeid(Individual))
+				output_account_name->Text =	to_dotnet_string(user->name->get_short());
+		else if (typeid(*user) == typeid(Company))
+				output_account_name->Text =	to_dotnet_string(user->name->get_full()); // A question rises: do companies even need short names?
 		output_account_phone_number->Text = to_dotnet_string(user->phone_number.as_text());
 		output_account_email->Text =		to_dotnet_string(user->email);
 		if (output_account_email->Text == "") output_account_email->Text = "-";
