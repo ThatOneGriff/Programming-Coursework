@@ -3,8 +3,7 @@
 #define LISTING_HPP
 
 #include <string>
-
-#include "..\User.hpp"
+#include "../user.hpp"
 
 /// Represents an unsigned (1 user), signed (2 users), or completed contract.
 

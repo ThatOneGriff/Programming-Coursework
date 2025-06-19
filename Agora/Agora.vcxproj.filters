@@ -20,54 +20,54 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Main_Menu.hpp">
+    <ClInclude Include="Classes\user.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\User.hpp">
+    <ClInclude Include="utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.hpp">
+    <ClInclude Include="Classes\User\phone_number.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\User\Phone_Number.hpp">
+    <ClInclude Include="Menus\Registration\registration.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menus\Registration\Registration.hpp">
+    <ClInclude Include="Classes\User\name.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\User\Name.hpp">
+    <ClInclude Include="Classes\User\random_user_generator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\User\Random_User_Generator.hpp">
+    <ClInclude Include="Utils\random.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Random.hpp">
+    <ClInclude Include="Utils\strings.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Strings.hpp">
+    <ClInclude Include="Classes\listing.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Listing.hpp">
+    <ClInclude Include="Utils\datetime.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Date_Time.hpp">
+    <ClInclude Include="save_load.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Save_Load.hpp">
+    <ClInclude Include="Utils\files.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Files.hpp">
+    <ClInclude Include="Classes\Listing\listing.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Listing\Listing.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Menus\Main_Menu\Main_Menu.hpp">
+    <ClInclude Include="Menus\Main_Menu\main_menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Menus\Main_Menu\Main_Menu.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\Main_Menu\main_menu.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>

@@ -4,8 +4,7 @@
 
 #include <string>
 #include <vector>
-
-#include "..\..\Utils.hpp"
+#include "../../utils.hpp"
 
 class Name; /// abstract class
 class Individual_Name;

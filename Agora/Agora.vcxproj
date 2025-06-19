@@ -123,31 +123,32 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Classes\Listing.hpp" />
-    <ClInclude Include="Classes\Listing\Listing.hpp" />
-    <ClInclude Include="Classes\User\Name.hpp" />
-    <ClInclude Include="Classes\User\Random_User_Generator.hpp" />
-    <ClInclude Include="Classes\User.hpp" />
-    <ClInclude Include="Menus\Main_Menu\Main_Menu.hpp">
+    <ClInclude Include="Classes\listing.hpp" />
+    <ClInclude Include="Classes\Listing\listing.hpp" />
+    <ClInclude Include="Classes\User\name.hpp" />
+    <ClInclude Include="Classes\User\random_user_generator.hpp" />
+    <ClInclude Include="Classes\user.hpp" />
+    <ClInclude Include="Menus\Main_Menu\main_menu.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Menus\Registration\Registration.hpp">
+    <ClInclude Include="Menus\Registration\registration.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Classes\User\Phone_Number.hpp" />
-    <ClInclude Include="Utils.hpp" />
-    <ClInclude Include="Utils\Date_Time.hpp" />
-    <ClInclude Include="Utils\Files.hpp" />
-    <ClInclude Include="Utils\Random.hpp" />
-    <ClInclude Include="Save_Load.hpp" />
-    <ClInclude Include="Utils\Strings.hpp" />
+    <ClInclude Include="Classes\User\phone_number.hpp" />
+    <ClInclude Include="utils.hpp" />
+    <ClInclude Include="Utils\datetime.hpp" />
+    <ClInclude Include="Utils\files.hpp" />
+    <ClInclude Include="Utils\random.hpp" />
+    <ClInclude Include="save_load.hpp" />
+    <ClInclude Include="Utils\strings.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Menus\Main_Menu\Main_Menu.resx">
-      <DependentUpon>Menus\Main_Menu\Main_Menu.hpp</DependentUpon>
+    <EmbeddedResource Include="Menus\Main_Menu\main_menu.resx">
+      <DependentUpon>Menus\Main_Menu\main_menu.hpp</DependentUpon>
+      <LogicalName>Agora.Main_Menu.resources</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="Menus\Registration\Registration.resx">
-      <DependentUpon>Menus\Registration\Registration.hpp</DependentUpon>
+    <EmbeddedResource Include="Menus\Registration\registration.resx">
+      <DependentUpon>Menus\Registration\registration.hpp</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

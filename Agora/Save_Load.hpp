@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
-#include "Classes/User.hpp"
-#include "Utils.hpp"
+#include "Classes/user.hpp"
+#include "utils.hpp"
 
 /// This file is for saving and loading 'User's.
 /// [!!!] IF YOU'RE LOOKING FOR FILE MANIPULATION, consult 'Utils/Files.hpp'.

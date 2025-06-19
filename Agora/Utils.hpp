@@ -4,9 +4,9 @@
 
 /// Bundle include of:
 
-#include "Utils/Files.hpp"
-#include "Utils/Date_Time.hpp"
-#include "Utils/Random.hpp"
-#include "Utils/Strings.hpp"
+#include "Utils/files.hpp"
+#include "Utils/datetime.hpp"
+#include "Utils/random.hpp"
+#include "Utils/strings.hpp"
 
 #endif

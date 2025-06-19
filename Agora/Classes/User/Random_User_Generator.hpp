@@ -2,7 +2,7 @@
 #ifndef RANDOM_USER_GENERATOR_HPP
 #define RANDOM_USER_GENERATOR_HPP
 
-#include "..\User.hpp"
+#include "../user.hpp"
 
 /// There will be no random company generator, nor related things:
 /// I'm gonna have a predefined set of companies.

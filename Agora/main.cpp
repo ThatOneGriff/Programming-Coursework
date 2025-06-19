@@ -1,10 +1,12 @@
 #include <string>
 #include <Windows.h>
 
-#include "Menus/Main_Menu/Main_Menu.hpp"
-#include "Menus/Registration/Registration.hpp"
+#include "Menus/Main_Menu/main_menu.hpp"
+#include "Menus/Registration/registration.hpp"
+// Should menus be able to include each other?
+// Or should we opt for a more modular approach?
 
-#include "Utils.hpp"
+#include "utils.hpp"
 using namespace Agora;
 using namespace System::Windows::Forms;
 
@@ -14,6 +16,15 @@ int WINAPI WinMain(const HINSTANCE, const HINSTANCE, const LPSTR, const int)
 {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
+
+	/// = Known Errors =
+	/// - preemptive savefile check
+	/// - date of 'est' is not even saved within company
+	
+	/// = TODO =
+	/// - we could define a '=' between 'System::String^' and 'std::wstring'
+	/// - string split by char
+	/// - headings for every 'MessageBox'
 
 	//#define DEBUG
 
@@ -25,15 +36,6 @@ int WINAPI WinMain(const HINSTANCE, const HINSTANCE, const LPSTR, const int)
 	if (user == nullptr) /// Registration didn't work, or user closed the window.
 		return 0; /// Closing the program.
 	#endif
-
-	/// = Known Errors =
-	/// - preemptive savefile check
-	/// - date of 'est' is not even saved within company
-	
-	/// = TODO =
-	/// - we could define a '=' between 'System::String^' and 'std::wstring'
-	/// - string split by char
-	/// - headings for every 'MessageBox'
 	
 	/// Debug admin account.
 	#ifdef DEBUG

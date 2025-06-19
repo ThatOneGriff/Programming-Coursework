@@ -2,7 +2,7 @@
 #ifndef STRINGS_HPP
 #define STRINGS_HPP
 
-#include <msclr\marshal_cppstd.h> // string type magic
+#include <msclr/marshal_cppstd.h> // string type magic
 #include <string>		 // 'std::wstring'
 #include <sstream>
 #include <unordered_map> // mapping chars for transliteration

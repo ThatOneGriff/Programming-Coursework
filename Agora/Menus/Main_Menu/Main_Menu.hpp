@@ -4,10 +4,10 @@
 
 #include <stdio.h> // File removal
 
-#include "Menus/Registration/Registration.hpp"
+#include "Menus/Registration/registration.hpp"
 
-#include "..\..\Classes\User.hpp"
-#include "..\..\Utils.hpp"
+#include "../../Classes/user.hpp"
+#include "../../utils.hpp"
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -98,7 +98,9 @@ private: System::Windows::Forms::Button^ button_search;
 private: System::Windows::Forms::TextBox^ input_search;
 
 private: System::Windows::Forms::Label^ label_search;
-private: System::Windows::Forms::PictureBox^ pictureBox1;
+private: System::Windows::Forms::PictureBox^ bg_search;
+
+
 private: System::Windows::Forms::GroupBox^ group_active_contracts;
 
 
@@ -152,7 +154,7 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->button_search = (gcnew System::Windows::Forms::Button());
 			this->input_search = (gcnew System::Windows::Forms::TextBox());
 			this->label_search = (gcnew System::Windows::Forms::Label());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->bg_search = (gcnew System::Windows::Forms::PictureBox());
 			this->sidebar->SuspendLayout();
 			this->menu_account->SuspendLayout();
 			this->group_account_data->SuspendLayout();
@@ -160,7 +162,7 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->menu_feed->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->BeginInit();
 			this->menu_search->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_search))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menu_button_search
@@ -444,7 +446,7 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->menu_search->Controls->Add(this->button_search);
 			this->menu_search->Controls->Add(this->input_search);
 			this->menu_search->Controls->Add(this->label_search);
-			this->menu_search->Controls->Add(this->pictureBox1);
+			this->menu_search->Controls->Add(this->bg_search);
 			this->menu_search->Location = System::Drawing::Point(12, 12);
 			this->menu_search->Name = L"menu_search";
 			this->menu_search->Size = System::Drawing::Size(534, 415);
@@ -502,15 +504,15 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->label_search->TabIndex = 0;
 			this->label_search->Text = L"Поиск и фильтры";
 			// 
-			// pictureBox1
+			// bg_search
 			// 
-			this->pictureBox1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.BackgroundImage")));
-			this->pictureBox1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->pictureBox1->Location = System::Drawing::Point(-1, -1);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(534, 152);
-			this->pictureBox1->TabIndex = 5;
-			this->pictureBox1->TabStop = false;
+			this->bg_search->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"bg_search.BackgroundImage")));
+			this->bg_search->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->bg_search->Location = System::Drawing::Point(-1, -1);
+			this->bg_search->Name = L"bg_search";
+			this->bg_search->Size = System::Drawing::Size(534, 152);
+			this->bg_search->TabIndex = 5;
+			this->bg_search->TabStop = false;
 			// 
 			// Main_Menu
 			// 
@@ -537,7 +539,7 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->EndInit();
 			this->menu_search->ResumeLayout(false);
 			this->menu_search->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_search))->EndInit();
 			this->ResumeLayout(false);
 
 		}

@@ -2,9 +2,9 @@
 #ifndef REGISTRATION_HPP
 #define REGISTRATION_HPP
 
-#include "Classes/Listing.hpp"
-#include "Classes/User.hpp"
-#include   "..\..\Save_Load.hpp"
+#include "Classes/listing.hpp"
+#include "Classes/user.hpp"
+#include   "../../save_load.hpp"
 
 #include <string>
 #include <vector>
@@ -804,7 +804,7 @@ private:
 			save(&new_user, USER_SAVEFILE_NAME);
 		}
 
-		user = new_user;
+		//user = new_user;
 		this->Close();
 	}
 

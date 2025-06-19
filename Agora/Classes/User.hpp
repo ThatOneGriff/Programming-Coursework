@@ -4,9 +4,9 @@
 
 #include <vector>
 
-#include "User/Name.hpp"
-#include "User/Phone_Number.hpp"
-#include   "../Utils.hpp"
+#include "User/name.hpp"
+#include "User/phone_number.hpp"
+#include   "../utils.hpp"
 
 /// Here be:
 class User;
