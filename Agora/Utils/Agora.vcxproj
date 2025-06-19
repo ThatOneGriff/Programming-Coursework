@@ -128,14 +128,14 @@
     <ClInclude Include="Classes\User\Name.hpp" />
     <ClInclude Include="Classes\User\Random_User_Generator.hpp" />
     <ClInclude Include="Classes\User.hpp" />
-    <ClInclude Include="Menus\Main_Menu\Main_Menu.hpp">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="Menus\Registration\Registration.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Classes\User\Phone_Number.hpp" />
     <ClInclude Include="Utils.hpp" />
+    <ClInclude Include="Main_Menu.hpp">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Utils\Date_Time.hpp" />
     <ClInclude Include="Utils\Files.hpp" />
     <ClInclude Include="Utils\Random.hpp" />
@@ -143,8 +143,8 @@
     <ClInclude Include="Utils\Strings.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Menus\Main_Menu\Main_Menu.resx">
-      <DependentUpon>Menus\Main_Menu\Main_Menu.hpp</DependentUpon>
+    <EmbeddedResource Include="Main_Menu.resx">
+      <DependentUpon>Main_Menu.hpp</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menus\Registration\Registration.resx">
       <DependentUpon>Menus\Registration\Registration.hpp</DependentUpon>

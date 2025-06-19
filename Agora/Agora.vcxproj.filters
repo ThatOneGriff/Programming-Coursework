@@ -62,5 +62,13 @@
     <ClInclude Include="Classes\Listing\Listing.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Menus\Main_Menu\Main_Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Menus\Main_Menu\Main_Menu.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

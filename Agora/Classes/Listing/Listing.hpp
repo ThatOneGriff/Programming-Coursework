@@ -21,7 +21,7 @@ public:
 
 	Listing(const std::wstring& _name, const std::wstring& _description, const unsigned int _payment, const int _length_days)
 	: name(_name), description(_description), payment(_payment), length_days(_length_days)
-	{}
+	{}w
 };
 
 

@@ -1,7 +1,7 @@
 #include <string>
 #include <Windows.h>
 
-#include "Main_Menu.hpp"
+#include "Menus/Main_Menu/Main_Menu.hpp"
 #include "Menus/Registration/Registration.hpp"
 
 #include "Utils.hpp"

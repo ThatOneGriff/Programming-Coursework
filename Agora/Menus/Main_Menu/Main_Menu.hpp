@@ -6,8 +6,8 @@
 
 #include "Menus/Registration/Registration.hpp"
 
-#include "Classes/User.hpp"
-#include "Utils.hpp"
+#include "..\..\Classes\User.hpp"
+#include "..\..\Utils.hpp"
 
 using namespace System;
 using namespace System::ComponentModel;
