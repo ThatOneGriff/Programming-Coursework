@@ -150,12 +150,12 @@ namespace Agora {
 
 	private: System::Windows::Forms::Button^ button_register;
 	private: System::Windows::Forms::ComboBox^ input_legal_form;
-private: System::Windows::Forms::Label^ label_y;
-
-	private: System::Windows::Forms::TextBox^ input_year;
 
 
-	private: System::Windows::Forms::ComboBox^ input_month;
+
+
+
+
 	private: System::Windows::Forms::Label^ label_website;
 
 	private: System::Windows::Forms::Label^ label_est;
@@ -168,6 +168,24 @@ private: System::Windows::Forms::Label^ label_y;
 	private: System::Windows::Forms::Label^ label_month;
 	private: System::Windows::Forms::Label^ label_year;
 	private: System::Windows::Forms::TextBox^ input_name;
+private: System::Windows::Forms::TextBox^ input_ind_day;
+
+
+
+private: System::Windows::Forms::Label^ label_birthdate;
+
+private: System::Windows::Forms::Label^ label1;
+private: System::Windows::Forms::TextBox^ input_ind_year;
+
+
+private: System::Windows::Forms::Label^ label_y;
+private: System::Windows::Forms::TextBox^ input_year;
+private: System::Windows::Forms::ComboBox^ input_month;
+private: System::Windows::Forms::ComboBox^ input_ind_month;
+
+
+
+
 
 
 
@@ -187,6 +205,11 @@ private: System::Windows::Forms::Label^ label_y;
 			this->button_individual = (gcnew System::Windows::Forms::RadioButton());
 			this->button_company = (gcnew System::Windows::Forms::RadioButton());
 			this->registration_individual = (gcnew System::Windows::Forms::GroupBox());
+			this->input_ind_month = (gcnew System::Windows::Forms::ComboBox());
+			this->input_ind_day = (gcnew System::Windows::Forms::TextBox());
+			this->label_birthdate = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->input_ind_year = (gcnew System::Windows::Forms::TextBox());
 			this->input_name = (gcnew System::Windows::Forms::TextBox());
 			this->label_if_you_have_patronym = (gcnew System::Windows::Forms::Label());
 			this->label_patronym = (gcnew System::Windows::Forms::Label());
@@ -226,11 +249,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// label_registration
 			// 
 			this->label_registration->AutoSize = true;
-			this->label_registration->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label_registration->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->label_registration->Location = System::Drawing::Point(186, 9);
 			this->label_registration->Name = L"label_registration";
-			this->label_registration->Size = System::Drawing::Size(142, 25);
+			this->label_registration->Size = System::Drawing::Size(185, 31);
 			this->label_registration->TabIndex = 1000;
 			this->label_registration->Text = L"Регистрация";
 			this->label_registration->TextChanged += gcnew System::EventHandler(this, &Registration::center_x);
@@ -238,11 +261,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// label_kalimera
 			// 
 			this->label_kalimera->AutoSize = true;
-			this->label_kalimera->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_kalimera->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_kalimera->Location = System::Drawing::Point(187, 44);
+			this->label_kalimera->Location = System::Drawing::Point(187, 51);
 			this->label_kalimera->Name = L"label_kalimera";
-			this->label_kalimera->Size = System::Drawing::Size(52, 20);
+			this->label_kalimera->Size = System::Drawing::Size(62, 25);
 			this->label_kalimera->TabIndex = 1000;
 			this->label_kalimera->Text = L"Добр";
 			this->label_kalimera->TextChanged += gcnew System::EventHandler(this, &Registration::center_x);
@@ -250,11 +273,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// label_no_account
 			// 
 			this->label_no_account->AutoSize = true;
-			this->label_no_account->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_no_account->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_no_account->Location = System::Drawing::Point(46, 76);
+			this->label_no_account->Location = System::Drawing::Point(57, 84);
 			this->label_no_account->Name = L"label_no_account";
-			this->label_no_account->Size = System::Drawing::Size(408, 20);
+			this->label_no_account->Size = System::Drawing::Size(456, 25);
 			this->label_no_account->TabIndex = 1000;
 			this->label_no_account->Text = L"Ваш аккаунт не был обнаружен в системе. Вы...";
 			this->label_no_account->TextChanged += gcnew System::EventHandler(this, &Registration::center_x);
@@ -263,11 +286,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// 
 			this->button_individual->AutoSize = true;
 			this->button_individual->Checked = true;
-			this->button_individual->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->button_individual->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_individual->Location = System::Drawing::Point(90, 112);
+			this->button_individual->Location = System::Drawing::Point(133, 115);
 			this->button_individual->Name = L"button_individual";
-			this->button_individual->Size = System::Drawing::Size(114, 24);
+			this->button_individual->Size = System::Drawing::Size(130, 29);
 			this->button_individual->TabIndex = 7;
 			this->button_individual->TabStop = true;
 			this->button_individual->Text = L"Физ. лицо";
@@ -277,11 +300,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// button_company
 			// 
 			this->button_company->AutoSize = true;
-			this->button_company->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->button_company->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_company->Location = System::Drawing::Point(310, 112);
+			this->button_company->Location = System::Drawing::Point(341, 115);
 			this->button_company->Name = L"button_company";
-			this->button_company->Size = System::Drawing::Size(104, 24);
+			this->button_company->Size = System::Drawing::Size(119, 29);
 			this->button_company->TabIndex = 8;
 			this->button_company->Text = L"Юр. лицо";
 			this->button_company->UseVisualStyleBackColor = true;
@@ -289,6 +312,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// 
 			// registration_individual
 			// 
+			this->registration_individual->Controls->Add(this->input_ind_month);
+			this->registration_individual->Controls->Add(this->input_ind_day);
+			this->registration_individual->Controls->Add(this->label_birthdate);
+			this->registration_individual->Controls->Add(this->label1);
+			this->registration_individual->Controls->Add(this->input_ind_year);
 			this->registration_individual->Controls->Add(this->input_name);
 			this->registration_individual->Controls->Add(this->label_if_you_have_patronym);
 			this->registration_individual->Controls->Add(this->label_patronym);
@@ -296,21 +324,83 @@ private: System::Windows::Forms::Label^ label_y;
 			this->registration_individual->Controls->Add(this->label_surname);
 			this->registration_individual->Controls->Add(this->input_surname);
 			this->registration_individual->Controls->Add(this->label_name);
-			this->registration_individual->Location = System::Drawing::Point(50, 142);
+			this->registration_individual->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->registration_individual->Location = System::Drawing::Point(45, 150);
 			this->registration_individual->Name = L"registration_individual";
-			this->registration_individual->Size = System::Drawing::Size(404, 139);
+			this->registration_individual->Size = System::Drawing::Size(468, 183);
 			this->registration_individual->TabIndex = 0;
 			this->registration_individual->TabStop = false;
 			this->registration_individual->Text = L"ФИО";
 			// 
+			// input_ind_month
+			// 
+			this->input_ind_month->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Append;
+			this->input_ind_month->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
+			this->input_ind_month->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->input_ind_month->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->input_ind_month->FormattingEnabled = true;
+			this->input_ind_month->Items->AddRange(gcnew cli::array< System::Object^  >(12) {
+				L"января", L"февраля", L"марта", L"апреля",
+					L"мая", L"июня", L"июля", L"августа", L"сентября", L"октября", L"ноября", L"декабря"
+			});
+			this->input_ind_month->Location = System::Drawing::Point(243, 146);
+			this->input_ind_month->MaxLength = 4;
+			this->input_ind_month->Name = L"input_ind_month";
+			this->input_ind_month->Size = System::Drawing::Size(97, 28);
+			this->input_ind_month->TabIndex = 1012;
+			// 
+			// input_ind_day
+			// 
+			this->input_ind_day->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->input_ind_day->Location = System::Drawing::Point(189, 145);
+			this->input_ind_day->MaxLength = 2;
+			this->input_ind_day->Name = L"input_ind_day";
+			this->input_ind_day->Size = System::Drawing::Size(48, 30);
+			this->input_ind_day->TabIndex = 1011;
+			// 
+			// label_birthdate
+			// 
+			this->label_birthdate->AutoSize = true;
+			this->label_birthdate->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_birthdate->Location = System::Drawing::Point(16, 147);
+			this->label_birthdate->Name = L"label_birthdate";
+			this->label_birthdate->Size = System::Drawing::Size(167, 25);
+			this->label_birthdate->TabIndex = 1010;
+			this->label_birthdate->Text = L"Дата рождения:";
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label1->Location = System::Drawing::Point(426, 147);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(25, 25);
+			this->label1->TabIndex = 1009;
+			this->label1->Text = L"г.";
+			// 
+			// input_ind_year
+			// 
+			this->input_ind_year->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->input_ind_year->Location = System::Drawing::Point(346, 145);
+			this->input_ind_year->MaxLength = 4;
+			this->input_ind_year->Name = L"input_ind_year";
+			this->input_ind_year->Size = System::Drawing::Size(74, 30);
+			this->input_ind_year->TabIndex = 1007;
+			// 
 			// input_name
 			// 
-			this->input_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_name->Location = System::Drawing::Point(114, 50);
+			this->input_name->Location = System::Drawing::Point(132, 57);
 			this->input_name->MaxLength = 40;
 			this->input_name->Name = L"input_name";
-			this->input_name->Size = System::Drawing::Size(274, 26);
+			this->input_name->Size = System::Drawing::Size(320, 30);
 			this->input_name->TabIndex = 1001;
 			this->input_name->TabStop = false;
 			this->input_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
@@ -322,7 +412,7 @@ private: System::Windows::Forms::Label^ label_y;
 			this->label_if_you_have_patronym->AutoSize = true;
 			this->label_if_you_have_patronym->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->label_if_you_have_patronym->Location = System::Drawing::Point(200, 115);
+			this->label_if_you_have_patronym->Location = System::Drawing::Point(240, 126);
 			this->label_if_you_have_patronym->Name = L"label_if_you_have_patronym";
 			this->label_if_you_have_patronym->Size = System::Drawing::Size(102, 17);
 			this->label_if_you_have_patronym->TabIndex = 1000;
@@ -331,22 +421,22 @@ private: System::Windows::Forms::Label^ label_y;
 			// label_patronym
 			// 
 			this->label_patronym->AutoSize = true;
-			this->label_patronym->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_patronym->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_patronym->Location = System::Drawing::Point(16, 85);
+			this->label_patronym->Location = System::Drawing::Point(16, 96);
 			this->label_patronym->Name = L"label_patronym";
-			this->label_patronym->Size = System::Drawing::Size(96, 20);
+			this->label_patronym->Size = System::Drawing::Size(110, 25);
 			this->label_patronym->TabIndex = 1000;
 			this->label_patronym->Text = L"Отчество:";
 			// 
 			// input_patronym
 			// 
-			this->input_patronym->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_patronym->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_patronym->Location = System::Drawing::Point(113, 82);
+			this->input_patronym->Location = System::Drawing::Point(132, 93);
 			this->input_patronym->MaxLength = 40;
 			this->input_patronym->Name = L"input_patronym";
-			this->input_patronym->Size = System::Drawing::Size(275, 26);
+			this->input_patronym->Size = System::Drawing::Size(319, 30);
 			this->input_patronym->TabIndex = 2;
 			this->input_patronym->TabStop = false;
 			this->input_patronym->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
@@ -356,22 +446,22 @@ private: System::Windows::Forms::Label^ label_y;
 			// label_surname
 			// 
 			this->label_surname->AutoSize = true;
-			this->label_surname->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_surname->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_surname->Location = System::Drawing::Point(15, 24);
+			this->label_surname->Location = System::Drawing::Point(16, 24);
 			this->label_surname->Name = L"label_surname";
-			this->label_surname->Size = System::Drawing::Size(92, 20);
+			this->label_surname->Size = System::Drawing::Size(109, 25);
 			this->label_surname->TabIndex = 1000;
 			this->label_surname->Text = L"Фамилия:";
 			// 
 			// input_surname
 			// 
-			this->input_surname->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_surname->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_surname->Location = System::Drawing::Point(114, 21);
+			this->input_surname->Location = System::Drawing::Point(132, 21);
 			this->input_surname->MaxLength = 40;
 			this->input_surname->Name = L"input_surname";
-			this->input_surname->Size = System::Drawing::Size(274, 26);
+			this->input_surname->Size = System::Drawing::Size(319, 30);
 			this->input_surname->TabIndex = 0;
 			this->input_surname->TabStop = false;
 			this->input_surname->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
@@ -381,22 +471,22 @@ private: System::Windows::Forms::Label^ label_y;
 			// label_name
 			// 
 			this->label_name->AutoSize = true;
-			this->label_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_name->Location = System::Drawing::Point(16, 53);
+			this->label_name->Location = System::Drawing::Point(16, 60);
 			this->label_name->Name = L"label_name";
-			this->label_name->Size = System::Drawing::Size(47, 20);
+			this->label_name->Size = System::Drawing::Size(60, 25);
 			this->label_name->TabIndex = 1000;
 			this->label_name->Text = L"Имя:";
 			// 
 			// input_phone_number_body
 			// 
-			this->input_phone_number_body->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+			this->input_phone_number_body->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->input_phone_number_body->Location = System::Drawing::Point(279, 14);
+			this->input_phone_number_body->Location = System::Drawing::Point(346, 25);
 			this->input_phone_number_body->MaxLength = 9;
 			this->input_phone_number_body->Name = L"input_phone_number_body";
-			this->input_phone_number_body->Size = System::Drawing::Size(90, 26);
+			this->input_phone_number_body->Size = System::Drawing::Size(111, 30);
 			this->input_phone_number_body->TabIndex = 4;
 			this->input_phone_number_body->TabStop = false;
 			this->input_phone_number_body->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
@@ -406,24 +496,24 @@ private: System::Windows::Forms::Label^ label_y;
 			// 
 			// input_country_code
 			// 
-			this->input_country_code->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_country_code->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_country_code->Location = System::Drawing::Point(184, 14);
+			this->input_country_code->Location = System::Drawing::Point(239, 25);
 			this->input_country_code->Name = L"input_country_code";
 			this->input_country_code->ReadOnly = true;
-			this->input_country_code->Size = System::Drawing::Size(38, 26);
+			this->input_country_code->Size = System::Drawing::Size(38, 30);
 			this->input_country_code->TabIndex = 1000;
 			this->input_country_code->TabStop = false;
 			this->input_country_code->Text = L"+7";
 			// 
 			// input_carrier_code
 			// 
-			this->input_carrier_code->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_carrier_code->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_carrier_code->Location = System::Drawing::Point(228, 14);
+			this->input_carrier_code->Location = System::Drawing::Point(283, 25);
 			this->input_carrier_code->MaxLength = 5;
 			this->input_carrier_code->Name = L"input_carrier_code";
-			this->input_carrier_code->Size = System::Drawing::Size(45, 26);
+			this->input_carrier_code->Size = System::Drawing::Size(59, 30);
 			this->input_carrier_code->TabIndex = 3;
 			this->input_carrier_code->TabStop = false;
 			this->input_carrier_code->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
@@ -434,11 +524,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// label_phone
 			// 
 			this->label_phone->AutoSize = true;
-			this->label_phone->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_phone->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_phone->Location = System::Drawing::Point(22, 17);
+			this->label_phone->Location = System::Drawing::Point(16, 28);
 			this->label_phone->Name = L"label_phone";
-			this->label_phone->Size = System::Drawing::Size(160, 20);
+			this->label_phone->Size = System::Drawing::Size(183, 25);
 			this->label_phone->TabIndex = 1000;
 			this->label_phone->Text = L"Номер телефона:";
 			// 
@@ -454,9 +544,11 @@ private: System::Windows::Forms::Label^ label_y;
 			this->contacts->Controls->Add(this->label_if_you_have_email);
 			this->contacts->Controls->Add(this->input_email);
 			this->contacts->Controls->Add(this->label_email);
-			this->contacts->Location = System::Drawing::Point(50, 287);
+			this->contacts->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->contacts->Location = System::Drawing::Point(45, 339);
 			this->contacts->Name = L"contacts";
-			this->contacts->Size = System::Drawing::Size(404, 132);
+			this->contacts->Size = System::Drawing::Size(468, 153);
 			this->contacts->TabIndex = 3;
 			this->contacts->TabStop = false;
 			this->contacts->Text = L"Контакты";
@@ -466,7 +558,7 @@ private: System::Windows::Forms::Label^ label_y;
 			this->label_if_you_have_extra->AutoSize = true;
 			this->label_if_you_have_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->label_if_you_have_extra->Location = System::Drawing::Point(23, 110);
+			this->label_if_you_have_extra->Location = System::Drawing::Point(18, 126);
 			this->label_if_you_have_extra->Name = L"label_if_you_have_extra";
 			this->label_if_you_have_extra->Size = System::Drawing::Size(102, 17);
 			this->label_if_you_have_extra->TabIndex = 1000;
@@ -474,12 +566,12 @@ private: System::Windows::Forms::Label^ label_y;
 			// 
 			// input_extra
 			// 
-			this->input_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_extra->Location = System::Drawing::Point(169, 87);
+			this->input_extra->Location = System::Drawing::Point(191, 97);
 			this->input_extra->MaxLength = 50;
 			this->input_extra->Name = L"input_extra";
-			this->input_extra->Size = System::Drawing::Size(219, 26);
+			this->input_extra->Size = System::Drawing::Size(266, 30);
 			this->input_extra->TabIndex = 6;
 			this->input_extra->TabStop = false;
 			this->input_extra->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
@@ -490,11 +582,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// label_extra
 			// 
 			this->label_extra->AutoSize = true;
-			this->label_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_extra->Location = System::Drawing::Point(22, 90);
+			this->label_extra->Location = System::Drawing::Point(16, 101);
 			this->label_extra->Name = L"label_extra";
-			this->label_extra->Size = System::Drawing::Size(147, 20);
+			this->label_extra->Size = System::Drawing::Size(169, 25);
 			this->label_extra->TabIndex = 1000;
 			this->label_extra->Text = L"Дополнительно:";
 			// 
@@ -503,7 +595,7 @@ private: System::Windows::Forms::Label^ label_y;
 			this->label_if_you_have_email->AutoSize = true;
 			this->label_if_you_have_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->label_if_you_have_email->Location = System::Drawing::Point(23, 69);
+			this->label_if_you_have_email->Location = System::Drawing::Point(18, 84);
 			this->label_if_you_have_email->Name = L"label_if_you_have_email";
 			this->label_if_you_have_email->Size = System::Drawing::Size(102, 17);
 			this->label_if_you_have_email->TabIndex = 1000;
@@ -511,12 +603,12 @@ private: System::Windows::Forms::Label^ label_y;
 			// 
 			// input_email
 			// 
-			this->input_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_email->Location = System::Drawing::Point(124, 46);
+			this->input_email->Location = System::Drawing::Point(126, 61);
 			this->input_email->MaxLength = 254;
 			this->input_email->Name = L"input_email";
-			this->input_email->Size = System::Drawing::Size(264, 26);
+			this->input_email->Size = System::Drawing::Size(331, 30);
 			this->input_email->TabIndex = 5;
 			this->input_email->TabStop = false;
 			this->input_email->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
@@ -527,11 +619,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// label_email
 			// 
 			this->label_email->AutoSize = true;
-			this->label_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_email->Location = System::Drawing::Point(22, 49);
+			this->label_email->Location = System::Drawing::Point(16, 64);
 			this->label_email->Name = L"label_email";
-			this->label_email->Size = System::Drawing::Size(96, 20);
+			this->label_email->Size = System::Drawing::Size(109, 25);
 			this->label_email->TabIndex = 1000;
 			this->label_email->Text = L"Эл. почта:";
 			// 
@@ -548,7 +640,9 @@ private: System::Windows::Forms::Label^ label_y;
 			this->registration_company->Controls->Add(this->input_legal_form);
 			this->registration_company->Controls->Add(this->label_company_name);
 			this->registration_company->Controls->Add(this->input_company_name);
-			this->registration_company->Location = System::Drawing::Point(50, 142);
+			this->registration_company->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->registration_company->Location = System::Drawing::Point(547, 286);
 			this->registration_company->Name = L"registration_company";
 			this->registration_company->Size = System::Drawing::Size(404, 139);
 			this->registration_company->TabIndex = 1001;
@@ -705,11 +799,11 @@ private: System::Windows::Forms::Label^ label_y;
 			// button_register
 			// 
 			this->button_register->Enabled = false;
-			this->button_register->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->button_register->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_register->Location = System::Drawing::Point(153, 425);
+			this->button_register->Location = System::Drawing::Point(171, 498);
 			this->button_register->Name = L"button_register";
-			this->button_register->Size = System::Drawing::Size(220, 35);
+			this->button_register->Size = System::Drawing::Size(248, 55);
 			this->button_register->TabIndex = 100;
 			this->button_register->Text = L"Зарегистрироваться";
 			this->button_register->UseVisualStyleBackColor = true;
@@ -719,7 +813,7 @@ private: System::Windows::Forms::Label^ label_y;
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(507, 467);
+			this->ClientSize = System::Drawing::Size(582, 563);
 			this->Controls->Add(this->button_register);
 			this->Controls->Add(this->button_company);
 			this->Controls->Add(this->contacts);
@@ -727,9 +821,12 @@ private: System::Windows::Forms::Label^ label_y;
 			this->Controls->Add(this->label_no_account);
 			this->Controls->Add(this->label_kalimera);
 			this->Controls->Add(this->label_registration);
-			this->Controls->Add(this->registration_individual);
 			this->Controls->Add(this->registration_company);
+			this->Controls->Add(this->registration_individual);
+			this->MaximumSize = System::Drawing::Size(600, 610);
+			this->MinimumSize = System::Drawing::Size(600, 610);
 			this->Name = L"Registration";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Регистрация";
 			this->registration_individual->ResumeLayout(false);
 			this->registration_individual->PerformLayout();
@@ -773,7 +870,6 @@ private:
 	System::Void registration(System::Object^ sender, System::EventArgs^ e)
 	{
 		/// Common between 'Individual' and 'Company'.
-		// Maybe we could define '=' between 'std::wstring' and 'System::String'?
 		std::wstring email = to_std_wstring(input_email->Text);
 		std::wstring extra_contacts = to_std_wstring(input_extra->Text);
 

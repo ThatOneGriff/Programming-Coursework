@@ -2,9 +2,9 @@
 #ifndef MAIN_MENU_HPP
 #define MAIN_MENU_HPP
 
-#include <stdio.h> // File removal
-
 #include "Menus/Registration/registration.hpp"
+// Should menus be able to include each other?
+// Or should we opt for a more modular approach?
 
 #include "../../Classes/user.hpp"
 #include "../../utils.hpp"
