@@ -23,6 +23,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	/// - headings for every 'MessageBox'
 	
 	/// = Possibilities =
+	/// - a centralized 'User' hub
 	/// - we could define a '=' between 'System::String^' and 'std::wstring'
 
 	//#define DEBUG

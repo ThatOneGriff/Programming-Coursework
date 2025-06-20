@@ -100,6 +100,7 @@ private:
 };
 
 
+// TODO: lower and upper bound; random date in x months, etc
 Date _get_random_date()
 {
 	int day   = randint(1, 28);
