@@ -506,18 +506,22 @@ private: System::Windows::Forms::Button^ button_filter;
 			// 
 			// group_orders
 			// 
-			this->group_orders->Location = System::Drawing::Point(274, 157);
+			this->group_orders->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->group_orders->Location = System::Drawing::Point(322, 178);
 			this->group_orders->Name = L"group_orders";
-			this->group_orders->Size = System::Drawing::Size(255, 253);
+			this->group_orders->Size = System::Drawing::Size(308, 343);
 			this->group_orders->TabIndex = 6;
 			this->group_orders->TabStop = false;
 			this->group_orders->Text = L"Ищут подрядчика";
 			// 
 			// group_offers
 			// 
-			this->group_offers->Location = System::Drawing::Point(8, 157);
+			this->group_offers->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->group_offers->Location = System::Drawing::Point(8, 179);
 			this->group_offers->Name = L"group_offers";
-			this->group_offers->Size = System::Drawing::Size(255, 253);
+			this->group_offers->Size = System::Drawing::Size(308, 343);
 			this->group_offers->TabIndex = 5;
 			this->group_offers->TabStop = false;
 			this->group_offers->Text = L"Ищут заказчика";
@@ -539,9 +543,9 @@ private: System::Windows::Forms::Button^ button_filter;
 			// 
 			this->bg_feed->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"bg_feed.BackgroundImage")));
 			this->bg_feed->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->bg_feed->Location = System::Drawing::Point(-1, -1);
+			this->bg_feed->Location = System::Drawing::Point(0, -7);
 			this->bg_feed->Name = L"bg_feed";
-			this->bg_feed->Size = System::Drawing::Size(534, 152);
+			this->bg_feed->Size = System::Drawing::Size(640, 180);
 			this->bg_feed->TabIndex = 1;
 			this->bg_feed->TabStop = false;
 			// 
@@ -648,9 +652,9 @@ private: System::Windows::Forms::Button^ button_filter;
 			this->BackColor = System::Drawing::SystemColors::Control;
 			this->ClientSize = System::Drawing::Size(782, 553);
 			this->Controls->Add(this->sidebar);
-			this->Controls->Add(this->menu_search);
 			this->Controls->Add(this->menu_feed);
 			this->Controls->Add(this->menu_account);
+			this->Controls->Add(this->menu_search);
 			this->DoubleBuffered = true;
 			this->MaximumSize = System::Drawing::Size(800, 600);
 			this->MinimumSize = System::Drawing::Size(800, 600);
