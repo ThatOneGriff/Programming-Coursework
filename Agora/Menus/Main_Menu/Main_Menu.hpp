@@ -119,6 +119,8 @@ private: System::Windows::Forms::Label^ label_account_age;
 private: System::Windows::Forms::Label^ label_account_phone_number;
 private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 private: System::Windows::Forms::Button^ button_filter;
+private: System::Windows::Forms::Label^ label_feed_customers_WIP;
+private: System::Windows::Forms::Label^ label_feed_contractors_WIP;
 
 
 
@@ -183,12 +185,16 @@ private: System::Windows::Forms::Button^ button_filter;
 			this->input_search = (gcnew System::Windows::Forms::TextBox());
 			this->label_search = (gcnew System::Windows::Forms::Label());
 			this->bg_search = (gcnew System::Windows::Forms::PictureBox());
+			this->label_feed_contractors_WIP = (gcnew System::Windows::Forms::Label());
+			this->label_feed_customers_WIP = (gcnew System::Windows::Forms::Label());
 			this->sidebar->SuspendLayout();
 			this->menu_account->SuspendLayout();
 			this->group_active_contracts->SuspendLayout();
 			this->group_account_data->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->BeginInit();
 			this->menu_feed->SuspendLayout();
+			this->group_orders->SuspendLayout();
+			this->group_offers->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->BeginInit();
 			this->menu_search->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_search))->BeginInit();
@@ -441,10 +447,10 @@ private: System::Windows::Forms::Button^ button_filter;
 			// 
 			this->output_account_phone_number->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->output_account_phone_number->Location = System::Drawing::Point(110, 85);
+			this->output_account_phone_number->Location = System::Drawing::Point(131, 85);
 			this->output_account_phone_number->Name = L"output_account_phone_number";
 			this->output_account_phone_number->ReadOnly = true;
-			this->output_account_phone_number->Size = System::Drawing::Size(198, 26);
+			this->output_account_phone_number->Size = System::Drawing::Size(177, 26);
 			this->output_account_phone_number->TabIndex = 1;
 			// 
 			// output_account_name
@@ -507,6 +513,7 @@ private: System::Windows::Forms::Button^ button_filter;
 			// 
 			// group_orders
 			// 
+			this->group_orders->Controls->Add(this->label_feed_customers_WIP);
 			this->group_orders->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->group_orders->Location = System::Drawing::Point(322, 178);
@@ -518,6 +525,7 @@ private: System::Windows::Forms::Button^ button_filter;
 			// 
 			// group_offers
 			// 
+			this->group_offers->Controls->Add(this->label_feed_contractors_WIP);
 			this->group_offers->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->group_offers->Location = System::Drawing::Point(8, 178);
@@ -646,6 +654,26 @@ private: System::Windows::Forms::Button^ button_filter;
 			this->bg_search->TabIndex = 5;
 			this->bg_search->TabStop = false;
 			// 
+			// label_feed_contractors_WIP
+			// 
+			this->label_feed_contractors_WIP->AutoSize = true;
+			this->label_feed_contractors_WIP->Enabled = false;
+			this->label_feed_contractors_WIP->Location = System::Drawing::Point(53, 159);
+			this->label_feed_contractors_WIP->Name = L"label_feed_contractors_WIP";
+			this->label_feed_contractors_WIP->Size = System::Drawing::Size(200, 20);
+			this->label_feed_contractors_WIP->TabIndex = 0;
+			this->label_feed_contractors_WIP->Text = L"Работа в процессе...";
+			// 
+			// label_feed_customers_WIP
+			// 
+			this->label_feed_customers_WIP->AutoSize = true;
+			this->label_feed_customers_WIP->Enabled = false;
+			this->label_feed_customers_WIP->Location = System::Drawing::Point(50, 159);
+			this->label_feed_customers_WIP->Name = L"label_feed_customers_WIP";
+			this->label_feed_customers_WIP->Size = System::Drawing::Size(200, 20);
+			this->label_feed_customers_WIP->TabIndex = 1;
+			this->label_feed_customers_WIP->Text = L"Работа в процессе...";
+			// 
 			// Main_Menu
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -670,6 +698,10 @@ private: System::Windows::Forms::Button^ button_filter;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->EndInit();
 			this->menu_feed->ResumeLayout(false);
 			this->menu_feed->PerformLayout();
+			this->group_orders->ResumeLayout(false);
+			this->group_orders->PerformLayout();
+			this->group_offers->ResumeLayout(false);
+			this->group_offers->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->EndInit();
 			this->menu_search->ResumeLayout(false);
 			this->menu_search->PerformLayout();

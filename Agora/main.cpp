@@ -17,9 +17,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
-
-	/// = Known Errors =
-	/// - date of 'est' is not even saved within company
 	
 	/// = TODO =
 	/// - string split by char
