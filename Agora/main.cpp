@@ -1,5 +1,4 @@
 #include <string>
-#include <thread>
 #include <Windows.h>
 
 #include "Menus/Main_Menu/main_menu.hpp"
@@ -37,7 +36,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	if (user == nullptr) /// Not registered.
 	{
 		Application::Run(gcnew Registration(user));
-		//std::this_thread::sleep_for(std::chrono::seconds(1)); /// waiting for savefile to appear
 		user = load(USER_SAVEFILE_NAME); /// loading saved data
 	}
 	if (user == nullptr) /// Registration didn't work, or user closed the window.

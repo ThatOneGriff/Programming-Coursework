@@ -40,6 +40,8 @@ public:
 
 		System::Drawing::Size size(665, 485);
 		this->Size = size;
+
+		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
 	}
 
 	#pragma region = Winforms Code =
@@ -65,9 +67,11 @@ private: System::Windows::Forms::GroupBox^ group_account_data;
 private: System::Windows::Forms::TextBox^ output_account_email;
 
 private: System::Windows::Forms::TextBox^ output_account_phone_number;
-
-
 private: System::Windows::Forms::TextBox^ output_account_name;
+
+
+
+
 private: System::Windows::Forms::TextBox^ output_account_extra;
 
 
@@ -102,6 +106,20 @@ private: System::Windows::Forms::PictureBox^ bg_search;
 
 
 private: System::Windows::Forms::GroupBox^ group_active_contracts;
+private: System::Windows::Forms::TextBox^ output_account_age;
+private: System::Windows::Forms::Label^ label_account_website;
+
+private: System::Windows::Forms::Label^ label_account_extra;
+
+private: System::Windows::Forms::Label^ label_account_email;
+
+private: System::Windows::Forms::Label^ label_account_age;
+
+private: System::Windows::Forms::Label^ label_account_phone_number;
+private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
+
+
+
 
 
 
@@ -133,6 +151,12 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->menu_account = (gcnew System::Windows::Forms::Panel());
 			this->group_active_contracts = (gcnew System::Windows::Forms::GroupBox());
 			this->group_account_data = (gcnew System::Windows::Forms::GroupBox());
+			this->label_account_website = (gcnew System::Windows::Forms::Label());
+			this->label_account_extra = (gcnew System::Windows::Forms::Label());
+			this->label_account_email = (gcnew System::Windows::Forms::Label());
+			this->label_account_age = (gcnew System::Windows::Forms::Label());
+			this->label_account_phone_number = (gcnew System::Windows::Forms::Label());
+			this->output_account_age = (gcnew System::Windows::Forms::TextBox());
 			this->output_account_website = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->output_account_extra = (gcnew System::Windows::Forms::TextBox());
@@ -155,8 +179,10 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->input_search = (gcnew System::Windows::Forms::TextBox());
 			this->label_search = (gcnew System::Windows::Forms::Label());
 			this->bg_search = (gcnew System::Windows::Forms::PictureBox());
+			this->label_no_active_contracts = (gcnew System::Windows::Forms::RichTextBox());
 			this->sidebar->SuspendLayout();
 			this->menu_account->SuspendLayout();
+			this->group_active_contracts->SuspendLayout();
 			this->group_account_data->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->BeginInit();
 			this->menu_feed->SuspendLayout();
@@ -173,7 +199,7 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->menu_button_search->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_search.Image")));
 			this->menu_button_search->Location = System::Drawing::Point(5, 9);
 			this->menu_button_search->Name = L"menu_button_search";
-			this->menu_button_search->Size = System::Drawing::Size(75, 75);
+			this->menu_button_search->Size = System::Drawing::Size(100, 100);
 			this->menu_button_search->TabIndex = 1;
 			this->menu_button_search->UseVisualStyleBackColor = false;
 			this->menu_button_search->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_search);
@@ -187,9 +213,9 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->sidebar->Controls->Add(this->menu_button_account);
 			this->sidebar->Controls->Add(this->menu_button_feed);
 			this->sidebar->Controls->Add(this->menu_button_search);
-			this->sidebar->Location = System::Drawing::Point(552, 12);
+			this->sidebar->Location = System::Drawing::Point(660, 12);
 			this->sidebar->Name = L"sidebar";
-			this->sidebar->Size = System::Drawing::Size(85, 415);
+			this->sidebar->Size = System::Drawing::Size(110, 535);
 			this->sidebar->TabIndex = 1;
 			// 
 			// menu_button_info
@@ -198,9 +224,9 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 				static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
 			this->menu_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->menu_button_info->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_info.Image")));
-			this->menu_button_info->Location = System::Drawing::Point(5, 333);
+			this->menu_button_info->Location = System::Drawing::Point(5, 429);
 			this->menu_button_info->Name = L"menu_button_info";
-			this->menu_button_info->Size = System::Drawing::Size(75, 75);
+			this->menu_button_info->Size = System::Drawing::Size(100, 100);
 			this->menu_button_info->TabIndex = 4;
 			this->menu_button_info->UseVisualStyleBackColor = false;
 			this->menu_button_info->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_info);
@@ -212,9 +238,9 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->menu_button_settings->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->menu_button_settings->Enabled = false;
 			this->menu_button_settings->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_settings.Image")));
-			this->menu_button_settings->Location = System::Drawing::Point(5, 253);
+			this->menu_button_settings->Location = System::Drawing::Point(5, 323);
 			this->menu_button_settings->Name = L"menu_button_settings";
-			this->menu_button_settings->Size = System::Drawing::Size(75, 75);
+			this->menu_button_settings->Size = System::Drawing::Size(100, 100);
 			this->menu_button_settings->TabIndex = 3;
 			this->menu_button_settings->UseVisualStyleBackColor = false;
 			// 
@@ -224,9 +250,9 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 				static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
 			this->menu_button_account->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->menu_button_account->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_account.Image")));
-			this->menu_button_account->Location = System::Drawing::Point(5, 173);
+			this->menu_button_account->Location = System::Drawing::Point(5, 217);
 			this->menu_button_account->Name = L"menu_button_account";
-			this->menu_button_account->Size = System::Drawing::Size(75, 75);
+			this->menu_button_account->Size = System::Drawing::Size(100, 100);
 			this->menu_button_account->TabIndex = 2;
 			this->menu_button_account->UseVisualStyleBackColor = false;
 			this->menu_button_account->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_account);
@@ -237,9 +263,9 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 				static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
 			this->menu_button_feed->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->menu_button_feed->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_feed.Image")));
-			this->menu_button_feed->Location = System::Drawing::Point(5, 93);
+			this->menu_button_feed->Location = System::Drawing::Point(5, 111);
 			this->menu_button_feed->Name = L"menu_button_feed";
-			this->menu_button_feed->Size = System::Drawing::Size(75, 75);
+			this->menu_button_feed->Size = System::Drawing::Size(100, 100);
 			this->menu_button_feed->TabIndex = 0;
 			this->menu_button_feed->UseVisualStyleBackColor = false;
 			this->menu_button_feed->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_feed);
@@ -251,43 +277,115 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->menu_account->Controls->Add(this->group_account_data);
 			this->menu_account->Controls->Add(this->label_my_account);
 			this->menu_account->Controls->Add(this->bg_my_account);
-			this->menu_account->Location = System::Drawing::Point(662, 449);
+			this->menu_account->Location = System::Drawing::Point(12, 12);
 			this->menu_account->Name = L"menu_account";
-			this->menu_account->Size = System::Drawing::Size(534, 415);
+			this->menu_account->Size = System::Drawing::Size(640, 535);
 			this->menu_account->TabIndex = 2;
 			// 
 			// group_active_contracts
 			// 
-			this->group_active_contracts->Location = System::Drawing::Point(281, 157);
+			this->group_active_contracts->Controls->Add(this->label_no_active_contracts);
+			this->group_active_contracts->Location = System::Drawing::Point(328, 178);
 			this->group_active_contracts->Name = L"group_active_contracts";
-			this->group_active_contracts->Size = System::Drawing::Size(248, 250);
+			this->group_active_contracts->Size = System::Drawing::Size(307, 350);
 			this->group_active_contracts->TabIndex = 5;
 			this->group_active_contracts->TabStop = false;
 			this->group_active_contracts->Text = L"Активные контракты";
 			// 
 			// group_account_data
 			// 
+			this->group_account_data->Controls->Add(this->label_account_website);
+			this->group_account_data->Controls->Add(this->label_account_extra);
+			this->group_account_data->Controls->Add(this->label_account_email);
+			this->group_account_data->Controls->Add(this->label_account_age);
+			this->group_account_data->Controls->Add(this->label_account_phone_number);
+			this->group_account_data->Controls->Add(this->output_account_age);
 			this->group_account_data->Controls->Add(this->output_account_website);
 			this->group_account_data->Controls->Add(this->button1);
 			this->group_account_data->Controls->Add(this->output_account_extra);
 			this->group_account_data->Controls->Add(this->output_account_email);
 			this->group_account_data->Controls->Add(this->output_account_phone_number);
 			this->group_account_data->Controls->Add(this->output_account_name);
-			this->group_account_data->Location = System::Drawing::Point(8, 157);
+			this->group_account_data->Location = System::Drawing::Point(8, 178);
 			this->group_account_data->Name = L"group_account_data";
-			this->group_account_data->Size = System::Drawing::Size(267, 250);
+			this->group_account_data->Size = System::Drawing::Size(314, 350);
 			this->group_account_data->TabIndex = 2;
 			this->group_account_data->TabStop = false;
 			this->group_account_data->Text = L"Данные";
+			// 
+			// label_account_website
+			// 
+			this->label_account_website->AutoSize = true;
+			this->label_account_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_account_website->Location = System::Drawing::Point(6, 185);
+			this->label_account_website->Name = L"label_account_website";
+			this->label_account_website->Size = System::Drawing::Size(61, 20);
+			this->label_account_website->TabIndex = 9;
+			this->label_account_website->Text = L"Сайт:";
+			// 
+			// label_account_extra
+			// 
+			this->label_account_extra->AutoSize = true;
+			this->label_account_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_account_extra->Location = System::Drawing::Point(6, 153);
+			this->label_account_extra->Name = L"label_account_extra";
+			this->label_account_extra->Size = System::Drawing::Size(56, 20);
+			this->label_account_extra->TabIndex = 8;
+			this->label_account_extra->Text = L"Доп.:";
+			// 
+			// label_account_email
+			// 
+			this->label_account_email->AutoSize = true;
+			this->label_account_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_account_email->Location = System::Drawing::Point(6, 121);
+			this->label_account_email->Name = L"label_account_email";
+			this->label_account_email->Size = System::Drawing::Size(67, 20);
+			this->label_account_email->TabIndex = 7;
+			this->label_account_email->Text = L"e-mail:";
+			// 
+			// label_account_age
+			// 
+			this->label_account_age->AutoSize = true;
+			this->label_account_age->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label_account_age->Location = System::Drawing::Point(6, 56);
+			this->label_account_age->Name = L"label_account_age";
+			this->label_account_age->Size = System::Drawing::Size(89, 20);
+			this->label_account_age->TabIndex = 6;
+			this->label_account_age->Text = L"label_age";
+			// 
+			// label_account_phone_number
+			// 
+			this->label_account_phone_number->AutoSize = true;
+			this->label_account_phone_number->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->label_account_phone_number->Location = System::Drawing::Point(6, 88);
+			this->label_account_phone_number->Name = L"label_account_phone_number";
+			this->label_account_phone_number->Size = System::Drawing::Size(98, 20);
+			this->label_account_phone_number->TabIndex = 6;
+			this->label_account_phone_number->Text = L"Телефон:";
+			// 
+			// output_account_age
+			// 
+			this->output_account_age->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->output_account_age->Location = System::Drawing::Point(131, 53);
+			this->output_account_age->Name = L"output_account_age";
+			this->output_account_age->ReadOnly = true;
+			this->output_account_age->Size = System::Drawing::Size(177, 26);
+			this->output_account_age->TabIndex = 5;
 			// 
 			// output_account_website
 			// 
 			this->output_account_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->output_account_website->Location = System::Drawing::Point(6, 118);
+			this->output_account_website->Location = System::Drawing::Point(79, 182);
 			this->output_account_website->Name = L"output_account_website";
 			this->output_account_website->ReadOnly = true;
-			this->output_account_website->Size = System::Drawing::Size(255, 26);
+			this->output_account_website->Size = System::Drawing::Size(229, 26);
 			this->output_account_website->TabIndex = 4;
 			// 
 			// button1
@@ -296,9 +394,9 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 				static_cast<System::Int32>(static_cast<System::Byte>(202)));
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button1->Location = System::Drawing::Point(6, 204);
+			this->button1->Location = System::Drawing::Point(0, 214);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(255, 40);
+			this->button1->Size = System::Drawing::Size(308, 40);
 			this->button1->TabIndex = 3;
 			this->button1->Text = L"Редактировать";
 			this->button1->UseVisualStyleBackColor = false;
@@ -308,30 +406,30 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			// 
 			this->output_account_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->output_account_extra->Location = System::Drawing::Point(6, 150);
+			this->output_account_extra->Location = System::Drawing::Point(79, 150);
 			this->output_account_extra->Name = L"output_account_extra";
 			this->output_account_extra->ReadOnly = true;
-			this->output_account_extra->Size = System::Drawing::Size(255, 26);
+			this->output_account_extra->Size = System::Drawing::Size(229, 26);
 			this->output_account_extra->TabIndex = 3;
 			// 
 			// output_account_email
 			// 
 			this->output_account_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->output_account_email->Location = System::Drawing::Point(6, 85);
+			this->output_account_email->Location = System::Drawing::Point(79, 118);
 			this->output_account_email->Name = L"output_account_email";
 			this->output_account_email->ReadOnly = true;
-			this->output_account_email->Size = System::Drawing::Size(255, 26);
+			this->output_account_email->Size = System::Drawing::Size(229, 26);
 			this->output_account_email->TabIndex = 2;
 			// 
 			// output_account_phone_number
 			// 
 			this->output_account_phone_number->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->output_account_phone_number->Location = System::Drawing::Point(6, 53);
+			this->output_account_phone_number->Location = System::Drawing::Point(110, 85);
 			this->output_account_phone_number->Name = L"output_account_phone_number";
 			this->output_account_phone_number->ReadOnly = true;
-			this->output_account_phone_number->Size = System::Drawing::Size(255, 26);
+			this->output_account_phone_number->Size = System::Drawing::Size(198, 26);
 			this->output_account_phone_number->TabIndex = 1;
 			// 
 			// output_account_name
@@ -341,7 +439,7 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->output_account_name->Location = System::Drawing::Point(6, 21);
 			this->output_account_name->Name = L"output_account_name";
 			this->output_account_name->ReadOnly = true;
-			this->output_account_name->Size = System::Drawing::Size(255, 26);
+			this->output_account_name->Size = System::Drawing::Size(302, 26);
 			this->output_account_name->TabIndex = 0;
 			// 
 			// label_my_account
@@ -361,9 +459,9 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			// 
 			this->bg_my_account->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"bg_my_account.BackgroundImage")));
 			this->bg_my_account->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->bg_my_account->Location = System::Drawing::Point(-1, -1);
+			this->bg_my_account->Location = System::Drawing::Point(0, -7);
 			this->bg_my_account->Name = L"bg_my_account";
-			this->bg_my_account->Size = System::Drawing::Size(534, 152);
+			this->bg_my_account->Size = System::Drawing::Size(640, 180);
 			this->bg_my_account->TabIndex = 1;
 			this->bg_my_account->TabStop = false;
 			// 
@@ -375,9 +473,9 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->menu_feed->Controls->Add(this->group_offers);
 			this->menu_feed->Controls->Add(this->label_feed);
 			this->menu_feed->Controls->Add(this->bg_feed);
-			this->menu_feed->Location = System::Drawing::Point(662, 12);
+			this->menu_feed->Location = System::Drawing::Point(12, 12);
 			this->menu_feed->Name = L"menu_feed";
-			this->menu_feed->Size = System::Drawing::Size(534, 415);
+			this->menu_feed->Size = System::Drawing::Size(640, 535);
 			this->menu_feed->TabIndex = 3;
 			// 
 			// button_feed_update
@@ -449,7 +547,7 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->menu_search->Controls->Add(this->bg_search);
 			this->menu_search->Location = System::Drawing::Point(12, 12);
 			this->menu_search->Name = L"menu_search";
-			this->menu_search->Size = System::Drawing::Size(534, 415);
+			this->menu_search->Size = System::Drawing::Size(640, 535);
 			this->menu_search->TabIndex = 7;
 			// 
 			// label_in_future_updates
@@ -514,23 +612,37 @@ private: System::Windows::Forms::GroupBox^ group_active_contracts;
 			this->bg_search->TabIndex = 5;
 			this->bg_search->TabStop = false;
 			// 
+			// label_no_active_contracts
+			// 
+			this->label_no_active_contracts->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->label_no_active_contracts->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->label_no_active_contracts->Location = System::Drawing::Point(6, 121);
+			this->label_no_active_contracts->Name = L"label_no_active_contracts";
+			this->label_no_active_contracts->ReadOnly = true;
+			this->label_no_active_contracts->Size = System::Drawing::Size(301, 87);
+			this->label_no_active_contracts->TabIndex = 0;
+			this->label_no_active_contracts->Text = L"Активных контрактов нет.\n\nЗайдите в Ленту и выберите!";
+			// 
 			// Main_Menu
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(647, 438);
-			this->Controls->Add(this->menu_feed);
+			this->ClientSize = System::Drawing::Size(782, 553);
 			this->Controls->Add(this->menu_account);
 			this->Controls->Add(this->sidebar);
 			this->Controls->Add(this->menu_search);
+			this->Controls->Add(this->menu_feed);
 			this->DoubleBuffered = true;
-			this->MaximumSize = System::Drawing::Size(665, 485);
+			this->MaximumSize = System::Drawing::Size(800, 600);
+			this->MinimumSize = System::Drawing::Size(800, 600);
 			this->Name = L"Main_Menu";
 			this->Text = L"Agora";
 			this->sidebar->ResumeLayout(false);
 			this->menu_account->ResumeLayout(false);
 			this->menu_account->PerformLayout();
+			this->group_active_contracts->ResumeLayout(false);
 			this->group_account_data->ResumeLayout(false);
 			this->group_account_data->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->EndInit();
@@ -608,11 +720,23 @@ private:
 	void fill_account_menu()
 	{
 		if (typeid(*user) == typeid(Individual))
-			output_account_name->Text =	 to_dotnet_string(user->name->get_short());
+		{
+			output_account_name->Text = to_dotnet_string(user->name->get_short());
+			label_account_website-> Enabled = false;
+			output_account_website->Enabled = false;
+
+			label_account_age->Text = "Возраст:";
+			output_account_age->Text = to_dotnet_string(std::to_wstring(user->birth_date.years_since()) + L" лет");
+		}
 		else if (typeid(*user) == typeid(Company))
 		{
-			output_account_name->Text  = to_dotnet_string(user->name->get_full()); // A question rises: do companies even need short names?
-			output_account_website->Text = to_dotnet_string(user->website); // I genuinely have no time to try and fit extra contacts into 'Company'
+			output_account_name->Text = to_dotnet_string(user->name->get_full());
+			output_account_website->Text = to_dotnet_string(user->website);
+			label_account_website-> Enabled = true;
+			output_account_website->Enabled = true;
+
+			label_account_age->Text = "На рынке с:";
+			output_account_age->Text = to_dotnet_string(user->birth_date.month_yyyy_genitive());
 		}
 		
 		output_account_phone_number->Text = to_dotnet_string(user->phone_number.as_text());

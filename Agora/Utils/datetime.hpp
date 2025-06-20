@@ -66,23 +66,28 @@ public:
 	}
 
 
-	int years_since()
+	std::wstring month_yyyy_genitive()
 	{
-		Date now = get_date_as_obj();
+		return MONTHS_GENITIVE[month - 1] + L" " + std::to_wstring(year) + L"ã.";
+	}
+
+
+	int years_since(Date since = get_date_as_obj())
+	{
 		bool day_month_passed;
-		if (now.month > this->month)
+		if (since.month > this->month)
 			day_month_passed = true;
-		else if (now.month == this->month)
+		else if (since.month == this->month)
 		{
-			if (now.day >= this->day)
+			if (since.day >= this->day)
 				day_month_passed = true;
 			else
 				day_month_passed = false;
 		}
-		else if (now.month < this->month)
+		else if (since.month < this->month)
 			return day_month_passed = false;
 
-		return now.year - this->year - ! day_month_passed;
+		return since.year - this->year - ! day_month_passed;
 	}
 
 private:

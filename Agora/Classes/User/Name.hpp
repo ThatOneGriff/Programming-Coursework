@@ -111,10 +111,10 @@ public:
 		return translit_CtoL(name) + extension;
 	}
 
-	// ООО "Тмывбабла" / ООО Тмывбабла [для сохранения в файл]
+	// ООО "Тмывбабла"
 	std::wstring get_full()
 	{
-		return legal_form + L" \"" + name + L'"';
+		return legal_form + L' ' + name; /// it's already wrapped in quote marks
 	}
 
 	// Тмывбабла
