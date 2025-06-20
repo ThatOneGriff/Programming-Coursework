@@ -91,7 +91,8 @@ private: System::Windows::Forms::PictureBox^ bg_feed;
 private: System::Windows::Forms::GroupBox^ group_offers;
 private: System::Windows::Forms::GroupBox^ group_orders;
 private: System::Windows::Forms::Button^ button_feed_update;
-private: System::Windows::Forms::Timer^ timer;
+private: System::Windows::Forms::Timer^ update_timer;
+
 private: System::Windows::Forms::Panel^ menu_search;
 private: System::Windows::Forms::Label^ label_in_future_updates;
 
@@ -173,15 +174,15 @@ private: System::Windows::Forms::Button^ button_filter;
 			this->group_offers = (gcnew System::Windows::Forms::GroupBox());
 			this->label_feed = (gcnew System::Windows::Forms::Label());
 			this->bg_feed = (gcnew System::Windows::Forms::PictureBox());
-			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->update_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->menu_search = (gcnew System::Windows::Forms::Panel());
+			this->button_filter = (gcnew System::Windows::Forms::Button());
 			this->label_in_future_updates = (gcnew System::Windows::Forms::Label());
 			this->label_search_will_be = (gcnew System::Windows::Forms::Label());
 			this->button_search = (gcnew System::Windows::Forms::Button());
 			this->input_search = (gcnew System::Windows::Forms::TextBox());
 			this->label_search = (gcnew System::Windows::Forms::Label());
 			this->bg_search = (gcnew System::Windows::Forms::PictureBox());
-			this->button_filter = (gcnew System::Windows::Forms::Button());
 			this->sidebar->SuspendLayout();
 			this->menu_account->SuspendLayout();
 			this->group_active_contracts->SuspendLayout();
@@ -496,10 +497,10 @@ private: System::Windows::Forms::Button^ button_filter;
 			// 
 			this->button_feed_update->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_feed_update.BackgroundImage")));
 			this->button_feed_update->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
-			this->button_feed_update->Location = System::Drawing::Point(265, 6);
+			this->button_feed_update->Location = System::Drawing::Point(264, 3);
 			this->button_feed_update->Name = L"button_feed_update";
 			this->button_feed_update->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->button_feed_update->Size = System::Drawing::Size(35, 35);
+			this->button_feed_update->Size = System::Drawing::Size(40, 40);
 			this->button_feed_update->TabIndex = 0;
 			this->button_feed_update->UseVisualStyleBackColor = true;
 			this->button_feed_update->Click += gcnew System::EventHandler(this, &Main_Menu::update_feed);
@@ -519,7 +520,7 @@ private: System::Windows::Forms::Button^ button_filter;
 			// 
 			this->group_offers->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->group_offers->Location = System::Drawing::Point(8, 179);
+			this->group_offers->Location = System::Drawing::Point(8, 178);
 			this->group_offers->Name = L"group_offers";
 			this->group_offers->Size = System::Drawing::Size(308, 343);
 			this->group_offers->TabIndex = 5;
@@ -549,10 +550,10 @@ private: System::Windows::Forms::Button^ button_filter;
 			this->bg_feed->TabIndex = 1;
 			this->bg_feed->TabStop = false;
 			// 
-			// timer
+			// update_timer
 			// 
-			this->timer->Interval = 500;
-			this->timer->Tick += gcnew System::EventHandler(this, &Main_Menu::update_feed);
+			this->update_timer->Interval = 500;
+			this->update_timer->Tick += gcnew System::EventHandler(this, &Main_Menu::update_feed);
 			// 
 			// menu_search
 			// 
@@ -568,6 +569,18 @@ private: System::Windows::Forms::Button^ button_filter;
 			this->menu_search->Name = L"menu_search";
 			this->menu_search->Size = System::Drawing::Size(640, 535);
 			this->menu_search->TabIndex = 7;
+			// 
+			// button_filter
+			// 
+			this->button_filter->BackColor = System::Drawing::SystemColors::ControlLight;
+			this->button_filter->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_filter.BackgroundImage")));
+			this->button_filter->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->button_filter->Enabled = false;
+			this->button_filter->Location = System::Drawing::Point(44, 178);
+			this->button_filter->Name = L"button_filter";
+			this->button_filter->Size = System::Drawing::Size(40, 40);
+			this->button_filter->TabIndex = 6;
+			this->button_filter->UseVisualStyleBackColor = false;
 			// 
 			// label_in_future_updates
 			// 
@@ -633,18 +646,6 @@ private: System::Windows::Forms::Button^ button_filter;
 			this->bg_search->TabIndex = 5;
 			this->bg_search->TabStop = false;
 			// 
-			// button_filter
-			// 
-			this->button_filter->BackColor = System::Drawing::SystemColors::ControlLight;
-			this->button_filter->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_filter.BackgroundImage")));
-			this->button_filter->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->button_filter->Enabled = false;
-			this->button_filter->Location = System::Drawing::Point(44, 178);
-			this->button_filter->Name = L"button_filter";
-			this->button_filter->Size = System::Drawing::Size(40, 40);
-			this->button_filter->TabIndex = 6;
-			this->button_filter->UseVisualStyleBackColor = false;
-			// 
 			// Main_Menu
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -703,9 +704,11 @@ private:
 
 	void update_feed(System::Object^ _sender, System::EventArgs^ e)
 	{
+		/// Think I'm a genius. This function is used both for start and end of the 'update'. Elegant!
+		button_feed_update->Enabled = ! button_feed_update->Enabled;
 		group_orders->Enabled = ! group_orders->Enabled;
 		group_offers->Enabled = ! group_offers->Enabled;
-		timer->Enabled = ! timer->Enabled;
+		update_timer->Enabled = ! update_timer->Enabled;
 	}
 
 	#pragma endregion

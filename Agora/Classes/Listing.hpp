@@ -2,11 +2,113 @@
 #ifndef LISTING_HPP
 #define LISTING_HPP
 
+#include <string>
+#include <unordered_map>
 #include "user.hpp"
+
+/// Represents an unsigned (1 user), signed (2 users), or completed contract.
+
+
+/// Базово, каждый из этих типов - просто умножение почасовой оплаты на коэффициент.
+/// Коэффициент же, по сути - количество отработанных часов.
+/// Представим, что у всех поголовно 5/2 8 ч./день.
+const std::unordered_map<std::wstring, unsigned int> PAYMENT_TYPES = {
+  /// ЗА ВРЕМЯ | КОЭФ. ОПЛАТЫ
+	{    L"ч.",  1 },
+	{    L"д.",  8 },
+	{  L"нед.",  8*5 },  ///    5 = неделя - 2 выходных
+	{  L"мес.",  8*25 }, /// 25 = 4 недели - 8 выходных
+	{ L"полная", 1 }     /// Отдельный случай. Отражается в коэффициенте.
+};
+
+
+enum Listing_Status
+{
+	Closed,
+	Open,
+	Signed,
+	Finished
+};
 
 
 class Listing
 {
+public:
+
+	const std::wstring name, description, payment_type;
+	const unsigned int length_time_units, payment_hr;
+	unsigned int	   payment_total;
+
+	const Date until;
+	Listing_Status status = Listing_Status::Closed;
+
+
+	/// Для оплаты по отрезкам времени
+	Listing(const std::wstring& _name,    const std::wstring& _description,
+			const Date& _until,           const unsigned int  _payment_hr,
+		    const int _length_time_units, const std::wstring& _payment_type,
+			User* _contractor = nullptr,   User* _customer = nullptr)
+	: name(_name), description(_description), until(_until),
+	  payment_hr(_payment_hr), length_time_units(_length_time_units),
+	  payment_type(_payment_type)
+	{
+		if (_contractor != nullptr)
+			set_contractor(_contractor);
+		if (_customer   != nullptr)
+			set_customer  (_customer);
+
+		if (payment_type == L"полная")
+		{
+			Listing(_name,		 _description, _until,
+					_payment_hr, _contractor,  _customer);
+			return;
+		}
+
+		payment_total = payment_hr * length_time_units * PAYMENT_TYPES.at(payment_type);
+	}
+
+
+	/// Для полной оплаты
+	Listing(const std::wstring& _name,   const std::wstring& _description,
+			const Date& _until,          const unsigned int  _payment_full,
+			User* _contractor = nullptr, User* _customer = nullptr)
+	: name(_name), description(_description), until(_until),
+	  payment_hr(_payment_full), length_time_units(1),
+	  payment_type(L"полная")
+	{
+		if (_contractor != nullptr)
+			set_contractor(_contractor);
+		if (_customer   != nullptr)
+			set_customer  (_customer);
+
+		payment_total = payment_hr;
+	}
+
+
+	void set_contractor(User* _contractor)
+	{
+		contractor = _contractor;
+		if (customer == nullptr)
+			status = Listing_Status::Open;
+		else
+			status = Listing_Status::Signed;
+	}
+
+	
+	void set_customer(User* _customer)
+	{
+		customer = _customer;
+		if (contractor == nullptr)
+			status = Listing_Status::Open;
+		else
+			status = Listing_Status::Signed;
+	}
+
+
+private:
+
+	///   подрядчик | заказчик
+	User *contractor, *customer; 
 
 };
 

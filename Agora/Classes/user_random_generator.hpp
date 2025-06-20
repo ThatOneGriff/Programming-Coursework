@@ -2,14 +2,15 @@
 #ifndef RANDOM_USER_GENERATOR_HPP
 #define RANDOM_USER_GENERATOR_HPP
 
-#include "../user.hpp"
+#include "user.hpp"
+#include "../utils.hpp"
 
 /// There will be no random company generator, nor related things:
 /// I'm gonna have a predefined set of companies.
 
 Individual get_random_individual();
 
-std::wstring	_get_email(const Individual_Name& name); // email must be generated according to the name transliteration
+std::wstring	_get_email(const Individual_Name& name); /// email must be generated according to the name transliteration
 Phone_Number    _get_random_phone_number(const bool corporate = false);
 Individual_Name	_get_random_individual_name();
 
@@ -17,11 +18,11 @@ Individual_Name	_get_random_individual_name();
 Individual get_random_individual()
 {
 	Individual_Name name = _get_random_individual_name();
+	Date      birth_date = _get_random_date();
 	Phone_Number  number = _get_random_phone_number();
-	std::wstring  email  = _get_email(name);
+	std::wstring   email = _get_email(name);
 
-	Individual result(name, number);
-	result.set_email (email);
+	Individual result(name, birth_date, number, email);
 	return result;
 }
 

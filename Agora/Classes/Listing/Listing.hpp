@@ -3,9 +3,12 @@
 #define LISTING_HPP
 
 #include <string>
-#include "../user.hpp"
+#include "user.hpp"
 
-/// Represents an unsigned (1 user), signed (2 users), or completed contract.
+/// Represents an open (1 user), signed (2 users), or completed contract.
+/// Here be:
+class Listing;
+
 
 
 class Listing
@@ -20,7 +23,7 @@ public:
 
 	Listing(const std::wstring& _name, const std::wstring& _description, const unsigned int _payment, const int _length_days)
 	: name(_name), description(_description), payment(_payment), length_days(_length_days)
-	{}w
+	{}
 };
 
 

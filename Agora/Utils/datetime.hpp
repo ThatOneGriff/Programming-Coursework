@@ -9,6 +9,7 @@
 
 ///  Here be:
 class Date;
+Date _get_random_date();
 std::wstring get_date();
 Date get_date_as_obj();
 int get_time();
@@ -94,6 +95,16 @@ private:
 
 	unsigned int day, month, year;
 };
+
+
+Date _get_random_date()
+{
+	int day   = randint(1, 28);
+	int month = randint(1, 12);
+	int year  = randint(1970, 2007);
+
+	return Date(day, month, year);
+}
 
 
 std::wstring get_date()
