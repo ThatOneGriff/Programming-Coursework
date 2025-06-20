@@ -23,7 +23,11 @@ namespace Agora {
 	public ref class Registration : public System::Windows::Forms::Form
 	{
 	public:
-		Registration(User* user)
+
+		User* user;
+
+		Registration(User* _user)
+		: user(_user)
 		{
 			InitializeComponent();
 			pick_as_individual(nullptr, nullptr);
@@ -264,7 +268,7 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->label_registration->AutoSize = true;
 			this->label_registration->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_registration->Location = System::Drawing::Point(186, 9);
+			this->label_registration->Location = System::Drawing::Point(208, 9);
 			this->label_registration->Name = L"label_registration";
 			this->label_registration->Size = System::Drawing::Size(185, 31);
 			this->label_registration->TabIndex = 1000;
@@ -833,7 +837,7 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(582, 563);
+			this->ClientSize = System::Drawing::Size(562, 563);
 			this->Controls->Add(this->button_register);
 			this->Controls->Add(this->button_company);
 			this->Controls->Add(this->contacts);
@@ -843,8 +847,8 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->Controls->Add(this->label_registration);
 			this->Controls->Add(this->registration_individual);
 			this->Controls->Add(this->registration_company);
-			this->MaximumSize = System::Drawing::Size(600, 610);
-			this->MinimumSize = System::Drawing::Size(600, 610);
+			this->MaximumSize = System::Drawing::Size(580, 610);
+			this->MinimumSize = System::Drawing::Size(580, 610);
 			this->Name = L"Registration";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Регистрация";
@@ -907,9 +911,8 @@ private:
 		{
 			Individual_Name name(to_std_wstring(input_name->Text), to_std_wstring(input_surname->Text), to_std_wstring(input_patronym->Text));
 			Date birth_date(dstoi(input_ind_day->Text), input_ind_month->SelectedIndex + 1, dstoi(input_ind_year->Text));
-			Individual new_user(name, birth_date, phone_number, email, extra_contacts);
-			save(&new_user, USER_SAVEFILE_NAME);
-			// SETTING USER IN-PROGRAM, NOT READING FILES
+			Individual* new_user = new Individual(name, birth_date, phone_number, email, extra_contacts);
+			user = new_user;
 		}
 
 		// Saving a company
@@ -918,11 +921,11 @@ private:
 			std::wstring website = to_std_wstring(input_website->Text);
 			Company_Name name(to_std_wstring(input_legal_form->Text), to_std_wstring(input_company_name->Text));
 			Date birth_date(01, input_com_month->SelectedIndex + 1, dstoi(input_com_year->Text));
-			Company new_user(name, birth_date, phone_number, email, website, extra_contacts);
-			save(&new_user, USER_SAVEFILE_NAME);
+			Company* new_user = new Company(name, birth_date, phone_number, email, website, extra_contacts);
+			user = new_user;
 		}
 
-		//user = new_user;
+		save(user, USER_SAVEFILE_NAME);
 		this->Close();
 	}
 

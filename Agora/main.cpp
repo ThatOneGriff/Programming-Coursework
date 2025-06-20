@@ -1,4 +1,5 @@
 #include <string>
+#include <thread>
 #include <Windows.h>
 
 #include "Menus/Main_Menu/main_menu.hpp"
@@ -19,11 +20,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     Application::SetCompatibleTextRenderingDefault(false);
 
 	/// = Known Errors =
-	/// - preemptive savefile check
 	/// - date of 'est' is not even saved within company
 	
 	/// = TODO =
-	/// - enlargening
 	/// - string split by char
 	/// - headings for every 'MessageBox'
 	
@@ -35,10 +34,14 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	#ifndef DEBUG
 	/// Release sign in / sign up process.
 	User* user = load(USER_SAVEFILE_NAME);
-	if (user == nullptr)
-		Application::Run(gcnew Registration(nullptr));
+	if (user == nullptr) /// Not registered.
+	{
+		Application::Run(gcnew Registration(user));
+		//std::this_thread::sleep_for(std::chrono::seconds(1)); /// waiting for savefile to appear
+		user = load(USER_SAVEFILE_NAME); /// loading saved data
+	}
 	if (user == nullptr) /// Registration didn't work, or user closed the window.
-		return 0; /// Closing the program.
+		return 0;
 	#endif
 	
 	#ifdef DEBUG

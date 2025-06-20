@@ -10,6 +10,9 @@
 #include "Classes/user.hpp"
 #include "utils.hpp"
 
+/// For 'MessageBox'
+using namespace System::Windows::Forms;
+
 /// This file is for saving and loading 'User's.
 /// [!!!] IF YOU'RE LOOKING FOR FILE MANIPULATION, consult 'Utils/Files.hpp'.
 
@@ -28,8 +31,6 @@ User* load(const std::wstring address)
 	#ifdef DEBUG
 		return nullptr;
 	#endif
-	/// For 'MessageBox'
-	using namespace System::Windows::Forms;
 
 	std::wifstream savefile(address);
 	// Copied from: https://stackoverflow.com/a/3950840/15540979
