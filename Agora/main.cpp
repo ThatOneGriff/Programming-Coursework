@@ -43,11 +43,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	
 	#ifdef DEBUG
 	/// Debug admin account. Un-/comment for Individual/Company via-code switch.
+	Date birth_date(01, 01, 1970);
 	Phone_Number phone(L"+7", L"123", L"4567890");
+	//Individual_Name admin_name(L"Артём", L"Перваков", L"Иванович");
 	//Individual_Name admin_name(L"Артём", L"Перваков", L"Иванович");
 	Company_Name admin_name(L"ИП", L"Артём Перваков");
 	//Individual* user = new Individual(admin_name, phone, L"arper1vanin@gmail.com", L"", L"01.01.1970");
-	Company* user = new Company(admin_name, phone, L"test@test.com", L"test.com", L"", L"01.01.1970");
+	Company* user = new Company(admin_name, birth_date, phone, L"test@test.com", L"test.com");
 	#endif
 
     Application::Run(gcnew Main_Menu(user));

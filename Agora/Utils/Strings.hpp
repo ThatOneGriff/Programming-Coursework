@@ -19,7 +19,9 @@ bool	is_letter(System::Char target, const std::wstring additional_symbols = L"-'
 wchar_t		 lower(wchar_t target);
 std::wstring lower(std::wstring target);
 std::vector<std::wstring> separate(const std::wstring& raw_data);
+int				dstoi(System::String^ target);
 System::String^ to_dotnet_string(const std::wstring& target);
+System::String^ to_dotnet_string(const int target);
 std::wstring	to_std_wstring(System::String^ target);
 std::wstring	translit_CtoL(std::wstring target);
 
@@ -90,10 +92,25 @@ std::vector<std::wstring> separate(const std::wstring& raw_data)
 }
 
 
+int	dstoi(System::String^ target)
+{
+	std::wstring middleman = to_std_wstring(target);
+	return _wtoi(middleman.c_str());
+}
+
+
 // Copied from: https://stackoverflow.com/a/1405251/15540979
 System::String^ to_dotnet_string(const std::wstring& target)
 {
 	return msclr::interop::marshal_as<System::String^>(target);
+}
+
+
+/// 'int' to .NET string
+System::String^ to_dotnet_string(const int target)
+{
+	std::wstring middleman = std::to_wstring(target);
+	return to_dotnet_string(middleman);
 }
 
 

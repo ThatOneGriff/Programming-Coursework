@@ -25,6 +25,9 @@ std::wstring USER_SAVEFILE_NAME   = L"user.txt";
 /// POSSIBLE MEMORY LEAK: No time to deal with this pointer magic.
 User* load(const std::wstring address)
 {
+	#ifdef DEBUG
+		return nullptr;
+	#endif
 	/// For 'MessageBox'
 	using namespace System::Windows::Forms;
 
@@ -61,25 +64,26 @@ User* load(const std::wstring address)
 	/// WARNING: change of order => this breaks. Wish I had time to rewrite this to JSON.
 	
 	// Common variables
-	const std::wstring account_creation_date = raw_data[0], /* Note how we read from 0, not 1: */
-					   _name =				   raw_data[1], /* account type didn't get into raw data, */
-					   _phone_number =		   raw_data[2], /* because it's already been read. */
-					   email =				   raw_data[3],
-					   extra_contacts =		   raw_data[4];
+	const std::wstring _birth_date =    raw_data[0], /* Note how we read from 0, not 1: */
+					   _name =			raw_data[1], /* account type didn't get into raw data, */
+					   _phone_number =  raw_data[2], /* because it's already been read. */
+					   email =			raw_data[3],
+					   extra_contacts =	raw_data[4];
 	
 	/// Absolutely no checks in place. This shit can break in so many ways
 
+	Date birth_date(_birth_date);
 	Phone_Number phone_number(separate(_phone_number));
 	if (account_type == L"individual")
 	{
 		Individual_Name name(separate(_name));
-		return new Individual(name, phone_number, email, extra_contacts, account_creation_date);
+		return new Individual(name, birth_date, phone_number, email, extra_contacts);
 	}
 	else if (account_type == L"company")
 	{
 		std::wstring website = raw_data[5];
 		Company_Name name(separate(_name));
-		return new Company(name, phone_number, email, website, extra_contacts, account_creation_date);
+		return new Company(name, birth_date, phone_number, email, website, extra_contacts);
 	}
 
 	MessageBox::Show("Account hasn't been created - something that should NOT have happened. Look into it immediately.");

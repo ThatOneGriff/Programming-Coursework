@@ -35,6 +35,7 @@ namespace Agora {
 			}
 
 			/// = Re-registration =
+			// I'm not entirely sure what happens when values are empty.
 			
 			this->Text = "Редактирование данных аккаунта";
 			label_registration->Text = "Редактирование";
@@ -42,6 +43,7 @@ namespace Agora {
 			label_no_account->Text =   "Текущие данные вашего аккаунта введены.";
 
 			std::vector<std::wstring> name = user->name->as_vector();
+			std::vector<std::wstring> birth_date = user->birth_date.as_vector();
 			if (typeid(*user) == typeid(Individual))
 			{
 				button_individual->Select();
@@ -50,6 +52,11 @@ namespace Agora {
 				this->input_surname->Text  = to_dotnet_string(name[0]);
 				this->input_name->Text =	 to_dotnet_string(name[1]);
 				this->input_patronym->Text = to_dotnet_string(name[2]);
+
+				this->input_ind_day->Text = to_dotnet_string(birth_date[0]);
+				this->input_ind_month->SelectedIndex = _wtoi(birth_date[1].c_str()) - 1;
+				this->input_ind_year->Text = to_dotnet_string(birth_date[2]);
+
 			}
 			else if (typeid(*user) == typeid(Company))
 			{
@@ -58,6 +65,9 @@ namespace Agora {
 				
 				this->input_legal_form->SelectedItem = to_dotnet_string(name[0]);
 				this->input_company_name->Text = to_dotnet_string(name[1]);
+
+				this->input_com_month->SelectedIndex = _wtoi(birth_date[1].c_str()) - 1;
+				this->input_com_year->Text = to_dotnet_string(birth_date[2]);
 				
 				this->input_website->Text = to_dotnet_string(user->website);
 			}
@@ -179,8 +189,11 @@ private: System::Windows::Forms::TextBox^ input_ind_year;
 
 
 private: System::Windows::Forms::Label^ label_y;
-private: System::Windows::Forms::TextBox^ input_year;
-private: System::Windows::Forms::ComboBox^ input_month;
+private: System::Windows::Forms::TextBox^ input_com_year;
+
+private: System::Windows::Forms::ComboBox^ input_com_month;
+
+
 private: System::Windows::Forms::ComboBox^ input_ind_month;
 
 
@@ -233,8 +246,8 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->label_month = (gcnew System::Windows::Forms::Label());
 			this->input_website = (gcnew System::Windows::Forms::TextBox());
 			this->label_y = (gcnew System::Windows::Forms::Label());
-			this->input_year = (gcnew System::Windows::Forms::TextBox());
-			this->input_month = (gcnew System::Windows::Forms::ComboBox());
+			this->input_com_year = (gcnew System::Windows::Forms::TextBox());
+			this->input_com_month = (gcnew System::Windows::Forms::ComboBox());
 			this->label_website = (gcnew System::Windows::Forms::Label());
 			this->label_est = (gcnew System::Windows::Forms::Label());
 			this->input_legal_form = (gcnew System::Windows::Forms::ComboBox());
@@ -350,6 +363,7 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->input_ind_month->Name = L"input_ind_month";
 			this->input_ind_month->Size = System::Drawing::Size(97, 28);
 			this->input_ind_month->TabIndex = 1012;
+			this->input_ind_month->SelectedValueChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
 			// 
 			// input_ind_day
 			// 
@@ -359,7 +373,10 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->input_ind_day->MaxLength = 2;
 			this->input_ind_day->Name = L"input_ind_day";
 			this->input_ind_day->Size = System::Drawing::Size(48, 30);
-			this->input_ind_day->TabIndex = 1011;
+			this->input_ind_day->TabIndex = 3;
+			this->input_ind_day->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_ind_day->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
+			this->input_ind_day->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_digits);
 			// 
 			// label_birthdate
 			// 
@@ -391,7 +408,10 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->input_ind_year->MaxLength = 4;
 			this->input_ind_year->Name = L"input_ind_year";
 			this->input_ind_year->Size = System::Drawing::Size(74, 30);
-			this->input_ind_year->TabIndex = 1007;
+			this->input_ind_year->TabIndex = 4;
+			this->input_ind_year->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_ind_year->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_individual_registration_check);
+			this->input_ind_year->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_digits);
 			// 
 			// input_name
 			// 
@@ -633,8 +653,8 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->registration_company->Controls->Add(this->label_month);
 			this->registration_company->Controls->Add(this->input_website);
 			this->registration_company->Controls->Add(this->label_y);
-			this->registration_company->Controls->Add(this->input_year);
-			this->registration_company->Controls->Add(this->input_month);
+			this->registration_company->Controls->Add(this->input_com_year);
+			this->registration_company->Controls->Add(this->input_com_month);
 			this->registration_company->Controls->Add(this->label_website);
 			this->registration_company->Controls->Add(this->label_est);
 			this->registration_company->Controls->Add(this->input_legal_form);
@@ -642,9 +662,9 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->registration_company->Controls->Add(this->input_company_name);
 			this->registration_company->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->registration_company->Location = System::Drawing::Point(547, 286);
+			this->registration_company->Location = System::Drawing::Point(45, 150);
 			this->registration_company->Name = L"registration_company";
-			this->registration_company->Size = System::Drawing::Size(404, 139);
+			this->registration_company->Size = System::Drawing::Size(468, 178);
 			this->registration_company->TabIndex = 1001;
 			this->registration_company->TabStop = false;
 			this->registration_company->Text = L"Данные компании";
@@ -654,18 +674,18 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->label_year->AutoSize = true;
 			this->label_year->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_year->Location = System::Drawing::Point(265, 85);
+			this->label_year->Location = System::Drawing::Point(360, 96);
 			this->label_year->Name = L"label_year";
-			this->label_year->Size = System::Drawing::Size(37, 17);
+			this->label_year->Size = System::Drawing::Size(45, 17);
 			this->label_year->TabIndex = 1009;
-			this->label_year->Text = L"года";
+			this->label_year->Text = L"гойда";
 			// 
 			// label_month
 			// 
 			this->label_month->AutoSize = true;
 			this->label_month->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_month->Location = System::Drawing::Point(150, 85);
+			this->label_month->Location = System::Drawing::Point(236, 96);
 			this->label_month->Name = L"label_month";
 			this->label_month->Size = System::Drawing::Size(56, 17);
 			this->label_month->TabIndex = 1008;
@@ -673,11 +693,11 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			// 
 			// input_website
 			// 
-			this->input_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_website->Location = System::Drawing::Point(69, 106);
+			this->input_website->Location = System::Drawing::Point(101, 116);
 			this->input_website->Name = L"input_website";
-			this->input_website->Size = System::Drawing::Size(319, 26);
+			this->input_website->Size = System::Drawing::Size(319, 30);
 			this->input_website->TabIndex = 2;
 			this->input_website->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_website->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
@@ -687,67 +707,67 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			// label_y
 			// 
 			this->label_y->AutoSize = true;
-			this->label_y->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_y->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_y->Location = System::Drawing::Point(343, 60);
+			this->label_y->Location = System::Drawing::Point(427, 66);
 			this->label_y->Name = L"label_y";
-			this->label_y->Size = System::Drawing::Size(21, 20);
+			this->label_y->Size = System::Drawing::Size(25, 25);
 			this->label_y->TabIndex = 1006;
 			this->label_y->Text = L"г.";
 			// 
-			// input_year
+			// input_com_year
 			// 
-			this->input_year->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_com_year->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_year->Location = System::Drawing::Point(239, 57);
-			this->input_year->MaxLength = 4;
-			this->input_year->Name = L"input_year";
-			this->input_year->Size = System::Drawing::Size(89, 26);
-			this->input_year->TabIndex = 1;
-			this->input_year->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
-			this->input_year->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
-			this->input_year->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_digits);
-			this->input_year->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_com_year->Location = System::Drawing::Point(336, 63);
+			this->input_com_year->MaxLength = 4;
+			this->input_com_year->Name = L"input_com_year";
+			this->input_com_year->Size = System::Drawing::Size(85, 30);
+			this->input_com_year->TabIndex = 1;
+			this->input_com_year->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_com_year->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
+			this->input_com_year->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Registration::only_digits);
+			this->input_com_year->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
-			// input_month
+			// input_com_month
 			// 
-			this->input_month->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Append;
-			this->input_month->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
-			this->input_month->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
-			this->input_month->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_com_month->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Append;
+			this->input_com_month->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
+			this->input_com_month->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->input_com_month->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_month->FormattingEnabled = true;
-			this->input_month->Items->AddRange(gcnew cli::array< System::Object^  >(12) {
-				L"января", L"февраля", L"марта", L"апреля", L"мая",
-					L"июня", L"июля", L"августа", L"сентября", L"октября", L"ноября", L"декабря"
+			this->input_com_month->FormattingEnabled = true;
+			this->input_com_month->Items->AddRange(gcnew cli::array< System::Object^  >(12) {
+				L"января", L"февраля", L"марта", L"апреля",
+					L"мая", L"июня", L"июля", L"августа", L"сентября", L"октября", L"ноября", L"декабря"
 			});
-			this->input_month->Location = System::Drawing::Point(124, 57);
-			this->input_month->MaxLength = 4;
-			this->input_month->Name = L"input_month";
-			this->input_month->Size = System::Drawing::Size(109, 28);
-			this->input_month->TabIndex = 1004;
-			this->input_month->SelectedValueChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
-			this->input_month->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
+			this->input_com_month->Location = System::Drawing::Point(183, 61);
+			this->input_com_month->MaxLength = 4;
+			this->input_com_month->Name = L"input_com_month";
+			this->input_com_month->Size = System::Drawing::Size(147, 33);
+			this->input_com_month->TabIndex = 1004;
+			this->input_com_month->SelectedValueChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
+			this->input_com_month->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			// 
 			// label_website
 			// 
 			this->label_website->AutoSize = true;
-			this->label_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_website->Location = System::Drawing::Point(18, 109);
+			this->label_website->Location = System::Drawing::Point(16, 119);
 			this->label_website->Name = L"label_website";
-			this->label_website->Size = System::Drawing::Size(56, 20);
+			this->label_website->Size = System::Drawing::Size(64, 25);
 			this->label_website->TabIndex = 1003;
 			this->label_website->Text = L"Сайт:";
 			// 
 			// label_est
 			// 
 			this->label_est->AutoSize = true;
-			this->label_est->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_est->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_est->Location = System::Drawing::Point(18, 60);
+			this->label_est->Location = System::Drawing::Point(16, 66);
 			this->label_est->Name = L"label_est";
-			this->label_est->Size = System::Drawing::Size(107, 20);
+			this->label_est->Size = System::Drawing::Size(118, 25);
 			this->label_est->TabIndex = 1002;
 			this->label_est->Text = L"На рынке с:";
 			// 
@@ -756,17 +776,17 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->input_legal_form->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Append;
 			this->input_legal_form->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
 			this->input_legal_form->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
-			this->input_legal_form->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_legal_form->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->input_legal_form->FormattingEnabled = true;
 			this->input_legal_form->Items->AddRange(gcnew cli::array< System::Object^  >(8) {
 				L"ИП", L"ПК", L"ГУП", L"МУП", L"НКО", L"ООО",
 					L"ПАО", L"НПАО"
 			});
-			this->input_legal_form->Location = System::Drawing::Point(69, 19);
+			this->input_legal_form->Location = System::Drawing::Point(82, 25);
 			this->input_legal_form->MaxLength = 4;
 			this->input_legal_form->Name = L"input_legal_form";
-			this->input_legal_form->Size = System::Drawing::Size(85, 28);
+			this->input_legal_form->Size = System::Drawing::Size(85, 33);
 			this->input_legal_form->TabIndex = 1001;
 			this->input_legal_form->SelectedValueChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
 			this->input_legal_form->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
@@ -774,22 +794,22 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			// label_company_name
 			// 
 			this->label_company_name->AutoSize = true;
-			this->label_company_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label_company_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_company_name->Location = System::Drawing::Point(16, 24);
+			this->label_company_name->Location = System::Drawing::Point(16, 30);
 			this->label_company_name->Name = L"label_company_name";
-			this->label_company_name->Size = System::Drawing::Size(47, 20);
+			this->label_company_name->Size = System::Drawing::Size(60, 25);
 			this->label_company_name->TabIndex = 1000;
 			this->label_company_name->Text = L"Имя:";
 			// 
 			// input_company_name
 			// 
-			this->input_company_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->input_company_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_company_name->Location = System::Drawing::Point(160, 18);
+			this->input_company_name->Location = System::Drawing::Point(169, 25);
 			this->input_company_name->MaxLength = 20;
 			this->input_company_name->Name = L"input_company_name";
-			this->input_company_name->Size = System::Drawing::Size(228, 26);
+			this->input_company_name->Size = System::Drawing::Size(251, 30);
 			this->input_company_name->TabIndex = 0;
 			this->input_company_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
 			this->input_company_name->TextChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
@@ -821,8 +841,8 @@ private: System::Windows::Forms::ComboBox^ input_ind_month;
 			this->Controls->Add(this->label_no_account);
 			this->Controls->Add(this->label_kalimera);
 			this->Controls->Add(this->label_registration);
-			this->Controls->Add(this->registration_company);
 			this->Controls->Add(this->registration_individual);
+			this->Controls->Add(this->registration_company);
 			this->MaximumSize = System::Drawing::Size(600, 610);
 			this->MinimumSize = System::Drawing::Size(600, 610);
 			this->Name = L"Registration";
@@ -886,7 +906,8 @@ private:
 		if (button_individual->Checked)
 		{
 			Individual_Name name(to_std_wstring(input_name->Text), to_std_wstring(input_surname->Text), to_std_wstring(input_patronym->Text));
-			Individual new_user(name, phone_number, email, extra_contacts);
+			Date birth_date(dstoi(input_ind_day->Text), input_ind_month->SelectedIndex + 1, dstoi(input_ind_year->Text));
+			Individual new_user(name, birth_date, phone_number, email, extra_contacts);
 			save(&new_user, USER_SAVEFILE_NAME);
 			// SETTING USER IN-PROGRAM, NOT READING FILES
 		}
@@ -896,7 +917,8 @@ private:
 		{
 			std::wstring website = to_std_wstring(input_website->Text);
 			Company_Name name(to_std_wstring(input_legal_form->Text), to_std_wstring(input_company_name->Text));
-			Company new_user(name, phone_number, email, website, extra_contacts);
+			Date birth_date(01, input_com_month->SelectedIndex + 1, dstoi(input_com_year->Text));
+			Company new_user(name, birth_date, phone_number, email, website, extra_contacts);
 			save(&new_user, USER_SAVEFILE_NAME);
 		}
 
@@ -923,21 +945,27 @@ private:
 		/// .NET doesn't allow me to create a constant array in-place, instead forcing me to do... *this.*
 		/// DOTNET SUCKS BALLS
 		
-		array<Control^>^ result = gcnew array<Control^>(7);
+		array<Control^>^ result = gcnew array<Control^>(9);
 
 		result[0] = input_surname;
 		result[1] = input_name;
 		result[2] = input_patronym;
 
-		result[3] = input_carrier_code;
-		result[4] = input_phone_number_body;
+		result[3] = input_ind_day;
+		result[4] = input_ind_year;
 
-		result[5] = input_email;
-		result[6] = input_extra;
+		result[5] = input_carrier_code;
+		result[6] = input_phone_number_body;
 
-		MAX_FOCUS = 6;
+		result[7] = input_email;
+		result[8] = input_extra;
+
+		MAX_FOCUS = 8;
 		focus = 0;
 		result[0]->Select();
+
+		input_carrier_code->TabIndex = 5;
+		input_phone_number_body->TabIndex = 6;
 
 		return result;
 	}
@@ -955,6 +983,10 @@ private:
 		button_register->Enabled = (
 			input_surname->Text->Length >= 2 &&
 			input_name->Text->Length    >= 2 &&
+
+			input_ind_day->Text->Length    >  0     &&
+			input_ind_month->SelectedIndex != -1 &&
+			input_ind_year->Text->Length == 4	 &&
 
 			input_carrier_code->Text->Length	  == 5 &&
 			input_phone_number_body->Text->Length == 9
@@ -977,11 +1009,11 @@ private:
 
 	array<Control^>^ focus_params_company()
 	{
-		array<Control^>^ result = gcnew array<Control^>(9);
+		array<Control^>^ result = gcnew array<Control^>(7);
 
 		result[0] = input_company_name;
 
-		result[1] = input_year;
+		result[1] = input_com_year;
 
 		result[2] = input_website;
 
@@ -994,6 +1026,9 @@ private:
 		MAX_FOCUS = 6;
 		focus = 0;
 		result[0]->Select();
+
+		input_carrier_code->TabIndex = 3;
+		input_phone_number_body->TabIndex = 4;
 
 		return result;
 	}
@@ -1012,8 +1047,8 @@ private:
 			input_legal_form->SelectedIndex  > -1 &&
 			input_company_name->Text->Length > 0  &&
 
-			input_month->SelectedIndex > -1 &&
-			input_year->Text->Length == 4   &&
+			input_com_month->SelectedIndex > -1 &&
+			input_com_year->Text->Length   == 4 &&
 
 			input_email->Text->Length	> 0 &&
 			input_website->Text->Length > 0 &&
