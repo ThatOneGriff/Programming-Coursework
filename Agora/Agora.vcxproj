@@ -127,9 +127,11 @@
   <ItemGroup>
     <ClInclude Include="Classes\listing.hpp" />
     <ClInclude Include="Classes\Listing\listing.hpp" />
+    <ClInclude Include="Classes\listing_random_generator.hpp" />
     <ClInclude Include="Classes\User\name.hpp" />
     <ClInclude Include="Classes\User\random_user_generator.hpp" />
     <ClInclude Include="Classes\user.hpp" />
+    <ClInclude Include="Classes\user_random_generator.hpp" />
     <ClInclude Include="Menus\Main_Menu\main_menu.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>

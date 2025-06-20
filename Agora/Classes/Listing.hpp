@@ -35,7 +35,7 @@ class Listing
 {
 public:
 
-	const std::wstring name, description, payment_type;
+	const std::wstring name, payment_type;
 	const unsigned int length_time_units, payment_hr;
 	unsigned int	   payment_total;
 
@@ -44,13 +44,11 @@ public:
 
 
 	/// Для оплаты по отрезкам времени
-	Listing(const std::wstring& _name,    const std::wstring& _description,
-			const Date& _until,           const unsigned int  _payment_hr,
-		    const int _length_time_units, const std::wstring& _payment_type,
+	Listing(const std::wstring& _name,		 const Date& _until,
+			const unsigned int  _payment_hr, const int   _length_time_units, const std::wstring& _payment_type,
 			User* _contractor = nullptr,   User* _customer = nullptr)
-	: name(_name), description(_description), until(_until),
-	  payment_hr(_payment_hr), length_time_units(_length_time_units),
-	  payment_type(_payment_type)
+	: name(_name), until(_until),
+	  payment_hr(_payment_hr), length_time_units(_length_time_units), payment_type(_payment_type)
 	{
 		if (_contractor != nullptr)
 			set_contractor(_contractor);
@@ -59,7 +57,7 @@ public:
 
 		if (payment_type == L"полная")
 		{
-			Listing(_name,		 _description, _until,
+			Listing(_name,       _until,
 					_payment_hr, _contractor,  _customer);
 			return;
 		}
@@ -69,10 +67,10 @@ public:
 
 
 	/// Для полной оплаты
-	Listing(const std::wstring& _name,   const std::wstring& _description,
-			const Date& _until,          const unsigned int  _payment_full,
+	Listing(const std::wstring& _name,   const Date& _until,
+		    const unsigned int  _payment_full,
 			User* _contractor = nullptr, User* _customer = nullptr)
-	: name(_name), description(_description), until(_until),
+	: name(_name), until(_until),
 	  payment_hr(_payment_full), length_time_units(1),
 	  payment_type(L"полная")
 	{
@@ -108,8 +106,7 @@ public:
 private:
 
 	///   подрядчик | заказчик
-	User *contractor, *customer; 
-
+	User *contractor, *customer;
 };
 
 

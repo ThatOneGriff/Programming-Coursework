@@ -8,6 +8,7 @@
 /// There will be no random company generator, nor related things:
 /// I'm gonna have a predefined set of companies.
 
+/// Here be:
 Individual get_random_individual();
 
 std::wstring	_get_email(const Individual_Name& name); /// email must be generated according to the name transliteration

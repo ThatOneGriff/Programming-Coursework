@@ -5,7 +5,10 @@
 #include <time.h> /// time
 #include <string> /// 'std::wstring'
 #include <vector>
+/// This file is inside of "Utils",
+/// if we want to include any parts, we must call to them directly.
 #include "strings.hpp"
+#include "random.hpp"
 
 ///  Here be:
 class Date;
