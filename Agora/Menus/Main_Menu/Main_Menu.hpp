@@ -117,6 +117,7 @@ private: System::Windows::Forms::Label^ label_account_age;
 
 private: System::Windows::Forms::Label^ label_account_phone_number;
 private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
+private: System::Windows::Forms::Button^ button_filter;
 
 
 
@@ -150,6 +151,7 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			this->menu_button_feed = (gcnew System::Windows::Forms::Button());
 			this->menu_account = (gcnew System::Windows::Forms::Panel());
 			this->group_active_contracts = (gcnew System::Windows::Forms::GroupBox());
+			this->label_no_active_contracts = (gcnew System::Windows::Forms::RichTextBox());
 			this->group_account_data = (gcnew System::Windows::Forms::GroupBox());
 			this->label_account_website = (gcnew System::Windows::Forms::Label());
 			this->label_account_extra = (gcnew System::Windows::Forms::Label());
@@ -179,7 +181,7 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			this->input_search = (gcnew System::Windows::Forms::TextBox());
 			this->label_search = (gcnew System::Windows::Forms::Label());
 			this->bg_search = (gcnew System::Windows::Forms::PictureBox());
-			this->label_no_active_contracts = (gcnew System::Windows::Forms::RichTextBox());
+			this->button_filter = (gcnew System::Windows::Forms::Button());
 			this->sidebar->SuspendLayout();
 			this->menu_account->SuspendLayout();
 			this->group_active_contracts->SuspendLayout();
@@ -291,6 +293,18 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			this->group_active_contracts->TabIndex = 5;
 			this->group_active_contracts->TabStop = false;
 			this->group_active_contracts->Text = L"Активные контракты";
+			// 
+			// label_no_active_contracts
+			// 
+			this->label_no_active_contracts->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->label_no_active_contracts->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->label_no_active_contracts->Location = System::Drawing::Point(6, 121);
+			this->label_no_active_contracts->Name = L"label_no_active_contracts";
+			this->label_no_active_contracts->ReadOnly = true;
+			this->label_no_active_contracts->Size = System::Drawing::Size(301, 87);
+			this->label_no_active_contracts->TabIndex = 0;
+			this->label_no_active_contracts->Text = L"Активных контрактов нет.\n\nЗайдите в Ленту и выберите!";
 			// 
 			// group_account_data
 			// 
@@ -539,6 +553,7 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			// menu_search
 			// 
 			this->menu_search->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->menu_search->Controls->Add(this->button_filter);
 			this->menu_search->Controls->Add(this->label_in_future_updates);
 			this->menu_search->Controls->Add(this->label_search_will_be);
 			this->menu_search->Controls->Add(this->button_search);
@@ -555,7 +570,7 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			this->label_in_future_updates->AutoSize = true;
 			this->label_in_future_updates->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->label_in_future_updates->Location = System::Drawing::Point(47, 227);
+			this->label_in_future_updates->Location = System::Drawing::Point(118, 266);
 			this->label_in_future_updates->Name = L"label_in_future_updates";
 			this->label_in_future_updates->Size = System::Drawing::Size(431, 20);
 			this->label_in_future_updates->TabIndex = 4;
@@ -566,7 +581,7 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			this->label_search_will_be->AutoSize = true;
 			this->label_search_will_be->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_search_will_be->Location = System::Drawing::Point(191, 194);
+			this->label_search_will_be->Location = System::Drawing::Point(247, 230);
 			this->label_search_will_be->Name = L"label_search_will_be";
 			this->label_search_will_be->Size = System::Drawing::Size(161, 25);
 			this->label_search_will_be->TabIndex = 3;
@@ -574,21 +589,23 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			// 
 			// button_search
 			// 
+			this->button_search->BackColor = System::Drawing::SystemColors::ControlLight;
 			this->button_search->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_search.BackgroundImage")));
 			this->button_search->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->button_search->Location = System::Drawing::Point(16, 155);
+			this->button_search->Enabled = false;
+			this->button_search->Location = System::Drawing::Point(3, 178);
 			this->button_search->Name = L"button_search";
-			this->button_search->Size = System::Drawing::Size(35, 35);
+			this->button_search->Size = System::Drawing::Size(40, 40);
 			this->button_search->TabIndex = 2;
-			this->button_search->UseVisualStyleBackColor = true;
+			this->button_search->UseVisualStyleBackColor = false;
 			// 
 			// input_search
 			// 
 			this->input_search->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->input_search->Location = System::Drawing::Point(51, 157);
+			this->input_search->Location = System::Drawing::Point(90, 183);
 			this->input_search->Name = L"input_search";
-			this->input_search->Size = System::Drawing::Size(465, 30);
+			this->input_search->Size = System::Drawing::Size(539, 30);
 			this->input_search->TabIndex = 1;
 			// 
 			// label_search
@@ -596,7 +613,7 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			this->label_search->AutoSize = true;
 			this->label_search->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_search->Location = System::Drawing::Point(9, 12);
+			this->label_search->Location = System::Drawing::Point(3, 8);
 			this->label_search->Name = L"label_search";
 			this->label_search->Size = System::Drawing::Size(229, 29);
 			this->label_search->TabIndex = 0;
@@ -606,23 +623,23 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			// 
 			this->bg_search->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"bg_search.BackgroundImage")));
 			this->bg_search->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->bg_search->Location = System::Drawing::Point(-1, -1);
+			this->bg_search->Location = System::Drawing::Point(0, -7);
 			this->bg_search->Name = L"bg_search";
-			this->bg_search->Size = System::Drawing::Size(534, 152);
+			this->bg_search->Size = System::Drawing::Size(640, 180);
 			this->bg_search->TabIndex = 5;
 			this->bg_search->TabStop = false;
 			// 
-			// label_no_active_contracts
+			// button_filter
 			// 
-			this->label_no_active_contracts->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->label_no_active_contracts->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold,
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->label_no_active_contracts->Location = System::Drawing::Point(6, 121);
-			this->label_no_active_contracts->Name = L"label_no_active_contracts";
-			this->label_no_active_contracts->ReadOnly = true;
-			this->label_no_active_contracts->Size = System::Drawing::Size(301, 87);
-			this->label_no_active_contracts->TabIndex = 0;
-			this->label_no_active_contracts->Text = L"Активных контрактов нет.\n\nЗайдите в Ленту и выберите!";
+			this->button_filter->BackColor = System::Drawing::SystemColors::ControlLight;
+			this->button_filter->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_filter.BackgroundImage")));
+			this->button_filter->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->button_filter->Enabled = false;
+			this->button_filter->Location = System::Drawing::Point(44, 178);
+			this->button_filter->Name = L"button_filter";
+			this->button_filter->Size = System::Drawing::Size(40, 40);
+			this->button_filter->TabIndex = 6;
+			this->button_filter->UseVisualStyleBackColor = false;
 			// 
 			// Main_Menu
 			// 
@@ -630,10 +647,10 @@ private: System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
 			this->ClientSize = System::Drawing::Size(782, 553);
-			this->Controls->Add(this->menu_account);
 			this->Controls->Add(this->sidebar);
 			this->Controls->Add(this->menu_search);
 			this->Controls->Add(this->menu_feed);
+			this->Controls->Add(this->menu_account);
 			this->DoubleBuffered = true;
 			this->MaximumSize = System::Drawing::Size(800, 600);
 			this->MinimumSize = System::Drawing::Size(800, 600);
