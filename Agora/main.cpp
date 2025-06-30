@@ -19,12 +19,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     Application::SetCompatibleTextRenderingDefault(false);
 	
 	/// = TODO =
-	/// - string split by char
-	/// - headings for every 'MessageBox'
 	
 	/// = Possibilities =
 	/// - a centralized 'User' hub
-	/// - we could define a '=' between 'System::String^' and 'std::wstring'
 
 	//#define DEBUG
 

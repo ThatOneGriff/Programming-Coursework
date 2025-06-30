@@ -142,6 +142,7 @@
     <ClInclude Include="utils.hpp" />
     <ClInclude Include="Utils\datetime.hpp" />
     <ClInclude Include="Utils\files.hpp" />
+    <ClInclude Include="Utils\messagebox_wrapper.hpp" />
     <ClInclude Include="Utils\random.hpp" />
     <ClInclude Include="save_load.hpp" />
     <ClInclude Include="Utils\strings.hpp" />

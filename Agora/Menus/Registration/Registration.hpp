@@ -77,7 +77,7 @@ namespace Agora {
 			}
 			else
 			{
-				MessageBox::Show("Type error: couldn't resolve user's account type");
+				show_error(L"Type error: couldn't resolve user's account type");
 				this->Close();
 			}
 

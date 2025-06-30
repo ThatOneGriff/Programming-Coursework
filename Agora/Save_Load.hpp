@@ -10,17 +10,14 @@
 #include "Classes/user.hpp"
 #include "utils.hpp"
 
-/// For 'MessageBox'
-using namespace System::Windows::Forms;
-
 /// This file is for saving and loading 'User's.
-/// [!!!] IF YOU'RE LOOKING FOR FILE MANIPULATION, consult 'Utils/Files.hpp'.
+/// [!!!] FILE MANIPULATION is in 'Utils/files.hpp'.
 
 /// Here be:
 User* load(const std::wstring address);
 void  save(User* user, std::wstring address = L"");
 
-std::string  USER_SAVEFILE_NAME_S = "user.txt";
+std::string  USER_SAVEFILE_NAME_S =  "user.txt";
 std::wstring USER_SAVEFILE_NAME   = L"user.txt";
 
 
@@ -50,7 +47,7 @@ User* load(const std::wstring address)
 	getline(savefile, account_type);
 	if (account_type != L"individual" && account_type != L"company")
 	{
-		MessageBox::Show(L"'" + to_dotnet_string(address) + L"' - неправильный тип аккаунта '" + to_dotnet_string(account_type) + L"'");
+		show_error((std::wstring)L"'" + address + L"' - неправильный тип аккаунта '" + account_type + L"'");
 		savefile.close();
 		return nullptr;
 	}
@@ -87,7 +84,7 @@ User* load(const std::wstring address)
 		return new Company(name, birth_date, phone_number, email, website, extra_contacts);
 	}
 
-	MessageBox::Show("Account hasn't been created - something that should NOT have happened. Look into it immediately.");
+	show_error(L"Account hasn't been created - something that should NOT have happened. Look into it immediately.");
 	return nullptr; // Something that under NO circumstance should happen
 }
 

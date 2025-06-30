@@ -11,13 +11,11 @@ bool is_empty(std::wifstream& file);
 std::vector<std::wstring> to_string_bundle(std::wifstream& file, const unsigned int expected_size = 0);
 
 
-
 // Copied from https://stackoverflow.com/a/2390938/15540979
 bool is_empty(std::wifstream& file)
 {
 	return file.peek() == std::wifstream::traits_type::eof();
 }
-
 
 
 /// NOTE: function assumes the file has been checked

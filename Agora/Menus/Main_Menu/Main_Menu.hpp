@@ -764,7 +764,7 @@ private:
 		user = load(USER_SAVEFILE_NAME);
 		if (user == nullptr)
 		{
-			MessageBox::Show("Couldn't read updated data.");
+			show_error(L"Couldn't read updated data.");
 			this->Close();
 			return;
 		}
@@ -809,13 +809,9 @@ private:
 
 	#pragma region ======= Misc. menus =======
 
-	System::String^ program_info =
-						   "Agora v.1.0 от 16.06.2025\n"
-						 + "Курсовой проект от Первакова А.И.\n"
-						 + "КубГАУ, Прикладная информатика, ИТ2403";
 	void sidebar_pick_info(System::Object^ sender, System::EventArgs^ e)
 	{
-		MessageBox::Show(program_info, "О программе", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		show_info(program_info, L"О программе");
 	}
 
 
