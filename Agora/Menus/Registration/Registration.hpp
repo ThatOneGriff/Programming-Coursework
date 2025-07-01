@@ -719,10 +719,10 @@ private:
 			L"хо", L"ой", L"цсо", L"лсо", L"мйн", L"ннн",
 				L"оюн", L"моюн"
 		});
-		this->input_legal_form->Location = System::Drawing::Point(82, 25);
+		this->input_legal_form->Location = System::Drawing::Point(71, 25);
 		this->input_legal_form->MaxLength = 4;
 		this->input_legal_form->Name = L"input_legal_form";
-		this->input_legal_form->Size = System::Drawing::Size(85, 33);
+		this->input_legal_form->Size = System::Drawing::Size(96, 33);
 		this->input_legal_form->TabIndex = 1001;
 		this->input_legal_form->SelectedValueChanged += gcnew System::EventHandler(this, &Registration::sufficient_input_for_company_registration_check);
 		this->input_legal_form->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Registration::mouse_focus_switch_check);
@@ -777,8 +777,8 @@ private:
 		this->Controls->Add(this->label_no_account);
 		this->Controls->Add(this->label_kalimera);
 		this->Controls->Add(this->label_registration);
-		this->Controls->Add(this->registration_individual);
 		this->Controls->Add(this->registration_company);
+		this->Controls->Add(this->registration_individual);
 		this->MaximumSize = System::Drawing::Size(580, 610);
 		this->MinimumSize = System::Drawing::Size(580, 610);
 		this->Name = L"Registration";
@@ -1022,7 +1022,7 @@ private:
 	}
 
 
-	/// Important note: casts to 'TextBox' by default. May cause errors in case of focusing on smth else
+	/// Assumes every 'sender' is a 'TextBox^'. Watch out!
 	System::Void keyboard_focus_switch_check(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
@@ -1033,12 +1033,11 @@ private:
 			TextBox^ source = safe_cast<TextBox^>(sender);
 			if (key == BACKSPACE && source->Text == "")
 				prev_focus();
-			else if (source->Text->Length == source->MaxLength - 1) /// - 1 because the event is yet unhandled,
-				next_focus();										/// so the actual size we care about hasn't been achieved
 		}
 	}
 
 
+	/// Assumes every 'sender' is a 'Control^' or is derived from it. Watch out!
 	System::Void mouse_focus_switch_check(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
 		Control^ source = safe_cast<Control^>(sender);
@@ -1050,21 +1049,31 @@ private:
 
 
 	#pragma region ========== Input limiting (Common) ==========
-
+	
+	/// Assumes every 'sender' is a 'TextBox^'. Watch out!
 	System::Void only_digits(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
+		TextBox^ source = safe_cast<TextBox^>(sender);
+
 		if (! is_digit(key))
 			e->Handled = true;
+		else if (source->Text->Length == source->MaxLength - 1) /// - 1 because the event is yet unhandled,
+			next_focus();										/// so the actual size we care about hasn't been achieved
 		keyboard_focus_switch_check(sender, e);
 	}
 
 
+	/// Assumes every 'sender' is a 'TextBox^'. Watch out!
 	System::Void only_letters(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
+		TextBox^ source = safe_cast<TextBox^>(sender);
+
 		if (! is_letter(key))
 			e->Handled = true;
+		else if (source->Text->Length == source->MaxLength - 1) /// - 1 because the event is yet unhandled,
+			next_focus();										/// so the actual size we care about hasn't been achieved
 		keyboard_focus_switch_check(sender, e);
 	}
 
