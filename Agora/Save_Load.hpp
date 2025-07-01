@@ -29,10 +29,6 @@ const std::wstring USER_SAVEFILE_NAME   = L"user.txt";
 /// POSSIBLE MEMORY LEAK: No time to deal with this pointer magic.
 User* load(const std::wstring address)
 {
-	#ifdef DEBUG
-		return nullptr;
-	#endif
-
 	std::wifstream savefile(address);
 	// Copied from: https://stackoverflow.com/a/3950840/15540979
 	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
@@ -97,7 +93,7 @@ User* load(const std::wstring address)
 void save(User* user, std::wstring address/* = L""*/)
 {
 	if (address == L"")
-		address = user->name->as_filename(L".txt");
+		address = user->name->as_filename();
 	std::wofstream savefile(address);
 
 	// Copied from: https://stackoverflow.com/a/3950840/15540979

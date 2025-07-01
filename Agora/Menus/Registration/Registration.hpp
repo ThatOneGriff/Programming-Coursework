@@ -857,6 +857,10 @@ private:
 			user = new_user;
 		}
 
+		#ifdef DEBUG
+		save(user);
+		this->Close();
+		#endif
 		save(user, USER_SAVEFILE_NAME);
 		this->Close();
 	}

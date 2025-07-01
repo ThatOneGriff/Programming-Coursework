@@ -20,7 +20,7 @@ public:
 	: name(_name)
 	{}
 
-	virtual std::wstring as_filename(const std::wstring& extension) = 0;
+	virtual std::wstring as_filename(const std::wstring& extension = L".txt") = 0;
 	virtual std::vector<std::wstring> as_vector() = 0;
 	virtual std::wstring get_full() = 0;
 	virtual std::wstring get_short() = 0;
@@ -51,7 +51,7 @@ public:
 	}
 
 	// ivanov_ivan_ivanovich<...>
-	std::wstring as_filename(const std::wstring& extension)
+	std::wstring as_filename(const std::wstring& extension = L".txt")
 	{
 		return translit_CtoL(surname) + L'_' + translit_CtoL(name) + L'_' + translit_CtoL(patronym) + extension;
 	}
@@ -106,7 +106,7 @@ public:
 	}
 
 	// tmyvbabla<...>
-	std::wstring as_filename(const std::wstring& extension)
+	std::wstring as_filename(const std::wstring& extension = L".txt")
 	{
 		return translit_CtoL(name) + extension;
 	}

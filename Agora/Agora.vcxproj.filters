@@ -71,6 +71,9 @@
     <ClInclude Include="Utils\messagebox_wrapper.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\random_listing_generator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Menus\Main_Menu\Main_Menu.resx">
