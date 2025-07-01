@@ -13,9 +13,9 @@ void show_error  (const std::wstring& error,   const std::wstring& heading = L"О
 
 
 const std::wstring program_info =
-(std::wstring)L"Agora v.1.0 от 16.06.2025\n" // it was INSISTING I'm trying to initialize with 'System::String'
-+ L"Курсовой проект от Первакова А.И.\n"
-+ L"КубГАУ, Прикладная информатика, ИТ2403";
+	(std::wstring)L"Agora v.1.0 от 02.07.2025\n" // it was INSISTING I'm trying to initialize with 'System::String'
+	+ L"Курсовой проект от Первакова А.И.\n"
+	+ L"КубГАУ, Прикладная информатика, ИТ2403";
 
 
 void show_info(const std::wstring& info, const std::wstring& heading/* = L""*/)

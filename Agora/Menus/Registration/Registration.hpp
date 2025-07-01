@@ -1020,16 +1020,19 @@ private:
 	}
 
 
+	/// Important note: casts to 'TextBox' by default. May cause errors in case of focusing on smth else
 	System::Void keyboard_focus_switch_check(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
 		if (key == ENTER)
 			next_focus();
-		else if (key == BACKSPACE)
+		else
 		{
-			Control^ source = safe_cast<Control^>(sender);
-			if (source->Text == "")
+			TextBox^ source = safe_cast<TextBox^>(sender);
+			if (key == BACKSPACE && source->Text == "")
 				prev_focus();
+			else if (source->Text->Length == source->MaxLength - 1) /// - 1 because the event is yet unhandled,
+				next_focus();										/// so the actual size we care about hasn't been achieved
 		}
 	}
 
@@ -1050,7 +1053,10 @@ private:
 	{
 		System::Char key = e->KeyChar;
 		if (! is_digit(key))
+		{
 			e->Handled = true;
+			return;
+		}
 		keyboard_focus_switch_check(sender, e);
 	}
 
@@ -1059,7 +1065,10 @@ private:
 	{
 		System::Char key = e->KeyChar;
 		if (! is_letter(key))
+		{
 			e->Handled = true;
+			return;
+		}
 		keyboard_focus_switch_check(sender, e);
 	}
 
@@ -1101,17 +1110,17 @@ private:
 	}
 
 
-	int _phone_number_body_previous_length = 0;
+	unsigned int _phone_number_body_previous_length = 0;
 	System::Void on_phone_number_body_input(System::Object^ sender, System::EventArgs^ e)
 	{
-		// inserting first '-'
+		// Inserting first '-'
 		if (input_phone_number_body->Text->Length == 3 && _phone_number_body_previous_length == 2)
 		{
 			input_phone_number_body->Text += L'-';
 			input_phone_number_body->SelectionStart = 4;
 		}
 
-		// inserting second '-'
+		// Inserting second '-'
 		else if (input_phone_number_body->Text->Length == 6 && _phone_number_body_previous_length == 5)
 		{
 			input_phone_number_body->Text += L'-';

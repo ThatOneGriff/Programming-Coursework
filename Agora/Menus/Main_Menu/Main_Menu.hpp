@@ -29,11 +29,6 @@ public:
 	: user(_user)
 	{
 		InitializeComponent();
-		/// Flipping through menus without gluing them to one another.
-		System::Drawing::Point location(12, 12);
-		menu_account->Location = location;
-		menu_feed->Location = location;
-		menu_search->Location = location;
 
 		/// Centering everything
 		center_x(label_search_will_be, menu_search);
@@ -130,7 +125,9 @@ private:
 		this->menu_feed = (gcnew System::Windows::Forms::Panel());
 		this->button_feed_update = (gcnew System::Windows::Forms::Button());
 		this->group_orders = (gcnew System::Windows::Forms::GroupBox());
+		this->label_feed_customers_WIP = (gcnew System::Windows::Forms::Label());
 		this->group_offers = (gcnew System::Windows::Forms::GroupBox());
+		this->label_feed_contractors_WIP = (gcnew System::Windows::Forms::Label());
 		this->label_feed = (gcnew System::Windows::Forms::Label());
 		this->bg_feed = (gcnew System::Windows::Forms::PictureBox());
 		this->update_timer = (gcnew System::Windows::Forms::Timer(this->components));
@@ -142,8 +139,6 @@ private:
 		this->input_search = (gcnew System::Windows::Forms::TextBox());
 		this->label_search = (gcnew System::Windows::Forms::Label());
 		this->bg_search = (gcnew System::Windows::Forms::PictureBox());
-		this->label_feed_contractors_WIP = (gcnew System::Windows::Forms::Label());
-		this->label_feed_customers_WIP = (gcnew System::Windows::Forms::Label());
 		this->sidebar->SuspendLayout();
 		this->menu_account->SuspendLayout();
 		this->group_active_contracts->SuspendLayout();
@@ -480,6 +475,16 @@ private:
 		this->group_orders->TabStop = false;
 		this->group_orders->Text = L"Ищут подрядчика";
 		// 
+		// label_feed_customers_WIP
+		// 
+		this->label_feed_customers_WIP->AutoSize = true;
+		this->label_feed_customers_WIP->Enabled = false;
+		this->label_feed_customers_WIP->Location = System::Drawing::Point(50, 159);
+		this->label_feed_customers_WIP->Name = L"label_feed_customers_WIP";
+		this->label_feed_customers_WIP->Size = System::Drawing::Size(200, 20);
+		this->label_feed_customers_WIP->TabIndex = 1;
+		this->label_feed_customers_WIP->Text = L"Работа в процессе...";
+		// 
 		// group_offers
 		// 
 		this->group_offers->Controls->Add(this->label_feed_contractors_WIP);
@@ -491,6 +496,16 @@ private:
 		this->group_offers->TabIndex = 5;
 		this->group_offers->TabStop = false;
 		this->group_offers->Text = L"Ищут заказчика";
+		// 
+		// label_feed_contractors_WIP
+		// 
+		this->label_feed_contractors_WIP->AutoSize = true;
+		this->label_feed_contractors_WIP->Enabled = false;
+		this->label_feed_contractors_WIP->Location = System::Drawing::Point(53, 159);
+		this->label_feed_contractors_WIP->Name = L"label_feed_contractors_WIP";
+		this->label_feed_contractors_WIP->Size = System::Drawing::Size(200, 20);
+		this->label_feed_contractors_WIP->TabIndex = 0;
+		this->label_feed_contractors_WIP->Text = L"Работа в процессе...";
 		// 
 		// label_feed
 		// 
@@ -611,26 +626,6 @@ private:
 		this->bg_search->TabIndex = 5;
 		this->bg_search->TabStop = false;
 		// 
-		// label_feed_contractors_WIP
-		// 
-		this->label_feed_contractors_WIP->AutoSize = true;
-		this->label_feed_contractors_WIP->Enabled = false;
-		this->label_feed_contractors_WIP->Location = System::Drawing::Point(53, 159);
-		this->label_feed_contractors_WIP->Name = L"label_feed_contractors_WIP";
-		this->label_feed_contractors_WIP->Size = System::Drawing::Size(200, 20);
-		this->label_feed_contractors_WIP->TabIndex = 0;
-		this->label_feed_contractors_WIP->Text = L"Работа в процессе...";
-		// 
-		// label_feed_customers_WIP
-		// 
-		this->label_feed_customers_WIP->AutoSize = true;
-		this->label_feed_customers_WIP->Enabled = false;
-		this->label_feed_customers_WIP->Location = System::Drawing::Point(50, 159);
-		this->label_feed_customers_WIP->Name = L"label_feed_customers_WIP";
-		this->label_feed_customers_WIP->Size = System::Drawing::Size(200, 20);
-		this->label_feed_customers_WIP->TabIndex = 1;
-		this->label_feed_customers_WIP->Text = L"Работа в процессе...";
-		// 
 		// Main_Menu
 		// 
 		this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -638,9 +633,9 @@ private:
 		this->BackColor = System::Drawing::SystemColors::Control;
 		this->ClientSize = System::Drawing::Size(782, 553);
 		this->Controls->Add(this->sidebar);
-		this->Controls->Add(this->menu_feed);
 		this->Controls->Add(this->menu_account);
 		this->Controls->Add(this->menu_search);
+		this->Controls->Add(this->menu_feed);
 		this->DoubleBuffered = true;
 		this->MaximumSize = System::Drawing::Size(800, 600);
 		this->MinimumSize = System::Drawing::Size(800, 600);
