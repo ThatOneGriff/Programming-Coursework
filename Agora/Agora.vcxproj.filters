@@ -56,16 +56,10 @@
     <ClInclude Include="Utils\files.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Listing\listing.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Menus\Main_Menu\main_menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Classes\random_individual_generator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\listing_random_generator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\messagebox_wrapper.hpp">
