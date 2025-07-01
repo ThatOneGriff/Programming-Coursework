@@ -23,7 +23,7 @@ int				dstoi(System::String^ target);
 System::String^ to_dotnet_string(const std::wstring& target);
 System::String^ to_dotnet_string(const int target);
 std::wstring	to_std_wstring(System::String^ target);
-std::wstring	translit_CtoL(std::wstring target);
+std::wstring	translit_CtoL(const std::wstring& target);
 
 
 /// Because 'wstring::erase' simply refused to work.
@@ -121,8 +121,7 @@ std::wstring to_std_wstring(System::String^ target) // System::String^ doesn't l
 }
 
 
-// it's non-const to read from '[]'
-std::unordered_map<wchar_t, std::wstring> _char_transliterations {
+const std::unordered_map<wchar_t, std::wstring> _char_transliterations {
 	{L'à', L"a"},  {L'á', L"b"},  {L'â', L"v"},   {L'ã', L"g"}, {L'ä', L"d"}, {L'å', L"e"}, {L'¸', L"yo"}, {L'æ', L"zh"},
 	{L'ç', L"z"},  {L'è', L"i"},  {L'é', L"y"},   {L'ê', L"k"}, {L'ë', L"l"}, {L'ì', L"m"}, {L'í', L"n"},  {L'î', L"o"},
 	{L'ï', L"p"},  {L'ð', L"r"},  {L'ñ', L"s"},   {L'ò', L"t"}, {L'ó', L"u"}, {L'ô', L"f"}, {L'õ', L"kh"}, {L'ö', L"ts"},
@@ -130,18 +129,24 @@ std::unordered_map<wchar_t, std::wstring> _char_transliterations {
 	{L'ÿ', L"ya"}
 };
 
-/// Lowers, because I don't want to check for both low and high chars, and I'm too lazy to convert
-std::wstring translit_CtoL(std::wstring target)
+std::wstring translit_CtoL(const std::wstring& target)
 {
+	/// We could make edits directly to 'target',
+	/// but it was causing very hard-to-catch errors.
+	std::wstring result = L"";
+
 	for (int i = 0; i < target.size(); i++)
 	{
+		/// Lowering happens because
+		/// 1) translit is only ever needed while lowering,
+		/// 2) I'm lazy
 		wchar_t c = lower(target[i]);
 		if (_char_transliterations.find(c) == _char_transliterations.end())
-			target[i] = c;
+			result += c;
 		else
-			target.insert(i, _char_transliterations[c]); // 'insert' because some transliterations are 2 (sh) or even 3 (sch) symbols long
+			result += _char_transliterations.at(c);
 	}
-	return target;
+	return result;
 }
 
 #endif
