@@ -2,20 +2,25 @@
 #ifndef SAVE_LOAD_HPP
 #define SAVE_LOAD_HPP
 
-#include <codecvt> // Locale things ('save' func)
-#include <fstream>
-#include <string>
-#include <vector>
+#include <codecvt>    /// Locales
+#include <filesystem> /// for reading all files from a directory
+namespace fs = std::filesystem;
+#include <fstream>	  /// File reading and writing
+#include <string>	  /// 'std::wstring>
+#include <vector>	  /// vectors of 'std::wstring'
 
 #include "Classes/user.hpp"
 #include "utils.hpp"
 
-/// This file is for saving and loading 'User's.
+/// This file is for saving and loading 'Individuals's.
+/// Companies are predefined instead of randomly generated.
 /// [!!!] FILE MANIPULATION is in 'Utils/files.hpp'.
 
 /// Here be:
 User* load(const std::wstring address);
 void  save(User* user, std::wstring address = L"");
+std::vector<Company> load_predefined_companies();
+const std::vector<Company> PREDEFINED_COMPANIES = load_predefined_companies();
 
 std::string  USER_SAVEFILE_NAME_S =  "user.txt";
 std::wstring USER_SAVEFILE_NAME   = L"user.txt";
@@ -103,6 +108,17 @@ void save(User* user, std::wstring address/* = L""*/)
 
 	savefile << user->serialize();
 	savefile.close();
+}
+
+
+std::vector<Company> load_predefined_companies()
+{
+	std::vector<Company> result;
+
+	// Copied from: https://stackoverflow.com/a/612176/15540979
+	std::string path = "/predefined_companies";
+	for (const auto & entry : fs::directory_iterator(path))
+		show_info(entry.path().wstring());
 }
 
 

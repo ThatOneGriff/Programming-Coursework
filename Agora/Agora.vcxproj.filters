@@ -62,7 +62,7 @@
     <ClInclude Include="Menus\Main_Menu\main_menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\user_random_generator.hpp">
+    <ClInclude Include="Classes\random_individual_generator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Classes\listing_random_generator.hpp">

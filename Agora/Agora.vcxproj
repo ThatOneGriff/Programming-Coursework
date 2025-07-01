@@ -107,6 +107,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -131,7 +132,7 @@
     <ClInclude Include="Classes\User\name.hpp" />
     <ClInclude Include="Classes\User\random_user_generator.hpp" />
     <ClInclude Include="Classes\user.hpp" />
-    <ClInclude Include="Classes\user_random_generator.hpp" />
+    <ClInclude Include="Classes\random_individual_generator.hpp" />
     <ClInclude Include="Menus\Main_Menu\main_menu.hpp">
       <FileType>CppForm</FileType>
     </ClInclude>

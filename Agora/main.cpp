@@ -48,6 +48,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	#endif
 
     Application::Run(gcnew Main_Menu(user));
+	
 
     return 0;
 }

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef RANDOM_USER_GENERATOR_HPP
-#define RANDOM_USER_GENERATOR_HPP
+#ifndef RANDOM_INDIVIDUAL_GENERATOR_HPP
+#define RANDOM_INDIVIDUAL_GENERATOR_HPP
 
 #include <string>
 #include <vector>
