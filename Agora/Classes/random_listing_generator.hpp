@@ -1,6 +1,6 @@
 #pragma once
-#ifndef LISTING_RANDOM_GENERATOR
-#define LISTING_RANDOM_GENERATOR
+#ifndef RANDOM_LISTING_GENERATOR
+#define RANDOM_LISTING_GENERATOR
 
 #include <string>
 #include <vector>

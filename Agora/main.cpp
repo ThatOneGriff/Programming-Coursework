@@ -12,7 +12,6 @@ using namespace System::Windows::Forms;
 /// = TODO =
 /// - Check the inclusion of all headers
 /// - Settings
-#define DEBUG
 
 
 [System::STAThread]

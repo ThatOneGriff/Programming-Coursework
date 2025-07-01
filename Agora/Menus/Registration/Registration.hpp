@@ -857,11 +857,8 @@ private:
 			user = new_user;
 		}
 
-		#ifdef DEBUG
+		//save(user, USER_SAVEFILE_NAME);
 		save(user);
-		this->Close();
-		#endif
-		save(user, USER_SAVEFILE_NAME);
 		this->Close();
 	}
 
@@ -1124,10 +1121,6 @@ private:
 			input_phone_number_body->Text += L'-';
 			input_phone_number_body->SelectionStart = 7;
 		}
-
-		// Focusing on next
-		else if (input_phone_number_body->Text->Length == 9)
-			next_focus();
 
 		_phone_number_body_previous_length = input_phone_number_body->Text->Length;
 		common_contacts_sufficient_input_check(nullptr, nullptr);

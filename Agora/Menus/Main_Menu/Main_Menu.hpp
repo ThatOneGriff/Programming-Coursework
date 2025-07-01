@@ -62,7 +62,8 @@ private:
 	System::Windows::Forms::TextBox^ output_account_phone_number;
 	System::Windows::Forms::TextBox^ output_account_name;
 	System::Windows::Forms::TextBox^ output_account_extra;
-	System::Windows::Forms::Button^ button1;
+private: System::Windows::Forms::Button^ button_edit;
+
 	System::Windows::Forms::TextBox^ output_account_website;
 	System::Windows::Forms::Panel^ menu_feed;
 	System::Windows::Forms::Label^ label_feed;
@@ -113,7 +114,7 @@ private:
 		this->label_account_phone_number = (gcnew System::Windows::Forms::Label());
 		this->output_account_age = (gcnew System::Windows::Forms::TextBox());
 		this->output_account_website = (gcnew System::Windows::Forms::TextBox());
-		this->button1 = (gcnew System::Windows::Forms::Button());
+		this->button_edit = (gcnew System::Windows::Forms::Button());
 		this->output_account_extra = (gcnew System::Windows::Forms::TextBox());
 		this->output_account_email = (gcnew System::Windows::Forms::TextBox());
 		this->output_account_phone_number = (gcnew System::Windows::Forms::TextBox());
@@ -272,7 +273,7 @@ private:
 		this->group_account_data->Controls->Add(this->label_account_phone_number);
 		this->group_account_data->Controls->Add(this->output_account_age);
 		this->group_account_data->Controls->Add(this->output_account_website);
-		this->group_account_data->Controls->Add(this->button1);
+		this->group_account_data->Controls->Add(this->button_edit);
 		this->group_account_data->Controls->Add(this->output_account_extra);
 		this->group_account_data->Controls->Add(this->output_account_email);
 		this->group_account_data->Controls->Add(this->output_account_phone_number);
@@ -359,19 +360,19 @@ private:
 		this->output_account_website->Size = System::Drawing::Size(229, 26);
 		this->output_account_website->TabIndex = 4;
 		// 
-		// button1
+		// button_edit
 		// 
-		this->button1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)), static_cast<System::Int32>(static_cast<System::Byte>(191)),
+		this->button_edit->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)), static_cast<System::Int32>(static_cast<System::Byte>(191)),
 			static_cast<System::Int32>(static_cast<System::Byte>(202)));
-		this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->button_edit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->button1->Location = System::Drawing::Point(0, 214);
-		this->button1->Name = L"button1";
-		this->button1->Size = System::Drawing::Size(308, 40);
-		this->button1->TabIndex = 3;
-		this->button1->Text = L"Редактировать";
-		this->button1->UseVisualStyleBackColor = false;
-		this->button1->Click += gcnew System::EventHandler(this, &Main_Menu::edit_account_data);
+		this->button_edit->Location = System::Drawing::Point(0, 214);
+		this->button_edit->Name = L"button_edit";
+		this->button_edit->Size = System::Drawing::Size(308, 40);
+		this->button_edit->TabIndex = 3;
+		this->button_edit->Text = L"Редактировать";
+		this->button_edit->UseVisualStyleBackColor = false;
+		this->button_edit->Click += gcnew System::EventHandler(this, &Main_Menu::edit_account_data);
 		// 
 		// output_account_extra
 		// 
