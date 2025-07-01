@@ -3,8 +3,6 @@
 #define SAVE_LOAD_HPP
 
 #include <codecvt>    /// Locales
-#include <filesystem> /// for reading all files from a directory
-namespace fs = std::filesystem;
 #include <fstream>	  /// File reading and writing
 #include <string>	  /// 'std::wstring>
 #include <vector>	  /// vectors of 'std::wstring'
@@ -19,11 +17,12 @@ namespace fs = std::filesystem;
 /// Here be:
 User* load(const std::wstring address);
 void  save(User* user, std::wstring address = L"");
+
 std::vector<Company> load_predefined_companies();
 const std::vector<Company> PREDEFINED_COMPANIES = load_predefined_companies();
 
-std::string  USER_SAVEFILE_NAME_S =  "user.txt";
-std::wstring USER_SAVEFILE_NAME   = L"user.txt";
+const std::string  USER_SAVEFILE_NAME_S =  "user.txt";
+const std::wstring USER_SAVEFILE_NAME   = L"user.txt";
 
 
 
@@ -115,10 +114,7 @@ std::vector<Company> load_predefined_companies()
 {
 	std::vector<Company> result;
 
-	// Copied from: https://stackoverflow.com/a/612176/15540979
-	std::string path = "/predefined_companies";
-	for (const auto & entry : fs::directory_iterator(path))
-		show_info(entry.path().wstring());
+	return result;
 }
 
 
