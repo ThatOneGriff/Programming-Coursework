@@ -1057,10 +1057,7 @@ private:
 	{
 		System::Char key = e->KeyChar;
 		if (! is_digit(key))
-		{
 			e->Handled = true;
-			return;
-		}
 		keyboard_focus_switch_check(sender, e);
 	}
 
@@ -1069,10 +1066,7 @@ private:
 	{
 		System::Char key = e->KeyChar;
 		if (! is_letter(key))
-		{
 			e->Handled = true;
-			return;
-		}
 		keyboard_focus_switch_check(sender, e);
 	}
 
