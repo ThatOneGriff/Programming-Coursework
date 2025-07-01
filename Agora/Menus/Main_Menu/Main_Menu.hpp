@@ -3,8 +3,6 @@
 #define MAIN_MENU_HPP
 
 #include "Menus/Registration/registration.hpp"
-// Should menus be able to include each other?
-// Or should we opt for a more modular approach?
 
 #include "../../Classes/user.hpp"
 #include "../../utils.hpp"
@@ -700,7 +698,7 @@ private:
 
 	#pragma region ======= Account =======
 
-	void sidebar_pick_account(System::Object ^ sender, System::EventArgs ^ e)
+	void sidebar_pick_account(System::Object^ sender, System::EventArgs^ e)
 	{
 		this->Text = "Agora: Мой аккаунт";
 		menu_account->BringToFront();
@@ -716,7 +714,7 @@ private:
 		user = load(USER_SAVEFILE_NAME);
 		if (user == nullptr)
 		{
-			show_error(L"Couldn't read updated data.");
+			show_error(L"Ошибка при чтении данных.");
 			this->Close();
 			return;
 		}

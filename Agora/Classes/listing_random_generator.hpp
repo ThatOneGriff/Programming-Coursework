@@ -4,13 +4,16 @@
 
 #include <string>
 #include <vector>
+
 #include "listing.hpp"
 #include "user.hpp"
 #include "user_random_generator.hpp"
 #include "../utils.hpp"
 
 /// Here be:
+class  _Job_Class;
 Listing get_random_listing();
+
 
 class _Job_Class
 {
@@ -99,7 +102,6 @@ Listing get_random_listing()
 	else /// Customer
 	{
 		// Same things about Company as in Contractor region of this func.
-
 		{
 			Individual *customer = &get_random_individual();
 			// GIVING 'payment_hr' INSTEAD OF 'payment_full'

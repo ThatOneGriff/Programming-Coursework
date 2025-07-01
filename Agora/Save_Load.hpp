@@ -35,14 +35,14 @@ User* load(const std::wstring address)
 	savefile.imbue(loc);
 	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
 
-	// Empty check
+	/// Empty check
 	if (is_empty(savefile))
 	{
 		savefile.close();
 		return nullptr;
 	}
 
-	// Account type check
+	/// Account type check
 	std::wstring account_type;
 	getline(savefile, account_type);
 	if (account_type != L"individual" && account_type != L"company")
@@ -52,16 +52,16 @@ User* load(const std::wstring address)
 		return nullptr;
 	}
 
-	// Reading the rest of the data
+	/// Reading the rest of the data
 	std::vector<std::wstring> raw_data = to_string_bundle(savefile, 7);
 	savefile.close();
 
-	// Creating a new 'User*'
+	/// Creating a new 'User*'
 
 	/// POSSIBLE MEMORY LEAK: No time to deal with this pointer magic.
 	/// WARNING: change of order => this breaks. Wish I had time to rewrite this to JSON.
 	
-	// Common variables
+	/// Common variables
 	const std::wstring _birth_date =    raw_data[0], /* Note how we read from 0, not 1: */
 					   _name =			raw_data[1], /* account type didn't get into raw data, */
 					   _phone_number =  raw_data[2], /* because it's already been read. */
@@ -84,7 +84,7 @@ User* load(const std::wstring address)
 		return new Company(name, birth_date, phone_number, email, website, extra_contacts);
 	}
 
-	show_error(L"Account hasn't been created - something that should NOT have happened. Look into it immediately.");
+	show_error(L"Аккаунт не создан по неизвестной причине.");
 	return nullptr; // Something that under NO circumstance should happen
 }
 

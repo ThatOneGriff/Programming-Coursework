@@ -7,6 +7,11 @@
 #include "utils.hpp"
 using namespace Agora;
 using namespace System::Windows::Forms;
+	
+
+/// = TODO =
+/// - Check the inclusion of all headers
+/// - Settings
 
 
 [System::STAThread]
@@ -17,10 +22,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
-	
-	/// = TODO =
-	/// - Check the inclusion of all headers
-	/// - Settings
 
 	//#define DEBUG
 	/// Release sign in / sign up process.

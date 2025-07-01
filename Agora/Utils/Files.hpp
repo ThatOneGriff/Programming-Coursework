@@ -30,5 +30,4 @@ std::vector<std::wstring> to_string_bundle(std::wifstream& file, const unsigned 
 }
 
 
-
 #endif
