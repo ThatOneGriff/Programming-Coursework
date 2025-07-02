@@ -19,6 +19,7 @@ using namespace System::Drawing;
 
 /// 'Member of an unmanaged class' bullshit made me put all of this here
 std::vector<User*> NPCs;
+std::vector<Listing> accepted_listings;
 Listing job_request_1, job_request_2,
 		job_offer_1,   job_offer_2;
 
@@ -45,6 +46,7 @@ public:
 		/// 2. 8 shows correct size in editor; 7 makes the release program correct.
 
 		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
+		fill_account_menu();
 		fill_feed_menu();
 	}
 
@@ -676,6 +678,7 @@ private: System::Windows::Forms::NumericUpDown^ listing_contractor_1_hrs_picker;
 		this->listing_customer_2_accept->TabIndex = 7;
 		this->listing_customer_2_accept->Text = L"За работу!";
 		this->listing_customer_2_accept->UseVisualStyleBackColor = true;
+		this->listing_customer_2_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
 		// listing_customer_2_hrs
 		// 
@@ -786,6 +789,7 @@ private: System::Windows::Forms::NumericUpDown^ listing_contractor_1_hrs_picker;
 		this->listing_customer_1_accept->TabIndex = 7;
 		this->listing_customer_1_accept->Text = L"За работу!";
 		this->listing_customer_1_accept->UseVisualStyleBackColor = true;
+		this->listing_customer_1_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
 		// listing_customer_1_hrs
 		// 
@@ -922,6 +926,7 @@ private: System::Windows::Forms::NumericUpDown^ listing_contractor_1_hrs_picker;
 		this->listing_contractor_2_accept->TabIndex = 7;
 		this->listing_contractor_2_accept->Text = L"Нанять!";
 		this->listing_contractor_2_accept->UseVisualStyleBackColor = true;
+		this->listing_contractor_2_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
 		// listing_contractor_2_label_hrs
 		// 
@@ -1033,6 +1038,7 @@ private: System::Windows::Forms::NumericUpDown^ listing_contractor_1_hrs_picker;
 		this->listing_contractor_1_accept->TabIndex = 7;
 		this->listing_contractor_1_accept->Text = L"Нанять!";
 		this->listing_contractor_1_accept->UseVisualStyleBackColor = true;
+		this->listing_contractor_1_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
 		// listing_contractor_1_label_hrs
 		// 
@@ -1226,9 +1232,9 @@ private: System::Windows::Forms::NumericUpDown^ listing_contractor_1_hrs_picker;
 		this->BackColor = System::Drawing::SystemColors::Control;
 		this->ClientSize = System::Drawing::Size(684, 517);
 		this->Controls->Add(this->sidebar);
-		this->Controls->Add(this->menu_feed);
 		this->Controls->Add(this->menu_account);
 		this->Controls->Add(this->menu_search);
+		this->Controls->Add(this->menu_feed);
 		this->DoubleBuffered = true;
 		this->Font = (gcnew System::Drawing::Font(L"Roboto", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
@@ -1279,6 +1285,39 @@ private:
 	}
 
 
+	void accept_listing(System::Object^ sender, System::EventArgs^ e)
+	{
+		Button^ source = safe_cast<Button^>(sender);
+		if (source == listing_contractor_1_accept)
+		{
+			accepted_listings.push_back(job_request_1);
+			show_info(L"Подрядчик согласился!");
+			listing_contractor_1->Enabled = false;
+		}
+
+		else if (source == listing_contractor_2_accept)
+		{
+			accepted_listings.push_back(job_request_2);
+			show_info(L"Подрядчик согласился!");
+			listing_contractor_2->Enabled = false;
+		}
+		
+		else if (source == listing_customer_1_accept)
+		{
+			accepted_listings.push_back(job_offer_1);
+			show_info(L"Заказчик согласился!");
+			listing_customer_1->Enabled = false;
+		}
+		
+		else if (source == listing_customer_2_accept)
+		{
+			accepted_listings.push_back(job_offer_2);
+			show_info(L"Заказчик согласился!");
+			listing_customer_2->Enabled = false;
+		}
+	}
+
+
 	void feed_contracts_length_adjusted(System::Object^ sender, System::EventArgs^ e)
 	{
 		NumericUpDown^ source = safe_cast<NumericUpDown^>(sender);
@@ -1299,18 +1338,21 @@ private:
 	void fill_feed_menu()
 	{
 		job_request_1 = get_random_listing(CONTRACTOR_LISTING);
+		listing_contractor_1->Enabled = true;
 		listing_contractor_1_name->Text = to_dotnet_string(job_request_1.name);
 		listing_contractor_1_from->Text = to_dotnet_string(job_request_1.contractor->name->get_short());
 		listing_contractor_1_hourly->Text = Convert::ToString(job_request_1.payment_hr);
 		listing_contractor_1_total->Text  = L"Итого, ₽: " + Convert::ToString(job_request_1.payment_total());
 
 		job_request_2 = get_random_listing(CONTRACTOR_LISTING);
+		listing_contractor_2->Enabled = true;
 		listing_contractor_2_name->Text = to_dotnet_string(job_request_2.name);
 		listing_contractor_2_from->Text = to_dotnet_string(job_request_2.contractor->name->get_short());
 		listing_contractor_2_hourly->Text = Convert::ToString(job_request_2.payment_hr);
 		listing_contractor_2_total->Text  = L"Итого, ₽: " + Convert::ToString(job_request_2.payment_total());
 
 		job_offer_1 = get_random_listing(CUSTOMER_LISTING);
+		listing_customer_1->Enabled = true;
 		listing_customer_1_name->Text = to_dotnet_string(job_offer_1.name);
 		listing_customer_1_from->Text = to_dotnet_string(job_offer_1.customer->name->get_full());
 		listing_customer_1_hourly->Text = Convert::ToString(job_offer_1.payment_hr);
@@ -1318,6 +1360,7 @@ private:
 		listing_customer_1_total->Text  = L"Итого, ₽: " + Convert::ToString(job_offer_1.payment_total());
 
 		job_offer_2 = get_random_listing(CUSTOMER_LISTING);
+		listing_customer_2->Enabled = true;
 		listing_customer_2_name->Text = to_dotnet_string(job_offer_2.name);
 		listing_customer_2_from->Text = to_dotnet_string(job_offer_2.customer->name->get_full());
 		listing_customer_2_hourly->Text = Convert::ToString(job_offer_2.payment_hr);
@@ -1349,7 +1392,8 @@ private:
 		this->Text = "Agora: Мой аккаунт";
 		menu_account->BringToFront();
 
-		fill_account_menu();
+		if (! accepted_listings.empty())
+			label_no_active_contracts->Visible = false;
 	}
 
 

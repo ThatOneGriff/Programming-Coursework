@@ -7,8 +7,7 @@
 using namespace System::Windows::Forms;
 
 /// Here be:
-template <class T>
-void show_info   (const T& info, const std::wstring& heading = L"Информация");
+void show_info   (System::String^ info, const std::wstring& heading = L"Информация");
 void show_info   (const std::wstring& info,	   const std::wstring& heading = L"Информация");
 void show_warning(const std::wstring& warning, const std::wstring& heading = L"Внимание!");
 void show_error  (const std::wstring& error,   const std::wstring& heading = L"Ошибка");
@@ -20,10 +19,9 @@ const std::wstring program_info =
 	+ L"КубГАУ, Прикладная информатика, ИТ2403";
 
 
-template <class T>
-void show_info(const T& info, const std::wstring& heading/* = L"Информация"*/)
+void show_info(System::String^ info, const std::wstring& heading/* = L"Информация"*/)
 {
-	show_info(std::to_wstring(info), heading);
+	MessageBox::Show(info, to_dotnet_string(heading), MessageBoxButtons::OK, MessageBoxIcon::Information);
 }
 
 
