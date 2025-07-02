@@ -40,7 +40,7 @@ public:
 		System::Drawing::Font^ font = gcnew System::Drawing::Font("Roboto", 7);
 		this->Font = font;
 		/// 1. Scaling somewhy depends on font size. What the f***?
-		/// 2. 8 shows correct size in editor; 6 makes the release program correct.
+		/// 2. 8 shows correct size in editor; 7 makes the release program correct.
 
 		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
 		fill_feed_menu();
