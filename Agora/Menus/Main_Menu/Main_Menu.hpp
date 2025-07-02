@@ -34,12 +34,13 @@ public:
 		InitializeComponent();
 		NPCs = _NPCs;
 
-		/// Centering everything
-		center_x(label_search_will_be, menu_search);
-		center_x(label_in_future_updates, menu_search);
-
 		System::Drawing::Size size(665, 485);
 		this->Size = size;
+		/// I HATE CLR. FUCK CLR. MICROSOFT CAN GO EAT SHIT
+		System::Drawing::Font^ font = gcnew System::Drawing::Font("Roboto", 7);
+		this->Font = font;
+		/// 1. Scaling somewhy depends on font size. What the f***?
+		/// 2. 8 shows correct size in editor; 6 makes the release program correct.
 
 		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
 		fill_feed_menu();
@@ -192,9 +193,10 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
 		this->menu_button_search->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 		this->menu_button_search->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_search.Image")));
-		this->menu_button_search->Location = System::Drawing::Point(5, 9);
+		this->menu_button_search->Location = System::Drawing::Point(4, 7);
+		this->menu_button_search->Margin = System::Windows::Forms::Padding(4);
 		this->menu_button_search->Name = L"menu_button_search";
-		this->menu_button_search->Size = System::Drawing::Size(100, 100);
+		this->menu_button_search->Size = System::Drawing::Size(88, 94);
 		this->menu_button_search->TabIndex = 1;
 		this->menu_button_search->UseVisualStyleBackColor = false;
 		this->menu_button_search->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_search);
@@ -208,9 +210,10 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->sidebar->Controls->Add(this->menu_button_account);
 		this->sidebar->Controls->Add(this->menu_button_feed);
 		this->sidebar->Controls->Add(this->menu_button_search);
-		this->sidebar->Location = System::Drawing::Point(660, 12);
+		this->sidebar->Location = System::Drawing::Point(578, 11);
+		this->sidebar->Margin = System::Windows::Forms::Padding(4);
 		this->sidebar->Name = L"sidebar";
-		this->sidebar->Size = System::Drawing::Size(110, 535);
+		this->sidebar->Size = System::Drawing::Size(96, 503);
 		this->sidebar->TabIndex = 1;
 		// 
 		// menu_button_info
@@ -219,9 +222,10 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
 		this->menu_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 		this->menu_button_info->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_info.Image")));
-		this->menu_button_info->Location = System::Drawing::Point(5, 429);
+		this->menu_button_info->Location = System::Drawing::Point(4, 401);
+		this->menu_button_info->Margin = System::Windows::Forms::Padding(4);
 		this->menu_button_info->Name = L"menu_button_info";
-		this->menu_button_info->Size = System::Drawing::Size(100, 100);
+		this->menu_button_info->Size = System::Drawing::Size(88, 94);
 		this->menu_button_info->TabIndex = 4;
 		this->menu_button_info->UseVisualStyleBackColor = false;
 		this->menu_button_info->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_info);
@@ -233,9 +237,10 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->menu_button_settings->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 		this->menu_button_settings->Enabled = false;
 		this->menu_button_settings->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_settings.Image")));
-		this->menu_button_settings->Location = System::Drawing::Point(5, 323);
+		this->menu_button_settings->Location = System::Drawing::Point(4, 304);
+		this->menu_button_settings->Margin = System::Windows::Forms::Padding(4);
 		this->menu_button_settings->Name = L"menu_button_settings";
-		this->menu_button_settings->Size = System::Drawing::Size(100, 100);
+		this->menu_button_settings->Size = System::Drawing::Size(88, 94);
 		this->menu_button_settings->TabIndex = 3;
 		this->menu_button_settings->UseVisualStyleBackColor = false;
 		// 
@@ -245,9 +250,10 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
 		this->menu_button_account->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 		this->menu_button_account->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_account.Image")));
-		this->menu_button_account->Location = System::Drawing::Point(5, 217);
+		this->menu_button_account->Location = System::Drawing::Point(4, 203);
+		this->menu_button_account->Margin = System::Windows::Forms::Padding(4);
 		this->menu_button_account->Name = L"menu_button_account";
-		this->menu_button_account->Size = System::Drawing::Size(100, 100);
+		this->menu_button_account->Size = System::Drawing::Size(88, 94);
 		this->menu_button_account->TabIndex = 2;
 		this->menu_button_account->UseVisualStyleBackColor = false;
 		this->menu_button_account->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_account);
@@ -258,9 +264,10 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
 		this->menu_button_feed->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 		this->menu_button_feed->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menu_button_feed.Image")));
-		this->menu_button_feed->Location = System::Drawing::Point(5, 111);
+		this->menu_button_feed->Location = System::Drawing::Point(4, 104);
+		this->menu_button_feed->Margin = System::Windows::Forms::Padding(4);
 		this->menu_button_feed->Name = L"menu_button_feed";
-		this->menu_button_feed->Size = System::Drawing::Size(100, 100);
+		this->menu_button_feed->Size = System::Drawing::Size(88, 94);
 		this->menu_button_feed->TabIndex = 0;
 		this->menu_button_feed->UseVisualStyleBackColor = false;
 		this->menu_button_feed->Click += gcnew System::EventHandler(this, &Main_Menu::sidebar_pick_feed);
@@ -272,17 +279,20 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->menu_account->Controls->Add(this->group_account_data);
 		this->menu_account->Controls->Add(this->label_my_account);
 		this->menu_account->Controls->Add(this->bg_my_account);
-		this->menu_account->Location = System::Drawing::Point(12, 12);
+		this->menu_account->Location = System::Drawing::Point(10, 11);
+		this->menu_account->Margin = System::Windows::Forms::Padding(4);
 		this->menu_account->Name = L"menu_account";
-		this->menu_account->Size = System::Drawing::Size(640, 535);
+		this->menu_account->Size = System::Drawing::Size(560, 502);
 		this->menu_account->TabIndex = 2;
 		// 
 		// group_active_contracts
 		// 
 		this->group_active_contracts->Controls->Add(this->label_no_active_contracts);
-		this->group_active_contracts->Location = System::Drawing::Point(328, 178);
+		this->group_active_contracts->Location = System::Drawing::Point(287, 168);
+		this->group_active_contracts->Margin = System::Windows::Forms::Padding(4);
 		this->group_active_contracts->Name = L"group_active_contracts";
-		this->group_active_contracts->Size = System::Drawing::Size(307, 350);
+		this->group_active_contracts->Padding = System::Windows::Forms::Padding(4);
+		this->group_active_contracts->Size = System::Drawing::Size(270, 327);
 		this->group_active_contracts->TabIndex = 5;
 		this->group_active_contracts->TabStop = false;
 		this->group_active_contracts->Text = L"Активные контракты";
@@ -290,12 +300,13 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		// label_no_active_contracts
 		// 
 		this->label_no_active_contracts->BorderStyle = System::Windows::Forms::BorderStyle::None;
-		this->label_no_active_contracts->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->label_no_active_contracts->Location = System::Drawing::Point(6, 121);
+		this->label_no_active_contracts->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->label_no_active_contracts->Location = System::Drawing::Point(11, 113);
+		this->label_no_active_contracts->Margin = System::Windows::Forms::Padding(4);
 		this->label_no_active_contracts->Name = L"label_no_active_contracts";
 		this->label_no_active_contracts->ReadOnly = true;
-		this->label_no_active_contracts->Size = System::Drawing::Size(301, 87);
+		this->label_no_active_contracts->Size = System::Drawing::Size(246, 83);
 		this->label_no_active_contracts->TabIndex = 0;
 		this->label_no_active_contracts->Text = L"Активных контрактов нет.\n\nЗайдите в Ленту и выберите!";
 		// 
@@ -313,9 +324,11 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->group_account_data->Controls->Add(this->output_account_email);
 		this->group_account_data->Controls->Add(this->output_account_phone_number);
 		this->group_account_data->Controls->Add(this->output_account_name);
-		this->group_account_data->Location = System::Drawing::Point(8, 178);
+		this->group_account_data->Location = System::Drawing::Point(7, 168);
+		this->group_account_data->Margin = System::Windows::Forms::Padding(4);
 		this->group_account_data->Name = L"group_account_data";
-		this->group_account_data->Size = System::Drawing::Size(314, 350);
+		this->group_account_data->Padding = System::Windows::Forms::Padding(4);
+		this->group_account_data->Size = System::Drawing::Size(275, 327);
 		this->group_account_data->TabIndex = 2;
 		this->group_account_data->TabStop = false;
 		this->group_account_data->Text = L"Данные";
@@ -323,87 +336,95 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		// label_account_website
 		// 
 		this->label_account_website->AutoSize = true;
-		this->label_account_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->label_account_website->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->label_account_website->Location = System::Drawing::Point(6, 185);
+		this->label_account_website->Location = System::Drawing::Point(5, 173);
+		this->label_account_website->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_account_website->Name = L"label_account_website";
-		this->label_account_website->Size = System::Drawing::Size(61, 20);
+		this->label_account_website->Size = System::Drawing::Size(53, 20);
 		this->label_account_website->TabIndex = 9;
 		this->label_account_website->Text = L"Сайт:";
 		// 
 		// label_account_extra
 		// 
 		this->label_account_extra->AutoSize = true;
-		this->label_account_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->label_account_extra->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->label_account_extra->Location = System::Drawing::Point(6, 153);
+		this->label_account_extra->Location = System::Drawing::Point(5, 143);
+		this->label_account_extra->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_account_extra->Name = L"label_account_extra";
-		this->label_account_extra->Size = System::Drawing::Size(56, 20);
+		this->label_account_extra->Size = System::Drawing::Size(52, 20);
 		this->label_account_extra->TabIndex = 8;
 		this->label_account_extra->Text = L"Доп.:";
 		// 
 		// label_account_email
 		// 
 		this->label_account_email->AutoSize = true;
-		this->label_account_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->label_account_email->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->label_account_email->Location = System::Drawing::Point(6, 121);
+		this->label_account_email->Location = System::Drawing::Point(5, 113);
+		this->label_account_email->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_account_email->Name = L"label_account_email";
-		this->label_account_email->Size = System::Drawing::Size(67, 20);
+		this->label_account_email->Size = System::Drawing::Size(64, 20);
 		this->label_account_email->TabIndex = 7;
 		this->label_account_email->Text = L"e-mail:";
 		// 
 		// label_account_age
 		// 
 		this->label_account_age->AutoSize = true;
-		this->label_account_age->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->label_account_age->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->label_account_age->Location = System::Drawing::Point(6, 56);
+		this->label_account_age->Location = System::Drawing::Point(5, 53);
+		this->label_account_age->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_account_age->Name = L"label_account_age";
-		this->label_account_age->Size = System::Drawing::Size(89, 20);
+		this->label_account_age->Size = System::Drawing::Size(83, 20);
 		this->label_account_age->TabIndex = 6;
 		this->label_account_age->Text = L"label_age";
 		// 
 		// label_account_phone_number
 		// 
 		this->label_account_phone_number->AutoSize = true;
-		this->label_account_phone_number->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->label_account_phone_number->Location = System::Drawing::Point(6, 88);
+		this->label_account_phone_number->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->label_account_phone_number->Location = System::Drawing::Point(5, 83);
+		this->label_account_phone_number->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_account_phone_number->Name = L"label_account_phone_number";
-		this->label_account_phone_number->Size = System::Drawing::Size(98, 20);
+		this->label_account_phone_number->Size = System::Drawing::Size(84, 20);
 		this->label_account_phone_number->TabIndex = 6;
 		this->label_account_phone_number->Text = L"Телефон:";
 		// 
 		// output_account_age
 		// 
-		this->output_account_age->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+		this->output_account_age->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->output_account_age->Location = System::Drawing::Point(131, 53);
+		this->output_account_age->Location = System::Drawing::Point(115, 50);
+		this->output_account_age->Margin = System::Windows::Forms::Padding(4);
 		this->output_account_age->Name = L"output_account_age";
 		this->output_account_age->ReadOnly = true;
-		this->output_account_age->Size = System::Drawing::Size(177, 26);
+		this->output_account_age->Size = System::Drawing::Size(154, 28);
 		this->output_account_age->TabIndex = 5;
 		// 
 		// output_account_website
 		// 
-		this->output_account_website->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->output_account_website->Location = System::Drawing::Point(79, 182);
+		this->output_account_website->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->output_account_website->Location = System::Drawing::Point(69, 172);
+		this->output_account_website->Margin = System::Windows::Forms::Padding(4);
 		this->output_account_website->Name = L"output_account_website";
 		this->output_account_website->ReadOnly = true;
-		this->output_account_website->Size = System::Drawing::Size(229, 26);
+		this->output_account_website->Size = System::Drawing::Size(201, 28);
 		this->output_account_website->TabIndex = 4;
 		// 
 		// button_edit
 		// 
 		this->button_edit->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)), static_cast<System::Int32>(static_cast<System::Byte>(191)),
 			static_cast<System::Int32>(static_cast<System::Byte>(202)));
-		this->button_edit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->button_edit->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->button_edit->Location = System::Drawing::Point(0, 214);
+		this->button_edit->Location = System::Drawing::Point(0, 202);
+		this->button_edit->Margin = System::Windows::Forms::Padding(4);
 		this->button_edit->Name = L"button_edit";
-		this->button_edit->Size = System::Drawing::Size(308, 40);
+		this->button_edit->Size = System::Drawing::Size(270, 37);
 		this->button_edit->TabIndex = 3;
 		this->button_edit->Text = L"Редактировать";
 		this->button_edit->UseVisualStyleBackColor = false;
@@ -411,42 +432,46 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		// 
 		// output_account_extra
 		// 
-		this->output_account_extra->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->output_account_extra->Location = System::Drawing::Point(79, 150);
+		this->output_account_extra->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->output_account_extra->Location = System::Drawing::Point(69, 142);
+		this->output_account_extra->Margin = System::Windows::Forms::Padding(4);
 		this->output_account_extra->Name = L"output_account_extra";
 		this->output_account_extra->ReadOnly = true;
-		this->output_account_extra->Size = System::Drawing::Size(229, 26);
+		this->output_account_extra->Size = System::Drawing::Size(201, 28);
 		this->output_account_extra->TabIndex = 3;
 		// 
 		// output_account_email
 		// 
-		this->output_account_email->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->output_account_email->Location = System::Drawing::Point(79, 118);
+		this->output_account_email->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->output_account_email->Location = System::Drawing::Point(69, 112);
+		this->output_account_email->Margin = System::Windows::Forms::Padding(4);
 		this->output_account_email->Name = L"output_account_email";
 		this->output_account_email->ReadOnly = true;
-		this->output_account_email->Size = System::Drawing::Size(229, 26);
+		this->output_account_email->Size = System::Drawing::Size(201, 28);
 		this->output_account_email->TabIndex = 2;
 		// 
 		// output_account_phone_number
 		// 
-		this->output_account_phone_number->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->output_account_phone_number->Location = System::Drawing::Point(131, 85);
+		this->output_account_phone_number->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->output_account_phone_number->Location = System::Drawing::Point(115, 80);
+		this->output_account_phone_number->Margin = System::Windows::Forms::Padding(4);
 		this->output_account_phone_number->Name = L"output_account_phone_number";
 		this->output_account_phone_number->ReadOnly = true;
-		this->output_account_phone_number->Size = System::Drawing::Size(177, 26);
+		this->output_account_phone_number->Size = System::Drawing::Size(154, 28);
 		this->output_account_phone_number->TabIndex = 1;
 		// 
 		// output_account_name
 		// 
-		this->output_account_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->output_account_name->Location = System::Drawing::Point(6, 21);
+		this->output_account_name->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->output_account_name->Location = System::Drawing::Point(5, 20);
+		this->output_account_name->Margin = System::Windows::Forms::Padding(4);
 		this->output_account_name->Name = L"output_account_name";
 		this->output_account_name->ReadOnly = true;
-		this->output_account_name->Size = System::Drawing::Size(302, 26);
+		this->output_account_name->Size = System::Drawing::Size(265, 28);
 		this->output_account_name->TabIndex = 0;
 		// 
 		// label_my_account
@@ -456,7 +481,8 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 			static_cast<System::Int32>(static_cast<System::Byte>(232)), static_cast<System::Int32>(static_cast<System::Byte>(232)));
 		this->label_my_account->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->label_my_account->Location = System::Drawing::Point(3, 8);
+		this->label_my_account->Location = System::Drawing::Point(7, 7);
+		this->label_my_account->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_my_account->Name = L"label_my_account";
 		this->label_my_account->Size = System::Drawing::Size(167, 29);
 		this->label_my_account->TabIndex = 0;
@@ -467,8 +493,9 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->bg_my_account->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"bg_my_account.BackgroundImage")));
 		this->bg_my_account->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 		this->bg_my_account->Location = System::Drawing::Point(0, -7);
+		this->bg_my_account->Margin = System::Windows::Forms::Padding(4);
 		this->bg_my_account->Name = L"bg_my_account";
-		this->bg_my_account->Size = System::Drawing::Size(640, 180);
+		this->bg_my_account->Size = System::Drawing::Size(560, 169);
 		this->bg_my_account->TabIndex = 1;
 		this->bg_my_account->TabStop = false;
 		// 
@@ -480,19 +507,21 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->menu_feed->Controls->Add(this->group_offers);
 		this->menu_feed->Controls->Add(this->label_feed);
 		this->menu_feed->Controls->Add(this->bg_feed);
-		this->menu_feed->Location = System::Drawing::Point(12, 12);
+		this->menu_feed->Location = System::Drawing::Point(10, 11);
+		this->menu_feed->Margin = System::Windows::Forms::Padding(4);
 		this->menu_feed->Name = L"menu_feed";
-		this->menu_feed->Size = System::Drawing::Size(640, 535);
+		this->menu_feed->Size = System::Drawing::Size(560, 502);
 		this->menu_feed->TabIndex = 3;
 		// 
 		// button_feed_update
 		// 
 		this->button_feed_update->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_feed_update.BackgroundImage")));
 		this->button_feed_update->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
-		this->button_feed_update->Location = System::Drawing::Point(264, 3);
+		this->button_feed_update->Location = System::Drawing::Point(246, 4);
+		this->button_feed_update->Margin = System::Windows::Forms::Padding(4);
 		this->button_feed_update->Name = L"button_feed_update";
 		this->button_feed_update->RightToLeft = System::Windows::Forms::RightToLeft::No;
-		this->button_feed_update->Size = System::Drawing::Size(40, 40);
+		this->button_feed_update->Size = System::Drawing::Size(35, 37);
 		this->button_feed_update->TabIndex = 0;
 		this->button_feed_update->UseVisualStyleBackColor = true;
 		this->button_feed_update->Click += gcnew System::EventHandler(this, &Main_Menu::update_feed);
@@ -500,11 +529,13 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		// group_orders
 		// 
 		this->group_orders->Controls->Add(this->listing_customer_1);
-		this->group_orders->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->group_orders->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->group_orders->Location = System::Drawing::Point(322, 178);
+		this->group_orders->Location = System::Drawing::Point(282, 168);
+		this->group_orders->Margin = System::Windows::Forms::Padding(4);
 		this->group_orders->Name = L"group_orders";
-		this->group_orders->Size = System::Drawing::Size(308, 343);
+		this->group_orders->Padding = System::Windows::Forms::Padding(4);
+		this->group_orders->Size = System::Drawing::Size(270, 323);
 		this->group_orders->TabIndex = 6;
 		this->group_orders->TabStop = false;
 		this->group_orders->Text = L"Ищут подрядчика";
@@ -519,28 +550,36 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->listing_customer_1->Controls->Add(this->listing_customer_1_label_hourly);
 		this->listing_customer_1->Controls->Add(this->listing_customer_1_hourly);
 		this->listing_customer_1->Controls->Add(this->listing_customer_1_name);
-		this->listing_customer_1->Location = System::Drawing::Point(12, 25);
+		this->listing_customer_1->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer_1->Location = System::Drawing::Point(10, 23);
+		this->listing_customer_1->Margin = System::Windows::Forms::Padding(4);
 		this->listing_customer_1->Name = L"listing_customer_1";
-		this->listing_customer_1->Size = System::Drawing::Size(290, 162);
+		this->listing_customer_1->Padding = System::Windows::Forms::Padding(4);
+		this->listing_customer_1->Size = System::Drawing::Size(254, 153);
 		this->listing_customer_1->TabIndex = 0;
 		this->listing_customer_1->TabStop = false;
 		// 
 		// listing_customer_1_total
 		// 
 		this->listing_customer_1_total->AutoSize = true;
-		this->listing_customer_1_total->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_customer_1_total->Location = System::Drawing::Point(148, 123);
+		this->listing_customer_1_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer_1_total->Location = System::Drawing::Point(123, 117);
+		this->listing_customer_1_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_customer_1_total->Name = L"listing_customer_1_total";
-		this->listing_customer_1_total->Size = System::Drawing::Size(86, 20);
+		this->listing_customer_1_total->Size = System::Drawing::Size(82, 20);
 		this->listing_customer_1_total->TabIndex = 7;
 		this->listing_customer_1_total->Text = L"Итого, ₽: ";
 		// 
 		// listing_customer_1_accept
 		// 
-		this->listing_customer_1_accept->Location = System::Drawing::Point(6, 116);
+		this->listing_customer_1_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer_1_accept->Location = System::Drawing::Point(5, 109);
+		this->listing_customer_1_accept->Margin = System::Windows::Forms::Padding(4);
 		this->listing_customer_1_accept->Name = L"listing_customer_1_accept";
-		this->listing_customer_1_accept->Size = System::Drawing::Size(136, 35);
+		this->listing_customer_1_accept->Size = System::Drawing::Size(119, 34);
 		this->listing_customer_1_accept->TabIndex = 7;
 		this->listing_customer_1_accept->Text = L"За работу!";
 		this->listing_customer_1_accept->UseVisualStyleBackColor = true;
@@ -548,70 +587,78 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		// listing_customer_1_hrs
 		// 
 		this->listing_customer_1_hrs->AutoSize = true;
-		this->listing_customer_1_hrs->Location = System::Drawing::Point(127, 93);
+		this->listing_customer_1_hrs->Location = System::Drawing::Point(111, 86);
+		this->listing_customer_1_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_customer_1_hrs->Name = L"listing_customer_1_hrs";
-		this->listing_customer_1_hrs->Size = System::Drawing::Size(141, 20);
+		this->listing_customer_1_hrs->Size = System::Drawing::Size(126, 20);
 		this->listing_customer_1_hrs->TabIndex = 6;
 		this->listing_customer_1_hrs->Text = L"часов_работы";
 		// 
 		// listing_customer_1_label_hours
 		// 
 		this->listing_customer_1_label_hours->AutoSize = true;
-		this->listing_customer_1_label_hours->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+		this->listing_customer_1_label_hours->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
 			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_customer_1_label_hours->Location = System::Drawing::Point(6, 93);
+		this->listing_customer_1_label_hours->Location = System::Drawing::Point(5, 86);
+		this->listing_customer_1_label_hours->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_customer_1_label_hours->Name = L"listing_customer_1_label_hours";
-		this->listing_customer_1_label_hours->Size = System::Drawing::Size(115, 20);
+		this->listing_customer_1_label_hours->Size = System::Drawing::Size(109, 20);
 		this->listing_customer_1_label_hours->TabIndex = 5;
 		this->listing_customer_1_label_hours->Text = L"всего часов:";
 		// 
 		// listing_customer_1_from
 		// 
 		this->listing_customer_1_from->AutoSize = true;
-		this->listing_customer_1_from->Location = System::Drawing::Point(6, 43);
+		this->listing_customer_1_from->Location = System::Drawing::Point(5, 40);
+		this->listing_customer_1_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_customer_1_from->Name = L"listing_customer_1_from";
-		this->listing_customer_1_from->Size = System::Drawing::Size(149, 20);
+		this->listing_customer_1_from->Size = System::Drawing::Size(134, 20);
 		this->listing_customer_1_from->TabIndex = 2;
 		this->listing_customer_1_from->Text = L"имя_заказчика";
 		// 
 		// listing_customer_1_label_hourly
 		// 
 		this->listing_customer_1_label_hourly->AutoSize = true;
-		this->listing_customer_1_label_hourly->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+		this->listing_customer_1_label_hourly->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
 			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_customer_1_label_hourly->Location = System::Drawing::Point(6, 66);
+		this->listing_customer_1_label_hourly->Location = System::Drawing::Point(5, 63);
+		this->listing_customer_1_label_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_customer_1_label_hourly->Name = L"listing_customer_1_label_hourly";
-		this->listing_customer_1_label_hourly->Size = System::Drawing::Size(85, 20);
+		this->listing_customer_1_label_hourly->Size = System::Drawing::Size(80, 20);
 		this->listing_customer_1_label_hourly->TabIndex = 3;
 		this->listing_customer_1_label_hourly->Text = L"за час, ₽:";
 		// 
 		// listing_customer_1_hourly
 		// 
 		this->listing_customer_1_hourly->AutoSize = true;
-		this->listing_customer_1_hourly->Location = System::Drawing::Point(97, 66);
+		this->listing_customer_1_hourly->Location = System::Drawing::Point(89, 64);
+		this->listing_customer_1_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_customer_1_hourly->Name = L"listing_customer_1_hourly";
-		this->listing_customer_1_hourly->Size = System::Drawing::Size(148, 20);
+		this->listing_customer_1_hourly->Size = System::Drawing::Size(127, 20);
 		this->listing_customer_1_hourly->TabIndex = 4;
 		this->listing_customer_1_hourly->Text = L"оплата_за_час";
 		// 
 		// listing_customer_1_name
 		// 
 		this->listing_customer_1_name->AutoSize = true;
-		this->listing_customer_1_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_customer_1_name->Location = System::Drawing::Point(5, 13);
+		this->listing_customer_1_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer_1_name->Location = System::Drawing::Point(4, 11);
+		this->listing_customer_1_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_customer_1_name->Name = L"listing_customer_1_name";
-		this->listing_customer_1_name->Size = System::Drawing::Size(185, 25);
+		this->listing_customer_1_name->Size = System::Drawing::Size(170, 24);
 		this->listing_customer_1_name->TabIndex = 0;
 		this->listing_customer_1_name->Text = L"название_заказа";
 		// 
 		// group_offers
 		// 
-		this->group_offers->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->group_offers->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->group_offers->Location = System::Drawing::Point(8, 178);
+		this->group_offers->Location = System::Drawing::Point(7, 168);
+		this->group_offers->Margin = System::Windows::Forms::Padding(4);
 		this->group_offers->Name = L"group_offers";
-		this->group_offers->Size = System::Drawing::Size(308, 343);
+		this->group_offers->Padding = System::Windows::Forms::Padding(4);
+		this->group_offers->Size = System::Drawing::Size(270, 323);
 		this->group_offers->TabIndex = 5;
 		this->group_offers->TabStop = false;
 		this->group_offers->Text = L"Ищут заказчика";
@@ -623,7 +670,8 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 			static_cast<System::Int32>(static_cast<System::Byte>(232)));
 		this->label_feed->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->label_feed->Location = System::Drawing::Point(3, 8);
+		this->label_feed->Location = System::Drawing::Point(7, 7);
+		this->label_feed->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_feed->Name = L"label_feed";
 		this->label_feed->Size = System::Drawing::Size(247, 29);
 		this->label_feed->TabIndex = 0;
@@ -634,8 +682,9 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->bg_feed->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"bg_feed.BackgroundImage")));
 		this->bg_feed->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 		this->bg_feed->Location = System::Drawing::Point(0, -7);
+		this->bg_feed->Margin = System::Windows::Forms::Padding(4);
 		this->bg_feed->Name = L"bg_feed";
-		this->bg_feed->Size = System::Drawing::Size(640, 180);
+		this->bg_feed->Size = System::Drawing::Size(560, 169);
 		this->bg_feed->TabIndex = 1;
 		this->bg_feed->TabStop = false;
 		// 
@@ -654,9 +703,10 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->menu_search->Controls->Add(this->input_search);
 		this->menu_search->Controls->Add(this->label_search);
 		this->menu_search->Controls->Add(this->bg_search);
-		this->menu_search->Location = System::Drawing::Point(12, 12);
+		this->menu_search->Location = System::Drawing::Point(10, 11);
+		this->menu_search->Margin = System::Windows::Forms::Padding(4);
 		this->menu_search->Name = L"menu_search";
-		this->menu_search->Size = System::Drawing::Size(640, 535);
+		this->menu_search->Size = System::Drawing::Size(560, 502);
 		this->menu_search->TabIndex = 7;
 		// 
 		// button_filter
@@ -665,31 +715,34 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->button_filter->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_filter.BackgroundImage")));
 		this->button_filter->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 		this->button_filter->Enabled = false;
-		this->button_filter->Location = System::Drawing::Point(44, 178);
+		this->button_filter->Location = System::Drawing::Point(38, 168);
+		this->button_filter->Margin = System::Windows::Forms::Padding(4);
 		this->button_filter->Name = L"button_filter";
-		this->button_filter->Size = System::Drawing::Size(40, 40);
+		this->button_filter->Size = System::Drawing::Size(35, 37);
 		this->button_filter->TabIndex = 6;
 		this->button_filter->UseVisualStyleBackColor = false;
 		// 
 		// label_in_future_updates
 		// 
 		this->label_in_future_updates->AutoSize = true;
-		this->label_in_future_updates->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->label_in_future_updates->Location = System::Drawing::Point(118, 266);
+		this->label_in_future_updates->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->label_in_future_updates->Location = System::Drawing::Point(75, 248);
+		this->label_in_future_updates->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_in_future_updates->Name = L"label_in_future_updates";
-		this->label_in_future_updates->Size = System::Drawing::Size(431, 20);
+		this->label_in_future_updates->Size = System::Drawing::Size(411, 20);
 		this->label_in_future_updates->TabIndex = 4;
 		this->label_in_future_updates->Text = L"...в будущих обновлениях. Спасибо, что вы с нами!\r\n";
 		// 
 		// label_search_will_be
 		// 
 		this->label_search_will_be->AutoSize = true;
-		this->label_search_will_be->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->label_search_will_be->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->label_search_will_be->Location = System::Drawing::Point(247, 230);
+		this->label_search_will_be->Location = System::Drawing::Point(213, 216);
+		this->label_search_will_be->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_search_will_be->Name = L"label_search_will_be";
-		this->label_search_will_be->Size = System::Drawing::Size(161, 25);
+		this->label_search_will_be->Size = System::Drawing::Size(149, 24);
 		this->label_search_will_be->TabIndex = 3;
 		this->label_search_will_be->Text = L"Поиску - быть!";
 		// 
@@ -699,9 +752,10 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->button_search->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_search.BackgroundImage")));
 		this->button_search->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 		this->button_search->Enabled = false;
-		this->button_search->Location = System::Drawing::Point(3, 178);
+		this->button_search->Location = System::Drawing::Point(4, 168);
+		this->button_search->Margin = System::Windows::Forms::Padding(4);
 		this->button_search->Name = L"button_search";
-		this->button_search->Size = System::Drawing::Size(40, 40);
+		this->button_search->Size = System::Drawing::Size(35, 37);
 		this->button_search->TabIndex = 2;
 		this->button_search->UseVisualStyleBackColor = false;
 		// 
@@ -709,19 +763,21 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		// 
 		this->input_search->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->input_search->Location = System::Drawing::Point(90, 183);
+		this->input_search->Location = System::Drawing::Point(79, 173);
+		this->input_search->Margin = System::Windows::Forms::Padding(4);
 		this->input_search->Name = L"input_search";
-		this->input_search->Size = System::Drawing::Size(539, 30);
+		this->input_search->Size = System::Drawing::Size(472, 30);
 		this->input_search->TabIndex = 1;
 		// 
 		// label_search
 		// 
 		this->label_search->AutoSize = true;
-		this->label_search->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->label_search->Font = (gcnew System::Drawing::Font(L"Roboto", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->label_search->Location = System::Drawing::Point(3, 8);
+		this->label_search->Location = System::Drawing::Point(7, 7);
+		this->label_search->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_search->Name = L"label_search";
-		this->label_search->Size = System::Drawing::Size(229, 29);
+		this->label_search->Size = System::Drawing::Size(202, 28);
 		this->label_search->TabIndex = 0;
 		this->label_search->Text = L"Поиск и фильтры";
 		// 
@@ -730,24 +786,28 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 		this->bg_search->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"bg_search.BackgroundImage")));
 		this->bg_search->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 		this->bg_search->Location = System::Drawing::Point(0, -7);
+		this->bg_search->Margin = System::Windows::Forms::Padding(4);
 		this->bg_search->Name = L"bg_search";
-		this->bg_search->Size = System::Drawing::Size(640, 180);
+		this->bg_search->Size = System::Drawing::Size(560, 169);
 		this->bg_search->TabIndex = 5;
 		this->bg_search->TabStop = false;
 		// 
 		// Main_Menu
 		// 
-		this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+		this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
 		this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 		this->BackColor = System::Drawing::SystemColors::Control;
-		this->ClientSize = System::Drawing::Size(782, 553);
+		this->ClientSize = System::Drawing::Size(684, 517);
 		this->Controls->Add(this->sidebar);
 		this->Controls->Add(this->menu_feed);
 		this->Controls->Add(this->menu_account);
 		this->Controls->Add(this->menu_search);
 		this->DoubleBuffered = true;
-		this->MaximumSize = System::Drawing::Size(800, 600);
-		this->MinimumSize = System::Drawing::Size(800, 600);
+		this->Font = (gcnew System::Drawing::Font(L"Roboto", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->Margin = System::Windows::Forms::Padding(4);
+		this->MaximumSize = System::Drawing::Size(702, 564);
+		this->MinimumSize = System::Drawing::Size(702, 564);
 		this->Name = L"Main_Menu";
 		this->Text = L"Agora";
 		this->sidebar->ResumeLayout(false);
@@ -773,15 +833,6 @@ private: System::Windows::Forms::Label^ listing_customer_1_total;
 	#pragma endregion
 
 private:
-
-	void center_x(Control^ target, Control^ relative_to)
-	{
-		/// Don't y'all love variables that don't state they're readonly?
-		System::Drawing::Size size = TextRenderer::MeasureText(target->Text, target->Font);
-		target->Size = size;
-		System::Drawing::Point location((relative_to->Width - size.Width) / 2, target->Location.Y);
-		target->Location = location;
-	}
 
 	#pragma region ======= Feed =======
 
