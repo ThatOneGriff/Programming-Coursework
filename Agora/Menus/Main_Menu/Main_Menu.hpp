@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef MAIN_MENU_HPP
 #define MAIN_MENU_HPP
 
@@ -93,8 +93,27 @@ private: System::Windows::Forms::Button^ button_edit;
 	System::Windows::Forms::Label^ label_account_phone_number;
 	System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 	System::Windows::Forms::Button^ button_filter;
-	System::Windows::Forms::Label^ label_feed_customers_WIP;
-	System::Windows::Forms::Label^ label_feed_contractors_WIP;
+private: System::Windows::Forms::GroupBox^ listing_customer_1;
+private: System::Windows::Forms::Label^ listing_customer_1_name;
+
+private: System::Windows::Forms::Label^ listing_customer_1_from;
+
+
+private: System::Windows::Forms::Label^ listing_customer_1_label_hourly;
+private: System::Windows::Forms::Label^ listing_customer_1_hourly;
+private: System::Windows::Forms::Label^ listing_customer_1_hrs;
+
+
+
+
+
+private: System::Windows::Forms::Label^ listing_customer_1_label_hours;
+private: System::Windows::Forms::Button^ listing_customer_1_accept;
+
+
+
+
+
 	
 	System::ComponentModel::IContainer^ components;
 
@@ -129,9 +148,14 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->menu_feed = (gcnew System::Windows::Forms::Panel());
 		this->button_feed_update = (gcnew System::Windows::Forms::Button());
 		this->group_orders = (gcnew System::Windows::Forms::GroupBox());
-		this->label_feed_customers_WIP = (gcnew System::Windows::Forms::Label());
+		this->listing_customer_1 = (gcnew System::Windows::Forms::GroupBox());
+		this->listing_customer_1_hrs = (gcnew System::Windows::Forms::Label());
+		this->listing_customer_1_label_hours = (gcnew System::Windows::Forms::Label());
+		this->listing_customer_1_from = (gcnew System::Windows::Forms::Label());
+		this->listing_customer_1_label_hourly = (gcnew System::Windows::Forms::Label());
+		this->listing_customer_1_hourly = (gcnew System::Windows::Forms::Label());
+		this->listing_customer_1_name = (gcnew System::Windows::Forms::Label());
 		this->group_offers = (gcnew System::Windows::Forms::GroupBox());
-		this->label_feed_contractors_WIP = (gcnew System::Windows::Forms::Label());
 		this->label_feed = (gcnew System::Windows::Forms::Label());
 		this->bg_feed = (gcnew System::Windows::Forms::PictureBox());
 		this->update_timer = (gcnew System::Windows::Forms::Timer(this->components));
@@ -143,6 +167,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->input_search = (gcnew System::Windows::Forms::TextBox());
 		this->label_search = (gcnew System::Windows::Forms::Label());
 		this->bg_search = (gcnew System::Windows::Forms::PictureBox());
+		this->listing_customer_1_accept = (gcnew System::Windows::Forms::Button());
 		this->sidebar->SuspendLayout();
 		this->menu_account->SuspendLayout();
 		this->group_active_contracts->SuspendLayout();
@@ -150,7 +175,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->BeginInit();
 		this->menu_feed->SuspendLayout();
 		this->group_orders->SuspendLayout();
-		this->group_offers->SuspendLayout();
+		this->listing_customer_1->SuspendLayout();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->BeginInit();
 		this->menu_search->SuspendLayout();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_search))->BeginInit();
@@ -255,7 +280,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->group_active_contracts->Size = System::Drawing::Size(307, 350);
 		this->group_active_contracts->TabIndex = 5;
 		this->group_active_contracts->TabStop = false;
-		this->group_active_contracts->Text = L"Àêòèâíûå êîíòðàêòû";
+		this->group_active_contracts->Text = L"ÐÐºÑ‚Ð¸Ð²Ð½Ñ‹Ðµ ÐºÐ¾Ð½Ñ‚Ñ€Ð°ÐºÑ‚Ñ‹";
 		// 
 		// label_no_active_contracts
 		// 
@@ -267,7 +292,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->label_no_active_contracts->ReadOnly = true;
 		this->label_no_active_contracts->Size = System::Drawing::Size(301, 87);
 		this->label_no_active_contracts->TabIndex = 0;
-		this->label_no_active_contracts->Text = L"Àêòèâíûõ êîíòðàêòîâ íåò.\n\nÇàéäèòå â Ëåíòó è âûáåðèòå!";
+		this->label_no_active_contracts->Text = L"ÐÐºÑ‚Ð¸Ð²Ð½Ñ‹Ñ… ÐºÐ¾Ð½Ñ‚Ñ€Ð°ÐºÑ‚Ð¾Ð² Ð½ÐµÑ‚.\n\nÐ—Ð°Ð¹Ð´Ð¸Ñ‚Ðµ Ð² Ð›ÐµÐ½Ñ‚Ñƒ Ð¸ Ð²Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ!";
 		// 
 		// group_account_data
 		// 
@@ -288,7 +313,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->group_account_data->Size = System::Drawing::Size(314, 350);
 		this->group_account_data->TabIndex = 2;
 		this->group_account_data->TabStop = false;
-		this->group_account_data->Text = L"Äàííûå";
+		this->group_account_data->Text = L"Ð”Ð°Ð½Ð½Ñ‹Ðµ";
 		// 
 		// label_account_website
 		// 
@@ -299,7 +324,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->label_account_website->Name = L"label_account_website";
 		this->label_account_website->Size = System::Drawing::Size(61, 20);
 		this->label_account_website->TabIndex = 9;
-		this->label_account_website->Text = L"Ñàéò:";
+		this->label_account_website->Text = L"Ð¡Ð°Ð¹Ñ‚:";
 		// 
 		// label_account_extra
 		// 
@@ -310,7 +335,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->label_account_extra->Name = L"label_account_extra";
 		this->label_account_extra->Size = System::Drawing::Size(56, 20);
 		this->label_account_extra->TabIndex = 8;
-		this->label_account_extra->Text = L"Äîï.:";
+		this->label_account_extra->Text = L"Ð”Ð¾Ð¿.:";
 		// 
 		// label_account_email
 		// 
@@ -343,7 +368,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->label_account_phone_number->Name = L"label_account_phone_number";
 		this->label_account_phone_number->Size = System::Drawing::Size(98, 20);
 		this->label_account_phone_number->TabIndex = 6;
-		this->label_account_phone_number->Text = L"Òåëåôîí:";
+		this->label_account_phone_number->Text = L"Ð¢ÐµÐ»ÐµÑ„Ð¾Ð½:";
 		// 
 		// output_account_age
 		// 
@@ -375,7 +400,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->button_edit->Name = L"button_edit";
 		this->button_edit->Size = System::Drawing::Size(308, 40);
 		this->button_edit->TabIndex = 3;
-		this->button_edit->Text = L"Ðåäàêòèðîâàòü";
+		this->button_edit->Text = L"Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ";
 		this->button_edit->UseVisualStyleBackColor = false;
 		this->button_edit->Click += gcnew System::EventHandler(this, &Main_Menu::edit_account_data);
 		// 
@@ -430,7 +455,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->label_my_account->Name = L"label_my_account";
 		this->label_my_account->Size = System::Drawing::Size(167, 29);
 		this->label_my_account->TabIndex = 0;
-		this->label_my_account->Text = L"Ìîé àêêàóíò";
+		this->label_my_account->Text = L"ÐœÐ¾Ð¹ Ð°ÐºÐºÐ°ÑƒÐ½Ñ‚";
 		// 
 		// bg_my_account
 		// 
@@ -469,7 +494,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		// 
 		// group_orders
 		// 
-		this->group_orders->Controls->Add(this->label_feed_customers_WIP);
+		this->group_orders->Controls->Add(this->listing_customer_1);
 		this->group_orders->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
 		this->group_orders->Location = System::Drawing::Point(322, 178);
@@ -477,21 +502,85 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->group_orders->Size = System::Drawing::Size(308, 343);
 		this->group_orders->TabIndex = 6;
 		this->group_orders->TabStop = false;
-		this->group_orders->Text = L"Èùóò ïîäðÿä÷èêà";
+		this->group_orders->Text = L"Ð˜Ñ‰ÑƒÑ‚ Ð¿Ð¾Ð´Ñ€ÑÐ´Ñ‡Ð¸ÐºÐ°";
 		// 
-		// label_feed_customers_WIP
+		// listing_customer_1
 		// 
-		this->label_feed_customers_WIP->AutoSize = true;
-		this->label_feed_customers_WIP->Enabled = false;
-		this->label_feed_customers_WIP->Location = System::Drawing::Point(50, 159);
-		this->label_feed_customers_WIP->Name = L"label_feed_customers_WIP";
-		this->label_feed_customers_WIP->Size = System::Drawing::Size(200, 20);
-		this->label_feed_customers_WIP->TabIndex = 1;
-		this->label_feed_customers_WIP->Text = L"Ðàáîòà â ïðîöåññå...";
+		this->listing_customer_1->Controls->Add(this->listing_customer_1_accept);
+		this->listing_customer_1->Controls->Add(this->listing_customer_1_hrs);
+		this->listing_customer_1->Controls->Add(this->listing_customer_1_label_hours);
+		this->listing_customer_1->Controls->Add(this->listing_customer_1_from);
+		this->listing_customer_1->Controls->Add(this->listing_customer_1_label_hourly);
+		this->listing_customer_1->Controls->Add(this->listing_customer_1_hourly);
+		this->listing_customer_1->Controls->Add(this->listing_customer_1_name);
+		this->listing_customer_1->Location = System::Drawing::Point(12, 25);
+		this->listing_customer_1->Name = L"listing_customer_1";
+		this->listing_customer_1->Size = System::Drawing::Size(290, 162);
+		this->listing_customer_1->TabIndex = 0;
+		this->listing_customer_1->TabStop = false;
+		// 
+		// listing_customer_1_hrs
+		// 
+		this->listing_customer_1_hrs->AutoSize = true;
+		this->listing_customer_1_hrs->Location = System::Drawing::Point(127, 93);
+		this->listing_customer_1_hrs->Name = L"listing_customer_1_hrs";
+		this->listing_customer_1_hrs->Size = System::Drawing::Size(141, 20);
+		this->listing_customer_1_hrs->TabIndex = 6;
+		this->listing_customer_1_hrs->Text = L"Ñ‡Ð°ÑÐ¾Ð²_Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹";
+		// 
+		// listing_customer_1_label_hours
+		// 
+		this->listing_customer_1_label_hours->AutoSize = true;
+		this->listing_customer_1_label_hours->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+		this->listing_customer_1_label_hours->Location = System::Drawing::Point(6, 93);
+		this->listing_customer_1_label_hours->Name = L"listing_customer_1_label_hours";
+		this->listing_customer_1_label_hours->Size = System::Drawing::Size(115, 20);
+		this->listing_customer_1_label_hours->TabIndex = 5;
+		this->listing_customer_1_label_hours->Text = L"Ð²ÑÐµÐ³Ð¾ Ñ‡Ð°ÑÐ¾Ð²:";
+		// 
+		// listing_customer_1_from
+		// 
+		this->listing_customer_1_from->AutoSize = true;
+		this->listing_customer_1_from->Location = System::Drawing::Point(6, 43);
+		this->listing_customer_1_from->Name = L"listing_customer_1_from";
+		this->listing_customer_1_from->Size = System::Drawing::Size(149, 20);
+		this->listing_customer_1_from->TabIndex = 2;
+		this->listing_customer_1_from->Text = L"Ð¸Ð¼Ñ_Ð·Ð°ÐºÐ°Ð·Ñ‡Ð¸ÐºÐ°";
+		// 
+		// listing_customer_1_label_hourly
+		// 
+		this->listing_customer_1_label_hourly->AutoSize = true;
+		this->listing_customer_1_label_hourly->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+		this->listing_customer_1_label_hourly->Location = System::Drawing::Point(6, 66);
+		this->listing_customer_1_label_hourly->Name = L"listing_customer_1_label_hourly";
+		this->listing_customer_1_label_hourly->Size = System::Drawing::Size(85, 20);
+		this->listing_customer_1_label_hourly->TabIndex = 3;
+		this->listing_customer_1_label_hourly->Text = L"Ð·Ð° Ñ‡Ð°Ñ, â‚½:";
+		// 
+		// listing_customer_1_hourly
+		// 
+		this->listing_customer_1_hourly->AutoSize = true;
+		this->listing_customer_1_hourly->Location = System::Drawing::Point(97, 66);
+		this->listing_customer_1_hourly->Name = L"listing_customer_1_hourly";
+		this->listing_customer_1_hourly->Size = System::Drawing::Size(148, 20);
+		this->listing_customer_1_hourly->TabIndex = 4;
+		this->listing_customer_1_hourly->Text = L"Ð¾Ð¿Ð»Ð°Ñ‚Ð°_Ð·Ð°_Ñ‡Ð°Ñ";
+		// 
+		// listing_customer_1_name
+		// 
+		this->listing_customer_1_name->AutoSize = true;
+		this->listing_customer_1_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold,
+			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+		this->listing_customer_1_name->Location = System::Drawing::Point(5, 13);
+		this->listing_customer_1_name->Name = L"listing_customer_1_name";
+		this->listing_customer_1_name->Size = System::Drawing::Size(185, 25);
+		this->listing_customer_1_name->TabIndex = 0;
+		this->listing_customer_1_name->Text = L"Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ_Ð·Ð°ÐºÐ°Ð·Ð°";
 		// 
 		// group_offers
 		// 
-		this->group_offers->Controls->Add(this->label_feed_contractors_WIP);
 		this->group_offers->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
 		this->group_offers->Location = System::Drawing::Point(8, 178);
@@ -499,17 +588,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->group_offers->Size = System::Drawing::Size(308, 343);
 		this->group_offers->TabIndex = 5;
 		this->group_offers->TabStop = false;
-		this->group_offers->Text = L"Èùóò çàêàç÷èêà";
-		// 
-		// label_feed_contractors_WIP
-		// 
-		this->label_feed_contractors_WIP->AutoSize = true;
-		this->label_feed_contractors_WIP->Enabled = false;
-		this->label_feed_contractors_WIP->Location = System::Drawing::Point(53, 159);
-		this->label_feed_contractors_WIP->Name = L"label_feed_contractors_WIP";
-		this->label_feed_contractors_WIP->Size = System::Drawing::Size(200, 20);
-		this->label_feed_contractors_WIP->TabIndex = 0;
-		this->label_feed_contractors_WIP->Text = L"Ðàáîòà â ïðîöåññå...";
+		this->group_offers->Text = L"Ð˜Ñ‰ÑƒÑ‚ Ð·Ð°ÐºÐ°Ð·Ñ‡Ð¸ÐºÐ°";
 		// 
 		// label_feed
 		// 
@@ -522,7 +601,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->label_feed->Name = L"label_feed";
 		this->label_feed->Size = System::Drawing::Size(247, 29);
 		this->label_feed->TabIndex = 0;
-		this->label_feed->Text = L"Ëåíòà îáúÿâëåíèé";
+		this->label_feed->Text = L"Ð›ÐµÐ½Ñ‚Ð° Ð¾Ð±ÑŠÑÐ²Ð»ÐµÐ½Ð¸Ð¹";
 		// 
 		// bg_feed
 		// 
@@ -575,7 +654,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->label_in_future_updates->Name = L"label_in_future_updates";
 		this->label_in_future_updates->Size = System::Drawing::Size(431, 20);
 		this->label_in_future_updates->TabIndex = 4;
-		this->label_in_future_updates->Text = L"...â áóäóùèõ îáíîâëåíèÿõ. Ñïàñèáî, ÷òî âû ñ íàìè!\r\n";
+		this->label_in_future_updates->Text = L"...Ð² Ð±ÑƒÐ´ÑƒÑ‰Ð¸Ñ… Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸ÑÑ…. Ð¡Ð¿Ð°ÑÐ¸Ð±Ð¾, Ñ‡Ñ‚Ð¾ Ð²Ñ‹ Ñ Ð½Ð°Ð¼Ð¸!\r\n";
 		// 
 		// label_search_will_be
 		// 
@@ -586,7 +665,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->label_search_will_be->Name = L"label_search_will_be";
 		this->label_search_will_be->Size = System::Drawing::Size(161, 25);
 		this->label_search_will_be->TabIndex = 3;
-		this->label_search_will_be->Text = L"Ïîèñêó - áûòü!";
+		this->label_search_will_be->Text = L"ÐŸÐ¾Ð¸ÑÐºÑƒ - Ð±Ñ‹Ñ‚ÑŒ!";
 		// 
 		// button_search
 		// 
@@ -618,7 +697,7 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->label_search->Name = L"label_search";
 		this->label_search->Size = System::Drawing::Size(229, 29);
 		this->label_search->TabIndex = 0;
-		this->label_search->Text = L"Ïîèñê è ôèëüòðû";
+		this->label_search->Text = L"ÐŸÐ¾Ð¸ÑÐº Ð¸ Ñ„Ð¸Ð»ÑŒÑ‚Ñ€Ñ‹";
 		// 
 		// bg_search
 		// 
@@ -630,6 +709,15 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->bg_search->TabIndex = 5;
 		this->bg_search->TabStop = false;
 		// 
+		// listing_customer_1_accept
+		// 
+		this->listing_customer_1_accept->Location = System::Drawing::Point(6, 116);
+		this->listing_customer_1_accept->Name = L"listing_customer_1_accept";
+		this->listing_customer_1_accept->Size = System::Drawing::Size(169, 35);
+		this->listing_customer_1_accept->TabIndex = 7;
+		this->listing_customer_1_accept->Text = L"ÐžÑ‚ÐºÐ»Ð¸ÐºÐ½ÑƒÑ‚ÑŒÑÑ!";
+		this->listing_customer_1_accept->UseVisualStyleBackColor = true;
+		// 
 		// Main_Menu
 		// 
 		this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -637,9 +725,9 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->BackColor = System::Drawing::SystemColors::Control;
 		this->ClientSize = System::Drawing::Size(782, 553);
 		this->Controls->Add(this->sidebar);
+		this->Controls->Add(this->menu_feed);
 		this->Controls->Add(this->menu_account);
 		this->Controls->Add(this->menu_search);
-		this->Controls->Add(this->menu_feed);
 		this->DoubleBuffered = true;
 		this->MaximumSize = System::Drawing::Size(800, 600);
 		this->MinimumSize = System::Drawing::Size(800, 600);
@@ -655,9 +743,8 @@ private: System::Windows::Forms::Button^ button_edit;
 		this->menu_feed->ResumeLayout(false);
 		this->menu_feed->PerformLayout();
 		this->group_orders->ResumeLayout(false);
-		this->group_orders->PerformLayout();
-		this->group_offers->ResumeLayout(false);
-		this->group_offers->PerformLayout();
+		this->listing_customer_1->ResumeLayout(false);
+		this->listing_customer_1->PerformLayout();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->EndInit();
 		this->menu_search->ResumeLayout(false);
 		this->menu_search->PerformLayout();
@@ -683,7 +770,7 @@ private:
 
 	void sidebar_pick_feed(System::Object^ sender, System::EventArgs^ e)
 	{
-		this->Text = "Agora: Ëåíòà";
+		this->Text = "Agora: Ð›ÐµÐ½Ñ‚Ð°";
 		menu_feed->BringToFront();
 
 		//fill_feed_menu();
@@ -706,7 +793,7 @@ private:
 
 	void sidebar_pick_account(System::Object^ sender, System::EventArgs^ e)
 	{
-		this->Text = "Agora: Ìîé àêêàóíò";
+		this->Text = "Agora: ÐœÐ¾Ð¹ Ð°ÐºÐºÐ°ÑƒÐ½Ñ‚";
 		menu_account->BringToFront();
 
 		fill_account_menu();
@@ -720,7 +807,7 @@ private:
 		user = load(USER_SAVEFILE_NAME);
 		if (user == nullptr)
 		{
-			show_error(L"Îøèáêà ïðè ÷òåíèè äàííûõ.");
+			show_error(L"ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ Ñ‡Ñ‚ÐµÐ½Ð¸Ð¸ Ð´Ð°Ð½Ð½Ñ‹Ñ….");
 			this->Close();
 			return;
 		}
@@ -737,8 +824,8 @@ private:
 			label_account_website-> Enabled = false;
 			output_account_website->Enabled = false;
 
-			label_account_age->Text = "Âîçðàñò:";
-			output_account_age->Text = to_dotnet_string(std::to_wstring(user->birth_date.years_since()) + L" ëåò");
+			label_account_age->Text = "Ð’Ð¾Ð·Ñ€Ð°ÑÑ‚:";
+			output_account_age->Text = to_dotnet_string(std::to_wstring(user->birth_date.years_since()) + L" Ð»ÐµÑ‚");
 		}
 		else if (typeid(*user) == typeid(Company))
 		{
@@ -747,7 +834,7 @@ private:
 			label_account_website-> Enabled = true;
 			output_account_website->Enabled = true;
 
-			label_account_age->Text = "Íà ðûíêå ñ:";
+			label_account_age->Text = "ÐÐ° Ñ€Ñ‹Ð½ÐºÐµ Ñ:";
 			output_account_age->Text = to_dotnet_string(user->birth_date.month_yyyy_genitive());
 		}
 		
@@ -767,13 +854,13 @@ private:
 
 	void sidebar_pick_info(System::Object^ sender, System::EventArgs^ e)
 	{
-		show_info(program_info, L"Î ïðîãðàììå");
+		show_info(program_info, L"Ðž Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ðµ");
 	}
 
 
 	void sidebar_pick_search(System::Object^ sender, System::EventArgs^ e)
 	{
-		this->Text = "Agora: Ïîèñê îáúÿâëåíèé è àêêàóíòîâ";
+		this->Text = "Agora: ÐŸÐ¾Ð¸ÑÐº Ð¾Ð±ÑŠÑÐ²Ð»ÐµÐ½Ð¸Ð¹ Ð¸ Ð°ÐºÐºÐ°ÑƒÐ½Ñ‚Ð¾Ð²";
 		menu_search->BringToFront();
 	}
 

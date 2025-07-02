@@ -32,7 +32,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	if (user == nullptr) /// Registration didn't work, or user closed the window.
 		return 0;
 
-	std::vector<User*> PREDEFINED_COMPANIES = load_predefined_companies();
+	PREDEFINED_COMPANIES = load_predefined_companies();
     Application::Run(gcnew Main_Menu(user, PREDEFINED_COMPANIES));
 
     return 0;

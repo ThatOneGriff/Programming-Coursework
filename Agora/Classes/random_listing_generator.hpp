@@ -8,11 +8,64 @@
 #include "listing.hpp"
 #include "user.hpp"
 #include "random_individual_generator.hpp"
+#include "../save_load.hpp"
 #include "../utils.hpp"
 
 /// Here be:
-class  _Job_Class;
 Listing get_random_listing();
+class  _Job_Class;
+
+
+
+Listing get_random_listing()
+{
+	int category = randint(1, 5);
+
+	std::wstring name;
+	unsigned int payment_hr;
+	switch(category)
+	{
+	case 1:
+		name	   = cheap.random_job_name();
+		payment_hr = cheap.random_payment();
+		break;
+	case 2:
+		name	   = medium.random_job_name();
+		payment_hr = medium.random_payment();
+		break;
+	case 3:
+		name	   = upper_med.random_job_name();
+		payment_hr = upper_med.random_payment();
+		break;
+	case 4:
+		name	   = lower_high.random_job_name();
+		payment_hr = lower_high.random_payment();
+		break;
+	case 5:
+		name	   = upper_high.random_job_name();
+		payment_hr = upper_high.random_payment();
+		break;
+	}
+
+	int total_hrs = randint(1, 8);
+	//const std::wstring time_unit = L"ч.";  // Not placeholder, yet not variable. Hence why it's const
+	
+	/// Flipping a coin to see if we'll have a contractor or a customer.
+	/// Contractor
+	if (randint(1, 2) == 1)
+	{
+		// May not work due to pointers.
+		Individual contractor = get_random_individual();
+		return Listing(name, total_hrs, payment_hr, &contractor, nullptr);
+	}
+	/// Customer
+	else
+	{
+		User *customer = PREDEFINED_COMPANIES[randint(9)];
+		return Listing(name, total_hrs, payment_hr, nullptr, customer);
+	}
+}
+
 
 
 class _Job_Class
@@ -48,67 +101,7 @@ _Job_Class lower_high  (376,  2000, {L"Мидл-программист", L"Администратор БД", L
 _Job_Class upper_high  (2001, 5000, {L"Личный охранник",  L"Экономист",		   L"Статист",       L"Тимлид",				L"Пилот"});
 
 
-Listing get_random_listing()
-{
-	int category = randint(1, 5);
 
-	std::wstring name;
-	unsigned int payment_hr;
-	switch(category)
-	{
-	case 1:
-		name	   = cheap.random_job_name();
-		payment_hr = cheap.random_payment();
-		break;
-	case 2:
-		name	   = medium.random_job_name();
-		payment_hr = medium.random_payment();
-		break;
-	case 3:
-		name	   = upper_med.random_job_name();
-		payment_hr = upper_med.random_payment();
-		break;
-	case 4:
-		name	   = lower_high.random_job_name();
-		payment_hr = lower_high.random_payment();
-		break;
-	case 5:
-		name	   = upper_high.random_job_name();
-		payment_hr = upper_high.random_payment();
-		break;
-	}
-
-	Date until = _get_random_date(); // PLACEHOLDER
-	const std::wstring time_unit = L"ч.";  // Not placeholder, yet not variable. Hence why it's const
-	
-	/// Flipping a coin to see if we'll have a contractor or a customer.
-	if (randint(1, 2) == 1) /// Contractor
-	{
-		/// [NOT TRUE] Flipping it again to see if it's a 'Company' or an 'Individual'.
-		// TODO: predefined list of companies.
-		/*if (randint(1, 2) == 1) /// Company
-		{
-			Company contractor()
-		}*/
-
-		// Prepared indent
-		{
-			// Most probably will not work due to pointers.
-			Individual *contractor = &get_random_individual();
-			// GIVING 'payment_hr' INSTEAD OF 'payment_full'
-			return Listing(name, until, payment_hr, contractor);
-		}
-	}
-	else /// Customer
-	{
-		// Same things about Company as in Contractor region of this func.
-		{
-			Individual *customer = &get_random_individual();
-			// GIVING 'payment_hr' INSTEAD OF 'payment_full'
-			return Listing(name, until, payment_hr, nullptr, customer);
-		}
-	}
-}
 
 
 #endif

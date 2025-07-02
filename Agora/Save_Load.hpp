@@ -19,6 +19,7 @@ User* load(const std::wstring address);
 void  save(User* user, std::wstring address = L"");
 
 std::vector<User*> load_predefined_companies();
+std::vector<User*> PREDEFINED_COMPANIES;
 
 const std::string  USER_SAVEFILE_NAME_S =  "user.txt";
 const std::wstring USER_SAVEFILE_NAME   = L"user.txt";
