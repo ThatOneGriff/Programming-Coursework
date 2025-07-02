@@ -34,17 +34,18 @@ std::vector<User*> PREDEFINED_COMPANIES;
 User* load(const std::wstring address)
 {
 	std::wifstream savefile(address);
-	// Copied from: https://stackoverflow.com/a/3950840/15540979
-	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
-	savefile.imbue(loc);
-	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
 
 	/// Empty check
-	if (is_empty(savefile))
+	if (is_empty(address))
 	{
 		savefile.close();
 		return nullptr;
 	}
+
+	// Copied from: https://stackoverflow.com/a/3950840/15540979
+	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
+	savefile.imbue(loc);
+	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
 
 	/// Account type check
 	std::wstring account_type;
@@ -102,17 +103,18 @@ std::vector<Listing> load_listings(User* user, const std::wstring& address/* = U
 	}
 
 	std::wifstream savefile(address);
-	// Copied from: https://stackoverflow.com/a/3950840/15540979
-	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
-	savefile.imbue(loc);
-	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
 
 	/// Empty check
-	if (is_empty(savefile))
+	if (is_empty(address))
 	{
 		savefile.close();
 		return {};
 	}
+
+	// Copied from: https://stackoverflow.com/a/3950840/15540979
+	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
+	savefile.imbue(loc);
+	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
 
 	std::vector<std::wstring> raw_data = to_string_bundle(savefile);
 	savefile.close();
@@ -152,7 +154,6 @@ std::vector<Listing> load_listings(User* user, const std::wstring& address/* = U
 		}
 
 		Listing new_listing(name, total_hrs, payment_hr, contractor, customer);
-		show_info(new_listing.serialize(user));
 		result.push_back(new_listing);
 	}
 
