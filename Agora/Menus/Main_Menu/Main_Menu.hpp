@@ -1290,6 +1290,7 @@ private:
 		Button^ source = safe_cast<Button^>(sender);
 		if (source == listing_contractor_1_accept)
 		{
+			job_request_1.customer = user;
 			accepted_listings.push_back(job_request_1);
 			show_info(L"Подрядчик согласился!");
 			listing_contractor_1->Enabled = false;
@@ -1297,6 +1298,7 @@ private:
 
 		else if (source == listing_contractor_2_accept)
 		{
+			job_request_2.customer = user;
 			accepted_listings.push_back(job_request_2);
 			show_info(L"Подрядчик согласился!");
 			listing_contractor_2->Enabled = false;
@@ -1304,6 +1306,7 @@ private:
 		
 		else if (source == listing_customer_1_accept)
 		{
+			job_offer_1.contractor = user;
 			accepted_listings.push_back(job_offer_1);
 			show_info(L"Заказчик согласился!");
 			listing_customer_1->Enabled = false;
@@ -1311,10 +1314,16 @@ private:
 		
 		else if (source == listing_customer_2_accept)
 		{
+			job_offer_2.contractor = user;
 			accepted_listings.push_back(job_offer_2);
 			show_info(L"Заказчик согласился!");
 			listing_customer_2->Enabled = false;
 		}
+
+		else
+			return;
+
+		save(user, USER_SAVEFILE_NAME, accepted_listings);
 	}
 
 

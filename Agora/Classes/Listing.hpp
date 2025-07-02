@@ -92,7 +92,7 @@ public:
 
 
 	/// Listings are only serialized if a customer and a contractor paired.
-	std::wstring serialize()
+	const std::wstring serialize()
 	{
 		std::wstring result =
 			L"listing\n"
@@ -101,10 +101,10 @@ public:
 			+ std::to_wstring(total_hrs)  + L'\n';
 
 		if (contractor == nullptr) result += L'\n';
-		else result += contractor->name->get_full() + L'\n';
+		else result += contractor->name->as_filename() + L'\n';
 
 		if (customer == nullptr) result += L'\n';
-		else result += customer->name->get_full();
+		else result += customer->name->as_filename();
 
 		return result;
 	}

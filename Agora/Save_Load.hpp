@@ -7,6 +7,7 @@
 #include <string>	  /// 'std::wstring>
 #include <vector>	  /// vectors of 'std::wstring'
 
+#include "Classes/listing.hpp"
 #include "Classes/user.hpp"
 #include "utils.hpp"
 
@@ -16,13 +17,14 @@
 
 /// Here be:
 User* load(const std::wstring address);
-void  save(User* user, std::wstring address = L"");
+void  save(User* user, std::wstring address = L"", std::vector<Listing> active_listings = {});
 
 std::vector<User*> load_predefined_companies();
 std::vector<User*> PREDEFINED_COMPANIES;
 
 const std::string  USER_SAVEFILE_NAME_S =  "user.txt";
 const std::wstring USER_SAVEFILE_NAME   = L"user.txt";
+const std::wstring USER_LISTINGS_FILE_NAME = L"user_listings.txt";
 
 
 
@@ -90,7 +92,7 @@ User* load(const std::wstring address)
 
 
 /// 'User*' instead of raw text as a protection from saving jackshit
-void save(User* user, std::wstring address/* = L""*/)
+void save(User* user, std::wstring address/* = L""*/, std::vector<Listing> active_listings/* = {}*/)
 {
 	if (address == L"")
 		address = user->name->as_filename();
@@ -103,6 +105,16 @@ void save(User* user, std::wstring address/* = L""*/)
 
 	savefile << user->serialize();
 	savefile.close();
+
+	
+	if (active_listings.empty())
+		return;
+	std::wofstream savefile_listings(USER_LISTINGS_FILE_NAME);
+	savefile_listings.imbue(loc);
+
+	for (Listing& listing : active_listings)
+		savefile_listings << listing.serialize() << L'\n';
+	savefile_listings.close();
 }
 
 
