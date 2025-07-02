@@ -6,6 +6,7 @@
 
 #include "Menus/Registration/registration.hpp"
 
+#include "../../Classes/random_listing_generator.hpp"
 #include "../../Classes/user.hpp"
 #include "../../utils.hpp"
 
@@ -41,6 +42,7 @@ public:
 		this->Size = size;
 
 		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
+		fill_feed_menu();
 	}
 
 	#pragma region = Winforms Code =
@@ -109,6 +111,8 @@ private: System::Windows::Forms::Label^ listing_customer_1_hrs;
 
 private: System::Windows::Forms::Label^ listing_customer_1_label_hours;
 private: System::Windows::Forms::Button^ listing_customer_1_accept;
+private: System::Windows::Forms::Label^ listing_customer_1_total;
+
 
 
 
@@ -149,6 +153,8 @@ private: System::Windows::Forms::Button^ listing_customer_1_accept;
 		this->button_feed_update = (gcnew System::Windows::Forms::Button());
 		this->group_orders = (gcnew System::Windows::Forms::GroupBox());
 		this->listing_customer_1 = (gcnew System::Windows::Forms::GroupBox());
+		this->listing_customer_1_total = (gcnew System::Windows::Forms::Label());
+		this->listing_customer_1_accept = (gcnew System::Windows::Forms::Button());
 		this->listing_customer_1_hrs = (gcnew System::Windows::Forms::Label());
 		this->listing_customer_1_label_hours = (gcnew System::Windows::Forms::Label());
 		this->listing_customer_1_from = (gcnew System::Windows::Forms::Label());
@@ -167,7 +173,6 @@ private: System::Windows::Forms::Button^ listing_customer_1_accept;
 		this->input_search = (gcnew System::Windows::Forms::TextBox());
 		this->label_search = (gcnew System::Windows::Forms::Label());
 		this->bg_search = (gcnew System::Windows::Forms::PictureBox());
-		this->listing_customer_1_accept = (gcnew System::Windows::Forms::Button());
 		this->sidebar->SuspendLayout();
 		this->menu_account->SuspendLayout();
 		this->group_active_contracts->SuspendLayout();
@@ -506,6 +511,7 @@ private: System::Windows::Forms::Button^ listing_customer_1_accept;
 		// 
 		// listing_customer_1
 		// 
+		this->listing_customer_1->Controls->Add(this->listing_customer_1_total);
 		this->listing_customer_1->Controls->Add(this->listing_customer_1_accept);
 		this->listing_customer_1->Controls->Add(this->listing_customer_1_hrs);
 		this->listing_customer_1->Controls->Add(this->listing_customer_1_label_hours);
@@ -518,6 +524,26 @@ private: System::Windows::Forms::Button^ listing_customer_1_accept;
 		this->listing_customer_1->Size = System::Drawing::Size(290, 162);
 		this->listing_customer_1->TabIndex = 0;
 		this->listing_customer_1->TabStop = false;
+		// 
+		// listing_customer_1_total
+		// 
+		this->listing_customer_1_total->AutoSize = true;
+		this->listing_customer_1_total->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+		this->listing_customer_1_total->Location = System::Drawing::Point(148, 123);
+		this->listing_customer_1_total->Name = L"listing_customer_1_total";
+		this->listing_customer_1_total->Size = System::Drawing::Size(86, 20);
+		this->listing_customer_1_total->TabIndex = 7;
+		this->listing_customer_1_total->Text = L"Итого, ₽: ";
+		// 
+		// listing_customer_1_accept
+		// 
+		this->listing_customer_1_accept->Location = System::Drawing::Point(6, 116);
+		this->listing_customer_1_accept->Name = L"listing_customer_1_accept";
+		this->listing_customer_1_accept->Size = System::Drawing::Size(136, 35);
+		this->listing_customer_1_accept->TabIndex = 7;
+		this->listing_customer_1_accept->Text = L"За работу!";
+		this->listing_customer_1_accept->UseVisualStyleBackColor = true;
 		// 
 		// listing_customer_1_hrs
 		// 
@@ -709,15 +735,6 @@ private: System::Windows::Forms::Button^ listing_customer_1_accept;
 		this->bg_search->TabIndex = 5;
 		this->bg_search->TabStop = false;
 		// 
-		// listing_customer_1_accept
-		// 
-		this->listing_customer_1_accept->Location = System::Drawing::Point(6, 116);
-		this->listing_customer_1_accept->Name = L"listing_customer_1_accept";
-		this->listing_customer_1_accept->Size = System::Drawing::Size(169, 35);
-		this->listing_customer_1_accept->TabIndex = 7;
-		this->listing_customer_1_accept->Text = L"Откликнуться!";
-		this->listing_customer_1_accept->UseVisualStyleBackColor = true;
-		// 
 		// Main_Menu
 		// 
 		this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -772,8 +789,17 @@ private:
 	{
 		this->Text = "Agora: Лента";
 		menu_feed->BringToFront();
+	}
 
-		//fill_feed_menu();
+
+	void fill_feed_menu()
+	{
+		Listing job_offer_1 = get_random_listing(CUSTOMER_LISTING);
+		listing_customer_1_name->Text = to_dotnet_string(job_offer_1.name);
+		listing_customer_1_from->Text = to_dotnet_string(job_offer_1.customer->name->get_full());
+		listing_customer_1_hourly->Text = Convert::ToString(job_offer_1.payment_hr);
+		listing_customer_1_hrs->Text	= Convert::ToString(job_offer_1.total_hrs);
+		listing_customer_1_total->Text += Convert::ToString(job_offer_1.payment_total);
 	}
 
 
@@ -784,6 +810,10 @@ private:
 		group_orders->Enabled = ! group_orders->Enabled;
 		group_offers->Enabled = ! group_offers->Enabled;
 		update_timer->Enabled = ! update_timer->Enabled;
+
+		/// countdown finished
+		if (! update_timer->Enabled)
+			fill_feed_menu();
 	}
 
 	#pragma endregion

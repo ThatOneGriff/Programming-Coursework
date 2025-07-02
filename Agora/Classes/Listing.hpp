@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include "user.hpp"
 
-/// Represents an unsigned (1 user), signed (2 users), or completed contract.
+/// Represents an open (1 user), signed (2 users), or finished contract.
 
 
 /// Базово, каждый из этих типов - просто умножение почасовой оплаты на коэффициент.
@@ -24,7 +24,6 @@
 
 /*enum Listing_Status
 {
-	Closed,
 	Open,
 	Signed,
 	Finished
@@ -36,10 +35,13 @@ class Listing
 public:
 
 	const std::wstring name;
-					   //time_units;
-	const unsigned int payment_hr,
-					   total_hrs;
-	unsigned int	   payment_total;
+	//const std::wstring time_units;
+	const unsigned int payment_hr;
+	const unsigned int total_hrs;
+	const unsigned int payment_total;
+
+	///   подрядчик |  заказчик
+	User *contractor, *customer;
 
 	//Listing_Status status = Listing_Status::Closed;
 
@@ -47,12 +49,13 @@ public:
 	/// Для оплаты по отрезкам времени
 	Listing(const std::wstring& _name,   int   _total_hrs, const unsigned int _payment_hr,
 			User* _contractor = nullptr, User* _customer = nullptr)
-	: name(_name), total_hrs(_total_hrs), payment_hr(_payment_hr)
+	: name(_name), total_hrs(_total_hrs), payment_hr(_payment_hr), payment_total(payment_hr * total_hrs),
+	  contractor(_contractor), customer(_customer)
 	{
-		if (_contractor != nullptr)
+		/*if (_contractor != nullptr)
 			set_contractor(_contractor);
 		if (_customer   != nullptr)
-			set_customer  (_customer);
+			set_customer  (_customer);*/
 
 		/*if (time_units == L"полная")
 		{
@@ -61,7 +64,26 @@ public:
 			return;
 		}*/
 
-		payment_total = payment_hr * /*PAYMENT_TYPES.at(time_units) **/ total_hrs;
+		//payment_total = payment_hr * /*PAYMENT_TYPES.at(time_units) **/ total_hrs;
+	}
+
+
+	/// Listings are only serialized if a customer and a contractor paired.
+	std::wstring serialize()
+	{
+		std::wstring result =
+			L"listing\n"
+			+ name + L'\n'
+			+ std::to_wstring(payment_hr) + L'\n'
+			+ std::to_wstring(total_hrs)  + L'\n';
+
+		if (contractor == nullptr) result += L'\n';
+		else result += contractor->name->get_full() + L'\n';
+
+		if (customer == nullptr) result += L'\n';
+		else result += customer->name->get_full();
+
+		return result;
 	}
 
 
@@ -81,13 +103,13 @@ public:
 	}*/
 
 
-	void set_contractor(User* _contractor)
+	/*void set_contractor(User* _contractor)
 	{
 		contractor = _contractor;
 		/*if (customer == nullptr)
 			status = Listing_Status::Open;
 		else
-			status = Listing_Status::Signed;*/
+			status = Listing_Status::Signed;
 	}
 
 	
@@ -97,14 +119,8 @@ public:
 		/*if (contractor == nullptr)
 			status = Listing_Status::Open;
 		else
-			status = Listing_Status::Signed;*/
-	}
-
-
-private:
-
-	///   подрядчик |  заказчик
-	User *contractor, *customer;
+			status = Listing_Status::Signed;
+	}*/
 };
 
 
