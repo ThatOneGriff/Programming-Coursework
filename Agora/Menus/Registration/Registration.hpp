@@ -857,9 +857,7 @@ private:
 			user = new_user;
 		}
 
-		/// SWITCH COMMENTED LINES BEFORE RELEASE
-		//save(user, USER_SAVEFILE_NAME);
-		save(user);
+		save(user, USER_SAVEFILE_NAME);
 		this->Close();
 	}
 

@@ -18,8 +18,7 @@
 User* load(const std::wstring address);
 void  save(User* user, std::wstring address = L"");
 
-std::vector<Company> load_predefined_companies();
-const std::vector<Company> PREDEFINED_COMPANIES = load_predefined_companies();
+std::vector<User*> load_predefined_companies();
 
 const std::string  USER_SAVEFILE_NAME_S =  "user.txt";
 const std::wstring USER_SAVEFILE_NAME   = L"user.txt";
@@ -85,7 +84,7 @@ User* load(const std::wstring address)
 	}
 
 	show_error(L"Аккаунт не создан по неизвестной причине.");
-	return nullptr; // Something that under NO circumstance should happen
+	return nullptr; /// Something that under NO circumstance should happen
 }
 
 
@@ -106,9 +105,24 @@ void save(User* user, std::wstring address/* = L""*/)
 }
 
 
-std::vector<Company> load_predefined_companies()
+/// Wish I could do that via scanning all the files in a folder.
+/// Sadly, 'filesystem' gave me some hellish errors...
+const std::wstring _PREDEFINED_COMPANY_SAVEPATHS[10] = {
+	L"agroprom.txt", L"ekoresurs.txt",	    L"energoplyus.txt", L"finansovyy_alyans.txt", L"innovatsii_buduschego.txt",
+	L"medtekh.txt",  L"softrazrabotka.txt", L"stroymaster.txt", L"tekhnoprogress.txt",    L"tsifrovye_resheniya.txt"
+};
+/// POSSIBLE MEMORY LEAK
+std::vector<User*> load_predefined_companies()
 {
-	std::vector<Company> result;
+	std::vector<User*> result;
+	result.reserve(10);
+	
+	for (std::wstring path : _PREDEFINED_COMPANY_SAVEPATHS)
+	{
+		path = L"./Predefined_Companies/" + path;
+		User* new_company = load(path);
+		result.push_back(new_company);
+	}
 
 	return result;
 }

@@ -2,6 +2,8 @@
 #ifndef MAIN_MENU_HPP
 #define MAIN_MENU_HPP
 
+#include <vector>
+
 #include "Menus/Registration/registration.hpp"
 
 #include "../../Classes/user.hpp"
@@ -14,6 +16,8 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
+/// 'member of an unmanaged class' bullshit made me put this vector here
+std::vector<User*> NPCs;
 
 namespace Agora
 {
@@ -23,10 +27,11 @@ public:
 
 	User* user;
 
-	Main_Menu(User* _user)
+	Main_Menu(User* _user, const std::vector<User*> _NPCs)
 	: user(_user)
 	{
 		InitializeComponent();
+		NPCs = _NPCs;
 
 		/// Centering everything
 		center_x(label_search_will_be, menu_search);
