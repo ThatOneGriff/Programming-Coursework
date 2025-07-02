@@ -17,8 +17,10 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
-/// 'member of an unmanaged class' bullshit made me put this vector here
+/// 'Member of an unmanaged class' bullshit made me put all of this here
 std::vector<User*> NPCs;
+Listing job_request_1, job_request_2,
+		job_offer_1,   job_offer_2;
 
 namespace Agora
 {
@@ -895,6 +897,7 @@ private: System::Windows::Forms::NumericUpDown^ listing_contractor_1_hrs_picker;
 		this->listing_contractor_2_hrs_picker->Size = System::Drawing::Size(40, 28);
 		this->listing_contractor_2_hrs_picker->TabIndex = 10;
 		this->listing_contractor_2_hrs_picker->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor_2_hrs_picker->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
 		// 
 		// listing_contractor_2_total
 		// 
@@ -1005,6 +1008,7 @@ private: System::Windows::Forms::NumericUpDown^ listing_contractor_1_hrs_picker;
 		this->listing_contractor_1_hrs_picker->Size = System::Drawing::Size(40, 28);
 		this->listing_contractor_1_hrs_picker->TabIndex = 9;
 		this->listing_contractor_1_hrs_picker->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor_1_hrs_picker->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
 		// 
 		// listing_contractor_1_total
 		// 
@@ -1275,36 +1279,50 @@ private:
 	}
 
 
+	void feed_contracts_length_adjusted(System::Object^ sender, System::EventArgs^ e)
+	{
+		NumericUpDown^ source = safe_cast<NumericUpDown^>(sender);
+		
+		if (source == listing_contractor_1_hrs_picker)
+		{
+			job_request_1.total_hrs = Convert::ToInt32(source->Value);
+			listing_contractor_1_total->Text = L"Итого, ₽: " + Convert::ToString(job_request_1.payment_total());
+		}
+		else if (source == listing_contractor_2_hrs_picker)
+		{
+			job_request_2.total_hrs = Convert::ToInt32(source->Value);
+			listing_contractor_2_total->Text = L"Итого, ₽: " + Convert::ToString(job_request_2.payment_total());
+		}
+	}
+
+
 	void fill_feed_menu()
 	{
-		/// Terrible horrible spaghetti
-		System::String^ total_default_text = L"Итого, ₽: ";
-
-		Listing job_request_1 = get_random_listing(CONTRACTOR_LISTING);
+		job_request_1 = get_random_listing(CONTRACTOR_LISTING);
 		listing_contractor_1_name->Text = to_dotnet_string(job_request_1.name);
 		listing_contractor_1_from->Text = to_dotnet_string(job_request_1.contractor->name->get_short());
 		listing_contractor_1_hourly->Text = Convert::ToString(job_request_1.payment_hr);
-		listing_contractor_1_total->Text  = total_default_text + Convert::ToString(job_request_1.payment_total);
+		listing_contractor_1_total->Text  = L"Итого, ₽: " + Convert::ToString(job_request_1.payment_total());
 
-		Listing job_request_2 = get_random_listing(CONTRACTOR_LISTING);
+		job_request_2 = get_random_listing(CONTRACTOR_LISTING);
 		listing_contractor_2_name->Text = to_dotnet_string(job_request_2.name);
 		listing_contractor_2_from->Text = to_dotnet_string(job_request_2.contractor->name->get_short());
 		listing_contractor_2_hourly->Text = Convert::ToString(job_request_2.payment_hr);
-		listing_contractor_2_total->Text  = total_default_text + Convert::ToString(job_request_2.payment_total);
+		listing_contractor_2_total->Text  = L"Итого, ₽: " + Convert::ToString(job_request_2.payment_total());
 
-		Listing job_offer_1 = get_random_listing(CUSTOMER_LISTING);
+		job_offer_1 = get_random_listing(CUSTOMER_LISTING);
 		listing_customer_1_name->Text = to_dotnet_string(job_offer_1.name);
 		listing_customer_1_from->Text = to_dotnet_string(job_offer_1.customer->name->get_full());
 		listing_customer_1_hourly->Text = Convert::ToString(job_offer_1.payment_hr);
 		listing_customer_1_hrs->Text	= Convert::ToString(job_offer_1.total_hrs);
-		listing_customer_1_total->Text  = total_default_text + Convert::ToString(job_offer_1.payment_total);
+		listing_customer_1_total->Text  = L"Итого, ₽: " + Convert::ToString(job_offer_1.payment_total());
 
-		Listing job_offer_2 = get_random_listing(CUSTOMER_LISTING);
+		job_offer_2 = get_random_listing(CUSTOMER_LISTING);
 		listing_customer_2_name->Text = to_dotnet_string(job_offer_2.name);
 		listing_customer_2_from->Text = to_dotnet_string(job_offer_2.customer->name->get_full());
 		listing_customer_2_hourly->Text = Convert::ToString(job_offer_2.payment_hr);
 		listing_customer_2_hrs->Text	= Convert::ToString(job_offer_2.total_hrs);
-		listing_customer_2_total->Text  = total_default_text + Convert::ToString(job_offer_2.payment_total);
+		listing_customer_2_total->Text  = L"Итого, ₽: " + Convert::ToString(job_offer_2.payment_total());
 	}
 
 

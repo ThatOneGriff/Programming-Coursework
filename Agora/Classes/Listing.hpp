@@ -34,21 +34,35 @@ class Listing
 {
 public:
 
-	const std::wstring name;
+	std::wstring name;
 	//const std::wstring time_units;
-	const unsigned int payment_hr;
-	const unsigned int total_hrs;
-	const unsigned int payment_total;
+	unsigned int payment_hr;
+	unsigned int total_hrs;
 
 	///   подрядчик |  заказчик
 	User *contractor, *customer;
 
 	//Listing_Status status = Listing_Status::Closed;
 
+
+	Listing& operator=(const Listing& other)
+	{
+		if (this != &other)
+		{
+			name	      = other.name;
+			payment_hr	  = other.payment_hr;
+			total_hrs	  = other.total_hrs;
+
+			contractor = other.contractor;
+			customer   = other.customer;
+		}
+		return *this;
+	}
+
 	
-	Listing(const std::wstring& _name,   int   _total_hrs, const unsigned int _payment_hr,
+	Listing(const std::wstring& _name,   const unsigned int _total_hrs, const unsigned int _payment_hr,
 			User* _contractor = nullptr, User* _customer = nullptr)
-	: name(_name), total_hrs(_total_hrs), payment_hr(_payment_hr), payment_total(payment_hr * total_hrs),
+	: name(_name), total_hrs(_total_hrs), payment_hr(_payment_hr),
 	  contractor(_contractor), customer(_customer)
 	{
 		/*if (_contractor != nullptr)
@@ -64,6 +78,16 @@ public:
 		}*/
 
 		//payment_total = payment_hr * /*PAYMENT_TYPES.at(time_units) **/ total_hrs;
+	}
+
+
+	/// For compiler
+	Listing(){}
+
+
+	unsigned int payment_total()
+	{
+		return total_hrs * payment_hr;
 	}
 
 
