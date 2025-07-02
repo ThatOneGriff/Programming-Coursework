@@ -48,6 +48,7 @@ public:
 
 		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
 		fill_account_menu();
+		fill_active_listings_menu();
 		fill_feed_menu();
 	}
 
@@ -624,6 +625,7 @@ private: System::Windows::Forms::Button^ button1;
 		this->active_listing_1_finish->TabIndex = 7;
 		this->active_listing_1_finish->Text = L"Готово!";
 		this->active_listing_1_finish->UseVisualStyleBackColor = true;
+		this->active_listing_1_finish->Click += gcnew System::EventHandler(this, &Main_Menu::finish_active_listing);
 		// 
 		// active_listing_1_hrs
 		// 
@@ -1628,6 +1630,7 @@ private:
 			return;
 
 		save(user, USER_SAVEFILE_NAME, accepted_listings);
+		fill_active_listings_menu();
 	}
 
 
@@ -1717,6 +1720,8 @@ private:
 			active_listing_1->Visible = false;
 			active_listing_2->Visible = false;
 		}
+
+		fill_active_listings_menu();
 	}
 
 
@@ -1765,11 +1770,15 @@ private:
 		output_account_extra->Text = to_dotnet_string(user->extra_contacts);
 		if (output_account_extra->Text == "")
 			output_account_extra->Text = "-";
+	}
 
 
+	void fill_active_listings_menu()
+	{
 		if (accepted_listings.size() < 1)
 			return;
 		active_listing_1->Visible = true;
+		active_listing_1->Enabled = true;
 		active_listing_1_name->Text = to_dotnet_string(accepted_listings[0].name);
 		if (accepted_listings[0].contractor == user)
 			active_listing_1_from->Text = to_dotnet_string(accepted_listings[0].customer->name->get_short());
@@ -1782,6 +1791,7 @@ private:
 		if (accepted_listings.size() < 2)
 			return;
 		active_listing_2->Visible = true;
+		active_listing_2->Enabled = true;
 		active_listing_2_name->Text = to_dotnet_string(accepted_listings[1].name);
 		if (accepted_listings[1].contractor == user)
 			active_listing_2_from->Text = to_dotnet_string(accepted_listings[1].customer->name->get_short());
@@ -1790,6 +1800,29 @@ private:
 		active_listing_2_hourly->Text = Convert::ToString(accepted_listings[1].payment_hr);
 		active_listing_2_hrs->Text	= Convert::ToString(accepted_listings[1].total_hrs);
 		active_listing_2_total->Text  = L"Итого, ₽: " + Convert::ToString(accepted_listings[1].payment_total());
+	}
+
+
+	void finish_active_listing(System::Object^ sender, System::EventArgs^ e)
+	{
+		Button^ source = safe_cast<Button^>(sender);
+		
+		if (source == active_listing_1_finish)
+		{
+			active_listing_1->Enabled = false;
+			accepted_listings.erase(accepted_listings.begin());
+		}
+		if (source == active_listing_2_finish)
+		{
+			active_listing_2->Enabled = false;
+			/// Avoiding fallthrough coming from deleting listing 1, then 2
+			if (active_listing_1->Enabled)
+				accepted_listings.erase(accepted_listings.begin() + 1);
+			else
+				accepted_listings.erase(accepted_listings.begin());
+		}
+
+		save(user, USER_SAVEFILE_NAME, accepted_listings);
 	}
 
 	#pragma endregion
