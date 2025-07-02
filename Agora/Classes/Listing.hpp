@@ -45,8 +45,7 @@ public:
 
 	//Listing_Status status = Listing_Status::Closed;
 
-
-	/// Для оплаты по отрезкам времени
+	
 	Listing(const std::wstring& _name,   int   _total_hrs, const unsigned int _payment_hr,
 			User* _contractor = nullptr, User* _customer = nullptr)
 	: name(_name), total_hrs(_total_hrs), payment_hr(_payment_hr), payment_total(payment_hr * total_hrs),

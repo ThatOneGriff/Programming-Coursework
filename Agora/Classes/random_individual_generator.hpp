@@ -9,21 +9,22 @@
 #include "../utils.hpp"
 
 /// Here be:
-Individual get_random_individual();
+
+Individual* get_random_individual();
 
 std::wstring	_get_email(const Individual_Name& name);
 Phone_Number    _get_random_phone_number(const bool corporate = false);
 Individual_Name	_get_random_individual_name();
 
 
-Individual get_random_individual()
+Individual* get_random_individual()
 {
 	Individual_Name name = _get_random_individual_name();
 	Date      birth_date = _get_random_date();
 	Phone_Number  number = _get_random_phone_number();
 	std::wstring   email = _get_email(name);
 
-	Individual result(name, birth_date, number, email);
+	Individual* result = new Individual(name, birth_date, number, email);
 	return result;
 }
 

@@ -13,7 +13,7 @@
 
 /// Here be:
 class  _Job_Class;
-Listing get_random_listing(int job_type = -1);
+Listing get_random_listing(int job_type);
 
 #define CUSTOMER_LISTING   1
 #define CONTRACTOR_LISTING 2
@@ -54,7 +54,7 @@ _Job_Class upper_high  (4001, 10000, {L"Личный охранник",  L"Экономист",		L"Стат
 
 
 
-Listing get_random_listing(int job_type/* = -1*/)
+Listing get_random_listing(int job_type)
 {
 	int category = randint(1, 5);
 
@@ -84,23 +84,20 @@ Listing get_random_listing(int job_type/* = -1*/)
 		break;
 	}
 
-	int total_hrs = randint(1, 8);
-	//const std::wstring time_unit = L"ч.";  // Not placeholder, yet not variable. Hence why it's const
+	//const std::wstring time_unit = L"ч.";
 
-	if (job_type == -1)
-		job_type = randint(1, 2);
 	/// Customer
-	if (job_type == 1)
+	if (job_type == CUSTOMER_LISTING)
 	{
 		User *customer = PREDEFINED_COMPANIES[randint(9)];
+		int total_hrs = randint(1, 8);
 		return Listing(name, total_hrs, payment_hr, nullptr, customer);
 	}
 	/// Contractor
-	else if (job_type == 2)
+	else if (job_type == CONTRACTOR_LISTING)
 	{
-		// May not work due to pointers.
-		Individual contractor = get_random_individual();
-		return Listing(name, total_hrs, payment_hr, &contractor, nullptr);
+		int total_hrs = 1;
+		return Listing(name, total_hrs, payment_hr, get_random_individual(), nullptr);
 	}
 }
 
