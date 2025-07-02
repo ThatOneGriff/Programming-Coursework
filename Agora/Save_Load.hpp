@@ -16,15 +16,17 @@
 /// [!!!] FILE MANIPULATION is in 'Utils/files.hpp'.
 
 /// Here be:
-User* load(const std::wstring address);
-void  save(User* user, std::wstring address = L"", std::vector<Listing> active_listings = {});
-
-std::vector<User*> load_predefined_companies();
-std::vector<User*> PREDEFINED_COMPANIES;
 
 const std::string  USER_SAVEFILE_NAME_S =  "user.txt";
 const std::wstring USER_SAVEFILE_NAME   = L"user.txt";
 const std::wstring USER_LISTINGS_FILE_NAME = L"user_listings.txt";
+
+User* load(const std::wstring address);
+std::vector<Listing> load_listings(User* user, const std::wstring& address = USER_LISTINGS_FILE_NAME);
+void  save(User* user, std::wstring address = L"", std::vector<Listing> active_listings = {});
+
+std::vector<User*> load_predefined_companies();
+std::vector<User*> PREDEFINED_COMPANIES;
 
 
 
@@ -91,6 +93,73 @@ User* load(const std::wstring address)
 }
 
 
+std::vector<Listing> load_listings(User* user, const std::wstring& address/* = USER_LISTINGS_FILE_NAME*/)
+{
+	if (PREDEFINED_COMPANIES.empty())
+	{
+		show_error(L"Predefined companies need to be loaded before listings.");
+		return {};
+	}
+
+	std::wifstream savefile(address);
+	// Copied from: https://stackoverflow.com/a/3950840/15540979
+	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
+	savefile.imbue(loc);
+	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
+
+	/// Empty check
+	if (is_empty(savefile))
+	{
+		savefile.close();
+		return {};
+	}
+
+	std::vector<std::wstring> raw_data = to_string_bundle(savefile);
+	savefile.close();
+
+	std::vector<Listing> result;
+	for (int i = 0; i < raw_data.size(); i++)
+	{
+		if (raw_data[i] == L"")
+			continue;
+		/// Reading raw data in segments of 5
+		std::wstring name		= raw_data[i++];
+		unsigned int payment_hr = stoi(raw_data[i++]);
+		unsigned int total_hrs  = stoi(raw_data[i++]);
+
+		User *contractor = nullptr, *customer = nullptr;
+		std::wstring contractor_path = raw_data[i++];
+		if (contractor_path == L"user.txt")
+			contractor = user;
+		else
+		{
+			for (User* company : PREDEFINED_COMPANIES)
+			{
+				if (company->name->as_filename() == contractor_path)
+					contractor = company;
+			}
+		}
+		std::wstring customer_path = raw_data[i]; //i++
+		if (customer_path == L"user.txt")
+			customer = user;
+		else
+		{
+			for (User* company : PREDEFINED_COMPANIES)
+			{
+				if (company->name->as_filename() == customer_path)
+					customer = company;
+			}
+		}
+
+		Listing new_listing(name, total_hrs, payment_hr, contractor, customer);
+		show_info(new_listing.serialize(user));
+		result.push_back(new_listing);
+	}
+
+	return result;
+}
+
+
 /// 'User*' instead of raw text as a protection from saving jackshit
 void save(User* user, std::wstring address/* = L""*/, std::vector<Listing> active_listings/* = {}*/)
 {
@@ -113,7 +182,7 @@ void save(User* user, std::wstring address/* = L""*/, std::vector<Listing> activ
 	savefile_listings.imbue(loc);
 
 	for (Listing& listing : active_listings)
-		savefile_listings << listing.serialize() << L'\n';
+		savefile_listings << listing.serialize(user) << L'\n';
 	savefile_listings.close();
 }
 

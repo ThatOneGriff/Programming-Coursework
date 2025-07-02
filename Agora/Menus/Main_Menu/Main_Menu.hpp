@@ -36,6 +36,7 @@ public:
 	{
 		InitializeComponent();
 		NPCs = _NPCs;
+		accepted_listings = load_listings(user);
 
 		System::Drawing::Size size(665, 485);
 		this->Size = size;
