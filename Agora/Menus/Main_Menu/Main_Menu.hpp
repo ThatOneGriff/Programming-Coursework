@@ -6,6 +6,7 @@
 #include <unordered_set>
 
 #include "Menus/Registration/registration.hpp"
+#include "listing_interface.hpp"
 
 #include "../../Classes/random_listing_generator.hpp"
 #include "../../Classes/user.hpp"
@@ -20,11 +21,11 @@ using namespace System::Drawing;
 
 /// 'Member of an unmanaged class' bullshit made me put all of this here
 std::vector<Listing> accepted_listings;
-Listing listing_customer1,   listing_customer2,
-		listing_contractor1, listing_contractor2;
+Listing listing_contractor1, listing_contractor2,
+		listing_customer1,   listing_customer2;
 
-std::vector<Control^> listing_customer1_nodes,	 listing_customer2_nodes,
-					  listing_contractor1_nodes, listing_contractor2_nodes;
+std::unordered_set<Control^> listing_contractor1_nodes, listing_contractor2_nodes,
+							 listing_customer1_nodes,	 listing_customer2_nodes;
 
 const std::wstring PROGRAM_INFO =
 	 (std::wstring)L"Agora v.1.0 от 07.07.2025\n" // it was INSISTING I was trying to initialize with 'System::String'
@@ -55,9 +56,52 @@ public:
 		/// 2. 8 shows correct size in editor; 7 makes the release program correct.
 
 		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
+		fill_listing_ui_nodes();
 		fill_account_menu();
 		fill_active_listings_menu();
 		fill_feed_menu();
+	}
+
+private:
+
+	/// If CLR didn't enforce its "managed class" idiocy, I'd'nt be writing such code.
+	void fill_listing_ui_nodes()
+	{
+		listing_contractor1_nodes.reserve(10);
+		listing_contractor1_nodes = {
+			listing_contractor1_ui,			  listing_contractor1_name,
+			listing_contractor1_button_info,  listing_contractor1_author,
+			listing_contractor1_label_per_hr, listing_contractor1_per_hr,
+			listing_contractor1_label_hrs,	  listing_contractor1_picker_hrs,
+			listing_contractor1_button_hire,  listing_contractor1_total
+		};
+
+		listing_contractor2_nodes.reserve(10);
+		listing_contractor2_nodes = {
+			listing_contractor2_ui,			  listing_contractor2_name,
+			listing_contractor2_button_info,  listing_contractor2_author,
+			listing_contractor2_label_per_hr, listing_contractor2_per_hr,
+			listing_contractor2_label_hrs,	  listing_contractor2_picker_hrs,
+			listing_contractor2_button_hire,  listing_contractor2_total
+		};
+
+		listing_customer1_nodes.reserve(10);
+		listing_customer1_nodes = {
+			listing_customer1_ui,			 listing_customer1_name,
+			listing_customer1_button_info,   listing_customer1_author,
+			listing_customer1_label_per_hr,  listing_customer1_per_hr,
+			listing_customer1_label_hrs,     listing_customer1_hrs,
+			listing_customer1_button_accept, listing_customer1_total
+		};
+
+		listing_customer2_nodes.reserve(10);
+		listing_customer2_nodes = {
+			listing_customer2_ui,			 listing_customer2_name,
+			listing_customer2_button_info,   listing_customer2_author,
+			listing_customer2_label_per_hr,  listing_customer2_per_hr,
+			listing_customer2_label_hrs,     listing_customer2_hrs,
+			listing_customer2_button_accept, listing_customer2_total
+		};
 	}
 
 	#pragma region = Winforms Code =
@@ -117,6 +161,7 @@ private: System::Windows::Forms::Label^ listing_customer1_name;
 private: System::Windows::Forms::Label^ listing_customer1_author;
 private: System::Windows::Forms::Label^ listing_customer1_label_per_hr;
 private: System::Windows::Forms::Label^ listing_customer1_per_hr;
+private: System::Windows::Forms::Label^ listing_customer1_hrs;
 
 
 
@@ -125,9 +170,10 @@ private: System::Windows::Forms::Label^ listing_customer1_per_hr;
 
 
 
-private: System::Windows::Forms::Label^ listing_customer_1_hrs;
+
 private: System::Windows::Forms::Label^ listing_customer1_label_hrs;
-private: System::Windows::Forms::Button^ listing_customer1_accept;
+private: System::Windows::Forms::Button^ listing_customer1_button_accept;
+
 private: System::Windows::Forms::Label^ listing_customer1_total;
 
 
@@ -139,9 +185,10 @@ private: System::Windows::Forms::Label^ listing_customer1_total;
 
 private: System::Windows::Forms::GroupBox^ listing_customer2_ui;
 private: System::Windows::Forms::Label^ listing_customer2_total;
+private: System::Windows::Forms::Button^ listing_customer2_button_accept;
 
 
-private: System::Windows::Forms::Button^ listing_customer2_accept;
+
 
 private: System::Windows::Forms::Label^ listing_customer2_hrs;
 
@@ -157,10 +204,11 @@ private: System::Windows::Forms::Label^ listing_customer2_name;
 
 private: System::Windows::Forms::GroupBox^ listing_contractor2_ui;
 private: System::Windows::Forms::Label^ listing_contractor2_total;
+private: System::Windows::Forms::Button^ listing_contractor2_button_hire;
 
 
 
-private: System::Windows::Forms::Button^ listing_contractor2_hire;
+
 
 
 
@@ -182,11 +230,12 @@ private: System::Windows::Forms::Label^ listing_contractor2_name;
 
 private: System::Windows::Forms::GroupBox^ listing_contractor1_ui;
 private: System::Windows::Forms::Label^ listing_contractor1_total;
+private: System::Windows::Forms::Button^ listing_contractor1_button_hire;
 
 
 
 
-private: System::Windows::Forms::Button^ listing_contractor1_hire;
+
 
 private: System::Windows::Forms::Label^ listing_contractor1_label_hrs;
 
@@ -201,14 +250,16 @@ private: System::Windows::Forms::Label^ listing_contractor1_per_hr;
 
 
 private: System::Windows::Forms::Label^ listing_contractor1_name;
-private: System::Windows::Forms::NumericUpDown^ listing_contractor2_hrs_picker;
+private: System::Windows::Forms::NumericUpDown^ listing_contractor2_picker_hrs;
+
+private: System::Windows::Forms::NumericUpDown^ listing_contractor1_picker_hrs;
 
 
 
 
 
 
-private: System::Windows::Forms::NumericUpDown^ listing_contractor1_hrs_picker;
+
 
 
 
@@ -336,7 +387,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_customer2_ui = (gcnew System::Windows::Forms::GroupBox());
 		this->listing_customer2_button_info = (gcnew System::Windows::Forms::Button());
 		this->listing_customer2_total = (gcnew System::Windows::Forms::Label());
-		this->listing_customer2_accept = (gcnew System::Windows::Forms::Button());
+		this->listing_customer2_button_accept = (gcnew System::Windows::Forms::Button());
 		this->listing_customer2_hrs = (gcnew System::Windows::Forms::Label());
 		this->listing_customer2_label_hrs = (gcnew System::Windows::Forms::Label());
 		this->listing_customer2_author = (gcnew System::Windows::Forms::Label());
@@ -346,8 +397,8 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_customer1_ui = (gcnew System::Windows::Forms::GroupBox());
 		this->listing_customer1_button_info = (gcnew System::Windows::Forms::Button());
 		this->listing_customer1_total = (gcnew System::Windows::Forms::Label());
-		this->listing_customer1_accept = (gcnew System::Windows::Forms::Button());
-		this->listing_customer_1_hrs = (gcnew System::Windows::Forms::Label());
+		this->listing_customer1_button_accept = (gcnew System::Windows::Forms::Button());
+		this->listing_customer1_hrs = (gcnew System::Windows::Forms::Label());
 		this->listing_customer1_label_hrs = (gcnew System::Windows::Forms::Label());
 		this->listing_customer1_author = (gcnew System::Windows::Forms::Label());
 		this->listing_customer1_label_per_hr = (gcnew System::Windows::Forms::Label());
@@ -356,9 +407,9 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->group_contractors = (gcnew System::Windows::Forms::GroupBox());
 		this->listing_contractor2_ui = (gcnew System::Windows::Forms::GroupBox());
 		this->listing_contractor2_button_info = (gcnew System::Windows::Forms::Button());
-		this->listing_contractor2_hrs_picker = (gcnew System::Windows::Forms::NumericUpDown());
+		this->listing_contractor2_picker_hrs = (gcnew System::Windows::Forms::NumericUpDown());
 		this->listing_contractor2_total = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor2_hire = (gcnew System::Windows::Forms::Button());
+		this->listing_contractor2_button_hire = (gcnew System::Windows::Forms::Button());
 		this->listing_contractor2_label_hrs = (gcnew System::Windows::Forms::Label());
 		this->listing_contractor2_author = (gcnew System::Windows::Forms::Label());
 		this->listing_contractor2_label_per_hr = (gcnew System::Windows::Forms::Label());
@@ -366,9 +417,9 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_contractor2_name = (gcnew System::Windows::Forms::Label());
 		this->listing_contractor1_ui = (gcnew System::Windows::Forms::GroupBox());
 		this->listing_contractor1_button_info = (gcnew System::Windows::Forms::Button());
-		this->listing_contractor1_hrs_picker = (gcnew System::Windows::Forms::NumericUpDown());
+		this->listing_contractor1_picker_hrs = (gcnew System::Windows::Forms::NumericUpDown());
 		this->listing_contractor1_total = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor1_hire = (gcnew System::Windows::Forms::Button());
+		this->listing_contractor1_button_hire = (gcnew System::Windows::Forms::Button());
 		this->listing_contractor1_label_hrs = (gcnew System::Windows::Forms::Label());
 		this->listing_contractor1_author = (gcnew System::Windows::Forms::Label());
 		this->listing_contractor1_label_per_hr = (gcnew System::Windows::Forms::Label());
@@ -398,9 +449,9 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_customer1_ui->SuspendLayout();
 		this->group_contractors->SuspendLayout();
 		this->listing_contractor2_ui->SuspendLayout();
-		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor2_hrs_picker))->BeginInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor2_picker_hrs))->BeginInit();
 		this->listing_contractor1_ui->SuspendLayout();
-		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor1_hrs_picker))->BeginInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor1_picker_hrs))->BeginInit();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->BeginInit();
 		this->menu_search->SuspendLayout();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_search))->BeginInit();
@@ -989,7 +1040,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		// 
 		this->listing_customer2_ui->Controls->Add(this->listing_customer2_button_info);
 		this->listing_customer2_ui->Controls->Add(this->listing_customer2_total);
-		this->listing_customer2_ui->Controls->Add(this->listing_customer2_accept);
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_button_accept);
 		this->listing_customer2_ui->Controls->Add(this->listing_customer2_hrs);
 		this->listing_customer2_ui->Controls->Add(this->listing_customer2_label_hrs);
 		this->listing_customer2_ui->Controls->Add(this->listing_customer2_author);
@@ -1031,18 +1082,18 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_customer2_total->TabIndex = 7;
 		this->listing_customer2_total->Text = L"Итого, ₽: ";
 		// 
-		// listing_customer2_accept
+		// listing_customer2_button_accept
 		// 
-		this->listing_customer2_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_customer2_button_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_customer2_accept->Location = System::Drawing::Point(5, 109);
-		this->listing_customer2_accept->Margin = System::Windows::Forms::Padding(4);
-		this->listing_customer2_accept->Name = L"listing_customer2_accept";
-		this->listing_customer2_accept->Size = System::Drawing::Size(119, 34);
-		this->listing_customer2_accept->TabIndex = 7;
-		this->listing_customer2_accept->Text = L"За работу!";
-		this->listing_customer2_accept->UseVisualStyleBackColor = true;
-		this->listing_customer2_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
+		this->listing_customer2_button_accept->Location = System::Drawing::Point(5, 109);
+		this->listing_customer2_button_accept->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer2_button_accept->Name = L"listing_customer2_button_accept";
+		this->listing_customer2_button_accept->Size = System::Drawing::Size(119, 34);
+		this->listing_customer2_button_accept->TabIndex = 7;
+		this->listing_customer2_button_accept->Text = L"За работу!";
+		this->listing_customer2_button_accept->UseVisualStyleBackColor = true;
+		this->listing_customer2_button_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
 		// listing_customer2_hrs
 		// 
@@ -1114,8 +1165,8 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		// 
 		this->listing_customer1_ui->Controls->Add(this->listing_customer1_button_info);
 		this->listing_customer1_ui->Controls->Add(this->listing_customer1_total);
-		this->listing_customer1_ui->Controls->Add(this->listing_customer1_accept);
-		this->listing_customer1_ui->Controls->Add(this->listing_customer_1_hrs);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_button_accept);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_hrs);
 		this->listing_customer1_ui->Controls->Add(this->listing_customer1_label_hrs);
 		this->listing_customer1_ui->Controls->Add(this->listing_customer1_author);
 		this->listing_customer1_ui->Controls->Add(this->listing_customer1_label_per_hr);
@@ -1156,28 +1207,28 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_customer1_total->TabIndex = 7;
 		this->listing_customer1_total->Text = L"Итого, ₽: ";
 		// 
-		// listing_customer1_accept
+		// listing_customer1_button_accept
 		// 
-		this->listing_customer1_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_customer1_button_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_customer1_accept->Location = System::Drawing::Point(5, 109);
-		this->listing_customer1_accept->Margin = System::Windows::Forms::Padding(4);
-		this->listing_customer1_accept->Name = L"listing_customer1_accept";
-		this->listing_customer1_accept->Size = System::Drawing::Size(119, 34);
-		this->listing_customer1_accept->TabIndex = 7;
-		this->listing_customer1_accept->Text = L"За работу!";
-		this->listing_customer1_accept->UseVisualStyleBackColor = true;
-		this->listing_customer1_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
+		this->listing_customer1_button_accept->Location = System::Drawing::Point(5, 109);
+		this->listing_customer1_button_accept->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer1_button_accept->Name = L"listing_customer1_button_accept";
+		this->listing_customer1_button_accept->Size = System::Drawing::Size(119, 34);
+		this->listing_customer1_button_accept->TabIndex = 7;
+		this->listing_customer1_button_accept->Text = L"За работу!";
+		this->listing_customer1_button_accept->UseVisualStyleBackColor = true;
+		this->listing_customer1_button_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
-		// listing_customer_1_hrs
+		// listing_customer1_hrs
 		// 
-		this->listing_customer_1_hrs->AutoSize = true;
-		this->listing_customer_1_hrs->Location = System::Drawing::Point(111, 86);
-		this->listing_customer_1_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_1_hrs->Name = L"listing_customer_1_hrs";
-		this->listing_customer_1_hrs->Size = System::Drawing::Size(126, 20);
-		this->listing_customer_1_hrs->TabIndex = 6;
-		this->listing_customer_1_hrs->Text = L"часов_работы";
+		this->listing_customer1_hrs->AutoSize = true;
+		this->listing_customer1_hrs->Location = System::Drawing::Point(111, 86);
+		this->listing_customer1_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer1_hrs->Name = L"listing_customer1_hrs";
+		this->listing_customer1_hrs->Size = System::Drawing::Size(126, 20);
+		this->listing_customer1_hrs->TabIndex = 6;
+		this->listing_customer1_hrs->Text = L"часов_работы";
 		// 
 		// listing_customer1_label_hrs
 		// 
@@ -1253,9 +1304,9 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		// listing_contractor2_ui
 		// 
 		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_button_info);
-		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_hrs_picker);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_picker_hrs);
 		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_total);
-		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_hire);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_button_hire);
 		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_label_hrs);
 		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_author);
 		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_label_per_hr);
@@ -1284,16 +1335,16 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_contractor2_button_info->TabIndex = 10;
 		this->listing_contractor2_button_info->UseVisualStyleBackColor = false;
 		// 
-		// listing_contractor2_hrs_picker
+		// listing_contractor2_picker_hrs
 		// 
-		this->listing_contractor2_hrs_picker->Location = System::Drawing::Point(114, 84);
-		this->listing_contractor2_hrs_picker->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 8, 0, 0, 0 });
-		this->listing_contractor2_hrs_picker->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor2_hrs_picker->Name = L"listing_contractor2_hrs_picker";
-		this->listing_contractor2_hrs_picker->Size = System::Drawing::Size(40, 28);
-		this->listing_contractor2_hrs_picker->TabIndex = 10;
-		this->listing_contractor2_hrs_picker->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor2_hrs_picker->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
+		this->listing_contractor2_picker_hrs->Location = System::Drawing::Point(114, 84);
+		this->listing_contractor2_picker_hrs->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 8, 0, 0, 0 });
+		this->listing_contractor2_picker_hrs->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor2_picker_hrs->Name = L"listing_contractor2_picker_hrs";
+		this->listing_contractor2_picker_hrs->Size = System::Drawing::Size(40, 28);
+		this->listing_contractor2_picker_hrs->TabIndex = 10;
+		this->listing_contractor2_picker_hrs->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor2_picker_hrs->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
 		// 
 		// listing_contractor2_total
 		// 
@@ -1307,18 +1358,18 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_contractor2_total->TabIndex = 7;
 		this->listing_contractor2_total->Text = L"Итого, ₽: ";
 		// 
-		// listing_contractor2_hire
+		// listing_contractor2_button_hire
 		// 
-		this->listing_contractor2_hire->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_contractor2_button_hire->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_contractor2_hire->Location = System::Drawing::Point(5, 109);
-		this->listing_contractor2_hire->Margin = System::Windows::Forms::Padding(4);
-		this->listing_contractor2_hire->Name = L"listing_contractor2_hire";
-		this->listing_contractor2_hire->Size = System::Drawing::Size(119, 34);
-		this->listing_contractor2_hire->TabIndex = 7;
-		this->listing_contractor2_hire->Text = L"Нанять!";
-		this->listing_contractor2_hire->UseVisualStyleBackColor = true;
-		this->listing_contractor2_hire->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
+		this->listing_contractor2_button_hire->Location = System::Drawing::Point(5, 109);
+		this->listing_contractor2_button_hire->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor2_button_hire->Name = L"listing_contractor2_button_hire";
+		this->listing_contractor2_button_hire->Size = System::Drawing::Size(119, 34);
+		this->listing_contractor2_button_hire->TabIndex = 7;
+		this->listing_contractor2_button_hire->Text = L"Нанять!";
+		this->listing_contractor2_button_hire->UseVisualStyleBackColor = true;
+		this->listing_contractor2_button_hire->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
 		// listing_contractor2_label_hrs
 		// 
@@ -1379,9 +1430,9 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		// listing_contractor1_ui
 		// 
 		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_button_info);
-		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_hrs_picker);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_picker_hrs);
 		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_total);
-		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_hire);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_button_hire);
 		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_label_hrs);
 		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_author);
 		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_label_per_hr);
@@ -1410,16 +1461,16 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_contractor1_button_info->TabIndex = 9;
 		this->listing_contractor1_button_info->UseVisualStyleBackColor = false;
 		// 
-		// listing_contractor1_hrs_picker
+		// listing_contractor1_picker_hrs
 		// 
-		this->listing_contractor1_hrs_picker->Location = System::Drawing::Point(114, 84);
-		this->listing_contractor1_hrs_picker->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 8, 0, 0, 0 });
-		this->listing_contractor1_hrs_picker->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor1_hrs_picker->Name = L"listing_contractor1_hrs_picker";
-		this->listing_contractor1_hrs_picker->Size = System::Drawing::Size(40, 28);
-		this->listing_contractor1_hrs_picker->TabIndex = 9;
-		this->listing_contractor1_hrs_picker->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor1_hrs_picker->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
+		this->listing_contractor1_picker_hrs->Location = System::Drawing::Point(114, 84);
+		this->listing_contractor1_picker_hrs->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 8, 0, 0, 0 });
+		this->listing_contractor1_picker_hrs->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor1_picker_hrs->Name = L"listing_contractor1_picker_hrs";
+		this->listing_contractor1_picker_hrs->Size = System::Drawing::Size(40, 28);
+		this->listing_contractor1_picker_hrs->TabIndex = 9;
+		this->listing_contractor1_picker_hrs->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor1_picker_hrs->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
 		// 
 		// listing_contractor1_total
 		// 
@@ -1433,18 +1484,18 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_contractor1_total->TabIndex = 7;
 		this->listing_contractor1_total->Text = L"Итого, ₽: ";
 		// 
-		// listing_contractor1_hire
+		// listing_contractor1_button_hire
 		// 
-		this->listing_contractor1_hire->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_contractor1_button_hire->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_contractor1_hire->Location = System::Drawing::Point(5, 109);
-		this->listing_contractor1_hire->Margin = System::Windows::Forms::Padding(4);
-		this->listing_contractor1_hire->Name = L"listing_contractor1_hire";
-		this->listing_contractor1_hire->Size = System::Drawing::Size(119, 34);
-		this->listing_contractor1_hire->TabIndex = 7;
-		this->listing_contractor1_hire->Text = L"Нанять!";
-		this->listing_contractor1_hire->UseVisualStyleBackColor = true;
-		this->listing_contractor1_hire->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
+		this->listing_contractor1_button_hire->Location = System::Drawing::Point(5, 109);
+		this->listing_contractor1_button_hire->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor1_button_hire->Name = L"listing_contractor1_button_hire";
+		this->listing_contractor1_button_hire->Size = System::Drawing::Size(119, 34);
+		this->listing_contractor1_button_hire->TabIndex = 7;
+		this->listing_contractor1_button_hire->Text = L"Нанять!";
+		this->listing_contractor1_button_hire->UseVisualStyleBackColor = true;
+		this->listing_contractor1_button_hire->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
 		// listing_contractor1_label_hrs
 		// 
@@ -1670,10 +1721,10 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->group_contractors->ResumeLayout(false);
 		this->listing_contractor2_ui->ResumeLayout(false);
 		this->listing_contractor2_ui->PerformLayout();
-		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor2_hrs_picker))->EndInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor2_picker_hrs))->EndInit();
 		this->listing_contractor1_ui->ResumeLayout(false);
 		this->listing_contractor1_ui->PerformLayout();
-		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor1_hrs_picker))->EndInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor1_picker_hrs))->EndInit();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->EndInit();
 		this->menu_search->ResumeLayout(false);
 		this->menu_search->PerformLayout();

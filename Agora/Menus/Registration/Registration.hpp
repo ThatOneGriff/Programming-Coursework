@@ -91,6 +91,32 @@ public:
 		this->input_extra->Text = to_dotnet_string(user->extra_contacts);
 	}
 
+private:
+
+	void center_x(System::Object^ sender, System::EventArgs^ e)
+	{
+		Control^ target = safe_cast<Control^>(sender);
+		/// Don't y'all love variables that don't state they're readonly?
+		System::Drawing::Size size = TextRenderer::MeasureText(target->Text, target->Font);
+		target->Size = size;
+		System::Drawing::Point location((this->Width - size.Width) / 2, target->Location.Y);
+		target->Location = location;
+	}
+
+
+	void set_greeting_time_based()
+	{
+		int time = get_time();
+		if (time < 40000)
+			label_kalimera->Text += "ый вечер!";
+		else if (time < 120000)
+			label_kalimera->Text += "ое утро!";
+		else if (time < 170000)
+			label_kalimera->Text += "ый день!";
+		else
+			label_kalimera->Text += "ый вечер!";
+	}
+
     #pragma region ========== WinForms code ==========
 
 protected:
@@ -802,30 +828,6 @@ private:
 	#pragma endregion
 
 private:
-
-	void center_x(System::Object^ sender, System::EventArgs^ e)
-	{
-		Control^ target = safe_cast<Control^>(sender);
-		/// Don't y'all love variables that don't state they're readonly?
-		System::Drawing::Size size = TextRenderer::MeasureText(target->Text, target->Font);
-		target->Size = size;
-		System::Drawing::Point location((this->Width - size.Width) / 2, target->Location.Y);
-		target->Location = location;
-	}
-
-	void set_greeting_time_based()
-	{
-		int time = get_time();
-		if (time < 40000)
-			label_kalimera->Text += "ый вечер!";
-		else if (time < 120000)
-			label_kalimera->Text += "ое утро!";
-		else if (time < 170000)
-			label_kalimera->Text += "ый день!";
-		else
-			label_kalimera->Text += "ый вечер!";
-	}
-
 
 	void registration(System::Object^ sender, System::EventArgs^ e)
 	{
