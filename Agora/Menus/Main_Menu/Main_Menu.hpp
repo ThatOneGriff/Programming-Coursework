@@ -65,6 +65,14 @@ private:
 
 	void fill_listing_interface_objects()
 	{
+		contractor1_ui = gcnew Listing_Interface(
+			listing_contractor1_ui,			  listing_contractor1_name,		   listing_contractor1_author,
+			listing_contractor1_button_info,  listing_contractor1_button_hire,
+			listing_contractor1_label_per_hr, listing_contractor1_per_hr,
+			listing_contractor1_label_hrs,	  listing_contractor1_picker_hrs,
+			listing_contractor1_total,		 &listing_contractor1
+		);
+
 		customer1_ui = gcnew Listing_Interface(
 			listing_customer1_ui,			 listing_customer1_name,		  listing_customer1_author,
 			listing_contractor1_button_info, listing_customer1_button_accept,
