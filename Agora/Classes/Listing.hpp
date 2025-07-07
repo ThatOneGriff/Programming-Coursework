@@ -18,7 +18,7 @@ public:
 	unsigned int per_hr;
 	unsigned int hrs;
 
-	///   подрядчик |  заказчик
+	///   подрядчик |  заказчик | автор
 	User *contractor, *customer;
 
 

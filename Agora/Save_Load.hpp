@@ -19,14 +19,17 @@
 
 const std::string  USER_SAVEFILE_NAME_S =  "user.txt";
 const std::wstring USER_SAVEFILE_NAME   = L"user.txt";
-const std::wstring USER_LISTINGS_FILE_NAME = L"user_listings.txt";
+const std::wstring USER_LISTINGS_FILE_NAME		 = L"user_listings.txt";
+const std::wstring LISTING_INDIVIDUALS_FILE_NAME = L"listing_individuals.txt";
 
 User* load(const std::wstring address);
 void  save(User* user, std::wstring address = L"", std::vector<Listing> active_listings = {});
 
-std::vector<Listing> load_listings(User* user, const std::wstring& address = USER_LISTINGS_FILE_NAME);
+std::vector<Listing> load_listings(User* user);
 void load_predefined_companies();
+void load_saved_individuals();
 std::vector<User*> PREDEFINED_COMPANIES;
+std::vector<User*> SAVED_INDIVIDUALS;
 
 
 
@@ -114,14 +117,23 @@ void save(User* user, std::wstring address/* = L""*/, std::vector<Listing> activ
 		return;
 	std::wofstream savefile_listings(USER_LISTINGS_FILE_NAME);
 	savefile_listings.imbue(loc);
+	std::wofstream savefile_listing_individuals(LISTING_INDIVIDUALS_FILE_NAME);
+	savefile_listing_individuals.imbue(loc);
 
 	for (Listing& listing : active_listings)
+	{
 		savefile_listings << listing.serialize(user) << L'\n';
+		if ((listing.contractor != user) && (typeid(listing.contractor) == typeid(Individual)))
+			savefile_listing_individuals << listing.contractor->serialize() << L'\n';
+		else if ((listing.customer != user) && (typeid(listing.customer) == typeid(Individual)))
+			savefile_listing_individuals << listing.customer->serialize() << L'\n';
+	}
 	savefile_listings.close();
+	savefile_listing_individuals.close();
 }
 
 
-std::vector<Listing> load_listings(User* user, const std::wstring& address/* = USER_LISTINGS_FILE_NAME*/)
+std::vector<Listing> load_listings(User* user)
 {
 	if (PREDEFINED_COMPANIES.empty())
 	{
@@ -129,10 +141,10 @@ std::vector<Listing> load_listings(User* user, const std::wstring& address/* = U
 		return {};
 	}
 
-	std::wifstream savefile(address);
+	std::wifstream savefile(USER_LISTINGS_FILE_NAME);
 
 	/// Empty check
-	if (is_empty(address))
+	if (is_empty(USER_LISTINGS_FILE_NAME))
 	{
 		savefile.close();
 		return {};
@@ -160,6 +172,7 @@ std::vector<Listing> load_listings(User* user, const std::wstring& address/* = U
 		std::wstring contractor_path = raw_data[i++];
 		if (contractor_path == L"user.txt")
 			contractor = user;
+		// I'm sure I can refactor this.
 		else
 		{
 			for (User* company : PREDEFINED_COMPANIES)
@@ -167,8 +180,15 @@ std::vector<Listing> load_listings(User* user, const std::wstring& address/* = U
 				if (company->name->as_filename() == contractor_path)
 					contractor = company;
 			}
+			if (contractor != nullptr) return; /// contractor found in companies
+			for (User* individual : SAVED_INDIVIDUALS)
+			{
+				if (individual->name->as_filename() == contractor_path)
+					contractor = individual;
+			}
 		}
-		std::wstring customer_path = raw_data[i]; //i++
+
+		std::wstring customer_path = raw_data[i];
 		if (customer_path == L"user.txt")
 			customer = user;
 		else
@@ -177,6 +197,12 @@ std::vector<Listing> load_listings(User* user, const std::wstring& address/* = U
 			{
 				if (company->name->as_filename() == customer_path)
 					customer = company;
+			}
+			if (contractor != nullptr) return; /// customer found in companies
+			for (User* individual : SAVED_INDIVIDUALS)
+			{
+				if (individual->name->as_filename() == customer_path)
+					customer = individual;
 			}
 		}
 
