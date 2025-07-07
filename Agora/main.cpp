@@ -33,6 +33,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 		return 0;
 
 	load_predefined_companies();
+	load_saved_individuals();
     Application::Run(gcnew Main_Menu(user));
 
     return 0;

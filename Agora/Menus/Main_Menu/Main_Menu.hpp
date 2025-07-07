@@ -1740,9 +1740,11 @@ private:
 	{
 		Button^ source = safe_cast<Button^>(sender);
 		Listing_Interface^ respectable_listing_ui;
+		User* to_set_user_as;
 		if (contractor1_ui->has(source))
 		{
 			respectable_listing_ui = contractor1_ui;
+			to_set_user_as = contractor1_ui->listing->customer;
 			/// We could give it an 80% chance for a spice.
 			show_info(L"Подрядчик согласился!");
 		}
@@ -1750,24 +1752,27 @@ private:
 		else if (contractor2_ui->has(source))
 		{
 			respectable_listing_ui = contractor2_ui;
+			to_set_user_as = contractor2_ui->listing->customer;
 			show_info(L"Подрядчик согласился!");
 		}
 
 		else if (customer1_ui->has(source))
 		{
 			respectable_listing_ui = customer1_ui;
+			to_set_user_as = customer1_ui->listing->contractor;
 			show_info(L"Заказчик согласился!");
 		}
 
 		else if (customer2_ui->has(source))
 		{
 			respectable_listing_ui = customer2_ui;
+			to_set_user_as = customer2_ui->listing->contractor;
 			show_info(L"Заказчик согласился!");
 		}
 
 		else return;
 
-		respectable_listing_ui->listing->customer = user;
+		to_set_user_as = user;
 		accepted_listings.push_back(*respectable_listing_ui->listing);
 		respectable_listing_ui->ui_group->Enabled = false;
 

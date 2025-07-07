@@ -55,7 +55,7 @@ public:
 
 
 	/// Listings are only serialized if a customer and a contractor paired.
-	const std::wstring serialize(User* user) /// 'user' for comparing and finding where is 'user.txt' needed as a savefile
+	std::wstring serialize(User* user) /// 'user' for comparing and finding where is 'user.txt' needed as a savefile
 	{
 		std::wstring result =
 			  name + L'\n'

@@ -17,10 +17,11 @@
 
 /// Here be:
 
+const std::wstring SAVEFILES_DIRECTORY  = L"./SaveData/";
 const std::string  USER_SAVEFILE_NAME_S =  "user.txt";
 const std::wstring USER_SAVEFILE_NAME   = L"user.txt";
 const std::wstring USER_LISTINGS_FILE_NAME		 = L"user_listings.txt";
-const std::wstring LISTING_INDIVIDUALS_FILE_NAME = L"listing_individuals.txt";
+const std::wstring SAVED_INDIVIDUALS_FILE_NAME = L"listing_individuals.txt";
 
 User* load(const std::wstring address);
 void  save(User* user, std::wstring address = L"", std::vector<Listing> active_listings = {});
@@ -34,12 +35,12 @@ std::vector<User*> SAVED_INDIVIDUALS;
 
 
 /// POSSIBLE MEMORY LEAK: No time to deal with this pointer magic.
-User* load(const std::wstring address)
+User* load(const std::wstring filename)
 {
-	std::wifstream savefile(address);
+	std::wifstream savefile(SAVEFILES_DIRECTORY + filename);
 
 	/// Empty check
-	if (is_empty(address))
+	if (is_empty(SAVEFILES_DIRECTORY + filename))
 	{
 		savefile.close();
 		return nullptr;
@@ -55,7 +56,7 @@ User* load(const std::wstring address)
 	getline(savefile, account_type);
 	if (account_type != L"individual" && account_type != L"company")
 	{
-		show_error((std::wstring)L"'" + address + L"' - неправильный тип аккаунта '" + account_type + L"'");
+		show_error((std::wstring)L"'" + filename + L"' - неправильный тип аккаунта '" + account_type + L"'");
 		savefile.close();
 		return nullptr;
 	}
@@ -98,11 +99,11 @@ User* load(const std::wstring address)
 
 
 /// 'User*' instead of raw text as a protection from saving jackshit
-void save(User* user, std::wstring address/* = L""*/, std::vector<Listing> active_listings/* = {}*/)
+void save(User* user, std::wstring filename/* = L""*/, std::vector<Listing> active_listings/* = {}*/)
 {
-	if (address == L"")
-		address = user->name->as_filename();
-	std::wofstream savefile(address);
+	if (filename == L"")
+		filename = user->name->as_filename();
+	std::wofstream savefile(SAVEFILES_DIRECTORY + filename);
 
 	// Copied from: https://stackoverflow.com/a/3950840/15540979
 	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
@@ -115,21 +116,22 @@ void save(User* user, std::wstring address/* = L""*/, std::vector<Listing> activ
 	
 	if (active_listings.empty())
 		return;
-	std::wofstream savefile_listings(USER_LISTINGS_FILE_NAME);
+	std::wofstream savefile_listings(SAVEFILES_DIRECTORY + USER_LISTINGS_FILE_NAME);
 	savefile_listings.imbue(loc);
-	std::wofstream savefile_listing_individuals(LISTING_INDIVIDUALS_FILE_NAME);
-	savefile_listing_individuals.imbue(loc);
+	std::wofstream savefile_individuals(SAVEFILES_DIRECTORY + SAVED_INDIVIDUALS_FILE_NAME);
+	savefile_individuals.imbue(loc);
 
 	for (Listing& listing : active_listings)
 	{
 		savefile_listings << listing.serialize(user) << L'\n';
-		if ((listing.contractor != user) && (typeid(listing.contractor) == typeid(Individual)))
-			savefile_listing_individuals << listing.contractor->serialize() << L'\n';
-		else if ((listing.customer != user) && (typeid(listing.customer) == typeid(Individual)))
-			savefile_listing_individuals << listing.customer->serialize() << L'\n';
+
+		if ((listing.contractor != user) && (typeid(*listing.contractor) == typeid(Individual)))
+			savefile_individuals << listing.contractor->serialize() << L'\n';
+		else if ((listing.customer != user) && (typeid(*listing.customer) == typeid(Individual)))
+			savefile_individuals << listing.customer->serialize() << L'\n';
 	}
 	savefile_listings.close();
-	savefile_listing_individuals.close();
+	savefile_individuals.close();
 }
 
 
@@ -141,10 +143,10 @@ std::vector<Listing> load_listings(User* user)
 		return {};
 	}
 
-	std::wifstream savefile(USER_LISTINGS_FILE_NAME);
+	std::wifstream savefile(SAVEFILES_DIRECTORY + USER_LISTINGS_FILE_NAME);
 
 	/// Empty check
-	if (is_empty(USER_LISTINGS_FILE_NAME))
+	if (is_empty(SAVEFILES_DIRECTORY + USER_LISTINGS_FILE_NAME))
 	{
 		savefile.close();
 		return {};
@@ -180,11 +182,13 @@ std::vector<Listing> load_listings(User* user)
 				if (company->name->as_filename() == contractor_path)
 					contractor = company;
 			}
-			if (contractor != nullptr) return; /// contractor found in companies
-			for (User* individual : SAVED_INDIVIDUALS)
+			if (contractor == nullptr); /// contractor NOT found in companies
 			{
-				if (individual->name->as_filename() == contractor_path)
-					contractor = individual;
+				for (User* individual : SAVED_INDIVIDUALS)
+				{
+					if (individual->name->as_filename() == contractor_path)
+						contractor = individual;
+				}
 			}
 		}
 
@@ -198,11 +202,13 @@ std::vector<Listing> load_listings(User* user)
 				if (company->name->as_filename() == customer_path)
 					customer = company;
 			}
-			if (contractor != nullptr) return; /// customer found in companies
-			for (User* individual : SAVED_INDIVIDUALS)
+			if (contractor == nullptr) /// customer NOT found in companies
 			{
-				if (individual->name->as_filename() == customer_path)
-					customer = individual;
+				for (User* individual : SAVED_INDIVIDUALS)
+				{
+					if (individual->name->as_filename() == customer_path)
+						customer = individual;
+				}
 			}
 		}
 
@@ -225,11 +231,54 @@ void load_predefined_companies()
 {
 	PREDEFINED_COMPANIES.reserve(10);
 	
-	for (std::wstring path : _PREDEFINED_COMPANY_SAVEPATHS)
+	for (std::wstring filename : _PREDEFINED_COMPANY_SAVEPATHS)
 	{
-		path = L"./Predefined_Companies/" + path;
-		User* new_company = load(path);
+		filename = L"/Predefined_Companies/" + filename;
+		User* new_company = load(filename);
 		PREDEFINED_COMPANIES.push_back(new_company);
+	}
+}
+
+
+void load_saved_individuals()
+{
+	std::wifstream savefile(SAVEFILES_DIRECTORY + SAVED_INDIVIDUALS_FILE_NAME);
+
+	/// Empty check
+	if (is_empty(SAVEFILES_DIRECTORY + SAVED_INDIVIDUALS_FILE_NAME))
+	{
+		savefile.close();
+		return;
+	}
+
+	// Copied from: https://stackoverflow.com/a/3950840/15540979
+	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
+	savefile.imbue(loc);
+	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
+
+	std::vector<std::wstring> raw_data = to_string_bundle(savefile);
+	savefile.close();
+
+
+	std::wstring birth_date, name, phone_number, email, extra_contacts;
+
+	for (int i = 0; i < raw_data.size(); i++)
+	{
+		if (raw_data[i] == L"")
+			continue;
+		++i; /// accounting for 'individual' line in every serialization
+		/// Reading raw data in segments of 5
+		birth_date     = raw_data[i++];
+		name =			 raw_data[i++];
+		phone_number   = raw_data[i++],
+		email =			 raw_data[i++],
+		extra_contacts = raw_data[i++];
+
+		Date birth_date(birth_date);
+		Phone_Number phone_number(separate(phone_number));
+		Individual_Name name(separate(name));
+
+		SAVED_INDIVIDUALS.push_back(new Individual(name, birth_date, phone_number, email, extra_contacts));
 	}
 }
 
