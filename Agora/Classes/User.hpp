@@ -36,7 +36,6 @@ public:
 	: birth_date(_birth_date), phone_number(_phone_number), email(_email), extra_contacts(_extra_contacts)
 	{}
 
-	/// Temporary measure before (and if) I decide to go with JSON.
 	virtual std::wstring serialize() = 0;
 };
 

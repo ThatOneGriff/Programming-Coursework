@@ -23,9 +23,6 @@ std::vector<Listing> accepted_listings;
 Listing listing_contractor1, listing_contractor2,
 		listing_customer1,   listing_customer2;
 
-std::unordered_set<Control^> listing_contractor1_nodes, listing_contractor2_nodes,
-							 listing_customer1_nodes,	 listing_customer2_nodes;
-
 const std::wstring PROGRAM_INFO =
 	 (std::wstring)L"Agora v.1.0 от 07.07.2025\n" // it was INSISTING I was trying to initialize with 'System::String'
 	 + L"Курсовой проект от Первакова А.И.\n"
@@ -39,6 +36,9 @@ public ref class Main_Menu : public System::Windows::Forms::Form
 public:
 
 	User* user;
+
+	Listing_Interface ^contractor1_ui, ^contractor2_ui,
+					  ^customer1_ui,   ^customer2_ui;
 
 	Main_Menu(User* _user)
 	: user(_user)
@@ -55,7 +55,7 @@ public:
 		/// 2. 8 shows correct size in editor; 7 makes the release program correct.
 
 		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
-		fill_listing_ui_nodes();
+		fill_listing_interface_objects();
 		fill_account_menu();
 		fill_active_listings_menu();
 		fill_feed_menu();
@@ -63,44 +63,15 @@ public:
 
 private:
 
-	/// If CLR didn't enforce its "managed class" idiocy, I'd'nt be writing such code.
-	void fill_listing_ui_nodes()
+	void fill_listing_interface_objects()
 	{
-		listing_contractor1_nodes.reserve(10);
-		listing_contractor1_nodes = {
-			listing_contractor1_ui,			  listing_contractor1_name,
-			listing_contractor1_button_info,  listing_contractor1_author,
-			listing_contractor1_label_per_hr, listing_contractor1_per_hr,
-			listing_contractor1_label_hrs,	  listing_contractor1_picker_hrs,
-			listing_contractor1_button_hire,  listing_contractor1_total
-		};
-
-		listing_contractor2_nodes.reserve(10);
-		listing_contractor2_nodes = {
-			listing_contractor2_ui,			  listing_contractor2_name,
-			listing_contractor2_button_info,  listing_contractor2_author,
-			listing_contractor2_label_per_hr, listing_contractor2_per_hr,
-			listing_contractor2_label_hrs,	  listing_contractor2_picker_hrs,
-			listing_contractor2_button_hire,  listing_contractor2_total
-		};
-
-		listing_customer1_nodes.reserve(10);
-		listing_customer1_nodes = {
-			listing_customer1_ui,			 listing_customer1_name,
-			listing_customer1_button_info,   listing_customer1_author,
+		customer1_ui = gcnew Listing_Interface(
+			listing_customer1_ui,			 listing_customer1_name,		  listing_customer1_author,
+			listing_contractor1_button_info, listing_customer1_button_accept,
 			listing_customer1_label_per_hr,  listing_customer1_per_hr,
-			listing_customer1_label_hrs,     listing_customer1_hrs,
-			listing_customer1_button_accept, listing_customer1_total
-		};
-
-		listing_customer2_nodes.reserve(10);
-		listing_customer2_nodes = {
-			listing_customer2_ui,			 listing_customer2_name,
-			listing_customer2_button_info,   listing_customer2_author,
-			listing_customer2_label_per_hr,  listing_customer2_per_hr,
-			listing_customer2_label_hrs,     listing_customer2_hrs,
-			listing_customer2_button_accept, listing_customer2_total
-		};
+			listing_customer1_label_hrs,	 listing_customer1_hrs,
+			listing_customer1_total,		&listing_customer1
+		);
 	}
 
 	#pragma region = Winforms Code =
