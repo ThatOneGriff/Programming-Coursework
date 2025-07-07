@@ -489,7 +489,6 @@ private:
 		this->label_phone->Size = System::Drawing::Size(174, 24);
 		this->label_phone->TabIndex = 1000;
 		this->label_phone->Text = L"Номер телефона:";
-		this->label_phone->Click += gcnew System::EventHandler(this, &Registration::label_phone_Click);
 		// 
 		// contacts
 		// 
@@ -548,7 +547,6 @@ private:
 		this->label_extra->Size = System::Drawing::Size(166, 24);
 		this->label_extra->TabIndex = 1000;
 		this->label_extra->Text = L"Дополнительно:";
-		this->label_extra->Click += gcnew System::EventHandler(this, &Registration::label_extra_Click);
 		// 
 		// label_if_you_have_email
 		// 
@@ -586,7 +584,6 @@ private:
 		this->label_email->Size = System::Drawing::Size(105, 24);
 		this->label_email->TabIndex = 1000;
 		this->label_email->Text = L"Эл. почта:";
-		this->label_email->Click += gcnew System::EventHandler(this, &Registration::label_email_Click);
 		// 
 		// registration_company
 		// 
@@ -700,7 +697,6 @@ private:
 		this->label_website->Size = System::Drawing::Size(61, 24);
 		this->label_website->TabIndex = 1003;
 		this->label_website->Text = L"Сайт:";
-		this->label_website->Click += gcnew System::EventHandler(this, &Registration::label_website_Click);
 		// 
 		// label_est
 		// 
@@ -712,7 +708,6 @@ private:
 		this->label_est->Size = System::Drawing::Size(121, 24);
 		this->label_est->TabIndex = 1002;
 		this->label_est->Text = L"На рынке с:";
-		this->label_est->Click += gcnew System::EventHandler(this, &Registration::label_est_Click);
 		// 
 		// input_legal_form
 		// 
@@ -744,7 +739,6 @@ private:
 		this->label_company_name->Size = System::Drawing::Size(55, 24);
 		this->label_company_name->TabIndex = 1000;
 		this->label_company_name->Text = L"Имя:";
-		this->label_company_name->Click += gcnew System::EventHandler(this, &Registration::label_company_name_Click);
 		// 
 		// input_company_name
 		// 
@@ -833,7 +827,7 @@ private:
 	}
 
 
-	System::Void registration(System::Object^ sender, System::EventArgs^ e)
+	void registration(System::Object^ sender, System::EventArgs^ e)
 	{
 		/// Common between 'Individual' and 'Company'.
 		std::wstring email = to_std_wstring(input_email->Text);
@@ -875,7 +869,7 @@ private:
 
 	#pragma region ========== Individual ==========
 
-	System::Void pick_as_individual(System::Object^ sender, System::EventArgs^ e)
+	void pick_as_individual(System::Object^ sender, System::EventArgs^ e)
 	{
 		set_focus_params_individual();
 		node_manipulations_individual();
@@ -916,7 +910,7 @@ private:
 	}
 	
 	
-	System::Void sufficient_input_for_individual_registration_check(System::Object^ sender, System::EventArgs^ e)
+	void sufficient_input_for_individual_registration_check(System::Object^ sender, System::EventArgs^ e)
 	{
 		button_register->Enabled = (
 			input_surname->Text->Length >= 2 &&
@@ -937,7 +931,7 @@ private:
 
 	#pragma region ========== Company ==========
 
-	System::Void pick_as_company(System::Object^ sender, System::EventArgs^ e)
+	void pick_as_company(System::Object^ sender, System::EventArgs^ e)
 	{
 		set_focus_params_company();
 		node_manipulations_company();
@@ -975,7 +969,7 @@ private:
 	}
 	
 	
-	System::Void sufficient_input_for_company_registration_check(System::Object^ sender, System::EventArgs^ e)
+	void sufficient_input_for_company_registration_check(System::Object^ sender, System::EventArgs^ e)
 	{
 		button_register->Enabled = (
 			input_legal_form->SelectedIndex  > -1 &&
@@ -1006,7 +1000,7 @@ private:
 	void next_focus()
 	{
 		// Focus wrapping had been decided to be disabled.
-		if (++focus > MAX_FOCUS) focus = MAX_FOCUS; //0;
+		if (++focus > MAX_FOCUS) focus = MAX_FOCUS;
 		FOCUSABLE_NODES[focus]->Focus();
 	}
 
@@ -1014,7 +1008,7 @@ private:
 	void prev_focus()
 	{
 		// Focus wrapping had been decided to be disabled.
-		if (--focus < 0) focus = 0; //MAX_FOCUS;
+		if (--focus < 0) focus = 0;
 		FOCUSABLE_NODES[focus]->Focus();
 	}
 
@@ -1035,7 +1029,7 @@ private:
 
 
 	/// Assumes every 'sender' is a 'Control^' or is derived from it. Watch out!
-	System::Void mouse_focus_switch_check(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
+	void mouse_focus_switch_check(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
 		Control^ source = safe_cast<Control^>(sender);
 		focus = source->TabIndex;
@@ -1048,7 +1042,7 @@ private:
 	#pragma region ========== Input limiting (Common) ==========
 	
 	/// Assumes every 'sender' is a 'TextBox^'. Watch out!
-	System::Void only_digits(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
+	void only_digits(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
 		TextBox^ source = safe_cast<TextBox^>(sender);
@@ -1062,7 +1056,7 @@ private:
 
 
 	/// Assumes every 'sender' is a 'TextBox^'. Watch out!
-	System::Void only_letters(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
+	void only_letters(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
 	{
 		System::Char key = e->KeyChar;
 		TextBox^ source = safe_cast<TextBox^>(sender);
@@ -1113,7 +1107,7 @@ private:
 
 
 	unsigned int _phone_number_body_previous_length = 0;
-	System::Void on_phone_number_body_input(System::Object^ sender, System::EventArgs^ e)
+	void on_phone_number_body_input(System::Object^ sender, System::EventArgs^ e)
 	{
 		// Inserting first '-'
 		if (input_phone_number_body->Text->Length == 3 && _phone_number_body_previous_length == 2)
@@ -1134,18 +1128,6 @@ private:
 	}
 
 	#pragma endregion
-private: System::Void label_company_name_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label_est_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label_website_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label_phone_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label_email_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label_extra_Click(System::Object^ sender, System::EventArgs^ e) {
-}
 };
 }
 
