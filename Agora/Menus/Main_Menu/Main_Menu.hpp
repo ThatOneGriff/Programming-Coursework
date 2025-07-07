@@ -205,7 +205,15 @@ private: System::Windows::Forms::Label^ active_listing_2_label_hourly;
 private: System::Windows::Forms::Label^ active_listing_2_hourly;
 
 private: System::Windows::Forms::Label^ active_listing_2_name;
-private: System::Windows::Forms::Button^ button1;
+private: System::Windows::Forms::Button^ listing_customer_1_button_info;
+private: System::Windows::Forms::Button^ listing_customer_2_button_info;
+private: System::Windows::Forms::Button^ listing_contractor_2_button_info;
+
+
+private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
+
+
+
 
 
 
@@ -237,7 +245,6 @@ private: System::Windows::Forms::Button^ button1;
 		this->menu_button_account = (gcnew System::Windows::Forms::Button());
 		this->menu_button_feed = (gcnew System::Windows::Forms::Button());
 		this->menu_account = (gcnew System::Windows::Forms::Panel());
-		this->button1 = (gcnew System::Windows::Forms::Button());
 		this->group_active_contracts = (gcnew System::Windows::Forms::GroupBox());
 		this->active_listing_2 = (gcnew System::Windows::Forms::GroupBox());
 		this->active_listing_2_total = (gcnew System::Windows::Forms::Label());
@@ -286,6 +293,7 @@ private: System::Windows::Forms::Button^ button1;
 		this->listing_customer_2_hourly = (gcnew System::Windows::Forms::Label());
 		this->listing_customer_2_name = (gcnew System::Windows::Forms::Label());
 		this->listing_customer_1 = (gcnew System::Windows::Forms::GroupBox());
+		this->listing_customer_1_button_info = (gcnew System::Windows::Forms::Button());
 		this->listing_customer_1_total = (gcnew System::Windows::Forms::Label());
 		this->listing_customer_1_accept = (gcnew System::Windows::Forms::Button());
 		this->listing_customer_1_hrs = (gcnew System::Windows::Forms::Label());
@@ -324,6 +332,9 @@ private: System::Windows::Forms::Button^ button1;
 		this->input_search = (gcnew System::Windows::Forms::TextBox());
 		this->label_search = (gcnew System::Windows::Forms::Label());
 		this->bg_search = (gcnew System::Windows::Forms::PictureBox());
+		this->listing_customer_2_button_info = (gcnew System::Windows::Forms::Button());
+		this->listing_contractor_1_button_info = (gcnew System::Windows::Forms::Button());
+		this->listing_contractor_2_button_info = (gcnew System::Windows::Forms::Button());
 		this->sidebar->SuspendLayout();
 		this->menu_account->SuspendLayout();
 		this->group_active_contracts->SuspendLayout();
@@ -433,7 +444,6 @@ private: System::Windows::Forms::Button^ button1;
 		// menu_account
 		// 
 		this->menu_account->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-		this->menu_account->Controls->Add(this->button1);
 		this->menu_account->Controls->Add(this->group_active_contracts);
 		this->menu_account->Controls->Add(this->group_account_data);
 		this->menu_account->Controls->Add(this->label_my_account);
@@ -443,18 +453,6 @@ private: System::Windows::Forms::Button^ button1;
 		this->menu_account->Name = L"menu_account";
 		this->menu_account->Size = System::Drawing::Size(560, 502);
 		this->menu_account->TabIndex = 2;
-		// 
-		// button1
-		// 
-		this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
-		this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
-		this->button1->Location = System::Drawing::Point(182, 4);
-		this->button1->Margin = System::Windows::Forms::Padding(4);
-		this->button1->Name = L"button1";
-		this->button1->RightToLeft = System::Windows::Forms::RightToLeft::No;
-		this->button1->Size = System::Drawing::Size(35, 37);
-		this->button1->TabIndex = 6;
-		this->button1->UseVisualStyleBackColor = true;
 		// 
 		// group_active_contracts
 		// 
@@ -939,6 +937,7 @@ private: System::Windows::Forms::Button^ button1;
 		// 
 		// listing_customer_2
 		// 
+		this->listing_customer_2->Controls->Add(this->listing_customer_2_button_info);
 		this->listing_customer_2->Controls->Add(this->listing_customer_2_total);
 		this->listing_customer_2->Controls->Add(this->listing_customer_2_accept);
 		this->listing_customer_2->Controls->Add(this->listing_customer_2_hrs);
@@ -1007,7 +1006,7 @@ private: System::Windows::Forms::Button^ button1;
 		// listing_customer_2_from
 		// 
 		this->listing_customer_2_from->AutoSize = true;
-		this->listing_customer_2_from->Location = System::Drawing::Point(5, 40);
+		this->listing_customer_2_from->Location = System::Drawing::Point(35, 40);
 		this->listing_customer_2_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_customer_2_from->Name = L"listing_customer_2_from";
 		this->listing_customer_2_from->Size = System::Drawing::Size(134, 20);
@@ -1050,6 +1049,7 @@ private: System::Windows::Forms::Button^ button1;
 		// 
 		// listing_customer_1
 		// 
+		this->listing_customer_1->Controls->Add(this->listing_customer_1_button_info);
 		this->listing_customer_1->Controls->Add(this->listing_customer_1_total);
 		this->listing_customer_1->Controls->Add(this->listing_customer_1_accept);
 		this->listing_customer_1->Controls->Add(this->listing_customer_1_hrs);
@@ -1067,6 +1067,19 @@ private: System::Windows::Forms::Button^ button1;
 		this->listing_customer_1->Size = System::Drawing::Size(254, 147);
 		this->listing_customer_1->TabIndex = 0;
 		this->listing_customer_1->TabStop = false;
+		// 
+		// listing_customer_1_button_info
+		// 
+		this->listing_customer_1_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
+			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
+		this->listing_customer_1_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_customer_1_button_info.BackgroundImage")));
+		this->listing_customer_1_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+		this->listing_customer_1_button_info->Location = System::Drawing::Point(5, 35);
+		this->listing_customer_1_button_info->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer_1_button_info->Name = L"listing_customer_1_button_info";
+		this->listing_customer_1_button_info->Size = System::Drawing::Size(30, 30);
+		this->listing_customer_1_button_info->TabIndex = 5;
+		this->listing_customer_1_button_info->UseVisualStyleBackColor = false;
 		// 
 		// listing_customer_1_total
 		// 
@@ -1118,7 +1131,7 @@ private: System::Windows::Forms::Button^ button1;
 		// listing_customer_1_from
 		// 
 		this->listing_customer_1_from->AutoSize = true;
-		this->listing_customer_1_from->Location = System::Drawing::Point(5, 40);
+		this->listing_customer_1_from->Location = System::Drawing::Point(35, 40);
 		this->listing_customer_1_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_customer_1_from->Name = L"listing_customer_1_from";
 		this->listing_customer_1_from->Size = System::Drawing::Size(134, 20);
@@ -1176,6 +1189,7 @@ private: System::Windows::Forms::Button^ button1;
 		// 
 		// listing_contractor_2
 		// 
+		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_button_info);
 		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_hrs_picker);
 		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_total);
 		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_accept);
@@ -1245,7 +1259,7 @@ private: System::Windows::Forms::Button^ button1;
 		// listing_contractor_2_from
 		// 
 		this->listing_contractor_2_from->AutoSize = true;
-		this->listing_contractor_2_from->Location = System::Drawing::Point(5, 40);
+		this->listing_contractor_2_from->Location = System::Drawing::Point(35, 40);
 		this->listing_contractor_2_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_contractor_2_from->Name = L"listing_contractor_2_from";
 		this->listing_contractor_2_from->Size = System::Drawing::Size(149, 20);
@@ -1288,6 +1302,7 @@ private: System::Windows::Forms::Button^ button1;
 		// 
 		// listing_contractor_1
 		// 
+		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_button_info);
 		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_hrs_picker);
 		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_total);
 		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_accept);
@@ -1357,7 +1372,7 @@ private: System::Windows::Forms::Button^ button1;
 		// listing_contractor_1_from
 		// 
 		this->listing_contractor_1_from->AutoSize = true;
-		this->listing_contractor_1_from->Location = System::Drawing::Point(5, 40);
+		this->listing_contractor_1_from->Location = System::Drawing::Point(35, 40);
 		this->listing_contractor_1_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->listing_contractor_1_from->Name = L"listing_contractor_1_from";
 		this->listing_contractor_1_from->Size = System::Drawing::Size(149, 20);
@@ -1527,6 +1542,45 @@ private: System::Windows::Forms::Button^ button1;
 		this->bg_search->TabIndex = 5;
 		this->bg_search->TabStop = false;
 		// 
+		// listing_customer_2_button_info
+		// 
+		this->listing_customer_2_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
+			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
+		this->listing_customer_2_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_customer_2_button_info.BackgroundImage")));
+		this->listing_customer_2_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+		this->listing_customer_2_button_info->Location = System::Drawing::Point(5, 35);
+		this->listing_customer_2_button_info->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer_2_button_info->Name = L"listing_customer_2_button_info";
+		this->listing_customer_2_button_info->Size = System::Drawing::Size(30, 30);
+		this->listing_customer_2_button_info->TabIndex = 8;
+		this->listing_customer_2_button_info->UseVisualStyleBackColor = false;
+		// 
+		// listing_contractor_1_button_info
+		// 
+		this->listing_contractor_1_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
+			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
+		this->listing_contractor_1_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_contractor_1_button_info.BackgroundImage")));
+		this->listing_contractor_1_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+		this->listing_contractor_1_button_info->Location = System::Drawing::Point(5, 35);
+		this->listing_contractor_1_button_info->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor_1_button_info->Name = L"listing_contractor_1_button_info";
+		this->listing_contractor_1_button_info->Size = System::Drawing::Size(30, 30);
+		this->listing_contractor_1_button_info->TabIndex = 9;
+		this->listing_contractor_1_button_info->UseVisualStyleBackColor = false;
+		// 
+		// listing_contractor_2_button_info
+		// 
+		this->listing_contractor_2_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
+			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
+		this->listing_contractor_2_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_contractor_2_button_info.BackgroundImage")));
+		this->listing_contractor_2_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+		this->listing_contractor_2_button_info->Location = System::Drawing::Point(5, 35);
+		this->listing_contractor_2_button_info->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor_2_button_info->Name = L"listing_contractor_2_button_info";
+		this->listing_contractor_2_button_info->Size = System::Drawing::Size(30, 30);
+		this->listing_contractor_2_button_info->TabIndex = 10;
+		this->listing_contractor_2_button_info->UseVisualStyleBackColor = false;
+		// 
 		// Main_Menu
 		// 
 		this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
@@ -1534,9 +1588,9 @@ private: System::Windows::Forms::Button^ button1;
 		this->BackColor = System::Drawing::SystemColors::Control;
 		this->ClientSize = System::Drawing::Size(684, 517);
 		this->Controls->Add(this->sidebar);
+		this->Controls->Add(this->menu_feed);
 		this->Controls->Add(this->menu_account);
 		this->Controls->Add(this->menu_search);
-		this->Controls->Add(this->menu_feed);
 		this->DoubleBuffered = true;
 		this->Font = (gcnew System::Drawing::Font(L"Roboto", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
