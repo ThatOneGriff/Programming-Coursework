@@ -3,7 +3,6 @@
 #define MAIN_MENU_HPP
 
 #include <vector>
-#include <unordered_set>
 
 #include "Menus/Registration/registration.hpp"
 #include "listing_interface.hpp"
