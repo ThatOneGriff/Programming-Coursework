@@ -32,7 +32,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	if (user == nullptr) /// Registration didn't work, or user closed the window.
 		return 0;
 
-	PREDEFINED_COMPANIES = load_predefined_companies();
+	load_predefined_companies();
     Application::Run(gcnew Main_Menu(user));
 
     return 0;

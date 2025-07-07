@@ -877,42 +877,35 @@ private:
 
 	System::Void pick_as_individual(System::Object^ sender, System::EventArgs^ e)
 	{
-		FOCUSABLE_NODES = focus_params_individual();
+		set_focus_params_individual();
 		node_manipulations_individual();
 		sufficient_input_for_individual_registration_check(nullptr, nullptr);
 	}
 
 
-	array<Control^>^ focus_params_individual()
+	void set_focus_params_individual()
 	{
-		/// Why am I writing such a shitty code?
-		/// Take a wild fucking guess.
-		/// .NET doesn't allow me to create a constant array in-place, instead forcing me to do... *this.*
-		/// DOTNET SUCKS BALLS
-		
-		array<Control^>^ result = gcnew array<Control^>(9);
+		FOCUSABLE_NODES->Resize(FOCUSABLE_NODES, 9);
 
-		result[0] = input_surname;
-		result[1] = input_name;
-		result[2] = input_patronym;
+		FOCUSABLE_NODES[0] = input_surname;
+		FOCUSABLE_NODES[1] = input_name;
+		FOCUSABLE_NODES[2] = input_patronym;
 
-		result[3] = input_ind_day;
-		result[4] = input_ind_year;
+		FOCUSABLE_NODES[3] = input_ind_day;
+		FOCUSABLE_NODES[4] = input_ind_year;
 
-		result[5] = input_carrier_code;
-		result[6] = input_phone_number_body;
+		FOCUSABLE_NODES[5] = input_carrier_code;
+		FOCUSABLE_NODES[6] = input_phone_number_body;
 
-		result[7] = input_email;
-		result[8] = input_extra;
+		FOCUSABLE_NODES[7] = input_email;
+		FOCUSABLE_NODES[8] = input_extra;
 
 		MAX_FOCUS = 8;
 		focus = 0;
-		result[0]->Select();
+		FOCUSABLE_NODES[0]->Select();
 
 		input_carrier_code->TabIndex = 5;
 		input_phone_number_body->TabIndex = 6;
-
-		return result;
 	}
 
 
@@ -946,36 +939,32 @@ private:
 
 	System::Void pick_as_company(System::Object^ sender, System::EventArgs^ e)
 	{
-		FOCUSABLE_NODES = focus_params_company();
+		set_focus_params_company();
 		node_manipulations_company();
 		sufficient_input_for_company_registration_check(nullptr, nullptr);
 	}
 
 
-	array<Control^>^ focus_params_company()
+	void set_focus_params_company()
 	{
-		array<Control^>^ result = gcnew array<Control^>(7);
+		FOCUSABLE_NODES->Resize(FOCUSABLE_NODES, 7);
 
-		result[0] = input_company_name;
+		FOCUSABLE_NODES[0] = input_company_name;
+		FOCUSABLE_NODES[1] = input_com_year;
+		FOCUSABLE_NODES[2] = input_website;
 
-		result[1] = input_com_year;
+		FOCUSABLE_NODES[3] = input_carrier_code;
+		FOCUSABLE_NODES[4] = input_phone_number_body;
 
-		result[2] = input_website;
-
-		result[3] = input_carrier_code;
-		result[4] = input_phone_number_body;
-
-		result[5] = input_email;
-		result[6] = input_extra;
+		FOCUSABLE_NODES[5] = input_email;
+		FOCUSABLE_NODES[6] = input_extra;
 
 		MAX_FOCUS = 6;
 		focus = 0;
-		result[0]->Select();
+		FOCUSABLE_NODES[0]->Select();
 
 		input_carrier_code->TabIndex = 3;
 		input_phone_number_body->TabIndex = 4;
-
-		return result;
 	}
 
 
