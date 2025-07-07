@@ -89,13 +89,18 @@ public:
 
 		ui_group->Enabled = true;
 		name->Text   = to_dotnet_string(listing->name);
-		author->Text = to_dotnet_string(listing->contractor->name->get_short());
 		per_hr->Text = Convert::ToString(listing->payment_hr);
 
 		if (listing_type == CUSTOMER_LISTING)
+		{
 			hrs->Text = Convert::ToString(listing->total_hrs);
+			author->Text = to_dotnet_string(listing->customer->name->get_short());
+		}
 		else if (listing_type == CONTRACTOR_LISTING)
+		{
 			calculate_and_display_total(1);
+			author->Text = to_dotnet_string(listing->contractor->name->get_short());
+		}
 		else
 			show_error(L"Wrong listing type \"" + std::to_wstring(listing_type) + L"\".");
 	}
