@@ -73,12 +73,28 @@ private:
 			listing_contractor1_total,		 &listing_contractor1
 		);
 
+		contractor2_ui = gcnew Listing_Interface(
+			listing_contractor2_ui,			  listing_contractor2_name,		   listing_contractor2_author,
+			listing_contractor2_button_info,  listing_contractor2_button_hire,
+			listing_contractor2_label_per_hr, listing_contractor2_per_hr,
+			listing_contractor2_label_hrs,	  listing_contractor2_picker_hrs,
+			listing_contractor2_total,		 &listing_contractor2
+		);
+
 		customer1_ui = gcnew Listing_Interface(
 			listing_customer1_ui,			 listing_customer1_name,		  listing_customer1_author,
 			listing_contractor1_button_info, listing_customer1_button_accept,
 			listing_customer1_label_per_hr,  listing_customer1_per_hr,
 			listing_customer1_label_hrs,	 listing_customer1_hrs,
 			listing_customer1_total,		&listing_customer1
+		);
+
+		customer2_ui = gcnew Listing_Interface(
+			listing_customer2_ui,			 listing_customer2_name,		  listing_customer2_author,
+			listing_contractor2_button_info, listing_customer2_button_accept,
+			listing_customer2_label_per_hr,  listing_customer2_per_hr,
+			listing_customer2_label_hrs,	 listing_customer2_hrs,
+			listing_customer2_total,		&listing_customer2
 		);
 	}
 
@@ -1727,40 +1743,39 @@ private:
 	void accept_listing(System::Object^ sender, System::EventArgs^ e)
 	{
 		Button^ source = safe_cast<Button^>(sender);
-		if (source == listing_contractor_1_accept)
+		Listing_Interface^ respectable_listing_ui;
+		if (contractor1_ui->has(source))
 		{
-			job_request_1.customer = user;
-			accepted_listings.push_back(job_request_1);
+			respectable_listing_ui = contractor1_ui;
+			/// We could give it an 80% chance for a spice.
 			show_info(L"Подрядчик согласился!");
-			listing_contractor_1->Enabled = false;
 		}
 
-		else if (source == listing_contractor_2_accept)
+		else if (contractor2_ui->has(source))
 		{
-			job_request_2.customer = user;
-			accepted_listings.push_back(job_request_2);
+			respectable_listing_ui = contractor2_ui;
 			show_info(L"Подрядчик согласился!");
-			listing_contractor_2->Enabled = false;
-		}
-		
-		else if (source == listing_customer_1_accept)
-		{
-			job_offer_1.contractor = user;
-			accepted_listings.push_back(job_offer_1);
-			show_info(L"Заказчик согласился!");
-			listing_customer_1->Enabled = false;
-		}
-		
-		else if (source == listing_customer_2_accept)
-		{
-			job_offer_2.contractor = user;
-			accepted_listings.push_back(job_offer_2);
-			show_info(L"Заказчик согласился!");
-			listing_customer_2->Enabled = false;
 		}
 
-		else
-			return;
+		else if (customer1_ui->has(source))
+		{
+			respectable_listing_ui = customer1_ui;
+			/// We could give it an 80% chance for a spice.
+			show_info(L"Заказчик согласился!");
+		}
+
+		else if (customer2_ui->has(source))
+		{
+			respectable_listing_ui = customer2_ui;
+			/// We could give it an 80% chance for a spice.
+			show_info(L"Заказчик согласился!");
+		}
+
+		else return;
+
+		respectable_listing_ui->listing->customer = user;
+		accepted_listings.push_back(*respectable_listing_ui->listing);
+		respectable_listing_ui->ui_group->Enabled = false;
 
 		save(user, USER_SAVEFILE_NAME, accepted_listings);
 		fill_active_listings_menu();
@@ -1770,17 +1785,15 @@ private:
 	void feed_contracts_length_adjusted(System::Object^ sender, System::EventArgs^ e)
 	{
 		NumericUpDown^ source = safe_cast<NumericUpDown^>(sender);
+		Listing_Interface^ respectable_listing_ui;
 		
-		if (source == listing_contractor_1_hrs_picker)
-		{
-			job_request_1.total_hrs = Convert::ToInt32(source->Value);
-			listing_contractor_1_total->Text = L"Итого, ₽: " + Convert::ToString(job_request_1.payment_total());
-		}
-		else if (source == listing_contractor_2_hrs_picker)
-		{
-			job_request_2.total_hrs = Convert::ToInt32(source->Value);
-			listing_contractor_2_total->Text = L"Итого, ₽: " + Convert::ToString(job_request_2.payment_total());
-		}
+		if (contractor1_ui->has(source))
+			respectable_listing_ui = contractor1_ui;
+		else if (contractor2_ui->has(source))
+			respectable_listing_ui = contractor2_ui;
+		else return;
+
+		respectable_listing_ui->calculate_and_display_total(Convert::ToUInt32(source->Value));
 	}
 
 

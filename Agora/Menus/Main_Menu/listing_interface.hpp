@@ -54,7 +54,7 @@ public:
 	Listing_Interface(GroupBox^ _ui_group,     Label^  _name,   Label^ _author,
 					  Button^   _author_info,  Button^ _accept,
 					  Label^    _label_per_hr, Label^  _per_hr, Label^ _label_hrs,
-					  Control^ _hrs,		   Label^ _total,   Listing* _listing)
+					  Control^  _hrs,		   Label^ _total,   Listing* _listing)
 	: ui_group(_ui_group),		   name(_name),		author(_author),
 	  author_info(_author_info),   accept(_accept),
 	  label_per_hr(_label_per_hr), per_hr(_per_hr), label_hrs(_label_hrs),
