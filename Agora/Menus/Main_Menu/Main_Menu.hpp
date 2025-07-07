@@ -69,32 +69,28 @@ private:
 			listing_contractor1_ui,			  listing_contractor1_name,		   listing_contractor1_author,
 			listing_contractor1_button_info,  listing_contractor1_button_hire,
 			listing_contractor1_label_per_hr, listing_contractor1_per_hr,
-			listing_contractor1_label_hrs,	  listing_contractor1_picker_hrs,
-			listing_contractor1_total,		 &listing_contractor1
+			listing_contractor1_label_hrs,	  listing_contractor1_picker_hrs,  listing_contractor1_total
 		);
 
 		contractor2_ui = gcnew Listing_Interface(
 			listing_contractor2_ui,			  listing_contractor2_name,		   listing_contractor2_author,
 			listing_contractor2_button_info,  listing_contractor2_button_hire,
 			listing_contractor2_label_per_hr, listing_contractor2_per_hr,
-			listing_contractor2_label_hrs,	  listing_contractor2_picker_hrs,
-			listing_contractor2_total,		 &listing_contractor2
+			listing_contractor2_label_hrs,	  listing_contractor2_picker_hrs,  listing_contractor2_total
 		);
 
 		customer1_ui = gcnew Listing_Interface(
 			listing_customer1_ui,			 listing_customer1_name,		  listing_customer1_author,
 			listing_contractor1_button_info, listing_customer1_button_accept,
 			listing_customer1_label_per_hr,  listing_customer1_per_hr,
-			listing_customer1_label_hrs,	 listing_customer1_hrs,
-			listing_customer1_total,		&listing_customer1
+			listing_customer1_label_hrs,	 listing_customer1_hrs,			  listing_customer1_total
 		);
 
 		customer2_ui = gcnew Listing_Interface(
 			listing_customer2_ui,			 listing_customer2_name,		  listing_customer2_author,
 			listing_contractor2_button_info, listing_customer2_button_accept,
 			listing_customer2_label_per_hr,  listing_customer2_per_hr,
-			listing_customer2_label_hrs,	 listing_customer2_hrs,
-			listing_customer2_total,		&listing_customer2
+			listing_customer2_label_hrs,	 listing_customer2_hrs,			  listing_customer2_total
 		);
 	}
 
@@ -1799,35 +1795,17 @@ private:
 
 	void fill_feed_menu()
 	{
-		job_request_1 = get_random_listing(CONTRACTOR_LISTING);
-		listing_contractor_1->Enabled = true;
-		listing_contractor_1_name->Text = to_dotnet_string(job_request_1.name);
-		listing_contractor_1_from->Text = to_dotnet_string(job_request_1.contractor->name->get_short());
-		listing_contractor_1_hourly->Text = Convert::ToString(job_request_1.payment_hr);
-		listing_contractor_1_total->Text  = L"Итого, ₽: " + Convert::ToString(job_request_1.payment_total());
+		listing_contractor1 = get_random_listing(CONTRACTOR_LISTING);
+		contractor1_ui->set_listing(&listing_contractor1, CONTRACTOR_LISTING);
 
-		job_request_2 = get_random_listing(CONTRACTOR_LISTING);
-		listing_contractor_2->Enabled = true;
-		listing_contractor_2_name->Text = to_dotnet_string(job_request_2.name);
-		listing_contractor_2_from->Text = to_dotnet_string(job_request_2.contractor->name->get_short());
-		listing_contractor_2_hourly->Text = Convert::ToString(job_request_2.payment_hr);
-		listing_contractor_2_total->Text  = L"Итого, ₽: " + Convert::ToString(job_request_2.payment_total());
+		listing_contractor2 = get_random_listing(CONTRACTOR_LISTING);
+		contractor2_ui->set_listing(&listing_contractor2, CONTRACTOR_LISTING);
 
-		job_offer_1 = get_random_listing(CUSTOMER_LISTING);
-		listing_customer_1->Enabled = true;
-		listing_customer_1_name->Text = to_dotnet_string(job_offer_1.name);
-		listing_customer_1_from->Text = to_dotnet_string(job_offer_1.customer->name->get_full());
-		listing_customer_1_hourly->Text = Convert::ToString(job_offer_1.payment_hr);
-		listing_customer_1_hrs->Text	= Convert::ToString(job_offer_1.total_hrs);
-		listing_customer_1_total->Text  = L"Итого, ₽: " + Convert::ToString(job_offer_1.payment_total());
+		listing_customer1 = get_random_listing(CUSTOMER_LISTING);
+		customer1_ui->set_listing(&listing_customer1, CUSTOMER_LISTING);
 
-		job_offer_2 = get_random_listing(CUSTOMER_LISTING);
-		listing_customer_2->Enabled = true;
-		listing_customer_2_name->Text = to_dotnet_string(job_offer_2.name);
-		listing_customer_2_from->Text = to_dotnet_string(job_offer_2.customer->name->get_full());
-		listing_customer_2_hourly->Text = Convert::ToString(job_offer_2.payment_hr);
-		listing_customer_2_hrs->Text	= Convert::ToString(job_offer_2.total_hrs);
-		listing_customer_2_total->Text  = L"Итого, ₽: " + Convert::ToString(job_offer_2.payment_total());
+		listing_customer2 = get_random_listing(CUSTOMER_LISTING);
+		customer2_ui->set_listing(&listing_customer2, CUSTOMER_LISTING);
 	}
 
 
@@ -1835,9 +1813,9 @@ private:
 	{
 		/// Think I'm a genius. This function is used both for start and end of the 'update'. Elegant!
 		button_feed_update->Enabled = ! button_feed_update->Enabled;
-		group_orders->Enabled = ! group_orders->Enabled;
-		group_offers->Enabled = ! group_offers->Enabled;
-		update_timer->Enabled = ! update_timer->Enabled;
+		group_contractors->Enabled  = ! group_contractors->Enabled;
+		group_customers->Enabled	= ! group_customers->Enabled;
+		update_timer->Enabled		= ! update_timer->Enabled;
 
 		/// countdown finished
 		if (! update_timer->Enabled)

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef LISTING_INTERFACE_HPP
 #define LISTING_INTERFACE_HPP
 
@@ -14,8 +14,6 @@ namespace Agora
 public ref class Listing_Interface
 {
 public:
-
-	Listing* listing;
 	
 	GroupBox ^ui_group;
 	Label    ^name, ^author;
@@ -23,6 +21,8 @@ public:
 	Label    ^label_per_hr, ^per_hr, ^label_hrs;
 	Control  ^hrs; /// May be a 'NumericUpDown' or a 'Label'
 	Label	 ^total;
+
+	Listing* listing;
 
 
 	Listing_Interface^ operator=(Listing_Interface^ other)
@@ -54,12 +54,20 @@ public:
 	Listing_Interface(GroupBox^ _ui_group,     Label^  _name,   Label^ _author,
 					  Button^   _author_info,  Button^ _accept,
 					  Label^    _label_per_hr, Label^  _per_hr, Label^ _label_hrs,
-					  Control^  _hrs,		   Label^ _total,   Listing* _listing)
+					  Control^  _hrs,		   Label^ _total)
 	: ui_group(_ui_group),		   name(_name),		author(_author),
 	  author_info(_author_info),   accept(_accept),
 	  label_per_hr(_label_per_hr), per_hr(_per_hr), label_hrs(_label_hrs),
-	  hrs(_hrs),				   total(_total),   listing(_listing)
+	  hrs(_hrs),				   total(_total)
 	{}
+
+	
+	/// Intended only for UI's with variable hour settings!
+	void calculate_and_display_total(const unsigned int total_hrs)
+	{
+		listing->total_hrs = total_hrs;
+		total->Text = L"Итого, ₽: " + listing->payment_total();
+	}
 
 
 	bool has(Control^ node)
@@ -72,6 +80,24 @@ public:
 			|| node == label_hrs    || node == hrs
 			|| node == total
 		);
+	}
+
+
+	void set_listing(Listing* new_listing, const unsigned int listing_type)
+	{
+		listing = new_listing;
+
+		ui_group->Enabled = true;
+		name->Text   = to_dotnet_string(listing->name);
+		author->Text = to_dotnet_string(listing->contractor->name->get_short());
+		per_hr->Text = Convert::ToString(listing->payment_hr);
+
+		if (listing_type == CUSTOMER_LISTING)
+			hrs->Text = Convert::ToString(listing->total_hrs);
+		else if (listing_type == CONTRACTOR_LISTING)
+			calculate_and_display_total(1);
+		else
+			show_error(L"Wrong listing type \"" + std::to_wstring(listing_type) + L"\".");
 	}
 };
 }

@@ -30,6 +30,10 @@
 };*/
 
 
+#define CUSTOMER_LISTING   1
+#define CONTRACTOR_LISTING 2
+
+
 class Listing
 {
 public:

@@ -15,9 +15,6 @@
 class  _Job_Class;
 Listing get_random_listing(int job_type);
 
-#define CUSTOMER_LISTING   1
-#define CONTRACTOR_LISTING 2
-
 
 
 class _Job_Class
