@@ -13,12 +13,6 @@ void show_warning(const std::wstring& warning, const std::wstring& heading = L"В
 void show_error  (const std::wstring& error,   const std::wstring& heading = L"Ошибка");
 
 
-const std::wstring program_info =
-	(std::wstring)L"Agora v.1.0 от 02.07.2025\n" // it was INSISTING I'm trying to initialize with 'System::String'
-	+ L"Курсовой проект от Первакова А.И.\n"
-	+ L"КубГАУ, Прикладная информатика, ИТ2403";
-
-
 void show_info(System::String^ info, const std::wstring& heading/* = L"Информация"*/)
 {
 	MessageBox::Show(info, to_dotnet_string(heading), MessageBoxButtons::OK, MessageBoxIcon::Information);

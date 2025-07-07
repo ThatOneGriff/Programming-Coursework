@@ -20,8 +20,17 @@ using namespace System::Drawing;
 
 /// 'Member of an unmanaged class' bullshit made me put all of this here
 std::vector<Listing> accepted_listings;
-Listing job_request_1, job_request_2,
-		job_offer_1,   job_offer_2;
+Listing listing_customer1,   listing_customer2,
+		listing_contractor1, listing_contractor2;
+
+std::vector<Control^> listing_customer1_nodes,	 listing_customer2_nodes,
+					  listing_contractor1_nodes, listing_contractor2_nodes;
+
+const std::wstring PROGRAM_INFO =
+	 (std::wstring)L"Agora v.1.0 от 07.07.2025\n" // it was INSISTING I was trying to initialize with 'System::String'
+	 + L"Курсовой проект от Первакова А.И.\n"
+	 + L"КубГАУ, Прикладная информатика, ИТ2403";
+
 
 namespace Agora
 {
@@ -42,7 +51,7 @@ public:
 		/// I HATE CLR. FUCK CLR. MICROSOFT CAN GO EAT SHIT
 		System::Drawing::Font^ font = gcnew System::Drawing::Font("Roboto", 7);
 		this->Font = font;
-		/// 1. Scaling somewhy depends on font size. What the f***?
+		/// 1. WINDOW'S scaling somewhy depends on font size. What the f***?
 		/// 2. 8 shows correct size in editor; 7 makes the release program correct.
 
 		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
@@ -81,8 +90,10 @@ private: System::Windows::Forms::Button^ button_edit;
 	System::Windows::Forms::Panel^ menu_feed;
 	System::Windows::Forms::Label^ label_feed;
 	System::Windows::Forms::PictureBox^ bg_feed;
-	System::Windows::Forms::GroupBox^ group_offers;
-	System::Windows::Forms::GroupBox^ group_orders;
+private: System::Windows::Forms::GroupBox^ group_contractors;
+
+private: System::Windows::Forms::GroupBox^ group_customers;
+
 	System::Windows::Forms::Button^ button_feed_update;
 	System::Windows::Forms::Timer^ update_timer;
 	System::Windows::Forms::Panel^ menu_search;
@@ -101,70 +112,106 @@ private: System::Windows::Forms::Button^ button_edit;
 	System::Windows::Forms::Label^ label_account_phone_number;
 	System::Windows::Forms::RichTextBox^ label_no_active_contracts;
 	System::Windows::Forms::Button^ button_filter;
-private: System::Windows::Forms::GroupBox^ listing_customer_1;
-private: System::Windows::Forms::Label^ listing_customer_1_name;
+private: System::Windows::Forms::GroupBox^ listing_customer1_ui;
+private: System::Windows::Forms::Label^ listing_customer1_name;
+private: System::Windows::Forms::Label^ listing_customer1_author;
+private: System::Windows::Forms::Label^ listing_customer1_label_per_hr;
+private: System::Windows::Forms::Label^ listing_customer1_per_hr;
 
-private: System::Windows::Forms::Label^ listing_customer_1_from;
 
 
-private: System::Windows::Forms::Label^ listing_customer_1_label_hourly;
-private: System::Windows::Forms::Label^ listing_customer_1_hourly;
+
+
+
+
+
 private: System::Windows::Forms::Label^ listing_customer_1_hrs;
+private: System::Windows::Forms::Label^ listing_customer1_label_hrs;
+private: System::Windows::Forms::Button^ listing_customer1_accept;
+private: System::Windows::Forms::Label^ listing_customer1_total;
 
 
 
 
 
-private: System::Windows::Forms::Label^ listing_customer_1_label_hours;
-private: System::Windows::Forms::Button^ listing_customer_1_accept;
-private: System::Windows::Forms::Label^ listing_customer_1_total;
-private: System::Windows::Forms::GroupBox^ listing_customer_2;
-private: System::Windows::Forms::Label^ listing_customer_2_total;
-private: System::Windows::Forms::Button^ listing_customer_2_accept;
-private: System::Windows::Forms::Label^ listing_customer_2_hrs;
-private: System::Windows::Forms::Label^ listing_customer_2_label_hours;
-private: System::Windows::Forms::Label^ listing_customer_2_from;
-private: System::Windows::Forms::Label^ listing_customer_2_label_hourly;
-private: System::Windows::Forms::Label^ listing_customer_2_hourly;
-private: System::Windows::Forms::Label^ listing_customer_2_name;
-private: System::Windows::Forms::GroupBox^ listing_contractor_2;
-
-private: System::Windows::Forms::Label^ listing_contractor_2_total;
-
-private: System::Windows::Forms::Button^ listing_contractor_2_accept;
-private: System::Windows::Forms::Label^ listing_contractor_2_label_hrs;
 
 
 
-private: System::Windows::Forms::Label^ listing_contractor_2_from;
-private: System::Windows::Forms::Label^ listing_contractor_2_label_hourly;
-private: System::Windows::Forms::Label^ listing_contractor_2_hourly;
+private: System::Windows::Forms::GroupBox^ listing_customer2_ui;
+private: System::Windows::Forms::Label^ listing_customer2_total;
+
+
+private: System::Windows::Forms::Button^ listing_customer2_accept;
+
+private: System::Windows::Forms::Label^ listing_customer2_hrs;
+
+private: System::Windows::Forms::Label^ listing_customer2_label_hrs;
+
+private: System::Windows::Forms::Label^ listing_customer2_author;
+private: System::Windows::Forms::Label^ listing_customer2_label_per_hr;
+private: System::Windows::Forms::Label^ listing_customer2_per_hr;
 
 
 
-private: System::Windows::Forms::Label^ listing_contractor_2_name;
-private: System::Windows::Forms::GroupBox^ listing_contractor_1;
+private: System::Windows::Forms::Label^ listing_customer2_name;
+
+private: System::Windows::Forms::GroupBox^ listing_contractor2_ui;
+private: System::Windows::Forms::Label^ listing_contractor2_total;
 
 
-private: System::Windows::Forms::Label^ listing_contractor_1_total;
-private: System::Windows::Forms::Button^ listing_contractor_1_accept;
+
+private: System::Windows::Forms::Button^ listing_contractor2_hire;
 
 
-private: System::Windows::Forms::Label^ listing_contractor_1_label_hrs;
 
+private: System::Windows::Forms::Label^ listing_contractor2_label_hrs;
 
-private: System::Windows::Forms::Label^ listing_contractor_1_from;
-private: System::Windows::Forms::Label^ listing_contractor_1_label_hourly;
-private: System::Windows::Forms::Label^ listing_contractor_1_hourly;
+private: System::Windows::Forms::Label^ listing_contractor2_author;
+private: System::Windows::Forms::Label^ listing_contractor2_label_per_hr;
+private: System::Windows::Forms::Label^ listing_contractor2_per_hr;
 
 
 
 
-private: System::Windows::Forms::Label^ listing_contractor_1_name;
-private: System::Windows::Forms::NumericUpDown^ listing_contractor_2_hrs_picker;
 
 
-private: System::Windows::Forms::NumericUpDown^ listing_contractor_1_hrs_picker;
+private: System::Windows::Forms::Label^ listing_contractor2_name;
+
+
+
+
+private: System::Windows::Forms::GroupBox^ listing_contractor1_ui;
+private: System::Windows::Forms::Label^ listing_contractor1_total;
+
+
+
+
+private: System::Windows::Forms::Button^ listing_contractor1_hire;
+
+private: System::Windows::Forms::Label^ listing_contractor1_label_hrs;
+
+
+
+private: System::Windows::Forms::Label^ listing_contractor1_author;
+private: System::Windows::Forms::Label^ listing_contractor1_label_per_hr;
+private: System::Windows::Forms::Label^ listing_contractor1_per_hr;
+
+
+
+
+
+private: System::Windows::Forms::Label^ listing_contractor1_name;
+private: System::Windows::Forms::NumericUpDown^ listing_contractor2_hrs_picker;
+
+
+
+
+
+
+private: System::Windows::Forms::NumericUpDown^ listing_contractor1_hrs_picker;
+
+
+
 private: System::Windows::Forms::GroupBox^ active_listing_1;
 private: System::Windows::Forms::Label^ active_listing_1_total;
 private: System::Windows::Forms::Button^ active_listing_1_finish;
@@ -204,12 +251,16 @@ private: System::Windows::Forms::Label^ active_listing_2_label_hourly;
 private: System::Windows::Forms::Label^ active_listing_2_hourly;
 
 private: System::Windows::Forms::Label^ active_listing_2_name;
-private: System::Windows::Forms::Button^ listing_customer_1_button_info;
-private: System::Windows::Forms::Button^ listing_customer_2_button_info;
-private: System::Windows::Forms::Button^ listing_contractor_2_button_info;
+private: System::Windows::Forms::Button^ listing_customer1_button_info;
+private: System::Windows::Forms::Button^ listing_customer2_button_info;
 
 
-private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
+private: System::Windows::Forms::Button^ listing_contractor2_button_info;
+
+private: System::Windows::Forms::Button^ listing_contractor1_button_info;
+
+
+
 
 
 
@@ -281,45 +332,48 @@ private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
 		this->bg_my_account = (gcnew System::Windows::Forms::PictureBox());
 		this->menu_feed = (gcnew System::Windows::Forms::Panel());
 		this->button_feed_update = (gcnew System::Windows::Forms::Button());
-		this->group_orders = (gcnew System::Windows::Forms::GroupBox());
-		this->listing_customer_2 = (gcnew System::Windows::Forms::GroupBox());
-		this->listing_customer_2_total = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_2_accept = (gcnew System::Windows::Forms::Button());
-		this->listing_customer_2_hrs = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_2_label_hours = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_2_from = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_2_label_hourly = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_2_hourly = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_2_name = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_1 = (gcnew System::Windows::Forms::GroupBox());
-		this->listing_customer_1_button_info = (gcnew System::Windows::Forms::Button());
-		this->listing_customer_1_total = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_1_accept = (gcnew System::Windows::Forms::Button());
+		this->group_customers = (gcnew System::Windows::Forms::GroupBox());
+		this->listing_customer2_ui = (gcnew System::Windows::Forms::GroupBox());
+		this->listing_customer2_button_info = (gcnew System::Windows::Forms::Button());
+		this->listing_customer2_total = (gcnew System::Windows::Forms::Label());
+		this->listing_customer2_accept = (gcnew System::Windows::Forms::Button());
+		this->listing_customer2_hrs = (gcnew System::Windows::Forms::Label());
+		this->listing_customer2_label_hrs = (gcnew System::Windows::Forms::Label());
+		this->listing_customer2_author = (gcnew System::Windows::Forms::Label());
+		this->listing_customer2_label_per_hr = (gcnew System::Windows::Forms::Label());
+		this->listing_customer2_per_hr = (gcnew System::Windows::Forms::Label());
+		this->listing_customer2_name = (gcnew System::Windows::Forms::Label());
+		this->listing_customer1_ui = (gcnew System::Windows::Forms::GroupBox());
+		this->listing_customer1_button_info = (gcnew System::Windows::Forms::Button());
+		this->listing_customer1_total = (gcnew System::Windows::Forms::Label());
+		this->listing_customer1_accept = (gcnew System::Windows::Forms::Button());
 		this->listing_customer_1_hrs = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_1_label_hours = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_1_from = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_1_label_hourly = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_1_hourly = (gcnew System::Windows::Forms::Label());
-		this->listing_customer_1_name = (gcnew System::Windows::Forms::Label());
-		this->group_offers = (gcnew System::Windows::Forms::GroupBox());
-		this->listing_contractor_2 = (gcnew System::Windows::Forms::GroupBox());
-		this->listing_contractor_2_hrs_picker = (gcnew System::Windows::Forms::NumericUpDown());
-		this->listing_contractor_2_total = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_2_accept = (gcnew System::Windows::Forms::Button());
-		this->listing_contractor_2_label_hrs = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_2_from = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_2_label_hourly = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_2_hourly = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_2_name = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_1 = (gcnew System::Windows::Forms::GroupBox());
-		this->listing_contractor_1_hrs_picker = (gcnew System::Windows::Forms::NumericUpDown());
-		this->listing_contractor_1_total = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_1_accept = (gcnew System::Windows::Forms::Button());
-		this->listing_contractor_1_label_hrs = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_1_from = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_1_label_hourly = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_1_hourly = (gcnew System::Windows::Forms::Label());
-		this->listing_contractor_1_name = (gcnew System::Windows::Forms::Label());
+		this->listing_customer1_label_hrs = (gcnew System::Windows::Forms::Label());
+		this->listing_customer1_author = (gcnew System::Windows::Forms::Label());
+		this->listing_customer1_label_per_hr = (gcnew System::Windows::Forms::Label());
+		this->listing_customer1_per_hr = (gcnew System::Windows::Forms::Label());
+		this->listing_customer1_name = (gcnew System::Windows::Forms::Label());
+		this->group_contractors = (gcnew System::Windows::Forms::GroupBox());
+		this->listing_contractor2_ui = (gcnew System::Windows::Forms::GroupBox());
+		this->listing_contractor2_button_info = (gcnew System::Windows::Forms::Button());
+		this->listing_contractor2_hrs_picker = (gcnew System::Windows::Forms::NumericUpDown());
+		this->listing_contractor2_total = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor2_hire = (gcnew System::Windows::Forms::Button());
+		this->listing_contractor2_label_hrs = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor2_author = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor2_label_per_hr = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor2_per_hr = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor2_name = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor1_ui = (gcnew System::Windows::Forms::GroupBox());
+		this->listing_contractor1_button_info = (gcnew System::Windows::Forms::Button());
+		this->listing_contractor1_hrs_picker = (gcnew System::Windows::Forms::NumericUpDown());
+		this->listing_contractor1_total = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor1_hire = (gcnew System::Windows::Forms::Button());
+		this->listing_contractor1_label_hrs = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor1_author = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor1_label_per_hr = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor1_per_hr = (gcnew System::Windows::Forms::Label());
+		this->listing_contractor1_name = (gcnew System::Windows::Forms::Label());
 		this->label_feed = (gcnew System::Windows::Forms::Label());
 		this->bg_feed = (gcnew System::Windows::Forms::PictureBox());
 		this->update_timer = (gcnew System::Windows::Forms::Timer(this->components));
@@ -331,9 +385,6 @@ private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
 		this->input_search = (gcnew System::Windows::Forms::TextBox());
 		this->label_search = (gcnew System::Windows::Forms::Label());
 		this->bg_search = (gcnew System::Windows::Forms::PictureBox());
-		this->listing_customer_2_button_info = (gcnew System::Windows::Forms::Button());
-		this->listing_contractor_1_button_info = (gcnew System::Windows::Forms::Button());
-		this->listing_contractor_2_button_info = (gcnew System::Windows::Forms::Button());
 		this->sidebar->SuspendLayout();
 		this->menu_account->SuspendLayout();
 		this->group_active_contracts->SuspendLayout();
@@ -342,14 +393,14 @@ private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
 		this->group_account_data->SuspendLayout();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->BeginInit();
 		this->menu_feed->SuspendLayout();
-		this->group_orders->SuspendLayout();
-		this->listing_customer_2->SuspendLayout();
-		this->listing_customer_1->SuspendLayout();
-		this->group_offers->SuspendLayout();
-		this->listing_contractor_2->SuspendLayout();
-		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor_2_hrs_picker))->BeginInit();
-		this->listing_contractor_1->SuspendLayout();
-		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor_1_hrs_picker))->BeginInit();
+		this->group_customers->SuspendLayout();
+		this->listing_customer2_ui->SuspendLayout();
+		this->listing_customer1_ui->SuspendLayout();
+		this->group_contractors->SuspendLayout();
+		this->listing_contractor2_ui->SuspendLayout();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor2_hrs_picker))->BeginInit();
+		this->listing_contractor1_ui->SuspendLayout();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor1_hrs_picker))->BeginInit();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->BeginInit();
 		this->menu_search->SuspendLayout();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_search))->BeginInit();
@@ -896,8 +947,8 @@ private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
 		// 
 		this->menu_feed->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 		this->menu_feed->Controls->Add(this->button_feed_update);
-		this->menu_feed->Controls->Add(this->group_orders);
-		this->menu_feed->Controls->Add(this->group_offers);
+		this->menu_feed->Controls->Add(this->group_customers);
+		this->menu_feed->Controls->Add(this->group_contractors);
 		this->menu_feed->Controls->Add(this->label_feed);
 		this->menu_feed->Controls->Add(this->bg_feed);
 		this->menu_feed->Location = System::Drawing::Point(10, 11);
@@ -919,191 +970,204 @@ private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
 		this->button_feed_update->UseVisualStyleBackColor = true;
 		this->button_feed_update->Click += gcnew System::EventHandler(this, &Main_Menu::update_feed);
 		// 
-		// group_orders
+		// group_customers
 		// 
-		this->group_orders->Controls->Add(this->listing_customer_2);
-		this->group_orders->Controls->Add(this->listing_customer_1);
-		this->group_orders->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->group_customers->Controls->Add(this->listing_customer2_ui);
+		this->group_customers->Controls->Add(this->listing_customer1_ui);
+		this->group_customers->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->group_orders->Location = System::Drawing::Point(282, 168);
-		this->group_orders->Margin = System::Windows::Forms::Padding(4);
-		this->group_orders->Name = L"group_orders";
-		this->group_orders->Padding = System::Windows::Forms::Padding(4);
-		this->group_orders->Size = System::Drawing::Size(270, 323);
-		this->group_orders->TabIndex = 6;
-		this->group_orders->TabStop = false;
-		this->group_orders->Text = L"Ищут подрядчика";
+		this->group_customers->Location = System::Drawing::Point(282, 168);
+		this->group_customers->Margin = System::Windows::Forms::Padding(4);
+		this->group_customers->Name = L"group_customers";
+		this->group_customers->Padding = System::Windows::Forms::Padding(4);
+		this->group_customers->Size = System::Drawing::Size(270, 323);
+		this->group_customers->TabIndex = 6;
+		this->group_customers->TabStop = false;
+		this->group_customers->Text = L"Ищут подрядчика";
 		// 
-		// listing_customer_2
+		// listing_customer2_ui
 		// 
-		this->listing_customer_2->Controls->Add(this->listing_customer_2_button_info);
-		this->listing_customer_2->Controls->Add(this->listing_customer_2_total);
-		this->listing_customer_2->Controls->Add(this->listing_customer_2_accept);
-		this->listing_customer_2->Controls->Add(this->listing_customer_2_hrs);
-		this->listing_customer_2->Controls->Add(this->listing_customer_2_label_hours);
-		this->listing_customer_2->Controls->Add(this->listing_customer_2_from);
-		this->listing_customer_2->Controls->Add(this->listing_customer_2_label_hourly);
-		this->listing_customer_2->Controls->Add(this->listing_customer_2_hourly);
-		this->listing_customer_2->Controls->Add(this->listing_customer_2_name);
-		this->listing_customer_2->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_button_info);
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_total);
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_accept);
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_hrs);
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_label_hrs);
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_author);
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_label_per_hr);
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_per_hr);
+		this->listing_customer2_ui->Controls->Add(this->listing_customer2_name);
+		this->listing_customer2_ui->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_customer_2->Location = System::Drawing::Point(8, 168);
-		this->listing_customer_2->Margin = System::Windows::Forms::Padding(4);
-		this->listing_customer_2->Name = L"listing_customer_2";
-		this->listing_customer_2->Padding = System::Windows::Forms::Padding(4);
-		this->listing_customer_2->Size = System::Drawing::Size(254, 147);
-		this->listing_customer_2->TabIndex = 8;
-		this->listing_customer_2->TabStop = false;
+		this->listing_customer2_ui->Location = System::Drawing::Point(8, 168);
+		this->listing_customer2_ui->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer2_ui->Name = L"listing_customer2_ui";
+		this->listing_customer2_ui->Padding = System::Windows::Forms::Padding(4);
+		this->listing_customer2_ui->Size = System::Drawing::Size(254, 147);
+		this->listing_customer2_ui->TabIndex = 8;
+		this->listing_customer2_ui->TabStop = false;
 		// 
-		// listing_customer_2_total
+		// listing_customer2_button_info
 		// 
-		this->listing_customer_2_total->AutoSize = true;
-		this->listing_customer_2_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->listing_customer_2_total->Location = System::Drawing::Point(123, 117);
-		this->listing_customer_2_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_2_total->Name = L"listing_customer_2_total";
-		this->listing_customer_2_total->Size = System::Drawing::Size(82, 20);
-		this->listing_customer_2_total->TabIndex = 7;
-		this->listing_customer_2_total->Text = L"Итого, ₽: ";
-		// 
-		// listing_customer_2_accept
-		// 
-		this->listing_customer_2_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->listing_customer_2_accept->Location = System::Drawing::Point(5, 109);
-		this->listing_customer_2_accept->Margin = System::Windows::Forms::Padding(4);
-		this->listing_customer_2_accept->Name = L"listing_customer_2_accept";
-		this->listing_customer_2_accept->Size = System::Drawing::Size(119, 34);
-		this->listing_customer_2_accept->TabIndex = 7;
-		this->listing_customer_2_accept->Text = L"За работу!";
-		this->listing_customer_2_accept->UseVisualStyleBackColor = true;
-		this->listing_customer_2_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
-		// 
-		// listing_customer_2_hrs
-		// 
-		this->listing_customer_2_hrs->AutoSize = true;
-		this->listing_customer_2_hrs->Location = System::Drawing::Point(111, 86);
-		this->listing_customer_2_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_2_hrs->Name = L"listing_customer_2_hrs";
-		this->listing_customer_2_hrs->Size = System::Drawing::Size(126, 20);
-		this->listing_customer_2_hrs->TabIndex = 6;
-		this->listing_customer_2_hrs->Text = L"часов_работы";
-		// 
-		// listing_customer_2_label_hours
-		// 
-		this->listing_customer_2_label_hours->AutoSize = true;
-		this->listing_customer_2_label_hours->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_customer_2_label_hours->Location = System::Drawing::Point(5, 86);
-		this->listing_customer_2_label_hours->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_2_label_hours->Name = L"listing_customer_2_label_hours";
-		this->listing_customer_2_label_hours->Size = System::Drawing::Size(109, 20);
-		this->listing_customer_2_label_hours->TabIndex = 5;
-		this->listing_customer_2_label_hours->Text = L"всего часов:";
-		// 
-		// listing_customer_2_from
-		// 
-		this->listing_customer_2_from->AutoSize = true;
-		this->listing_customer_2_from->Location = System::Drawing::Point(35, 40);
-		this->listing_customer_2_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_2_from->Name = L"listing_customer_2_from";
-		this->listing_customer_2_from->Size = System::Drawing::Size(134, 20);
-		this->listing_customer_2_from->TabIndex = 2;
-		this->listing_customer_2_from->Text = L"имя_заказчика";
-		// 
-		// listing_customer_2_label_hourly
-		// 
-		this->listing_customer_2_label_hourly->AutoSize = true;
-		this->listing_customer_2_label_hourly->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_customer_2_label_hourly->Location = System::Drawing::Point(5, 63);
-		this->listing_customer_2_label_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_2_label_hourly->Name = L"listing_customer_2_label_hourly";
-		this->listing_customer_2_label_hourly->Size = System::Drawing::Size(80, 20);
-		this->listing_customer_2_label_hourly->TabIndex = 3;
-		this->listing_customer_2_label_hourly->Text = L"за час, ₽:";
-		// 
-		// listing_customer_2_hourly
-		// 
-		this->listing_customer_2_hourly->AutoSize = true;
-		this->listing_customer_2_hourly->Location = System::Drawing::Point(89, 64);
-		this->listing_customer_2_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_2_hourly->Name = L"listing_customer_2_hourly";
-		this->listing_customer_2_hourly->Size = System::Drawing::Size(127, 20);
-		this->listing_customer_2_hourly->TabIndex = 4;
-		this->listing_customer_2_hourly->Text = L"оплата_за_час";
-		// 
-		// listing_customer_2_name
-		// 
-		this->listing_customer_2_name->AutoSize = true;
-		this->listing_customer_2_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->listing_customer_2_name->Location = System::Drawing::Point(4, 11);
-		this->listing_customer_2_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_2_name->Name = L"listing_customer_2_name";
-		this->listing_customer_2_name->Size = System::Drawing::Size(170, 24);
-		this->listing_customer_2_name->TabIndex = 0;
-		this->listing_customer_2_name->Text = L"название_заказа";
-		// 
-		// listing_customer_1
-		// 
-		this->listing_customer_1->Controls->Add(this->listing_customer_1_button_info);
-		this->listing_customer_1->Controls->Add(this->listing_customer_1_total);
-		this->listing_customer_1->Controls->Add(this->listing_customer_1_accept);
-		this->listing_customer_1->Controls->Add(this->listing_customer_1_hrs);
-		this->listing_customer_1->Controls->Add(this->listing_customer_1_label_hours);
-		this->listing_customer_1->Controls->Add(this->listing_customer_1_from);
-		this->listing_customer_1->Controls->Add(this->listing_customer_1_label_hourly);
-		this->listing_customer_1->Controls->Add(this->listing_customer_1_hourly);
-		this->listing_customer_1->Controls->Add(this->listing_customer_1_name);
-		this->listing_customer_1->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->listing_customer_1->Location = System::Drawing::Point(8, 20);
-		this->listing_customer_1->Margin = System::Windows::Forms::Padding(4);
-		this->listing_customer_1->Name = L"listing_customer_1";
-		this->listing_customer_1->Padding = System::Windows::Forms::Padding(4);
-		this->listing_customer_1->Size = System::Drawing::Size(254, 147);
-		this->listing_customer_1->TabIndex = 0;
-		this->listing_customer_1->TabStop = false;
-		// 
-		// listing_customer_1_button_info
-		// 
-		this->listing_customer_1_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
+		this->listing_customer2_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
 			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
-		this->listing_customer_1_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_customer_1_button_info.BackgroundImage")));
-		this->listing_customer_1_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-		this->listing_customer_1_button_info->Location = System::Drawing::Point(5, 35);
-		this->listing_customer_1_button_info->Margin = System::Windows::Forms::Padding(4);
-		this->listing_customer_1_button_info->Name = L"listing_customer_1_button_info";
-		this->listing_customer_1_button_info->Size = System::Drawing::Size(30, 30);
-		this->listing_customer_1_button_info->TabIndex = 5;
-		this->listing_customer_1_button_info->UseVisualStyleBackColor = false;
+		this->listing_customer2_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_customer2_button_info.BackgroundImage")));
+		this->listing_customer2_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+		this->listing_customer2_button_info->Location = System::Drawing::Point(5, 35);
+		this->listing_customer2_button_info->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer2_button_info->Name = L"listing_customer2_button_info";
+		this->listing_customer2_button_info->Size = System::Drawing::Size(30, 30);
+		this->listing_customer2_button_info->TabIndex = 8;
+		this->listing_customer2_button_info->UseVisualStyleBackColor = false;
 		// 
-		// listing_customer_1_total
+		// listing_customer2_total
 		// 
-		this->listing_customer_1_total->AutoSize = true;
-		this->listing_customer_1_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+		this->listing_customer2_total->AutoSize = true;
+		this->listing_customer2_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_customer_1_total->Location = System::Drawing::Point(123, 117);
-		this->listing_customer_1_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_1_total->Name = L"listing_customer_1_total";
-		this->listing_customer_1_total->Size = System::Drawing::Size(82, 20);
-		this->listing_customer_1_total->TabIndex = 7;
-		this->listing_customer_1_total->Text = L"Итого, ₽: ";
+		this->listing_customer2_total->Location = System::Drawing::Point(123, 117);
+		this->listing_customer2_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer2_total->Name = L"listing_customer2_total";
+		this->listing_customer2_total->Size = System::Drawing::Size(82, 20);
+		this->listing_customer2_total->TabIndex = 7;
+		this->listing_customer2_total->Text = L"Итого, ₽: ";
 		// 
-		// listing_customer_1_accept
+		// listing_customer2_accept
 		// 
-		this->listing_customer_1_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_customer2_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_customer_1_accept->Location = System::Drawing::Point(5, 109);
-		this->listing_customer_1_accept->Margin = System::Windows::Forms::Padding(4);
-		this->listing_customer_1_accept->Name = L"listing_customer_1_accept";
-		this->listing_customer_1_accept->Size = System::Drawing::Size(119, 34);
-		this->listing_customer_1_accept->TabIndex = 7;
-		this->listing_customer_1_accept->Text = L"За работу!";
-		this->listing_customer_1_accept->UseVisualStyleBackColor = true;
-		this->listing_customer_1_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
+		this->listing_customer2_accept->Location = System::Drawing::Point(5, 109);
+		this->listing_customer2_accept->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer2_accept->Name = L"listing_customer2_accept";
+		this->listing_customer2_accept->Size = System::Drawing::Size(119, 34);
+		this->listing_customer2_accept->TabIndex = 7;
+		this->listing_customer2_accept->Text = L"За работу!";
+		this->listing_customer2_accept->UseVisualStyleBackColor = true;
+		this->listing_customer2_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
+		// 
+		// listing_customer2_hrs
+		// 
+		this->listing_customer2_hrs->AutoSize = true;
+		this->listing_customer2_hrs->Location = System::Drawing::Point(111, 86);
+		this->listing_customer2_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer2_hrs->Name = L"listing_customer2_hrs";
+		this->listing_customer2_hrs->Size = System::Drawing::Size(126, 20);
+		this->listing_customer2_hrs->TabIndex = 6;
+		this->listing_customer2_hrs->Text = L"часов_работы";
+		// 
+		// listing_customer2_label_hrs
+		// 
+		this->listing_customer2_label_hrs->AutoSize = true;
+		this->listing_customer2_label_hrs->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer2_label_hrs->Location = System::Drawing::Point(5, 86);
+		this->listing_customer2_label_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer2_label_hrs->Name = L"listing_customer2_label_hrs";
+		this->listing_customer2_label_hrs->Size = System::Drawing::Size(109, 20);
+		this->listing_customer2_label_hrs->TabIndex = 5;
+		this->listing_customer2_label_hrs->Text = L"всего часов:";
+		// 
+		// listing_customer2_author
+		// 
+		this->listing_customer2_author->AutoSize = true;
+		this->listing_customer2_author->Location = System::Drawing::Point(35, 40);
+		this->listing_customer2_author->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer2_author->Name = L"listing_customer2_author";
+		this->listing_customer2_author->Size = System::Drawing::Size(134, 20);
+		this->listing_customer2_author->TabIndex = 2;
+		this->listing_customer2_author->Text = L"имя_заказчика";
+		// 
+		// listing_customer2_label_per_hr
+		// 
+		this->listing_customer2_label_per_hr->AutoSize = true;
+		this->listing_customer2_label_per_hr->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
+			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+		this->listing_customer2_label_per_hr->Location = System::Drawing::Point(5, 63);
+		this->listing_customer2_label_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer2_label_per_hr->Name = L"listing_customer2_label_per_hr";
+		this->listing_customer2_label_per_hr->Size = System::Drawing::Size(80, 20);
+		this->listing_customer2_label_per_hr->TabIndex = 3;
+		this->listing_customer2_label_per_hr->Text = L"за час, ₽:";
+		// 
+		// listing_customer2_per_hr
+		// 
+		this->listing_customer2_per_hr->AutoSize = true;
+		this->listing_customer2_per_hr->Location = System::Drawing::Point(89, 64);
+		this->listing_customer2_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer2_per_hr->Name = L"listing_customer2_per_hr";
+		this->listing_customer2_per_hr->Size = System::Drawing::Size(127, 20);
+		this->listing_customer2_per_hr->TabIndex = 4;
+		this->listing_customer2_per_hr->Text = L"оплата_за_час";
+		// 
+		// listing_customer2_name
+		// 
+		this->listing_customer2_name->AutoSize = true;
+		this->listing_customer2_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer2_name->Location = System::Drawing::Point(4, 11);
+		this->listing_customer2_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer2_name->Name = L"listing_customer2_name";
+		this->listing_customer2_name->Size = System::Drawing::Size(170, 24);
+		this->listing_customer2_name->TabIndex = 0;
+		this->listing_customer2_name->Text = L"название_заказа";
+		// 
+		// listing_customer1_ui
+		// 
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_button_info);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_total);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_accept);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer_1_hrs);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_label_hrs);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_author);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_label_per_hr);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_per_hr);
+		this->listing_customer1_ui->Controls->Add(this->listing_customer1_name);
+		this->listing_customer1_ui->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer1_ui->Location = System::Drawing::Point(8, 20);
+		this->listing_customer1_ui->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer1_ui->Name = L"listing_customer1_ui";
+		this->listing_customer1_ui->Padding = System::Windows::Forms::Padding(4);
+		this->listing_customer1_ui->Size = System::Drawing::Size(254, 147);
+		this->listing_customer1_ui->TabIndex = 0;
+		this->listing_customer1_ui->TabStop = false;
+		// 
+		// listing_customer1_button_info
+		// 
+		this->listing_customer1_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
+			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
+		this->listing_customer1_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_customer1_button_info.BackgroundImage")));
+		this->listing_customer1_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+		this->listing_customer1_button_info->Location = System::Drawing::Point(5, 35);
+		this->listing_customer1_button_info->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer1_button_info->Name = L"listing_customer1_button_info";
+		this->listing_customer1_button_info->Size = System::Drawing::Size(30, 30);
+		this->listing_customer1_button_info->TabIndex = 5;
+		this->listing_customer1_button_info->UseVisualStyleBackColor = false;
+		// 
+		// listing_customer1_total
+		// 
+		this->listing_customer1_total->AutoSize = true;
+		this->listing_customer1_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer1_total->Location = System::Drawing::Point(123, 117);
+		this->listing_customer1_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer1_total->Name = L"listing_customer1_total";
+		this->listing_customer1_total->Size = System::Drawing::Size(82, 20);
+		this->listing_customer1_total->TabIndex = 7;
+		this->listing_customer1_total->Text = L"Итого, ₽: ";
+		// 
+		// listing_customer1_accept
+		// 
+		this->listing_customer1_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer1_accept->Location = System::Drawing::Point(5, 109);
+		this->listing_customer1_accept->Margin = System::Windows::Forms::Padding(4);
+		this->listing_customer1_accept->Name = L"listing_customer1_accept";
+		this->listing_customer1_accept->Size = System::Drawing::Size(119, 34);
+		this->listing_customer1_accept->TabIndex = 7;
+		this->listing_customer1_accept->Text = L"За работу!";
+		this->listing_customer1_accept->UseVisualStyleBackColor = true;
+		this->listing_customer1_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
 		// listing_customer_1_hrs
 		// 
@@ -1115,302 +1179,328 @@ private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
 		this->listing_customer_1_hrs->TabIndex = 6;
 		this->listing_customer_1_hrs->Text = L"часов_работы";
 		// 
-		// listing_customer_1_label_hours
+		// listing_customer1_label_hrs
 		// 
-		this->listing_customer_1_label_hours->AutoSize = true;
-		this->listing_customer_1_label_hours->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
+		this->listing_customer1_label_hrs->AutoSize = true;
+		this->listing_customer1_label_hrs->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer1_label_hrs->Location = System::Drawing::Point(5, 86);
+		this->listing_customer1_label_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer1_label_hrs->Name = L"listing_customer1_label_hrs";
+		this->listing_customer1_label_hrs->Size = System::Drawing::Size(109, 20);
+		this->listing_customer1_label_hrs->TabIndex = 5;
+		this->listing_customer1_label_hrs->Text = L"всего часов:";
+		// 
+		// listing_customer1_author
+		// 
+		this->listing_customer1_author->AutoSize = true;
+		this->listing_customer1_author->Location = System::Drawing::Point(35, 40);
+		this->listing_customer1_author->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer1_author->Name = L"listing_customer1_author";
+		this->listing_customer1_author->Size = System::Drawing::Size(134, 20);
+		this->listing_customer1_author->TabIndex = 2;
+		this->listing_customer1_author->Text = L"имя_заказчика";
+		// 
+		// listing_customer1_label_per_hr
+		// 
+		this->listing_customer1_label_per_hr->AutoSize = true;
+		this->listing_customer1_label_per_hr->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
 			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_customer_1_label_hours->Location = System::Drawing::Point(5, 86);
-		this->listing_customer_1_label_hours->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_1_label_hours->Name = L"listing_customer_1_label_hours";
-		this->listing_customer_1_label_hours->Size = System::Drawing::Size(109, 20);
-		this->listing_customer_1_label_hours->TabIndex = 5;
-		this->listing_customer_1_label_hours->Text = L"всего часов:";
+		this->listing_customer1_label_per_hr->Location = System::Drawing::Point(5, 63);
+		this->listing_customer1_label_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer1_label_per_hr->Name = L"listing_customer1_label_per_hr";
+		this->listing_customer1_label_per_hr->Size = System::Drawing::Size(80, 20);
+		this->listing_customer1_label_per_hr->TabIndex = 3;
+		this->listing_customer1_label_per_hr->Text = L"за час, ₽:";
 		// 
-		// listing_customer_1_from
+		// listing_customer1_per_hr
 		// 
-		this->listing_customer_1_from->AutoSize = true;
-		this->listing_customer_1_from->Location = System::Drawing::Point(35, 40);
-		this->listing_customer_1_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_1_from->Name = L"listing_customer_1_from";
-		this->listing_customer_1_from->Size = System::Drawing::Size(134, 20);
-		this->listing_customer_1_from->TabIndex = 2;
-		this->listing_customer_1_from->Text = L"имя_заказчика";
+		this->listing_customer1_per_hr->AutoSize = true;
+		this->listing_customer1_per_hr->Location = System::Drawing::Point(89, 64);
+		this->listing_customer1_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer1_per_hr->Name = L"listing_customer1_per_hr";
+		this->listing_customer1_per_hr->Size = System::Drawing::Size(127, 20);
+		this->listing_customer1_per_hr->TabIndex = 4;
+		this->listing_customer1_per_hr->Text = L"оплата_за_час";
 		// 
-		// listing_customer_1_label_hourly
+		// listing_customer1_name
 		// 
-		this->listing_customer_1_label_hourly->AutoSize = true;
-		this->listing_customer_1_label_hourly->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
+		this->listing_customer1_name->AutoSize = true;
+		this->listing_customer1_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_customer1_name->Location = System::Drawing::Point(4, 11);
+		this->listing_customer1_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_customer1_name->Name = L"listing_customer1_name";
+		this->listing_customer1_name->Size = System::Drawing::Size(170, 24);
+		this->listing_customer1_name->TabIndex = 0;
+		this->listing_customer1_name->Text = L"название_заказа";
+		// 
+		// group_contractors
+		// 
+		this->group_contractors->Controls->Add(this->listing_contractor2_ui);
+		this->group_contractors->Controls->Add(this->listing_contractor1_ui);
+		this->group_contractors->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->group_contractors->Location = System::Drawing::Point(7, 168);
+		this->group_contractors->Margin = System::Windows::Forms::Padding(4);
+		this->group_contractors->Name = L"group_contractors";
+		this->group_contractors->Padding = System::Windows::Forms::Padding(4);
+		this->group_contractors->Size = System::Drawing::Size(270, 323);
+		this->group_contractors->TabIndex = 5;
+		this->group_contractors->TabStop = false;
+		this->group_contractors->Text = L"Ищут заказчика";
+		// 
+		// listing_contractor2_ui
+		// 
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_button_info);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_hrs_picker);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_total);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_hire);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_label_hrs);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_author);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_label_per_hr);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_per_hr);
+		this->listing_contractor2_ui->Controls->Add(this->listing_contractor2_name);
+		this->listing_contractor2_ui->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_contractor2_ui->Location = System::Drawing::Point(8, 168);
+		this->listing_contractor2_ui->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor2_ui->Name = L"listing_contractor2_ui";
+		this->listing_contractor2_ui->Padding = System::Windows::Forms::Padding(4);
+		this->listing_contractor2_ui->Size = System::Drawing::Size(254, 147);
+		this->listing_contractor2_ui->TabIndex = 9;
+		this->listing_contractor2_ui->TabStop = false;
+		// 
+		// listing_contractor2_button_info
+		// 
+		this->listing_contractor2_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
+			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
+		this->listing_contractor2_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_contractor2_button_info.BackgroundImage")));
+		this->listing_contractor2_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+		this->listing_contractor2_button_info->Location = System::Drawing::Point(5, 35);
+		this->listing_contractor2_button_info->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor2_button_info->Name = L"listing_contractor2_button_info";
+		this->listing_contractor2_button_info->Size = System::Drawing::Size(30, 30);
+		this->listing_contractor2_button_info->TabIndex = 10;
+		this->listing_contractor2_button_info->UseVisualStyleBackColor = false;
+		// 
+		// listing_contractor2_hrs_picker
+		// 
+		this->listing_contractor2_hrs_picker->Location = System::Drawing::Point(114, 84);
+		this->listing_contractor2_hrs_picker->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 8, 0, 0, 0 });
+		this->listing_contractor2_hrs_picker->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor2_hrs_picker->Name = L"listing_contractor2_hrs_picker";
+		this->listing_contractor2_hrs_picker->Size = System::Drawing::Size(40, 28);
+		this->listing_contractor2_hrs_picker->TabIndex = 10;
+		this->listing_contractor2_hrs_picker->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor2_hrs_picker->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
+		// 
+		// listing_contractor2_total
+		// 
+		this->listing_contractor2_total->AutoSize = true;
+		this->listing_contractor2_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_contractor2_total->Location = System::Drawing::Point(123, 117);
+		this->listing_contractor2_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor2_total->Name = L"listing_contractor2_total";
+		this->listing_contractor2_total->Size = System::Drawing::Size(82, 20);
+		this->listing_contractor2_total->TabIndex = 7;
+		this->listing_contractor2_total->Text = L"Итого, ₽: ";
+		// 
+		// listing_contractor2_hire
+		// 
+		this->listing_contractor2_hire->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_contractor2_hire->Location = System::Drawing::Point(5, 109);
+		this->listing_contractor2_hire->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor2_hire->Name = L"listing_contractor2_hire";
+		this->listing_contractor2_hire->Size = System::Drawing::Size(119, 34);
+		this->listing_contractor2_hire->TabIndex = 7;
+		this->listing_contractor2_hire->Text = L"Нанять!";
+		this->listing_contractor2_hire->UseVisualStyleBackColor = true;
+		this->listing_contractor2_hire->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
+		// 
+		// listing_contractor2_label_hrs
+		// 
+		this->listing_contractor2_label_hrs->AutoSize = true;
+		this->listing_contractor2_label_hrs->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204)));
+		this->listing_contractor2_label_hrs->Location = System::Drawing::Point(5, 86);
+		this->listing_contractor2_label_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor2_label_hrs->Name = L"listing_contractor2_label_hrs";
+		this->listing_contractor2_label_hrs->Size = System::Drawing::Size(109, 20);
+		this->listing_contractor2_label_hrs->TabIndex = 5;
+		this->listing_contractor2_label_hrs->Text = L"всего часов:";
+		// 
+		// listing_contractor2_author
+		// 
+		this->listing_contractor2_author->AutoSize = true;
+		this->listing_contractor2_author->Location = System::Drawing::Point(35, 40);
+		this->listing_contractor2_author->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor2_author->Name = L"listing_contractor2_author";
+		this->listing_contractor2_author->Size = System::Drawing::Size(149, 20);
+		this->listing_contractor2_author->TabIndex = 2;
+		this->listing_contractor2_author->Text = L"имя_подрядчика";
+		// 
+		// listing_contractor2_label_per_hr
+		// 
+		this->listing_contractor2_label_per_hr->AutoSize = true;
+		this->listing_contractor2_label_per_hr->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
 			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_customer_1_label_hourly->Location = System::Drawing::Point(5, 63);
-		this->listing_customer_1_label_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_1_label_hourly->Name = L"listing_customer_1_label_hourly";
-		this->listing_customer_1_label_hourly->Size = System::Drawing::Size(80, 20);
-		this->listing_customer_1_label_hourly->TabIndex = 3;
-		this->listing_customer_1_label_hourly->Text = L"за час, ₽:";
+		this->listing_contractor2_label_per_hr->Location = System::Drawing::Point(5, 63);
+		this->listing_contractor2_label_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor2_label_per_hr->Name = L"listing_contractor2_label_per_hr";
+		this->listing_contractor2_label_per_hr->Size = System::Drawing::Size(80, 20);
+		this->listing_contractor2_label_per_hr->TabIndex = 3;
+		this->listing_contractor2_label_per_hr->Text = L"за час, ₽:";
 		// 
-		// listing_customer_1_hourly
+		// listing_contractor2_per_hr
 		// 
-		this->listing_customer_1_hourly->AutoSize = true;
-		this->listing_customer_1_hourly->Location = System::Drawing::Point(89, 64);
-		this->listing_customer_1_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_1_hourly->Name = L"listing_customer_1_hourly";
-		this->listing_customer_1_hourly->Size = System::Drawing::Size(127, 20);
-		this->listing_customer_1_hourly->TabIndex = 4;
-		this->listing_customer_1_hourly->Text = L"оплата_за_час";
+		this->listing_contractor2_per_hr->AutoSize = true;
+		this->listing_contractor2_per_hr->Location = System::Drawing::Point(89, 64);
+		this->listing_contractor2_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor2_per_hr->Name = L"listing_contractor2_per_hr";
+		this->listing_contractor2_per_hr->Size = System::Drawing::Size(117, 20);
+		this->listing_contractor2_per_hr->TabIndex = 4;
+		this->listing_contractor2_per_hr->Text = L"плата_за_час";
 		// 
-		// listing_customer_1_name
+		// listing_contractor2_name
 		// 
-		this->listing_customer_1_name->AutoSize = true;
-		this->listing_customer_1_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_contractor2_name->AutoSize = true;
+		this->listing_contractor2_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_customer_1_name->Location = System::Drawing::Point(4, 11);
-		this->listing_customer_1_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_customer_1_name->Name = L"listing_customer_1_name";
-		this->listing_customer_1_name->Size = System::Drawing::Size(170, 24);
-		this->listing_customer_1_name->TabIndex = 0;
-		this->listing_customer_1_name->Text = L"название_заказа";
+		this->listing_contractor2_name->Location = System::Drawing::Point(4, 11);
+		this->listing_contractor2_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor2_name->Name = L"listing_contractor2_name";
+		this->listing_contractor2_name->Size = System::Drawing::Size(186, 24);
+		this->listing_contractor2_name->TabIndex = 0;
+		this->listing_contractor2_name->Text = L"название_подряда";
 		// 
-		// group_offers
+		// listing_contractor1_ui
 		// 
-		this->group_offers->Controls->Add(this->listing_contractor_2);
-		this->group_offers->Controls->Add(this->listing_contractor_1);
-		this->group_offers->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_button_info);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_hrs_picker);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_total);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_hire);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_label_hrs);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_author);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_label_per_hr);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_per_hr);
+		this->listing_contractor1_ui->Controls->Add(this->listing_contractor1_name);
+		this->listing_contractor1_ui->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->group_offers->Location = System::Drawing::Point(7, 168);
-		this->group_offers->Margin = System::Windows::Forms::Padding(4);
-		this->group_offers->Name = L"group_offers";
-		this->group_offers->Padding = System::Windows::Forms::Padding(4);
-		this->group_offers->Size = System::Drawing::Size(270, 323);
-		this->group_offers->TabIndex = 5;
-		this->group_offers->TabStop = false;
-		this->group_offers->Text = L"Ищут заказчика";
+		this->listing_contractor1_ui->Location = System::Drawing::Point(8, 20);
+		this->listing_contractor1_ui->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor1_ui->Name = L"listing_contractor1_ui";
+		this->listing_contractor1_ui->Padding = System::Windows::Forms::Padding(4);
+		this->listing_contractor1_ui->Size = System::Drawing::Size(254, 147);
+		this->listing_contractor1_ui->TabIndex = 8;
+		this->listing_contractor1_ui->TabStop = false;
 		// 
-		// listing_contractor_2
+		// listing_contractor1_button_info
 		// 
-		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_button_info);
-		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_hrs_picker);
-		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_total);
-		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_accept);
-		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_label_hrs);
-		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_from);
-		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_label_hourly);
-		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_hourly);
-		this->listing_contractor_2->Controls->Add(this->listing_contractor_2_name);
-		this->listing_contractor_2->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_contractor1_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
+			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
+		this->listing_contractor1_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_contractor1_button_info.BackgroundImage")));
+		this->listing_contractor1_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+		this->listing_contractor1_button_info->Location = System::Drawing::Point(5, 35);
+		this->listing_contractor1_button_info->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor1_button_info->Name = L"listing_contractor1_button_info";
+		this->listing_contractor1_button_info->Size = System::Drawing::Size(30, 30);
+		this->listing_contractor1_button_info->TabIndex = 9;
+		this->listing_contractor1_button_info->UseVisualStyleBackColor = false;
+		// 
+		// listing_contractor1_hrs_picker
+		// 
+		this->listing_contractor1_hrs_picker->Location = System::Drawing::Point(114, 84);
+		this->listing_contractor1_hrs_picker->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 8, 0, 0, 0 });
+		this->listing_contractor1_hrs_picker->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor1_hrs_picker->Name = L"listing_contractor1_hrs_picker";
+		this->listing_contractor1_hrs_picker->Size = System::Drawing::Size(40, 28);
+		this->listing_contractor1_hrs_picker->TabIndex = 9;
+		this->listing_contractor1_hrs_picker->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+		this->listing_contractor1_hrs_picker->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
+		// 
+		// listing_contractor1_total
+		// 
+		this->listing_contractor1_total->AutoSize = true;
+		this->listing_contractor1_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_contractor_2->Location = System::Drawing::Point(8, 168);
-		this->listing_contractor_2->Margin = System::Windows::Forms::Padding(4);
-		this->listing_contractor_2->Name = L"listing_contractor_2";
-		this->listing_contractor_2->Padding = System::Windows::Forms::Padding(4);
-		this->listing_contractor_2->Size = System::Drawing::Size(254, 147);
-		this->listing_contractor_2->TabIndex = 9;
-		this->listing_contractor_2->TabStop = false;
+		this->listing_contractor1_total->Location = System::Drawing::Point(123, 117);
+		this->listing_contractor1_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor1_total->Name = L"listing_contractor1_total";
+		this->listing_contractor1_total->Size = System::Drawing::Size(82, 20);
+		this->listing_contractor1_total->TabIndex = 7;
+		this->listing_contractor1_total->Text = L"Итого, ₽: ";
 		// 
-		// listing_contractor_2_hrs_picker
+		// listing_contractor1_hire
 		// 
-		this->listing_contractor_2_hrs_picker->Location = System::Drawing::Point(114, 84);
-		this->listing_contractor_2_hrs_picker->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 8, 0, 0, 0 });
-		this->listing_contractor_2_hrs_picker->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor_2_hrs_picker->Name = L"listing_contractor_2_hrs_picker";
-		this->listing_contractor_2_hrs_picker->Size = System::Drawing::Size(40, 28);
-		this->listing_contractor_2_hrs_picker->TabIndex = 10;
-		this->listing_contractor_2_hrs_picker->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor_2_hrs_picker->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
-		// 
-		// listing_contractor_2_total
-		// 
-		this->listing_contractor_2_total->AutoSize = true;
-		this->listing_contractor_2_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+		this->listing_contractor1_hire->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_contractor_2_total->Location = System::Drawing::Point(123, 117);
-		this->listing_contractor_2_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_2_total->Name = L"listing_contractor_2_total";
-		this->listing_contractor_2_total->Size = System::Drawing::Size(82, 20);
-		this->listing_contractor_2_total->TabIndex = 7;
-		this->listing_contractor_2_total->Text = L"Итого, ₽: ";
+		this->listing_contractor1_hire->Location = System::Drawing::Point(5, 109);
+		this->listing_contractor1_hire->Margin = System::Windows::Forms::Padding(4);
+		this->listing_contractor1_hire->Name = L"listing_contractor1_hire";
+		this->listing_contractor1_hire->Size = System::Drawing::Size(119, 34);
+		this->listing_contractor1_hire->TabIndex = 7;
+		this->listing_contractor1_hire->Text = L"Нанять!";
+		this->listing_contractor1_hire->UseVisualStyleBackColor = true;
+		this->listing_contractor1_hire->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
 		// 
-		// listing_contractor_2_accept
+		// listing_contractor1_label_hrs
 		// 
-		this->listing_contractor_2_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_contractor1_label_hrs->AutoSize = true;
+		this->listing_contractor1_label_hrs->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_contractor_2_accept->Location = System::Drawing::Point(5, 109);
-		this->listing_contractor_2_accept->Margin = System::Windows::Forms::Padding(4);
-		this->listing_contractor_2_accept->Name = L"listing_contractor_2_accept";
-		this->listing_contractor_2_accept->Size = System::Drawing::Size(119, 34);
-		this->listing_contractor_2_accept->TabIndex = 7;
-		this->listing_contractor_2_accept->Text = L"Нанять!";
-		this->listing_contractor_2_accept->UseVisualStyleBackColor = true;
-		this->listing_contractor_2_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
+		this->listing_contractor1_label_hrs->Location = System::Drawing::Point(5, 86);
+		this->listing_contractor1_label_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor1_label_hrs->Name = L"listing_contractor1_label_hrs";
+		this->listing_contractor1_label_hrs->Size = System::Drawing::Size(109, 20);
+		this->listing_contractor1_label_hrs->TabIndex = 5;
+		this->listing_contractor1_label_hrs->Text = L"всего часов:";
 		// 
-		// listing_contractor_2_label_hrs
+		// listing_contractor1_author
 		// 
-		this->listing_contractor_2_label_hrs->AutoSize = true;
-		this->listing_contractor_2_label_hrs->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
+		this->listing_contractor1_author->AutoSize = true;
+		this->listing_contractor1_author->Location = System::Drawing::Point(35, 40);
+		this->listing_contractor1_author->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor1_author->Name = L"listing_contractor1_author";
+		this->listing_contractor1_author->Size = System::Drawing::Size(149, 20);
+		this->listing_contractor1_author->TabIndex = 2;
+		this->listing_contractor1_author->Text = L"имя_подрядчика";
+		// 
+		// listing_contractor1_label_per_hr
+		// 
+		this->listing_contractor1_label_per_hr->AutoSize = true;
+		this->listing_contractor1_label_per_hr->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
 			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_contractor_2_label_hrs->Location = System::Drawing::Point(5, 86);
-		this->listing_contractor_2_label_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_2_label_hrs->Name = L"listing_contractor_2_label_hrs";
-		this->listing_contractor_2_label_hrs->Size = System::Drawing::Size(109, 20);
-		this->listing_contractor_2_label_hrs->TabIndex = 5;
-		this->listing_contractor_2_label_hrs->Text = L"всего часов:";
+		this->listing_contractor1_label_per_hr->Location = System::Drawing::Point(5, 63);
+		this->listing_contractor1_label_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor1_label_per_hr->Name = L"listing_contractor1_label_per_hr";
+		this->listing_contractor1_label_per_hr->Size = System::Drawing::Size(80, 20);
+		this->listing_contractor1_label_per_hr->TabIndex = 3;
+		this->listing_contractor1_label_per_hr->Text = L"за час, ₽:";
 		// 
-		// listing_contractor_2_from
+		// listing_contractor1_per_hr
 		// 
-		this->listing_contractor_2_from->AutoSize = true;
-		this->listing_contractor_2_from->Location = System::Drawing::Point(35, 40);
-		this->listing_contractor_2_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_2_from->Name = L"listing_contractor_2_from";
-		this->listing_contractor_2_from->Size = System::Drawing::Size(149, 20);
-		this->listing_contractor_2_from->TabIndex = 2;
-		this->listing_contractor_2_from->Text = L"имя_подрядчика";
+		this->listing_contractor1_per_hr->AutoSize = true;
+		this->listing_contractor1_per_hr->Location = System::Drawing::Point(89, 64);
+		this->listing_contractor1_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor1_per_hr->Name = L"listing_contractor1_per_hr";
+		this->listing_contractor1_per_hr->Size = System::Drawing::Size(117, 20);
+		this->listing_contractor1_per_hr->TabIndex = 4;
+		this->listing_contractor1_per_hr->Text = L"плата_за_час";
 		// 
-		// listing_contractor_2_label_hourly
+		// listing_contractor1_name
 		// 
-		this->listing_contractor_2_label_hourly->AutoSize = true;
-		this->listing_contractor_2_label_hourly->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_contractor_2_label_hourly->Location = System::Drawing::Point(5, 63);
-		this->listing_contractor_2_label_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_2_label_hourly->Name = L"listing_contractor_2_label_hourly";
-		this->listing_contractor_2_label_hourly->Size = System::Drawing::Size(80, 20);
-		this->listing_contractor_2_label_hourly->TabIndex = 3;
-		this->listing_contractor_2_label_hourly->Text = L"за час, ₽:";
-		// 
-		// listing_contractor_2_hourly
-		// 
-		this->listing_contractor_2_hourly->AutoSize = true;
-		this->listing_contractor_2_hourly->Location = System::Drawing::Point(89, 64);
-		this->listing_contractor_2_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_2_hourly->Name = L"listing_contractor_2_hourly";
-		this->listing_contractor_2_hourly->Size = System::Drawing::Size(117, 20);
-		this->listing_contractor_2_hourly->TabIndex = 4;
-		this->listing_contractor_2_hourly->Text = L"плата_за_час";
-		// 
-		// listing_contractor_2_name
-		// 
-		this->listing_contractor_2_name->AutoSize = true;
-		this->listing_contractor_2_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->listing_contractor1_name->AutoSize = true;
+		this->listing_contractor1_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->listing_contractor_2_name->Location = System::Drawing::Point(4, 11);
-		this->listing_contractor_2_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_2_name->Name = L"listing_contractor_2_name";
-		this->listing_contractor_2_name->Size = System::Drawing::Size(186, 24);
-		this->listing_contractor_2_name->TabIndex = 0;
-		this->listing_contractor_2_name->Text = L"название_подряда";
-		// 
-		// listing_contractor_1
-		// 
-		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_button_info);
-		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_hrs_picker);
-		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_total);
-		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_accept);
-		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_label_hrs);
-		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_from);
-		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_label_hourly);
-		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_hourly);
-		this->listing_contractor_1->Controls->Add(this->listing_contractor_1_name);
-		this->listing_contractor_1->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->listing_contractor_1->Location = System::Drawing::Point(8, 20);
-		this->listing_contractor_1->Margin = System::Windows::Forms::Padding(4);
-		this->listing_contractor_1->Name = L"listing_contractor_1";
-		this->listing_contractor_1->Padding = System::Windows::Forms::Padding(4);
-		this->listing_contractor_1->Size = System::Drawing::Size(254, 147);
-		this->listing_contractor_1->TabIndex = 8;
-		this->listing_contractor_1->TabStop = false;
-		// 
-		// listing_contractor_1_hrs_picker
-		// 
-		this->listing_contractor_1_hrs_picker->Location = System::Drawing::Point(114, 84);
-		this->listing_contractor_1_hrs_picker->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 8, 0, 0, 0 });
-		this->listing_contractor_1_hrs_picker->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor_1_hrs_picker->Name = L"listing_contractor_1_hrs_picker";
-		this->listing_contractor_1_hrs_picker->Size = System::Drawing::Size(40, 28);
-		this->listing_contractor_1_hrs_picker->TabIndex = 9;
-		this->listing_contractor_1_hrs_picker->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor_1_hrs_picker->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
-		// 
-		// listing_contractor_1_total
-		// 
-		this->listing_contractor_1_total->AutoSize = true;
-		this->listing_contractor_1_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->listing_contractor_1_total->Location = System::Drawing::Point(123, 117);
-		this->listing_contractor_1_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_1_total->Name = L"listing_contractor_1_total";
-		this->listing_contractor_1_total->Size = System::Drawing::Size(82, 20);
-		this->listing_contractor_1_total->TabIndex = 7;
-		this->listing_contractor_1_total->Text = L"Итого, ₽: ";
-		// 
-		// listing_contractor_1_accept
-		// 
-		this->listing_contractor_1_accept->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->listing_contractor_1_accept->Location = System::Drawing::Point(5, 109);
-		this->listing_contractor_1_accept->Margin = System::Windows::Forms::Padding(4);
-		this->listing_contractor_1_accept->Name = L"listing_contractor_1_accept";
-		this->listing_contractor_1_accept->Size = System::Drawing::Size(119, 34);
-		this->listing_contractor_1_accept->TabIndex = 7;
-		this->listing_contractor_1_accept->Text = L"Нанять!";
-		this->listing_contractor_1_accept->UseVisualStyleBackColor = true;
-		this->listing_contractor_1_accept->Click += gcnew System::EventHandler(this, &Main_Menu::accept_listing);
-		// 
-		// listing_contractor_1_label_hrs
-		// 
-		this->listing_contractor_1_label_hrs->AutoSize = true;
-		this->listing_contractor_1_label_hrs->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_contractor_1_label_hrs->Location = System::Drawing::Point(5, 86);
-		this->listing_contractor_1_label_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_1_label_hrs->Name = L"listing_contractor_1_label_hrs";
-		this->listing_contractor_1_label_hrs->Size = System::Drawing::Size(109, 20);
-		this->listing_contractor_1_label_hrs->TabIndex = 5;
-		this->listing_contractor_1_label_hrs->Text = L"всего часов:";
-		// 
-		// listing_contractor_1_from
-		// 
-		this->listing_contractor_1_from->AutoSize = true;
-		this->listing_contractor_1_from->Location = System::Drawing::Point(35, 40);
-		this->listing_contractor_1_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_1_from->Name = L"listing_contractor_1_from";
-		this->listing_contractor_1_from->Size = System::Drawing::Size(149, 20);
-		this->listing_contractor_1_from->TabIndex = 2;
-		this->listing_contractor_1_from->Text = L"имя_подрядчика";
-		// 
-		// listing_contractor_1_label_hourly
-		// 
-		this->listing_contractor_1_label_hourly->AutoSize = true;
-		this->listing_contractor_1_label_hourly->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular,
-			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-		this->listing_contractor_1_label_hourly->Location = System::Drawing::Point(5, 63);
-		this->listing_contractor_1_label_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_1_label_hourly->Name = L"listing_contractor_1_label_hourly";
-		this->listing_contractor_1_label_hourly->Size = System::Drawing::Size(80, 20);
-		this->listing_contractor_1_label_hourly->TabIndex = 3;
-		this->listing_contractor_1_label_hourly->Text = L"за час, ₽:";
-		// 
-		// listing_contractor_1_hourly
-		// 
-		this->listing_contractor_1_hourly->AutoSize = true;
-		this->listing_contractor_1_hourly->Location = System::Drawing::Point(89, 64);
-		this->listing_contractor_1_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_1_hourly->Name = L"listing_contractor_1_hourly";
-		this->listing_contractor_1_hourly->Size = System::Drawing::Size(117, 20);
-		this->listing_contractor_1_hourly->TabIndex = 4;
-		this->listing_contractor_1_hourly->Text = L"плата_за_час";
-		// 
-		// listing_contractor_1_name
-		// 
-		this->listing_contractor_1_name->AutoSize = true;
-		this->listing_contractor_1_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->listing_contractor_1_name->Location = System::Drawing::Point(4, 11);
-		this->listing_contractor_1_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->listing_contractor_1_name->Name = L"listing_contractor_1_name";
-		this->listing_contractor_1_name->Size = System::Drawing::Size(186, 24);
-		this->listing_contractor_1_name->TabIndex = 0;
-		this->listing_contractor_1_name->Text = L"название_подряда";
+		this->listing_contractor1_name->Location = System::Drawing::Point(4, 11);
+		this->listing_contractor1_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->listing_contractor1_name->Name = L"listing_contractor1_name";
+		this->listing_contractor1_name->Size = System::Drawing::Size(186, 24);
+		this->listing_contractor1_name->TabIndex = 0;
+		this->listing_contractor1_name->Text = L"название_подряда";
 		// 
 		// label_feed
 		// 
@@ -1541,45 +1631,6 @@ private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
 		this->bg_search->TabIndex = 5;
 		this->bg_search->TabStop = false;
 		// 
-		// listing_customer_2_button_info
-		// 
-		this->listing_customer_2_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
-			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
-		this->listing_customer_2_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_customer_2_button_info.BackgroundImage")));
-		this->listing_customer_2_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-		this->listing_customer_2_button_info->Location = System::Drawing::Point(5, 35);
-		this->listing_customer_2_button_info->Margin = System::Windows::Forms::Padding(4);
-		this->listing_customer_2_button_info->Name = L"listing_customer_2_button_info";
-		this->listing_customer_2_button_info->Size = System::Drawing::Size(30, 30);
-		this->listing_customer_2_button_info->TabIndex = 8;
-		this->listing_customer_2_button_info->UseVisualStyleBackColor = false;
-		// 
-		// listing_contractor_1_button_info
-		// 
-		this->listing_contractor_1_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
-			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
-		this->listing_contractor_1_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_contractor_1_button_info.BackgroundImage")));
-		this->listing_contractor_1_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-		this->listing_contractor_1_button_info->Location = System::Drawing::Point(5, 35);
-		this->listing_contractor_1_button_info->Margin = System::Windows::Forms::Padding(4);
-		this->listing_contractor_1_button_info->Name = L"listing_contractor_1_button_info";
-		this->listing_contractor_1_button_info->Size = System::Drawing::Size(30, 30);
-		this->listing_contractor_1_button_info->TabIndex = 9;
-		this->listing_contractor_1_button_info->UseVisualStyleBackColor = false;
-		// 
-		// listing_contractor_2_button_info
-		// 
-		this->listing_contractor_2_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
-			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
-		this->listing_contractor_2_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"listing_contractor_2_button_info.BackgroundImage")));
-		this->listing_contractor_2_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-		this->listing_contractor_2_button_info->Location = System::Drawing::Point(5, 35);
-		this->listing_contractor_2_button_info->Margin = System::Windows::Forms::Padding(4);
-		this->listing_contractor_2_button_info->Name = L"listing_contractor_2_button_info";
-		this->listing_contractor_2_button_info->Size = System::Drawing::Size(30, 30);
-		this->listing_contractor_2_button_info->TabIndex = 10;
-		this->listing_contractor_2_button_info->UseVisualStyleBackColor = false;
-		// 
 		// Main_Menu
 		// 
 		this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
@@ -1611,18 +1662,18 @@ private: System::Windows::Forms::Button^ listing_contractor_1_button_info;
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->EndInit();
 		this->menu_feed->ResumeLayout(false);
 		this->menu_feed->PerformLayout();
-		this->group_orders->ResumeLayout(false);
-		this->listing_customer_2->ResumeLayout(false);
-		this->listing_customer_2->PerformLayout();
-		this->listing_customer_1->ResumeLayout(false);
-		this->listing_customer_1->PerformLayout();
-		this->group_offers->ResumeLayout(false);
-		this->listing_contractor_2->ResumeLayout(false);
-		this->listing_contractor_2->PerformLayout();
-		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor_2_hrs_picker))->EndInit();
-		this->listing_contractor_1->ResumeLayout(false);
-		this->listing_contractor_1->PerformLayout();
-		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor_1_hrs_picker))->EndInit();
+		this->group_customers->ResumeLayout(false);
+		this->listing_customer2_ui->ResumeLayout(false);
+		this->listing_customer2_ui->PerformLayout();
+		this->listing_customer1_ui->ResumeLayout(false);
+		this->listing_customer1_ui->PerformLayout();
+		this->group_contractors->ResumeLayout(false);
+		this->listing_contractor2_ui->ResumeLayout(false);
+		this->listing_contractor2_ui->PerformLayout();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor2_hrs_picker))->EndInit();
+		this->listing_contractor1_ui->ResumeLayout(false);
+		this->listing_contractor1_ui->PerformLayout();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->listing_contractor1_hrs_picker))->EndInit();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_feed))->EndInit();
 		this->menu_search->ResumeLayout(false);
 		this->menu_search->PerformLayout();
@@ -1885,7 +1936,7 @@ private:
 
 	void sidebar_pick_info(System::Object^ sender, System::EventArgs^ e)
 	{
-		show_info(program_info, L"О программе");
+		show_info(PROGRAM_INFO, L"О программе");
 	}
 
 
