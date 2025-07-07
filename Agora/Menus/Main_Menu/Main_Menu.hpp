@@ -80,17 +80,17 @@ private:
 		);
 
 		customer1_ui = gcnew Listing_Interface(
-			listing_customer1_ui,			 listing_customer1_name,		  listing_customer1_author,
-			listing_contractor1_button_info, listing_customer1_button_accept,
-			listing_customer1_label_per_hr,  listing_customer1_per_hr,
-			listing_customer1_label_hrs,	 listing_customer1_hrs,			  listing_customer1_total
+			listing_customer1_ui,			listing_customer1_name,		     listing_customer1_author,
+			listing_customer1_button_info,  listing_customer1_button_accept,
+			listing_customer1_label_per_hr, listing_customer1_per_hr,
+			listing_customer1_label_hrs,	listing_customer1_hrs,			 listing_customer1_total
 		);
 
 		customer2_ui = gcnew Listing_Interface(
-			listing_customer2_ui,			 listing_customer2_name,		  listing_customer2_author,
-			listing_contractor2_button_info, listing_customer2_button_accept,
-			listing_customer2_label_per_hr,  listing_customer2_per_hr,
-			listing_customer2_label_hrs,	 listing_customer2_hrs,			  listing_customer2_total
+			listing_customer2_ui,			listing_customer2_name,		     listing_customer2_author,
+			listing_customer2_button_info,  listing_customer2_button_accept,
+			listing_customer2_label_per_hr, listing_customer2_per_hr,
+			listing_customer2_label_hrs,	listing_customer2_hrs,			 listing_customer2_total
 		);
 	}
 
@@ -1059,6 +1059,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_customer2_button_info->Size = System::Drawing::Size(30, 30);
 		this->listing_customer2_button_info->TabIndex = 8;
 		this->listing_customer2_button_info->UseVisualStyleBackColor = false;
+		this->listing_customer2_button_info->Click += gcnew System::EventHandler(this, &Main_Menu::listing_show_author_info);
 		// 
 		// listing_customer2_total
 		// 
@@ -1184,6 +1185,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_customer1_button_info->Size = System::Drawing::Size(30, 30);
 		this->listing_customer1_button_info->TabIndex = 5;
 		this->listing_customer1_button_info->UseVisualStyleBackColor = false;
+		this->listing_customer1_button_info->Click += gcnew System::EventHandler(this, &Main_Menu::listing_show_author_info);
 		// 
 		// listing_customer1_total
 		// 
@@ -1324,6 +1326,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_contractor2_button_info->Size = System::Drawing::Size(30, 30);
 		this->listing_contractor2_button_info->TabIndex = 10;
 		this->listing_contractor2_button_info->UseVisualStyleBackColor = false;
+		this->listing_contractor2_button_info->Click += gcnew System::EventHandler(this, &Main_Menu::listing_show_author_info);
 		// 
 		// listing_contractor2_picker_hrs
 		// 
@@ -1450,6 +1453,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_contractor1_button_info->Size = System::Drawing::Size(30, 30);
 		this->listing_contractor1_button_info->TabIndex = 9;
 		this->listing_contractor1_button_info->UseVisualStyleBackColor = false;
+		this->listing_contractor1_button_info->Click += gcnew System::EventHandler(this, &Main_Menu::listing_show_author_info);
 		// 
 		// listing_contractor1_picker_hrs
 		// 
@@ -1808,6 +1812,22 @@ private:
 
 		listing_customer2 = get_random_listing(CUSTOMER_LISTING);
 		customer2_ui->set_listing(&listing_customer2, CUSTOMER_LISTING);
+	}
+
+
+
+	void listing_show_author_info(System::Object^ sender, System::EventArgs^ e)
+	{
+		Button^ source = safe_cast<Button^>(sender);
+
+		if (contractor1_ui->has(source))
+			show_info(contractor1_ui->listing->contractor->serialize(), L"Информация о подрядчике");
+		else if (contractor2_ui->has(source))
+			show_info(contractor2_ui->listing->contractor->serialize(), L"Информация о подрядчике");
+		else if (customer1_ui->has(source))
+			show_info(customer1_ui->listing->customer->serialize(), L"Информация о заказчике");
+		else if (customer2_ui->has(source))
+			show_info(customer2_ui->listing->customer->serialize(), L"Информация о заказчике");
 	}
 
 
