@@ -33,7 +33,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 		return 0;
 
 	PREDEFINED_COMPANIES = load_predefined_companies();
-    Application::Run(gcnew Main_Menu(user, PREDEFINED_COMPANIES));
+    Application::Run(gcnew Main_Menu(user));
 
     return 0;
 }

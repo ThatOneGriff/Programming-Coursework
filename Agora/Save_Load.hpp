@@ -22,10 +22,10 @@ const std::wstring USER_SAVEFILE_NAME   = L"user.txt";
 const std::wstring USER_LISTINGS_FILE_NAME = L"user_listings.txt";
 
 User* load(const std::wstring address);
-std::vector<Listing> load_listings(User* user, const std::wstring& address = USER_LISTINGS_FILE_NAME);
 void  save(User* user, std::wstring address = L"", std::vector<Listing> active_listings = {});
 
-std::vector<User*> load_predefined_companies();
+std::vector<Listing> load_listings(User* user, const std::wstring& address = USER_LISTINGS_FILE_NAME);
+void load_predefined_companies();
 std::vector<User*> PREDEFINED_COMPANIES;
 
 
@@ -91,6 +91,33 @@ User* load(const std::wstring address)
 
 	show_error(L"Аккаунт не создан по неизвестной причине.");
 	return nullptr; /// Something that under NO circumstance should happen
+}
+
+
+/// 'User*' instead of raw text as a protection from saving jackshit
+void save(User* user, std::wstring address/* = L""*/, std::vector<Listing> active_listings/* = {}*/)
+{
+	if (address == L"")
+		address = user->name->as_filename();
+	std::wofstream savefile(address);
+
+	// Copied from: https://stackoverflow.com/a/3950840/15540979
+	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
+	savefile.imbue(loc);
+	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
+
+	savefile << user->serialize();
+	savefile.close();
+
+	
+	if (active_listings.empty())
+		return;
+	std::wofstream savefile_listings(USER_LISTINGS_FILE_NAME);
+	savefile_listings.imbue(loc);
+
+	for (Listing& listing : active_listings)
+		savefile_listings << listing.serialize(user) << L'\n';
+	savefile_listings.close();
 }
 
 
@@ -161,33 +188,6 @@ std::vector<Listing> load_listings(User* user, const std::wstring& address/* = U
 }
 
 
-/// 'User*' instead of raw text as a protection from saving jackshit
-void save(User* user, std::wstring address/* = L""*/, std::vector<Listing> active_listings/* = {}*/)
-{
-	if (address == L"")
-		address = user->name->as_filename();
-	std::wofstream savefile(address);
-
-	// Copied from: https://stackoverflow.com/a/3950840/15540979
-	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
-	savefile.imbue(loc);
-	// The copied code deals with locales, enabling a full save into file without errors. I spent so much time!
-
-	savefile << user->serialize();
-	savefile.close();
-
-	
-	if (active_listings.empty())
-		return;
-	std::wofstream savefile_listings(USER_LISTINGS_FILE_NAME);
-	savefile_listings.imbue(loc);
-
-	for (Listing& listing : active_listings)
-		savefile_listings << listing.serialize(user) << L'\n';
-	savefile_listings.close();
-}
-
-
 /// Wish I could do that via scanning all the files in a folder.
 /// Sadly, 'filesystem' gave me some hellish errors...
 const std::wstring _PREDEFINED_COMPANY_SAVEPATHS[10] = {
@@ -195,19 +195,16 @@ const std::wstring _PREDEFINED_COMPANY_SAVEPATHS[10] = {
 	L"medtekh.txt",  L"softrazrabotka.txt", L"stroymaster.txt", L"tekhnoprogress.txt",    L"tsifrovye_resheniya.txt"
 };
 /// POSSIBLE MEMORY LEAK
-std::vector<User*> load_predefined_companies()
+void load_predefined_companies()
 {
-	std::vector<User*> result;
-	result.reserve(10);
+	PREDEFINED_COMPANIES.reserve(10);
 	
 	for (std::wstring path : _PREDEFINED_COMPANY_SAVEPATHS)
 	{
 		path = L"./Predefined_Companies/" + path;
 		User* new_company = load(path);
-		result.push_back(new_company);
+		PREDEFINED_COMPANIES.push_back(new_company);
 	}
-
-	return result;
 }
 
 

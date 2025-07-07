@@ -3,6 +3,7 @@
 #define MAIN_MENU_HPP
 
 #include <vector>
+#include <unordered_set>
 
 #include "Menus/Registration/registration.hpp"
 
@@ -18,7 +19,6 @@ using namespace System::Data;
 using namespace System::Drawing;
 
 /// 'Member of an unmanaged class' bullshit made me put all of this here
-std::vector<User*> NPCs;
 std::vector<Listing> accepted_listings;
 Listing job_request_1, job_request_2,
 		job_offer_1,   job_offer_2;
@@ -31,11 +31,10 @@ public:
 
 	User* user;
 
-	Main_Menu(User* _user, const std::vector<User*> _NPCs)
+	Main_Menu(User* _user)
 	: user(_user)
 	{
 		InitializeComponent();
-		NPCs = _NPCs;
 		accepted_listings = load_listings(user);
 
 		System::Drawing::Size size(665, 485);
