@@ -63,9 +63,9 @@ public:
 
 	
 	/// Intended only for UI's with variable hour settings!
-	void calculate_and_display_total(const unsigned int total_hrs)
+	void calculate_and_display_total(const unsigned int hrs)
 	{
-		listing->total_hrs = total_hrs;
+		listing->hrs = hrs;
 		total->Text = L"Итого, ₽: " + listing->payment_total();
 	}
 
@@ -89,11 +89,11 @@ public:
 
 		ui_group->Enabled = true;
 		name->Text   = to_dotnet_string(listing->name);
-		per_hr->Text = Convert::ToString(listing->payment_hr);
+		per_hr->Text = Convert::ToString(listing->per_hr);
 
 		if (listing_type == CUSTOMER_LISTING)
 		{
-			hrs->Text = Convert::ToString(listing->total_hrs);
+			hrs->Text = Convert::ToString(listing->hrs);
 			author->Text = to_dotnet_string(listing->customer->name->get_short());
 		}
 		else if (listing_type == CONTRACTOR_LISTING)

@@ -21,8 +21,8 @@ class _Job_Class
 {
 public:
 
-	_Job_Class(const unsigned int _payment_LOW, const unsigned int _payment_HIGH, const std::vector<std::wstring>& _job_names)
-	: payment_lower_bound(_payment_LOW), payment_upper_bound(_payment_HIGH), job_names(_job_names)
+	_Job_Class(const unsigned int _per_hr_LOW, const unsigned int _per_hr_HIGH, const std::vector<std::wstring>& _job_names)
+	: per_hr_lower_bound(_per_hr_LOW), per_hr_upper_bound(_per_hr_HIGH), job_names(_job_names)
 	{}
 
 	std::wstring random_job_name()
@@ -30,15 +30,15 @@ public:
 		return job_names[randint(0, job_names.size() - 1)];
 	}
 
-	int random_payment()
+	int random_per_hr()
 	{
-		return randint(payment_lower_bound, payment_upper_bound);
+		return randint(per_hr_lower_bound, per_hr_upper_bound);
 	}
 
 private:
 
-	const unsigned int payment_lower_bound;
-	const unsigned int payment_upper_bound;
+	const unsigned int per_hr_lower_bound;
+	const unsigned int per_hr_upper_bound;
 	const std::vector<std::wstring> job_names;
 };
 
@@ -56,45 +56,42 @@ Listing get_random_listing(int job_type)
 	int category = randint(1, 5);
 
 	std::wstring name = L"";
-	unsigned int payment_hr = 0;
+	unsigned int per_hr = 0;
 	switch(category)
 	{
 	case 1:
-		name	   = cheap.random_job_name();
-		payment_hr = cheap.random_payment();
+		name   = cheap.random_job_name();
+		per_hr = cheap.random_per_hr();
 		break;
 	case 2:
-		name	   = medium.random_job_name();
-		payment_hr = medium.random_payment();
+		name   = medium.random_job_name();
+		per_hr = medium.random_per_hr();
 		break;
 	case 3:
-		name	   = upper_med.random_job_name();
-		payment_hr = upper_med.random_payment();
+		name   = upper_med.random_job_name();
+		per_hr = upper_med.random_per_hr();
 		break;
 	case 4:
-		name	   = lower_high.random_job_name();
-		payment_hr = lower_high.random_payment();
+		name   = lower_high.random_job_name();
+		per_hr = lower_high.random_per_hr();
 		break;
 	case 5:
-		name	   = upper_high.random_job_name();
-		payment_hr = upper_high.random_payment();
+		name   = upper_high.random_job_name();
+		per_hr = upper_high.random_per_hr();
 		break;
 	}
-
-	//const std::wstring time_unit = L"÷.";
 
 	/// Customer
 	if (job_type == CUSTOMER_LISTING)
 	{
 		User *customer = PREDEFINED_COMPANIES[randint(9)];
-		int total_hrs = randint(1, 8);
-		return Listing(name, total_hrs, payment_hr, nullptr, customer);
+		int hrs = randint(1, 8);
+		return Listing(name, hrs, per_hr, nullptr, customer);
 	}
 	/// Contractor
 	else if (job_type == CONTRACTOR_LISTING)
 	{
-		int total_hrs = 1;
-		return Listing(name, total_hrs, payment_hr, get_random_individual(), nullptr);
+		return Listing(name, 1, per_hr, get_random_individual(), nullptr);
 	}
 }
 

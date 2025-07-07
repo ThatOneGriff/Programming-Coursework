@@ -1756,14 +1756,12 @@ private:
 		else if (customer1_ui->has(source))
 		{
 			respectable_listing_ui = customer1_ui;
-			/// We could give it an 80% chance for a spice.
 			show_info(L"Заказчик согласился!");
 		}
 
 		else if (customer2_ui->has(source))
 		{
 			respectable_listing_ui = customer2_ui;
-			/// We could give it an 80% chance for a spice.
 			show_info(L"Заказчик согласился!");
 		}
 
@@ -1908,8 +1906,8 @@ private:
 			active_listing_1_from->Text = to_dotnet_string(accepted_listings[0].customer->name->get_short());
 		else
 			active_listing_1_from->Text = to_dotnet_string(accepted_listings[0].contractor->name->get_short());
-		active_listing_1_hourly->Text = Convert::ToString(accepted_listings[0].payment_hr);
-		active_listing_1_hrs->Text	= Convert::ToString(accepted_listings[0].total_hrs);
+		active_listing_1_hourly->Text = Convert::ToString(accepted_listings[0].per_hr);
+		active_listing_1_hrs->Text	= Convert::ToString(accepted_listings[0].hrs);
 		active_listing_1_total->Text  = L"Итого, ₽: " + Convert::ToString(accepted_listings[0].payment_total());
 
 		if (accepted_listings.size() < 2)
@@ -1921,8 +1919,8 @@ private:
 			active_listing_2_from->Text = to_dotnet_string(accepted_listings[1].customer->name->get_short());
 		else
 			active_listing_2_from->Text = to_dotnet_string(accepted_listings[1].contractor->name->get_short());
-		active_listing_2_hourly->Text = Convert::ToString(accepted_listings[1].payment_hr);
-		active_listing_2_hrs->Text	= Convert::ToString(accepted_listings[1].total_hrs);
+		active_listing_2_hourly->Text = Convert::ToString(accepted_listings[1].per_hr);
+		active_listing_2_hrs->Text	= Convert::ToString(accepted_listings[1].hrs);
 		active_listing_2_total->Text  = L"Итого, ₽: " + Convert::ToString(accepted_listings[1].payment_total());
 	}
 
