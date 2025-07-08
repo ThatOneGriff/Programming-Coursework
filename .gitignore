@@ -14,6 +14,7 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 .testing-grounds/
+SaveData/
 *.userprefs
 *.exe
 *.o
