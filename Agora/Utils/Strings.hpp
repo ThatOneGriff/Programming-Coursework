@@ -7,6 +7,7 @@
 #include <sstream>
 #include <unordered_map> // mapping chars for transliteration
 #include <vector>
+#include <Windows.h>
 using namespace System;  // all things CLR
 
 #define BACKSPACE (char)8
@@ -24,6 +25,12 @@ System::String^ to_dotnet_string(const std::wstring& target);
 System::String^ to_dotnet_string(const int target);
 std::wstring	to_std_wstring(System::String^ target);
 std::wstring	translit_CtoL(const std::wstring& target);
+
+
+System::String^ operator=(const std::wstring& wstr)
+{
+	return to_dotnet_string(wstr);
+}
 
 
 /// Because 'wstring::erase' simply refused to work.
