@@ -52,16 +52,19 @@ public:
 
 	
 	Listing(const std::wstring& _name,   const unsigned int _hrs, const unsigned int _per_hr,
-			User* _contractor = nullptr, User* _customer = nullptr)
+			User* _contractor = nullptr, User* _customer = nullptr, User* _author = nullptr)
 	: name(_name), hrs(_hrs), per_hr(_per_hr),
-	  contractor(_contractor), customer(_customer)
+	  contractor(_contractor), customer(_customer), author(_author)
 	{
+		if (author != nullptr) /// author explicitly set
+			return;
+
 		if (contractor != nullptr)
 			author = contractor;
 		else if (customer != nullptr)
 			author = customer;
 		else
-			show_error(L"Listing with no users.");
+			show_error(L"Listing with no users."); // can be bypassed by explicitly setting author
 	}
 
 

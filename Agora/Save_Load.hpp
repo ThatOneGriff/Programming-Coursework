@@ -170,7 +170,7 @@ std::vector<Listing> load_listings(User* user)
 		unsigned int payment_hr = stoi(raw_data[i++]);
 		unsigned int total_hrs  = stoi(raw_data[i++]);
 
-		User *contractor = nullptr, *customer = nullptr;
+		User *contractor = nullptr, *customer = nullptr, *author = nullptr;
 		std::wstring contractor_path = raw_data[i++];
 		if (contractor_path == L"user.txt")
 			contractor = user;
@@ -190,6 +190,8 @@ std::vector<Listing> load_listings(User* user)
 						contractor = individual;
 				}
 			}
+
+			author = contractor;
 		}
 
 		std::wstring customer_path = raw_data[i];
@@ -210,9 +212,11 @@ std::vector<Listing> load_listings(User* user)
 						customer = individual;
 				}
 			}
+
+			author = customer;
 		}
 
-		Listing new_listing(name, total_hrs, payment_hr, contractor, customer);
+		Listing new_listing(name, total_hrs, payment_hr, contractor, customer, author);
 		result.push_back(new_listing);
 	}
 
