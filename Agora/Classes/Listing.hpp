@@ -36,6 +36,18 @@ public:
 		return *this;
 	}
 
+
+	bool operator==(const Listing& other)
+	{
+		return (
+			name	  == other.name
+			&& per_hr == other.per_hr
+			&& hrs	  == other.hrs
+			&& contractor == other.contractor
+			&& customer   == other.customer
+		);
+	}
+
 	
 	Listing(const std::wstring& _name,   const unsigned int _hrs, const unsigned int _per_hr,
 			User* _contractor = nullptr, User* _customer = nullptr)

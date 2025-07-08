@@ -37,8 +37,10 @@ public:
 
 	User* user;
 
-	Listing_Interface ^contractor1_ui, ^contractor2_ui,
-					  ^customer1_ui,   ^customer2_ui;
+	Listing_Interface ^contractor1_ui,	^contractor2_ui,
+					  ^customer1_ui,	^customer2_ui,
+					  ^active_listing1, ^active_listing2;
+
 
 	Main_Menu(User* _user)
 	: user(_user)
@@ -55,15 +57,43 @@ public:
 		/// 2. 8 shows correct size in editor; 7 makes the release program correct.
 
 		sidebar_pick_account(nullptr, nullptr); /// default menu may become a choice in Settings
-		fill_listing_interface_objects();
+		fill_feed_listing_interface();
+		fill_account_listing_interface();
 		fill_account_menu();
-		fill_active_listings_menu();
 		fill_feed_menu();
 	}
 
 private:
 
-	void fill_listing_interface_objects()
+	void fill_account_listing_interface()
+	{
+		if (accepted_listings.size() < 1)
+			return;
+
+		active_listing1 = gcnew Listing_Interface(
+			active_listing1_ui,			  active_listing1_name,			 active_listing1_author,
+			active_listing1_button_info,  active_listing1_button_finish,
+			active_listing1_label_per_hr, active_listing1_per_hr,
+			active_listing1_label_hrs,	  active_listing1_hrs,
+			active_listing1_total
+		);
+
+
+		/*if (accepted_listings.size() < 2)
+			return;
+
+		active_listing_2_name->Text = to_dotnet_string(accepted_listings[1].name);
+		if (accepted_listings[1].contractor == user)
+			active_listing_2_from->Text = to_dotnet_string(accepted_listings[1].customer->name->get_short());
+		else
+			active_listing_2_from->Text = to_dotnet_string(accepted_listings[1].contractor->name->get_short());
+		active_listing_2_hourly->Text = Convert::ToString(accepted_listings[1].per_hr);
+		active_listing_2_hrs->Text	= Convert::ToString(accepted_listings[1].hrs);
+		active_listing_2_total->Text  = L"Итого, ₽: " + Convert::ToString(accepted_listings[1].payment_total());*/
+	}
+
+
+	void fill_feed_listing_interface()
 	{
 		contractor1_ui = gcnew Listing_Interface(
 			listing_contractor1_ui,			  listing_contractor1_name,		   listing_contractor1_author,
@@ -103,7 +133,26 @@ protected:
 			delete components;
 	}
 
-private:
+
+private: System::Windows::Forms::GroupBox^ active_listing1_ui;
+private: System::Windows::Forms::Button^ active_listing1_button_info;
+private: System::Windows::Forms::Label^ active_listing1_total;
+
+
+private: System::Windows::Forms::Button^ active_listing1_button_finish;
+
+private: System::Windows::Forms::Label^ active_listing1_hrs;
+
+private: System::Windows::Forms::Label^ active_listing1_label_hrs;
+
+
+private: System::Windows::Forms::Label^ active_listing1_author;
+private: System::Windows::Forms::Label^ active_listing1_label_per_hr;
+private: System::Windows::Forms::Label^ active_listing1_per_hr;
+
+
+
+private: System::Windows::Forms::Label^ active_listing1_name;
 	System::Windows::Forms::Button^ menu_button_search;
 	System::Windows::Forms::Panel^ sidebar;
 	System::Windows::Forms::Button^ menu_button_info;
@@ -253,45 +302,48 @@ private: System::Windows::Forms::NumericUpDown^ listing_contractor1_picker_hrs;
 
 
 
-private: System::Windows::Forms::GroupBox^ active_listing_1;
-private: System::Windows::Forms::Label^ active_listing_1_total;
-private: System::Windows::Forms::Button^ active_listing_1_finish;
-private: System::Windows::Forms::Label^ active_listing_1_hrs;
 
 
 
 
-private: System::Windows::Forms::Label^ active_listing_1_label_hrs;
-
-
-
-private: System::Windows::Forms::Label^ active_listing_1_from;
-private: System::Windows::Forms::Label^ active_listing_1_label_hourly;
-
-
-private: System::Windows::Forms::Label^ active_listing_1_hourly;
-
-private: System::Windows::Forms::Label^ active_listing_1_name;
-
-private: System::Windows::Forms::GroupBox^ active_listing_2;
-private: System::Windows::Forms::Label^ active_listing_2_total;
-private: System::Windows::Forms::Button^ active_listing_2_finish;
-private: System::Windows::Forms::Label^ active_listing_2_hrs;
 
 
 
 
-private: System::Windows::Forms::Label^ active_listing_2_label_hrs;
-
-
-private: System::Windows::Forms::Label^ active_listing_2_from;
-private: System::Windows::Forms::Label^ active_listing_2_label_hourly;
 
 
 
-private: System::Windows::Forms::Label^ active_listing_2_hourly;
 
-private: System::Windows::Forms::Label^ active_listing_2_name;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 private: System::Windows::Forms::Button^ listing_customer1_button_info;
 private: System::Windows::Forms::Button^ listing_customer2_button_info;
 
@@ -337,24 +389,16 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->menu_button_feed = (gcnew System::Windows::Forms::Button());
 		this->menu_account = (gcnew System::Windows::Forms::Panel());
 		this->group_active_contracts = (gcnew System::Windows::Forms::GroupBox());
-		this->active_listing_2 = (gcnew System::Windows::Forms::GroupBox());
-		this->active_listing_2_total = (gcnew System::Windows::Forms::Label());
-		this->active_listing_2_finish = (gcnew System::Windows::Forms::Button());
-		this->active_listing_2_hrs = (gcnew System::Windows::Forms::Label());
-		this->active_listing_2_label_hrs = (gcnew System::Windows::Forms::Label());
-		this->active_listing_2_from = (gcnew System::Windows::Forms::Label());
-		this->active_listing_2_label_hourly = (gcnew System::Windows::Forms::Label());
-		this->active_listing_2_hourly = (gcnew System::Windows::Forms::Label());
-		this->active_listing_2_name = (gcnew System::Windows::Forms::Label());
-		this->active_listing_1 = (gcnew System::Windows::Forms::GroupBox());
-		this->active_listing_1_total = (gcnew System::Windows::Forms::Label());
-		this->active_listing_1_finish = (gcnew System::Windows::Forms::Button());
-		this->active_listing_1_hrs = (gcnew System::Windows::Forms::Label());
-		this->active_listing_1_label_hrs = (gcnew System::Windows::Forms::Label());
-		this->active_listing_1_from = (gcnew System::Windows::Forms::Label());
-		this->active_listing_1_label_hourly = (gcnew System::Windows::Forms::Label());
-		this->active_listing_1_hourly = (gcnew System::Windows::Forms::Label());
-		this->active_listing_1_name = (gcnew System::Windows::Forms::Label());
+		this->active_listing1_ui = (gcnew System::Windows::Forms::GroupBox());
+		this->active_listing1_button_info = (gcnew System::Windows::Forms::Button());
+		this->active_listing1_total = (gcnew System::Windows::Forms::Label());
+		this->active_listing1_button_finish = (gcnew System::Windows::Forms::Button());
+		this->active_listing1_hrs = (gcnew System::Windows::Forms::Label());
+		this->active_listing1_label_hrs = (gcnew System::Windows::Forms::Label());
+		this->active_listing1_author = (gcnew System::Windows::Forms::Label());
+		this->active_listing1_label_per_hr = (gcnew System::Windows::Forms::Label());
+		this->active_listing1_per_hr = (gcnew System::Windows::Forms::Label());
+		this->active_listing1_name = (gcnew System::Windows::Forms::Label());
 		this->label_no_active_contracts = (gcnew System::Windows::Forms::RichTextBox());
 		this->group_account_data = (gcnew System::Windows::Forms::GroupBox());
 		this->label_account_website = (gcnew System::Windows::Forms::Label());
@@ -429,8 +473,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->sidebar->SuspendLayout();
 		this->menu_account->SuspendLayout();
 		this->group_active_contracts->SuspendLayout();
-		this->active_listing_2->SuspendLayout();
-		this->active_listing_1->SuspendLayout();
+		this->active_listing1_ui->SuspendLayout();
 		this->group_account_data->SuspendLayout();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->BeginInit();
 		this->menu_feed->SuspendLayout();
@@ -547,8 +590,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		// 
 		// group_active_contracts
 		// 
-		this->group_active_contracts->Controls->Add(this->active_listing_2);
-		this->group_active_contracts->Controls->Add(this->active_listing_1);
+		this->group_active_contracts->Controls->Add(this->active_listing1_ui);
 		this->group_active_contracts->Controls->Add(this->label_no_active_contracts);
 		this->group_active_contracts->Location = System::Drawing::Point(287, 168);
 		this->group_active_contracts->Margin = System::Windows::Forms::Padding(4);
@@ -559,228 +601,129 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->group_active_contracts->TabStop = false;
 		this->group_active_contracts->Text = L"Активные контракты";
 		// 
-		// active_listing_2
+		// active_listing1_ui
 		// 
-		this->active_listing_2->Controls->Add(this->active_listing_2_total);
-		this->active_listing_2->Controls->Add(this->active_listing_2_finish);
-		this->active_listing_2->Controls->Add(this->active_listing_2_hrs);
-		this->active_listing_2->Controls->Add(this->active_listing_2_label_hrs);
-		this->active_listing_2->Controls->Add(this->active_listing_2_from);
-		this->active_listing_2->Controls->Add(this->active_listing_2_label_hourly);
-		this->active_listing_2->Controls->Add(this->active_listing_2_hourly);
-		this->active_listing_2->Controls->Add(this->active_listing_2_name);
-		this->active_listing_2->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->active_listing1_ui->Controls->Add(this->active_listing1_button_info);
+		this->active_listing1_ui->Controls->Add(this->active_listing1_total);
+		this->active_listing1_ui->Controls->Add(this->active_listing1_button_finish);
+		this->active_listing1_ui->Controls->Add(this->active_listing1_hrs);
+		this->active_listing1_ui->Controls->Add(this->active_listing1_label_hrs);
+		this->active_listing1_ui->Controls->Add(this->active_listing1_author);
+		this->active_listing1_ui->Controls->Add(this->active_listing1_label_per_hr);
+		this->active_listing1_ui->Controls->Add(this->active_listing1_per_hr);
+		this->active_listing1_ui->Controls->Add(this->active_listing1_name);
+		this->active_listing1_ui->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->active_listing_2->Location = System::Drawing::Point(7, 168);
-		this->active_listing_2->Margin = System::Windows::Forms::Padding(4);
-		this->active_listing_2->Name = L"active_listing_2";
-		this->active_listing_2->Padding = System::Windows::Forms::Padding(4);
-		this->active_listing_2->Size = System::Drawing::Size(257, 147);
-		this->active_listing_2->TabIndex = 8;
-		this->active_listing_2->TabStop = false;
-		this->active_listing_2->Visible = false;
+		this->active_listing1_ui->Location = System::Drawing::Point(8, 16);
+		this->active_listing1_ui->Margin = System::Windows::Forms::Padding(4);
+		this->active_listing1_ui->Name = L"active_listing1_ui";
+		this->active_listing1_ui->Padding = System::Windows::Forms::Padding(4);
+		this->active_listing1_ui->Size = System::Drawing::Size(254, 147);
+		this->active_listing1_ui->TabIndex = 9;
+		this->active_listing1_ui->TabStop = false;
 		// 
-		// active_listing_2_total
+		// active_listing1_button_info
 		// 
-		this->active_listing_2_total->AutoSize = true;
-		this->active_listing_2_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+		this->active_listing1_button_info->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(187)),
+			static_cast<System::Int32>(static_cast<System::Byte>(191)), static_cast<System::Int32>(static_cast<System::Byte>(202)));
+		this->active_listing1_button_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"active_listing1_button_info.BackgroundImage")));
+		this->active_listing1_button_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+		this->active_listing1_button_info->Location = System::Drawing::Point(5, 35);
+		this->active_listing1_button_info->Margin = System::Windows::Forms::Padding(4);
+		this->active_listing1_button_info->Name = L"active_listing1_button_info";
+		this->active_listing1_button_info->Size = System::Drawing::Size(30, 30);
+		this->active_listing1_button_info->TabIndex = 5;
+		this->active_listing1_button_info->UseVisualStyleBackColor = false;
+		// 
+		// active_listing1_total
+		// 
+		this->active_listing1_total->AutoSize = true;
+		this->active_listing1_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->active_listing_2_total->Location = System::Drawing::Point(123, 117);
-		this->active_listing_2_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_2_total->Name = L"active_listing_2_total";
-		this->active_listing_2_total->Size = System::Drawing::Size(82, 20);
-		this->active_listing_2_total->TabIndex = 7;
-		this->active_listing_2_total->Text = L"Итого, ₽: ";
+		this->active_listing1_total->Location = System::Drawing::Point(123, 117);
+		this->active_listing1_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->active_listing1_total->Name = L"active_listing1_total";
+		this->active_listing1_total->Size = System::Drawing::Size(82, 20);
+		this->active_listing1_total->TabIndex = 7;
+		this->active_listing1_total->Text = L"Итого, ₽: ";
 		// 
-		// active_listing_2_finish
+		// active_listing1_button_finish
 		// 
-		this->active_listing_2_finish->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->active_listing1_button_finish->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->active_listing_2_finish->Location = System::Drawing::Point(5, 109);
-		this->active_listing_2_finish->Margin = System::Windows::Forms::Padding(4);
-		this->active_listing_2_finish->Name = L"active_listing_2_finish";
-		this->active_listing_2_finish->Size = System::Drawing::Size(119, 34);
-		this->active_listing_2_finish->TabIndex = 7;
-		this->active_listing_2_finish->Text = L"Готово!";
-		this->active_listing_2_finish->UseVisualStyleBackColor = true;
+		this->active_listing1_button_finish->Location = System::Drawing::Point(5, 109);
+		this->active_listing1_button_finish->Margin = System::Windows::Forms::Padding(4);
+		this->active_listing1_button_finish->Name = L"active_listing1_button_finish";
+		this->active_listing1_button_finish->Size = System::Drawing::Size(119, 34);
+		this->active_listing1_button_finish->TabIndex = 7;
+		this->active_listing1_button_finish->Text = L"За работу!";
+		this->active_listing1_button_finish->UseVisualStyleBackColor = true;
 		// 
-		// active_listing_2_hrs
+		// active_listing1_hrs
 		// 
-		this->active_listing_2_hrs->AutoSize = true;
-		this->active_listing_2_hrs->Location = System::Drawing::Point(111, 86);
-		this->active_listing_2_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_2_hrs->Name = L"active_listing_2_hrs";
-		this->active_listing_2_hrs->Size = System::Drawing::Size(126, 20);
-		this->active_listing_2_hrs->TabIndex = 6;
-		this->active_listing_2_hrs->Text = L"часов_работы";
+		this->active_listing1_hrs->AutoSize = true;
+		this->active_listing1_hrs->Location = System::Drawing::Point(111, 86);
+		this->active_listing1_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->active_listing1_hrs->Name = L"active_listing1_hrs";
+		this->active_listing1_hrs->Size = System::Drawing::Size(126, 20);
+		this->active_listing1_hrs->TabIndex = 6;
+		this->active_listing1_hrs->Text = L"часов_работы";
 		// 
-		// active_listing_2_label_hrs
+		// active_listing1_label_hrs
 		// 
-		this->active_listing_2_label_hrs->AutoSize = true;
-		this->active_listing_2_label_hrs->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+		this->active_listing1_label_hrs->AutoSize = true;
+		this->active_listing1_label_hrs->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->active_listing_2_label_hrs->Location = System::Drawing::Point(5, 86);
-		this->active_listing_2_label_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_2_label_hrs->Name = L"active_listing_2_label_hrs";
-		this->active_listing_2_label_hrs->Size = System::Drawing::Size(109, 20);
-		this->active_listing_2_label_hrs->TabIndex = 5;
-		this->active_listing_2_label_hrs->Text = L"всего часов:";
+		this->active_listing1_label_hrs->Location = System::Drawing::Point(5, 86);
+		this->active_listing1_label_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->active_listing1_label_hrs->Name = L"active_listing1_label_hrs";
+		this->active_listing1_label_hrs->Size = System::Drawing::Size(109, 20);
+		this->active_listing1_label_hrs->TabIndex = 5;
+		this->active_listing1_label_hrs->Text = L"всего часов:";
 		// 
-		// active_listing_2_from
+		// active_listing1_author
 		// 
-		this->active_listing_2_from->AutoSize = true;
-		this->active_listing_2_from->Location = System::Drawing::Point(5, 40);
-		this->active_listing_2_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_2_from->Name = L"active_listing_2_from";
-		this->active_listing_2_from->Size = System::Drawing::Size(134, 20);
-		this->active_listing_2_from->TabIndex = 2;
-		this->active_listing_2_from->Text = L"имя_заказчика";
+		this->active_listing1_author->AutoSize = true;
+		this->active_listing1_author->Location = System::Drawing::Point(35, 40);
+		this->active_listing1_author->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->active_listing1_author->Name = L"active_listing1_author";
+		this->active_listing1_author->Size = System::Drawing::Size(134, 20);
+		this->active_listing1_author->TabIndex = 2;
+		this->active_listing1_author->Text = L"имя_заказчика";
 		// 
-		// active_listing_2_label_hourly
+		// active_listing1_label_per_hr
 		// 
-		this->active_listing_2_label_hourly->AutoSize = true;
-		this->active_listing_2_label_hourly->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+		this->active_listing1_label_per_hr->AutoSize = true;
+		this->active_listing1_label_per_hr->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->active_listing_2_label_hourly->Location = System::Drawing::Point(5, 63);
-		this->active_listing_2_label_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_2_label_hourly->Name = L"active_listing_2_label_hourly";
-		this->active_listing_2_label_hourly->Size = System::Drawing::Size(80, 20);
-		this->active_listing_2_label_hourly->TabIndex = 3;
-		this->active_listing_2_label_hourly->Text = L"за час, ₽:";
+		this->active_listing1_label_per_hr->Location = System::Drawing::Point(5, 63);
+		this->active_listing1_label_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->active_listing1_label_per_hr->Name = L"active_listing1_label_per_hr";
+		this->active_listing1_label_per_hr->Size = System::Drawing::Size(80, 20);
+		this->active_listing1_label_per_hr->TabIndex = 3;
+		this->active_listing1_label_per_hr->Text = L"за час, ₽:";
 		// 
-		// active_listing_2_hourly
+		// active_listing1_per_hr
 		// 
-		this->active_listing_2_hourly->AutoSize = true;
-		this->active_listing_2_hourly->Location = System::Drawing::Point(89, 64);
-		this->active_listing_2_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_2_hourly->Name = L"active_listing_2_hourly";
-		this->active_listing_2_hourly->Size = System::Drawing::Size(127, 20);
-		this->active_listing_2_hourly->TabIndex = 4;
-		this->active_listing_2_hourly->Text = L"оплата_за_час";
+		this->active_listing1_per_hr->AutoSize = true;
+		this->active_listing1_per_hr->Location = System::Drawing::Point(89, 64);
+		this->active_listing1_per_hr->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->active_listing1_per_hr->Name = L"active_listing1_per_hr";
+		this->active_listing1_per_hr->Size = System::Drawing::Size(127, 20);
+		this->active_listing1_per_hr->TabIndex = 4;
+		this->active_listing1_per_hr->Text = L"оплата_за_час";
 		// 
-		// active_listing_2_name
+		// active_listing1_name
 		// 
-		this->active_listing_2_name->AutoSize = true;
-		this->active_listing_2_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->active_listing1_name->AutoSize = true;
+		this->active_listing1_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
-		this->active_listing_2_name->Location = System::Drawing::Point(4, 11);
-		this->active_listing_2_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_2_name->Name = L"active_listing_2_name";
-		this->active_listing_2_name->Size = System::Drawing::Size(170, 24);
-		this->active_listing_2_name->TabIndex = 0;
-		this->active_listing_2_name->Text = L"название_заказа";
-		// 
-		// active_listing_1
-		// 
-		this->active_listing_1->Controls->Add(this->active_listing_1_total);
-		this->active_listing_1->Controls->Add(this->active_listing_1_finish);
-		this->active_listing_1->Controls->Add(this->active_listing_1_hrs);
-		this->active_listing_1->Controls->Add(this->active_listing_1_label_hrs);
-		this->active_listing_1->Controls->Add(this->active_listing_1_from);
-		this->active_listing_1->Controls->Add(this->active_listing_1_label_hourly);
-		this->active_listing_1->Controls->Add(this->active_listing_1_hourly);
-		this->active_listing_1->Controls->Add(this->active_listing_1_name);
-		this->active_listing_1->Font = (gcnew System::Drawing::Font(L"Roboto", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->active_listing_1->Location = System::Drawing::Point(8, 13);
-		this->active_listing_1->Margin = System::Windows::Forms::Padding(4);
-		this->active_listing_1->Name = L"active_listing_1";
-		this->active_listing_1->Padding = System::Windows::Forms::Padding(4);
-		this->active_listing_1->Size = System::Drawing::Size(257, 147);
-		this->active_listing_1->TabIndex = 1;
-		this->active_listing_1->TabStop = false;
-		this->active_listing_1->Visible = false;
-		// 
-		// active_listing_1_total
-		// 
-		this->active_listing_1_total->AutoSize = true;
-		this->active_listing_1_total->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->active_listing_1_total->Location = System::Drawing::Point(123, 117);
-		this->active_listing_1_total->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_1_total->Name = L"active_listing_1_total";
-		this->active_listing_1_total->Size = System::Drawing::Size(82, 20);
-		this->active_listing_1_total->TabIndex = 7;
-		this->active_listing_1_total->Text = L"Итого, ₽: ";
-		// 
-		// active_listing_1_finish
-		// 
-		this->active_listing_1_finish->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->active_listing_1_finish->Location = System::Drawing::Point(5, 109);
-		this->active_listing_1_finish->Margin = System::Windows::Forms::Padding(4);
-		this->active_listing_1_finish->Name = L"active_listing_1_finish";
-		this->active_listing_1_finish->Size = System::Drawing::Size(119, 34);
-		this->active_listing_1_finish->TabIndex = 7;
-		this->active_listing_1_finish->Text = L"Готово!";
-		this->active_listing_1_finish->UseVisualStyleBackColor = true;
-		this->active_listing_1_finish->Click += gcnew System::EventHandler(this, &Main_Menu::finish_active_listing);
-		// 
-		// active_listing_1_hrs
-		// 
-		this->active_listing_1_hrs->AutoSize = true;
-		this->active_listing_1_hrs->Location = System::Drawing::Point(111, 86);
-		this->active_listing_1_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_1_hrs->Name = L"active_listing_1_hrs";
-		this->active_listing_1_hrs->Size = System::Drawing::Size(126, 20);
-		this->active_listing_1_hrs->TabIndex = 6;
-		this->active_listing_1_hrs->Text = L"часов_работы";
-		// 
-		// active_listing_1_label_hrs
-		// 
-		this->active_listing_1_label_hrs->AutoSize = true;
-		this->active_listing_1_label_hrs->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->active_listing_1_label_hrs->Location = System::Drawing::Point(5, 86);
-		this->active_listing_1_label_hrs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_1_label_hrs->Name = L"active_listing_1_label_hrs";
-		this->active_listing_1_label_hrs->Size = System::Drawing::Size(109, 20);
-		this->active_listing_1_label_hrs->TabIndex = 5;
-		this->active_listing_1_label_hrs->Text = L"всего часов:";
-		// 
-		// active_listing_1_from
-		// 
-		this->active_listing_1_from->AutoSize = true;
-		this->active_listing_1_from->Location = System::Drawing::Point(5, 40);
-		this->active_listing_1_from->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_1_from->Name = L"active_listing_1_from";
-		this->active_listing_1_from->Size = System::Drawing::Size(134, 20);
-		this->active_listing_1_from->TabIndex = 2;
-		this->active_listing_1_from->Text = L"имя_заказчика";
-		// 
-		// active_listing_1_label_hourly
-		// 
-		this->active_listing_1_label_hourly->AutoSize = true;
-		this->active_listing_1_label_hourly->Font = (gcnew System::Drawing::Font(L"Roboto", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->active_listing_1_label_hourly->Location = System::Drawing::Point(5, 63);
-		this->active_listing_1_label_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_1_label_hourly->Name = L"active_listing_1_label_hourly";
-		this->active_listing_1_label_hourly->Size = System::Drawing::Size(80, 20);
-		this->active_listing_1_label_hourly->TabIndex = 3;
-		this->active_listing_1_label_hourly->Text = L"за час, ₽:";
-		// 
-		// active_listing_1_hourly
-		// 
-		this->active_listing_1_hourly->AutoSize = true;
-		this->active_listing_1_hourly->Location = System::Drawing::Point(89, 64);
-		this->active_listing_1_hourly->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_1_hourly->Name = L"active_listing_1_hourly";
-		this->active_listing_1_hourly->Size = System::Drawing::Size(127, 20);
-		this->active_listing_1_hourly->TabIndex = 4;
-		this->active_listing_1_hourly->Text = L"оплата_за_час";
-		// 
-		// active_listing_1_name
-		// 
-		this->active_listing_1_name->AutoSize = true;
-		this->active_listing_1_name->Font = (gcnew System::Drawing::Font(L"Roboto", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-			static_cast<System::Byte>(204)));
-		this->active_listing_1_name->Location = System::Drawing::Point(4, 11);
-		this->active_listing_1_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-		this->active_listing_1_name->Name = L"active_listing_1_name";
-		this->active_listing_1_name->Size = System::Drawing::Size(170, 24);
-		this->active_listing_1_name->TabIndex = 0;
-		this->active_listing_1_name->Text = L"название_заказа";
+		this->active_listing1_name->Location = System::Drawing::Point(4, 11);
+		this->active_listing1_name->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+		this->active_listing1_name->Name = L"active_listing1_name";
+		this->active_listing1_name->Size = System::Drawing::Size(170, 24);
+		this->active_listing1_name->TabIndex = 0;
+		this->active_listing1_name->Text = L"название_заказа";
 		// 
 		// label_no_active_contracts
 		// 
@@ -1683,9 +1626,9 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->BackColor = System::Drawing::SystemColors::Control;
 		this->ClientSize = System::Drawing::Size(684, 517);
 		this->Controls->Add(this->sidebar);
-		this->Controls->Add(this->menu_feed);
 		this->Controls->Add(this->menu_account);
 		this->Controls->Add(this->menu_search);
+		this->Controls->Add(this->menu_feed);
 		this->DoubleBuffered = true;
 		this->Font = (gcnew System::Drawing::Font(L"Roboto", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
@@ -1698,10 +1641,8 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->menu_account->ResumeLayout(false);
 		this->menu_account->PerformLayout();
 		this->group_active_contracts->ResumeLayout(false);
-		this->active_listing_2->ResumeLayout(false);
-		this->active_listing_2->PerformLayout();
-		this->active_listing_1->ResumeLayout(false);
-		this->active_listing_1->PerformLayout();
+		this->active_listing1_ui->ResumeLayout(false);
+		this->active_listing1_ui->PerformLayout();
 		this->group_account_data->ResumeLayout(false);
 		this->group_account_data->PerformLayout();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_my_account))->EndInit();
@@ -1780,7 +1721,7 @@ private:
 		respectable_listing_ui->ui_group->Enabled = false;
 
 		save(user, USER_SAVEFILE_NAME, accepted_listings);
-		fill_active_listings_menu();
+		fill_account_listing_interface();
 	}
 
 
@@ -1857,17 +1798,15 @@ private:
 		Point label_pos(11, 113);
 		label_no_active_contracts->Location = label_pos;
 		if (! accepted_listings.empty())
-		{
 			label_no_active_contracts->Visible = false;
-		}
 		else
 		{
 			label_no_active_contracts->Visible = true;
-			active_listing_1->Visible = false;
-			active_listing_2->Visible = false;
+			active_listing1_ui->Visible = false;
+			//active_listing2_ui->Visible = false;
 		}
 
-		fill_active_listings_menu();
+		fill_account_listing_interface();
 	}
 
 
@@ -1919,54 +1858,19 @@ private:
 	}
 
 
-	void fill_active_listings_menu()
-	{
-		if (accepted_listings.size() < 1)
-			return;
-		active_listing_1->Visible = true;
-		active_listing_1->Enabled = true;
-		active_listing_1_name->Text = to_dotnet_string(accepted_listings[0].name);
-		if (accepted_listings[0].contractor == user)
-			active_listing_1_from->Text = to_dotnet_string(accepted_listings[0].customer->name->get_short());
-		else
-			active_listing_1_from->Text = to_dotnet_string(accepted_listings[0].contractor->name->get_short());
-		active_listing_1_hourly->Text = Convert::ToString(accepted_listings[0].per_hr);
-		active_listing_1_hrs->Text	= Convert::ToString(accepted_listings[0].hrs);
-		active_listing_1_total->Text  = L"Итого, ₽: " + Convert::ToString(accepted_listings[0].payment_total());
-
-		if (accepted_listings.size() < 2)
-			return;
-		active_listing_2->Visible = true;
-		active_listing_2->Enabled = true;
-		active_listing_2_name->Text = to_dotnet_string(accepted_listings[1].name);
-		if (accepted_listings[1].contractor == user)
-			active_listing_2_from->Text = to_dotnet_string(accepted_listings[1].customer->name->get_short());
-		else
-			active_listing_2_from->Text = to_dotnet_string(accepted_listings[1].contractor->name->get_short());
-		active_listing_2_hourly->Text = Convert::ToString(accepted_listings[1].per_hr);
-		active_listing_2_hrs->Text	= Convert::ToString(accepted_listings[1].hrs);
-		active_listing_2_total->Text  = L"Итого, ₽: " + Convert::ToString(accepted_listings[1].payment_total());
-	}
-
-
 	void finish_active_listing(System::Object^ sender, System::EventArgs^ e)
 	{
 		Button^ source = safe_cast<Button^>(sender);
+		if (active_listing1->has(source))
+		{
+			active_listing1->ui_group->Enabled = false;
+			accepted_listings.erase(find(accepted_listings.begin(), accepted_listings.end(), *active_listing1->listing));
+		}
 		
-		if (source == active_listing_1_finish)
-		{
-			active_listing_1->Enabled = false;
-			accepted_listings.erase(accepted_listings.begin());
-		}
-		if (source == active_listing_2_finish)
-		{
-			active_listing_2->Enabled = false;
-			/// Avoiding fallthrough coming from deleting listing 1, then 2
-			if (active_listing_1->Enabled)
-				accepted_listings.erase(accepted_listings.begin() + 1);
-			else
-				accepted_listings.erase(accepted_listings.begin());
-		}
+		/*else if (active_listing2->has(source))
+			active_listing2->ui_group->Enabled = false;
+			accepted_listings.erase(find(accepted_listings.begin(), accepted_listings.end(), *active_listing2->listing));
+		}*/
 
 		save(user, USER_SAVEFILE_NAME, accepted_listings);
 	}

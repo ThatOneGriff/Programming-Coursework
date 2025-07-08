@@ -17,7 +17,7 @@ public:
 	
 	GroupBox ^ui_group;
 	Label    ^name, ^author;
-	Button   ^author_info, ^accept;
+	Button   ^author_info, ^button;
 	Label    ^label_per_hr, ^per_hr, ^label_hrs;
 	Control  ^hrs; /// May be a 'NumericUpDown' or a 'Label'
 	Label	 ^total;
@@ -33,7 +33,7 @@ public:
 			name	     = other->name;
 			author		 = other->author;
 			author_info  = other->author_info;
-			accept		 = other->accept;
+			button		 = other->button;
 			label_per_hr = other->label_per_hr;
 			per_hr		 = other->per_hr;
 			label_hrs	 = other->label_hrs;
@@ -52,14 +52,17 @@ public:
 
 
 	Listing_Interface(GroupBox^ _ui_group,     Label^  _name,   Label^ _author,
-					  Button^   _author_info,  Button^ _accept,
+					  Button^   _author_info,  Button^ _button,
 					  Label^    _label_per_hr, Label^  _per_hr, Label^ _label_hrs,
 					  Control^  _hrs,		   Label^ _total)
 	: ui_group(_ui_group),		   name(_name),		author(_author),
-	  author_info(_author_info),   accept(_accept),
+	  author_info(_author_info),   button(_button),
 	  label_per_hr(_label_per_hr), per_hr(_per_hr), label_hrs(_label_hrs),
 	  hrs(_hrs),				   total(_total)
-	{}
+	{
+		ui_group->Enabled = true;
+		ui_group->Visible = true;
+	}
 
 	
 	/// Intended only for UI's with variable hour settings!
@@ -75,7 +78,7 @@ public:
 		/// Maybe do it via an 'unordered_set'?
 		return (
 			   node == ui_group     || node == name   || node == author
-			|| node == author_info  || node == accept
+			|| node == author_info  || node == button
 			|| node == label_per_hr || node == per_hr
 			|| node == label_hrs    || node == hrs
 			|| node == total

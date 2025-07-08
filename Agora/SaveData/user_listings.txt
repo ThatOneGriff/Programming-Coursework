@@ -4,3 +4,9 @@
 yakovlev_saveliy_viktorovich.txt
 user.txt
 
+Строитель
+655
+5
+user.txt
+stroymaster.txt
+
