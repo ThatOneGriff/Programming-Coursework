@@ -94,18 +94,18 @@ public:
 		name->Text   = to_dotnet_string(listing->name);
 		per_hr->Text = Convert::ToString(listing->per_hr);
 
-		if ((listing->author == listing->contractor) && (listing->contractor != nullptr))
-		{
-			calculate_and_display_total(1);
-			author->Text = to_dotnet_string(listing->contractor->name->get_normal());
-		}
-		else if ((listing->author == listing->customer) && (listing->customer != nullptr))
+		// NOTE: can be optimized into a mandatory 'calculate_and_display_total()'
+		/// 'hrs' is a text label
+		if (Convert::ToString(hrs->GetType()) == L"System.Windows.Forms.Label")
 		{
 			hrs->Text = Convert::ToString(listing->hrs);
-			author->Text = to_dotnet_string(listing->customer->name->get_normal());
+			total->Text = L"Итого, ₽: " + listing->payment_total();
 		}
-		else
-			show_error(L"Incorrect listing author.");
+		/// 'hrs' is a settable variable (feed listings)
+		else if (Convert::ToString(hrs->GetType()) == L"System.Windows.Forms.NumericUpDown")
+			calculate_and_display_total(1);
+
+		author->Text = to_dotnet_string(listing->author->name->get_normal());
 	}
 };
 }

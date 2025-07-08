@@ -168,7 +168,7 @@ std::vector<Listing> load_listings(User* user)
 		/// Reading raw data in segments of 5
 		std::wstring name		= raw_data[i++];
 		unsigned int payment_hr = stoi(raw_data[i++]);
-		unsigned int total_hrs  = stoi(raw_data[i++]);
+		unsigned int hrs	    = stoi(raw_data[i++]);
 
 		User *contractor = nullptr, *customer = nullptr, *author = nullptr;
 		std::wstring contractor_path = raw_data[i++];
@@ -216,7 +216,7 @@ std::vector<Listing> load_listings(User* user)
 			author = customer;
 		}
 
-		Listing new_listing(name, total_hrs, payment_hr, contractor, customer, author);
+		Listing new_listing(name, hrs, payment_hr, contractor, customer, author);
 		result.push_back(new_listing);
 	}
 

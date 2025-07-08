@@ -9,9 +9,7 @@ using namespace Agora;
 using namespace System::Windows::Forms;
 	
 
-/// = TODO =
-/// - Check the inclusion of all headers
-/// - Settings
+/// Note: we are ABSOLUTELY not ready for user-made listings. There are SO many checks in place preventing that.
 
 
 [System::STAThread]

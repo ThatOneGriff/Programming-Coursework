@@ -635,6 +635,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->active_listing1_button_info->Size = System::Drawing::Size(30, 30);
 		this->active_listing1_button_info->TabIndex = 5;
 		this->active_listing1_button_info->UseVisualStyleBackColor = false;
+		this->active_listing1_button_info->Click += gcnew System::EventHandler(this, &Main_Menu::active_listing_show_author_info);
 		// 
 		// active_listing1_total
 		// 
@@ -657,8 +658,9 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->active_listing1_button_finish->Name = L"active_listing1_button_finish";
 		this->active_listing1_button_finish->Size = System::Drawing::Size(119, 34);
 		this->active_listing1_button_finish->TabIndex = 7;
-		this->active_listing1_button_finish->Text = L"За работу!";
+		this->active_listing1_button_finish->Text = L"Готово";
 		this->active_listing1_button_finish->UseVisualStyleBackColor = true;
+		this->active_listing1_button_finish->Click += gcnew System::EventHandler(this, &Main_Menu::finish_active_listing);
 		// 
 		// active_listing1_hrs
 		// 
@@ -1859,12 +1861,28 @@ private:
 	}
 
 
+	void active_listing_show_author_info(System::Object^ sender, System::EventArgs^ e)
+	{
+		Button^ source = safe_cast<Button^>(sender);
+
+		if (active_listing1->has(source))
+		{
+			// NOTE: using 'serialize()' here is purely for test purposes.
+			// We will have a proper 'User_Information' window later.
+			if (active_listing1->listing->author == active_listing1->listing->contractor)
+				show_info(active_listing1->listing->contractor->serialize(), L"Информация о подрядчике");
+			if (active_listing1->listing->author == active_listing1->listing->customer)
+				show_info(active_listing1->listing->customer->serialize(), L"Информация о заказчике");
+		}
+	}
+
+
 	void finish_active_listing(System::Object^ sender, System::EventArgs^ e)
 	{
 		Button^ source = safe_cast<Button^>(sender);
 		if (active_listing1->has(source))
 		{
-			active_listing1->ui_group->Enabled = false;
+			active_listing1_ui->Enabled = false;
 			active_listings.erase(find(active_listings.begin(), active_listings.end(), *active_listing1->listing));
 		}
 		
