@@ -182,7 +182,7 @@ std::vector<Listing> load_listings(User* user)
 				if (company->name->as_filename() == contractor_path)
 					contractor = company;
 			}
-			if (contractor == nullptr); /// contractor NOT found in companies
+			if (contractor == nullptr) /// contractor NOT found in companies
 			{
 				for (User* individual : SAVED_INDIVIDUALS)
 				{

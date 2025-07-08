@@ -1855,7 +1855,6 @@ private:
 	{
 		Button^ source = safe_cast<Button^>(sender);
 		Listing_Interface^ respectable_listing_ui;
-		User* to_set_user_as;
 		if (contractor1_ui->has(source))
 		{
 			respectable_listing_ui = contractor1_ui;
