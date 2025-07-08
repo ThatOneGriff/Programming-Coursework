@@ -62,7 +62,7 @@ public:
 			L"individual\n"
 			+ birth_date.dd_mm_yyyy(L" ") + L'\n'
 			+ name->get_full()			  + L'\n'
-			+ phone_number.serialized()   + L'\n'
+			+ phone_number.serialize()   + L'\n'
 			+ email			 + L'\n'
 			+ extra_contacts + L'\n';
 
@@ -99,7 +99,7 @@ public:
 			L"company\n"
 			+ birth_date.dd_mm_yyyy(L" ")  + L'\n'
 			+ name->get_full()			   + L'\n'
-			+ phone_number.serialized()    + L'\n'
+			+ phone_number.serialize()    + L'\n'
 			+ email			 + L'\n'
 			+ extra_contacts + L'\n'
 			+ website		 + L'\n';

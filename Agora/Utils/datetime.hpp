@@ -70,6 +70,15 @@ public:
 	}
 
 
+	std::wstring dd_month_yyyy_genitive()
+	{
+		std::wstring dd = std::to_wstring(day);
+		if (dd.size() < 2)
+			dd = L"0" + dd;
+		return dd + L" " + MONTHS_GENITIVE[month - 1] + L" " + std::to_wstring(year) + L"ã.";
+	}
+
+
 	std::wstring month_yyyy_genitive()
 	{
 		return MONTHS_GENITIVE[month - 1] + L" " + std::to_wstring(year) + L"ã.";
@@ -100,7 +109,7 @@ private:
 };
 
 
-// TODO: lower and upper bound; random date in x months, etc
+/// TODO: lower and upper bound; random date in x months, etc
 Date _get_random_date()
 {
 	int day   = randint(1, 28);

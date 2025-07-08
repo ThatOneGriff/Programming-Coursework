@@ -4,6 +4,7 @@
 
 #include <Windows.h>
 #include "../../Classes/Listing.hpp"
+#include "../../Menus/Account_Info/account_info.hpp"
 #include "../../Utils.hpp"
 using namespace Agora;
 using namespace System::Windows::Forms;
@@ -106,6 +107,21 @@ public:
 			calculate_and_display_total(1);
 
 		author->Text = to_dotnet_string(listing->author->name->get_normal());
+	}
+
+
+	void show_info()
+	{
+		System::String^ heading;
+		if (listing->author == listing->contractor)
+			heading = L"Об аккаунте подрядчика";
+		else if (listing->author == listing->customer)
+			heading = L"Об аккаунте заказчика";
+
+		bool contract_made = listing->contractor != nullptr && listing->customer != nullptr;
+
+		Account_Info^ account_info = gcnew Account_Info(listing->author, heading, contract_made);
+		account_info->ShowDialog();
 	}
 };
 }

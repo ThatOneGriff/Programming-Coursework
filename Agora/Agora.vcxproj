@@ -133,6 +133,9 @@
     <ClInclude Include="Classes\User\random_user_generator.hpp" />
     <ClInclude Include="Classes\user.hpp" />
     <ClInclude Include="Classes\random_individual_generator.hpp" />
+    <ClInclude Include="Menus\Account_Info\account_info.hpp">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Menus\Main_Menu\listing_interface.hpp" />
     <ClInclude Include="Menus\Main_Menu\main_menu.hpp">
       <FileType>CppForm</FileType>
@@ -150,6 +153,10 @@
     <ClInclude Include="Utils\strings.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Menus\Account_Info\account_info.resx">
+      <DependentUpon>Menus\Account_Info\account_info.hpp</DependentUpon>
+      <LogicalName>Agora.Account_Info.resources</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menus\Main_Menu\main_menu.resx">
       <DependentUpon>Menus\Main_Menu\main_menu.hpp</DependentUpon>
       <LogicalName>Agora.Main_Menu.resources</LogicalName>

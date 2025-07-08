@@ -71,6 +71,9 @@
     <ClInclude Include="Menus\Main_Menu\listing_interface.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Menus\Account_Info\account_info.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Menus\Main_Menu\Main_Menu.resx">

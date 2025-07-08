@@ -4,7 +4,7 @@
 
 #include <vector>
 
-#include "Menus/Registration/registration.hpp"
+#include "../Registration/registration.hpp"
 #include "listing_interface.hpp"
 
 #include "../../Classes/random_listing_generator.hpp"
@@ -24,7 +24,7 @@ Listing listing_contractor1, listing_contractor2,
 		listing_customer1,   listing_customer2;
 
 const std::wstring PROGRAM_INFO =
-	 (std::wstring)L"Agora v.1.0 от 07.07.2025\n" // it was INSISTING I was trying to initialize with 'System::String'
+	 (std::wstring)L"Agora v.1.0 от 09.07.2025\n" // it was INSISTING I was trying to initialize with 'System::String'
 	 + L"Курсовой проект от Первакова А.И.\n"
 	 + L"КубГАУ, Прикладная информатика, ИТ2403";
 
@@ -37,8 +37,8 @@ public:
 
 	User* user;
 
-	Listing_Interface ^contractor1_ui,	^contractor2_ui,
-					  ^customer1_ui,	^customer2_ui,
+	Listing_Interface ^contractor1,		^contractor2,
+					  ^customer1,		^customer2,
 					  ^active_listing1, ^active_listing2;
 
 
@@ -105,28 +105,28 @@ private:
 
 	void fill_feed_listing_interface()
 	{
-		contractor1_ui = gcnew Listing_Interface(
+		contractor1 = gcnew Listing_Interface(
 			listing_contractor1_ui,			  listing_contractor1_name,		   listing_contractor1_author,
 			listing_contractor1_button_info,  listing_contractor1_button_hire,
 			listing_contractor1_label_per_hr, listing_contractor1_per_hr,
 			listing_contractor1_label_hrs,	  listing_contractor1_picker_hrs,  listing_contractor1_total
 		);
 
-		contractor2_ui = gcnew Listing_Interface(
+		contractor2 = gcnew Listing_Interface(
 			listing_contractor2_ui,			  listing_contractor2_name,		   listing_contractor2_author,
 			listing_contractor2_button_info,  listing_contractor2_button_hire,
 			listing_contractor2_label_per_hr, listing_contractor2_per_hr,
 			listing_contractor2_label_hrs,	  listing_contractor2_picker_hrs,  listing_contractor2_total
 		);
 
-		customer1_ui = gcnew Listing_Interface(
+		customer1 = gcnew Listing_Interface(
 			listing_customer1_ui,			listing_customer1_name,		     listing_customer1_author,
 			listing_customer1_button_info,  listing_customer1_button_accept,
 			listing_customer1_label_per_hr, listing_customer1_per_hr,
 			listing_customer1_label_hrs,	listing_customer1_hrs,			 listing_customer1_total
 		);
 
-		customer2_ui = gcnew Listing_Interface(
+		customer2 = gcnew Listing_Interface(
 			listing_customer2_ui,			listing_customer2_name,		     listing_customer2_author,
 			listing_customer2_button_info,  listing_customer2_button_accept,
 			listing_customer2_label_per_hr, listing_customer2_per_hr,
@@ -1075,12 +1075,12 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->label_my_account->AutoSize = true;
 		this->label_my_account->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(232)),
 			static_cast<System::Int32>(static_cast<System::Byte>(232)), static_cast<System::Int32>(static_cast<System::Byte>(232)));
-		this->label_my_account->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->label_my_account->Font = (gcnew System::Drawing::Font(L"Roboto", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
 		this->label_my_account->Location = System::Drawing::Point(7, 7);
 		this->label_my_account->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_my_account->Name = L"label_my_account";
-		this->label_my_account->Size = System::Drawing::Size(167, 29);
+		this->label_my_account->Size = System::Drawing::Size(151, 28);
 		this->label_my_account->TabIndex = 0;
 		this->label_my_account->Text = L"Мой аккаунт";
 		// 
@@ -1113,7 +1113,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		// 
 		this->button_feed_update->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button_feed_update.BackgroundImage")));
 		this->button_feed_update->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
-		this->button_feed_update->Location = System::Drawing::Point(246, 4);
+		this->button_feed_update->Location = System::Drawing::Point(231, 4);
 		this->button_feed_update->Margin = System::Windows::Forms::Padding(4);
 		this->button_feed_update->Name = L"button_feed_update";
 		this->button_feed_update->RightToLeft = System::Windows::Forms::RightToLeft::No;
@@ -1663,12 +1663,12 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->label_feed->AutoSize = true;
 		this->label_feed->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(232)), static_cast<System::Int32>(static_cast<System::Byte>(232)),
 			static_cast<System::Int32>(static_cast<System::Byte>(232)));
-		this->label_feed->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->label_feed->Font = (gcnew System::Drawing::Font(L"Roboto", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
 		this->label_feed->Location = System::Drawing::Point(7, 7);
 		this->label_feed->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 		this->label_feed->Name = L"label_feed";
-		this->label_feed->Size = System::Drawing::Size(247, 29);
+		this->label_feed->Size = System::Drawing::Size(214, 28);
 		this->label_feed->TabIndex = 0;
 		this->label_feed->Text = L"Лента объявлений";
 		// 
@@ -1794,9 +1794,9 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->BackColor = System::Drawing::SystemColors::Control;
 		this->ClientSize = System::Drawing::Size(684, 517);
 		this->Controls->Add(this->sidebar);
+		this->Controls->Add(this->menu_feed);
 		this->Controls->Add(this->menu_account);
 		this->Controls->Add(this->menu_search);
-		this->Controls->Add(this->menu_feed);
 		this->DoubleBuffered = true;
 		this->Font = (gcnew System::Drawing::Font(L"Roboto", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
@@ -1855,32 +1855,32 @@ private:
 	{
 		Button^ source = safe_cast<Button^>(sender);
 		Listing_Interface^ respectable_listing_ui;
-		if (contractor1_ui->has(source))
+		if (contractor1->has(source))
 		{
-			respectable_listing_ui = contractor1_ui;
-			contractor1_ui->listing->customer = user;
+			respectable_listing_ui = contractor1;
+			contractor1->listing->customer = user;
 			/// We could give it an 80% chance for a spice.
 			show_info(L"Подрядчик согласился!");
 		}
 
-		else if (contractor2_ui->has(source))
+		else if (contractor2->has(source))
 		{
-			respectable_listing_ui = contractor2_ui;
-			contractor2_ui->listing->customer = user;
+			respectable_listing_ui = contractor2;
+			contractor2->listing->customer = user;
 			show_info(L"Подрядчик согласился!");
 		}
 
-		else if (customer1_ui->has(source))
+		else if (customer1->has(source))
 		{
-			respectable_listing_ui = customer1_ui;
-			customer1_ui->listing->contractor = user;
+			respectable_listing_ui = customer1;
+			customer1->listing->contractor = user;
 			show_info(L"Заказчик согласился!");
 		}
 
-		else if (customer2_ui->has(source))
+		else if (customer2->has(source))
 		{
-			respectable_listing_ui = customer2_ui;
-			customer2_ui->listing->contractor = user;
+			respectable_listing_ui = customer2;
+			customer2->listing->contractor = user;
 			show_info(L"Заказчик согласился!");
 		}
 
@@ -1899,10 +1899,10 @@ private:
 		NumericUpDown^ source = safe_cast<NumericUpDown^>(sender);
 		Listing_Interface^ respectable_listing_ui;
 		
-		if (contractor1_ui->has(source))
-			respectable_listing_ui = contractor1_ui;
-		else if (contractor2_ui->has(source))
-			respectable_listing_ui = contractor2_ui;
+		if (contractor1->has(source))
+			respectable_listing_ui = contractor1;
+		else if (contractor2->has(source))
+			respectable_listing_ui = contractor2;
 		else return;
 
 		respectable_listing_ui->calculate_and_display_total(Convert::ToUInt32(source->Value));
@@ -1912,16 +1912,16 @@ private:
 	void fill_feed_menu()
 	{
 		listing_contractor1 = get_random_listing(CONTRACTOR_LISTING);
-		contractor1_ui->set_listing(&listing_contractor1);
+		contractor1->set_listing(&listing_contractor1);
 
 		listing_contractor2 = get_random_listing(CONTRACTOR_LISTING);
-		contractor2_ui->set_listing(&listing_contractor2);
+		contractor2->set_listing(&listing_contractor2);
 
 		listing_customer1 = get_random_listing(CUSTOMER_LISTING);
-		customer1_ui->set_listing(&listing_customer1);
+		customer1->set_listing(&listing_customer1);
 
 		listing_customer2 = get_random_listing(CUSTOMER_LISTING);
-		customer2_ui->set_listing(&listing_customer2);
+		customer2->set_listing(&listing_customer2);
 	}
 
 
@@ -1930,14 +1930,14 @@ private:
 	{
 		Button^ source = safe_cast<Button^>(sender);
 
-		if (contractor1_ui->has(source))
-			show_info(contractor1_ui->listing->contractor->serialize(), L"Информация о подрядчике");
-		else if (contractor2_ui->has(source))
-			show_info(contractor2_ui->listing->contractor->serialize(), L"Информация о подрядчике");
-		else if (customer1_ui->has(source))
-			show_info(customer1_ui->listing->customer->serialize(), L"Информация о заказчике");
-		else if (customer2_ui->has(source))
-			show_info(customer2_ui->listing->customer->serialize(), L"Информация о заказчике");
+		if (contractor1->has(source))
+			contractor1->show_info();
+		else if (contractor2->has(source))
+			contractor2->show_info();
+		else if (customer1->has(source))
+			customer1->show_info();
+		else if (customer2->has(source))
+			customer2->show_info();
 	}
 
 
@@ -2025,22 +2025,9 @@ private:
 		Button^ source = safe_cast<Button^>(sender);
 
 		if (active_listing1->has(source))
-		{
-			// NOTE: using 'serialize()' here is purely for test purposes.
-			// We will have a proper 'User_Information' window later.
-			if (active_listing1->listing->author == active_listing1->listing->contractor)
-				show_info(active_listing1->listing->contractor->serialize(), L"Информация о подрядчике");
-			if (active_listing1->listing->author == active_listing1->listing->customer)
-				show_info(active_listing1->listing->customer->serialize(), L"Информация о заказчике");
-		}
-
-		if (active_listing2->has(source))
-		{
-			if (active_listing2->listing->author == active_listing2->listing->contractor)
-				show_info(active_listing2->listing->contractor->serialize(), L"Информация о подрядчике");
-			if (active_listing2->listing->author == active_listing2->listing->customer)
-				show_info(active_listing2->listing->customer->serialize(), L"Информация о заказчике");
-		}
+			active_listing1->show_info();
+		else if (active_listing2->has(source))
+			active_listing2->show_info();
 	}
 
 

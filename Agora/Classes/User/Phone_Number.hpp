@@ -32,7 +32,7 @@ public:
 	}
 
 	// +7 (123) ***-**-90
-	std::wstring concealed()
+	std::wstring conceal()
 	{
 		std::wstring concealed_num = this->as_text();
 		for (unsigned int i = concealed_num.size() - 4; i >= concealed_num.size() - 9; i--)
@@ -44,7 +44,7 @@ public:
 	}
 
 	// +7 123 4567890
-	std::wstring serialized()
+	std::wstring serialize()
 	{
 		return country_code + L' ' + carrier_code + L' ' + body;
 	}
