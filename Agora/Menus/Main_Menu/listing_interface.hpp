@@ -97,12 +97,12 @@ public:
 		if ((listing->author == listing->contractor) && (listing->contractor != nullptr))
 		{
 			calculate_and_display_total(1);
-			author->Text = to_dotnet_string(listing->contractor->name->get_short());
+			author->Text = to_dotnet_string(listing->contractor->name->get_normal());
 		}
 		else if ((listing->author == listing->customer) && (listing->customer != nullptr))
 		{
 			hrs->Text = Convert::ToString(listing->hrs);
-			author->Text = to_dotnet_string(listing->customer->name->get_short());
+			author->Text = to_dotnet_string(listing->customer->name->get_normal());
 		}
 		else
 			show_error(L"Incorrect listing author.");

@@ -22,6 +22,7 @@ public:
 
 	virtual std::wstring as_filename(const std::wstring& extension = L".txt") = 0;
 	virtual std::vector<std::wstring> as_vector() = 0;
+	virtual std::wstring get_normal() = 0;
 	virtual std::wstring get_full() = 0;
 	virtual std::wstring get_short() = 0;
 
@@ -50,13 +51,19 @@ public:
 		return result;
 	}
 
-	// ivanov_ivan_ivanovich<...>
+	/// ivanov_ivan_ivanovich<...>
 	std::wstring as_filename(const std::wstring& extension = L".txt")
 	{
 		return translit_CtoL(surname) + L'_' + translit_CtoL(name) + L'_' + translit_CtoL(patronym) + extension;
 	}
 
-	// Иванов Иван Иванович
+	/// The form that'll appear in interface. Returns 'get_short()'
+	std::wstring get_normal()
+	{
+		return get_short();
+	}
+
+	/// Иванов Иван Иванович
 	std::wstring get_full()
 	{
 		if (patronym == L"")
@@ -64,7 +71,7 @@ public:
 		return surname + L' ' + name + L' ' + patronym;
 	}
 
-	// Иванов И.И.
+	/// Иванов И.И.
 	std::wstring get_short()
 	{
 		if (patronym == L"")
@@ -105,19 +112,25 @@ public:
 		return result;
 	}
 
-	// tmyvbabla<...>
+	/// tmyvbabla<...>
 	std::wstring as_filename(const std::wstring& extension = L".txt")
 	{
 		return translit_CtoL(name) + extension;
 	}
 
-	// ООО "Тмывбабла"
+	/// The form that'll appear in interface. Returns 'get_full()'
+	std::wstring get_normal()
+	{
+		return get_full();
+	}
+
+	/// ООО "Тмывбабла"
 	std::wstring get_full()
 	{
 		return legal_form + L' ' + name; /// it's already wrapped in quote marks
 	}
 
-	// Тмывбабла
+	/// Тмывбабла
 	std::wstring get_short()
 	{
 		return name;

@@ -1829,9 +1829,10 @@ private:
 
 	void fill_account_menu()
 	{
+		output_account_name->Text = to_dotnet_string(user->name->get_normal());
+
 		if (typeid(*user) == typeid(Individual))
 		{
-			output_account_name->Text = to_dotnet_string(user->name->get_short());
 			label_account_website-> Enabled = false;
 			output_account_website->Enabled = false;
 
@@ -1840,7 +1841,6 @@ private:
 		}
 		else if (typeid(*user) == typeid(Company))
 		{
-			output_account_name->Text = to_dotnet_string(user->name->get_full());
 			output_account_website->Text = to_dotnet_string(user->website);
 			label_account_website-> Enabled = true;
 			output_account_website->Enabled = true;
