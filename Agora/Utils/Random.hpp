@@ -7,6 +7,7 @@
 /// Here be:
 int randint(const unsigned int min, const unsigned int max);
 int randint(const unsigned int max);
+bool randint_percent(const unsigned int percent);
 
 
 unsigned int _seed = time(NULL);
@@ -25,6 +26,13 @@ int randint(const unsigned int max)
 	if (max < 0) return -1;
 	srand(++_seed);
 	return rand() % (max+1);
+}
+
+/// Returns true if a percent% chance is hit
+bool randint_percent(const unsigned int percent)
+{
+	if (percent > 100) return true;
+	return randint(1, 100) <= percent;
 }
 
 

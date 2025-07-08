@@ -159,10 +159,10 @@ namespace Agora {
 			// 
 			this->bg_info->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"bg_info.BackgroundImage")));
 			this->bg_info->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->bg_info->Location = System::Drawing::Point(0, 1);
+			this->bg_info->Location = System::Drawing::Point(0, -5);
 			this->bg_info->Margin = System::Windows::Forms::Padding(4);
 			this->bg_info->Name = L"bg_info";
-			this->bg_info->Size = System::Drawing::Size(343, 138);
+			this->bg_info->Size = System::Drawing::Size(435, 176);
 			this->bg_info->TabIndex = 3;
 			this->bg_info->TabStop = false;
 			// 
@@ -171,7 +171,7 @@ namespace Agora {
 			this->label_name->AutoSize = true;
 			this->label_name->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_name->Location = System::Drawing::Point(12, 149);
+			this->label_name->Location = System::Drawing::Point(12, 185);
 			this->label_name->Name = L"label_name";
 			this->label_name->Size = System::Drawing::Size(85, 20);
 			this->label_name->TabIndex = 4;
@@ -182,7 +182,7 @@ namespace Agora {
 			this->label_birthdate->AutoSize = true;
 			this->label_birthdate->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_birthdate->Location = System::Drawing::Point(11, 183);
+			this->label_birthdate->Location = System::Drawing::Point(11, 219);
 			this->label_birthdate->Name = L"label_birthdate";
 			this->label_birthdate->Size = System::Drawing::Size(107, 20);
 			this->label_birthdate->TabIndex = 5;
@@ -193,7 +193,7 @@ namespace Agora {
 			this->label_phone_number->AutoSize = true;
 			this->label_phone_number->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_phone_number->Location = System::Drawing::Point(11, 217);
+			this->label_phone_number->Location = System::Drawing::Point(11, 253);
 			this->label_phone_number->Name = L"label_phone_number";
 			this->label_phone_number->Size = System::Drawing::Size(132, 20);
 			this->label_phone_number->TabIndex = 6;
@@ -204,7 +204,7 @@ namespace Agora {
 			this->label_email->AutoSize = true;
 			this->label_email->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_email->Location = System::Drawing::Point(11, 251);
+			this->label_email->Location = System::Drawing::Point(11, 287);
 			this->label_email->Name = L"label_email";
 			this->label_email->Size = System::Drawing::Size(54, 20);
 			this->label_email->TabIndex = 7;
@@ -215,7 +215,7 @@ namespace Agora {
 			this->label_extra_contacts->AutoSize = true;
 			this->label_extra_contacts->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->label_extra_contacts->Location = System::Drawing::Point(12, 285);
+			this->label_extra_contacts->Location = System::Drawing::Point(12, 321);
 			this->label_extra_contacts->Name = L"label_extra_contacts";
 			this->label_extra_contacts->Size = System::Drawing::Size(118, 20);
 			this->label_extra_contacts->TabIndex = 8;
@@ -226,7 +226,7 @@ namespace Agora {
 			this->label_website->AutoSize = true;
 			this->label_website->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_website->Location = System::Drawing::Point(11, 319);
+			this->label_website->Location = System::Drawing::Point(11, 355);
 			this->label_website->Name = L"label_website";
 			this->label_website->Size = System::Drawing::Size(47, 20);
 			this->label_website->TabIndex = 9;
@@ -236,67 +236,67 @@ namespace Agora {
 			// 
 			this->name->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->name->Location = System::Drawing::Point(149, 146);
+			this->name->Location = System::Drawing::Point(149, 182);
 			this->name->Name = L"name";
 			this->name->ReadOnly = true;
-			this->name->Size = System::Drawing::Size(181, 28);
+			this->name->Size = System::Drawing::Size(272, 28);
 			this->name->TabIndex = 10;
 			// 
 			// birthdate
 			// 
 			this->birthdate->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->birthdate->Location = System::Drawing::Point(149, 180);
+			this->birthdate->Location = System::Drawing::Point(149, 216);
 			this->birthdate->Name = L"birthdate";
 			this->birthdate->ReadOnly = true;
-			this->birthdate->Size = System::Drawing::Size(181, 28);
+			this->birthdate->Size = System::Drawing::Size(272, 28);
 			this->birthdate->TabIndex = 11;
 			// 
 			// phone_number
 			// 
 			this->phone_number->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->phone_number->Location = System::Drawing::Point(149, 214);
+			this->phone_number->Location = System::Drawing::Point(149, 250);
 			this->phone_number->Name = L"phone_number";
 			this->phone_number->ReadOnly = true;
-			this->phone_number->Size = System::Drawing::Size(181, 28);
+			this->phone_number->Size = System::Drawing::Size(272, 28);
 			this->phone_number->TabIndex = 12;
 			// 
 			// email
 			// 
 			this->email->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->email->Location = System::Drawing::Point(149, 248);
+			this->email->Location = System::Drawing::Point(149, 284);
 			this->email->Name = L"email";
 			this->email->ReadOnly = true;
-			this->email->Size = System::Drawing::Size(181, 28);
+			this->email->Size = System::Drawing::Size(272, 28);
 			this->email->TabIndex = 13;
 			// 
 			// extra_contacts
 			// 
 			this->extra_contacts->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->extra_contacts->Location = System::Drawing::Point(149, 282);
+			this->extra_contacts->Location = System::Drawing::Point(149, 318);
 			this->extra_contacts->Name = L"extra_contacts";
 			this->extra_contacts->ReadOnly = true;
-			this->extra_contacts->Size = System::Drawing::Size(181, 28);
+			this->extra_contacts->Size = System::Drawing::Size(272, 28);
 			this->extra_contacts->TabIndex = 14;
 			// 
 			// website
 			// 
 			this->website->Font = (gcnew System::Drawing::Font(L"Roboto Condensed", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->website->Location = System::Drawing::Point(149, 316);
+			this->website->Location = System::Drawing::Point(149, 352);
 			this->website->Name = L"website";
 			this->website->ReadOnly = true;
-			this->website->Size = System::Drawing::Size(181, 28);
+			this->website->Size = System::Drawing::Size(272, 28);
 			this->website->TabIndex = 15;
 			// 
-			// account_info
+			// Account_Info
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(342, 358);
+			this->ClientSize = System::Drawing::Size(432, 393);
 			this->Controls->Add(this->website);
 			this->Controls->Add(this->extra_contacts);
 			this->Controls->Add(this->email);
@@ -311,9 +311,9 @@ namespace Agora {
 			this->Controls->Add(this->label_name);
 			this->Controls->Add(this->label_info);
 			this->Controls->Add(this->bg_info);
-			this->MaximumSize = System::Drawing::Size(360, 405);
-			this->MinimumSize = System::Drawing::Size(360, 405);
-			this->Name = L"account_info";
+			this->MaximumSize = System::Drawing::Size(450, 440);
+			this->MinimumSize = System::Drawing::Size(450, 440);
+			this->Name = L"Account_Info";
 			this->Text = L"Об аккаунте";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bg_info))->EndInit();
 			this->ResumeLayout(false);

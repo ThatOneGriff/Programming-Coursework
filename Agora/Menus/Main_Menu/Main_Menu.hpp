@@ -1855,42 +1855,57 @@ private:
 	{
 		Button^ source = safe_cast<Button^>(sender);
 		Listing_Interface^ respectable_listing_ui;
+		bool accepted = randint_percent(80);
 		if (contractor1->has(source))
 		{
 			respectable_listing_ui = contractor1;
 			contractor1->listing->customer = user;
-			/// We could give it an 80% chance for a spice.
-			show_info(L"Подрядчик согласился!");
+			if (accepted)
+				show_info (L"Подрядчик согласился!");
+			else
+				show_error(L"Подрядчик отказался!", L"Отказ");
 		}
 
 		else if (contractor2->has(source))
 		{
 			respectable_listing_ui = contractor2;
 			contractor2->listing->customer = user;
-			show_info(L"Подрядчик согласился!");
+			if (accepted)
+				show_info (L"Подрядчик согласился!");
+			else
+				show_error(L"Подрядчик отказался!", L"Отказ");
 		}
 
 		else if (customer1->has(source))
 		{
 			respectable_listing_ui = customer1;
 			customer1->listing->contractor = user;
-			show_info(L"Заказчик согласился!");
+			if (accepted)
+				show_info (L"Заказчик согласился!");
+			else
+				show_error(L"Заказчик отказался!", L"Отказ");
 		}
 
 		else if (customer2->has(source))
 		{
 			respectable_listing_ui = customer2;
 			customer2->listing->contractor = user;
-			show_info(L"Заказчик согласился!");
+			if (accepted)
+				show_info (L"Заказчик согласился!");
+			else
+				show_error(L"Заказчик отказался!", L"Отказ");
 		}
 
 		else return;
 
-		active_listings.push_back(*respectable_listing_ui->listing);
-		respectable_listing_ui->ui_group->Enabled = false;
+		if (accepted)
+		{
+			active_listings.push_back(*respectable_listing_ui->listing);
+			save(user, USER_SAVEFILE_NAME, active_listings);
+			fill_account_listing_interface();
+		}
 
-		save(user, USER_SAVEFILE_NAME, active_listings);
-		fill_account_listing_interface();
+		respectable_listing_ui->ui_group->Enabled = false;
 	}
 
 
