@@ -19,7 +19,7 @@ public:
 	unsigned int hrs;
 
 	///   подрядчик |  заказчик | автор
-	User *contractor, *customer;
+	User *contractor, *customer, *author;
 
 
 	Listing& operator=(const Listing& other)
@@ -53,7 +53,12 @@ public:
 			User* _contractor = nullptr, User* _customer = nullptr)
 	: name(_name), hrs(_hrs), per_hr(_per_hr),
 	  contractor(_contractor), customer(_customer)
-	{}
+	{
+		if (contractor != nullptr)
+			author = contractor;
+		else if (customer != nullptr)
+			author = customer;
+	}
 
 
 	/// For compiler not to whine.
@@ -65,21 +70,28 @@ public:
 		return hrs * per_hr;
 	}
 
-
-	std::wstring serialize(User* user) /// 'user' for comparing and finding where is 'user.txt' needed as a savefile
+	
+	/// Assumes every contract involves 'user' - inter-NPC contracts impossible.
+	std::wstring serialize() /// 'user' for comparing and finding where is 'user.txt' needed as a savefile
 	{
 		std::wstring result =
 			  name + L'\n'
 			+ std::to_wstring(per_hr) + L'\n'
 			+ std::to_wstring(hrs)  + L'\n';
 
-		if (contractor == nullptr) result += L'\n';
-		else if (contractor == user) result += L"user.txt\n";
-		else result += contractor->name->as_filename() + L'\n';
+		if (contractor == nullptr)
+			result += L'\n';
+		else if (contractor == author)
+			result += contractor->name->as_filename() + L'\n';
+		else
+			result += L"user.txt\n";
 
-		if (customer == nullptr) result += L'\n';
-		else if (customer == user) result += L"user.txt\n";
-		else result += customer->name->as_filename() + L'\n';
+		if (customer == nullptr)
+			result += L'\n';
+		else if (customer == author)
+			result += customer->name->as_filename() + L'\n';
+		else
+			result += L"user.txt\n";
 
 		return result;
 	}

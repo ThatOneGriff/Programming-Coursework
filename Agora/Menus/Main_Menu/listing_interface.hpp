@@ -86,7 +86,7 @@ public:
 	}
 
 
-	void set_listing(Listing* new_listing, const unsigned int listing_type)
+	void set_listing(Listing* new_listing)
 	{
 		listing = new_listing;
 
@@ -94,18 +94,18 @@ public:
 		name->Text   = to_dotnet_string(listing->name);
 		per_hr->Text = Convert::ToString(listing->per_hr);
 
-		if (listing_type == CUSTOMER_LISTING)
-		{
-			hrs->Text = Convert::ToString(listing->hrs);
-			author->Text = to_dotnet_string(listing->customer->name->get_short());
-		}
-		else if (listing_type == CONTRACTOR_LISTING)
+		if ((listing->author == listing->contractor) && (listing->contractor != nullptr))
 		{
 			calculate_and_display_total(1);
 			author->Text = to_dotnet_string(listing->contractor->name->get_short());
 		}
+		else if ((listing->author == listing->customer) && (listing->customer != nullptr))
+		{
+			hrs->Text = Convert::ToString(listing->hrs);
+			author->Text = to_dotnet_string(listing->customer->name->get_short());
+		}
 		else
-			show_error(L"Wrong listing type \"" + std::to_wstring(listing_type) + L"\".");
+			show_error(L"Incorrect listing author.");
 	}
 };
 }

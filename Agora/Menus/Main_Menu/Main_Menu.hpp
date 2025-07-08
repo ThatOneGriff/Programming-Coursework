@@ -19,7 +19,7 @@ using namespace System::Data;
 using namespace System::Drawing;
 
 /// 'Member of an unmanaged class' bullshit made me put all of this here
-std::vector<Listing> accepted_listings;
+std::vector<Listing> active_listings;
 Listing listing_contractor1, listing_contractor2,
 		listing_customer1,   listing_customer2;
 
@@ -46,7 +46,7 @@ public:
 	: user(_user)
 	{
 		InitializeComponent();
-		accepted_listings = load_listings(user);
+		active_listings = load_listings(user);
 
 		System::Drawing::Size size(665, 485);
 		this->Size = size;
@@ -67,7 +67,7 @@ private:
 
 	void fill_account_listing_interface()
 	{
-		if (accepted_listings.size() < 1)
+		if (active_listings.size() < 1)
 			return;
 
 		active_listing1 = gcnew Listing_Interface(
@@ -78,18 +78,19 @@ private:
 			active_listing1_total
 		);
 
+		active_listing1->set_listing(&active_listings[0]);
 
-		/*if (accepted_listings.size() < 2)
+		/*if (active_listings.size() < 2)
 			return;
 
-		active_listing_2_name->Text = to_dotnet_string(accepted_listings[1].name);
-		if (accepted_listings[1].contractor == user)
-			active_listing_2_from->Text = to_dotnet_string(accepted_listings[1].customer->name->get_short());
+		active_listing_2_name->Text = to_dotnet_string(active_listings[1].name);
+		if (active_listings[1].contractor == user)
+			active_listing_2_from->Text = to_dotnet_string(active_listings[1].customer->name->get_short());
 		else
-			active_listing_2_from->Text = to_dotnet_string(accepted_listings[1].contractor->name->get_short());
-		active_listing_2_hourly->Text = Convert::ToString(accepted_listings[1].per_hr);
-		active_listing_2_hrs->Text	= Convert::ToString(accepted_listings[1].hrs);
-		active_listing_2_total->Text  = L"Итого, ₽: " + Convert::ToString(accepted_listings[1].payment_total());*/
+			active_listing_2_from->Text = to_dotnet_string(active_listings[1].contractor->name->get_short());
+		active_listing_2_hourly->Text = Convert::ToString(active_listings[1].per_hr);
+		active_listing_2_hrs->Text	= Convert::ToString(active_listings[1].hrs);
+		active_listing_2_total->Text  = L"Итого, ₽: " + Convert::ToString(active_listings[1].payment_total());*/
 	}
 
 
@@ -1280,7 +1281,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_contractor2_picker_hrs->Size = System::Drawing::Size(40, 28);
 		this->listing_contractor2_picker_hrs->TabIndex = 10;
 		this->listing_contractor2_picker_hrs->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor2_picker_hrs->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
+		this->listing_contractor2_picker_hrs->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_hrs_adjusted);
 		// 
 		// listing_contractor2_total
 		// 
@@ -1407,7 +1408,7 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->listing_contractor1_picker_hrs->Size = System::Drawing::Size(40, 28);
 		this->listing_contractor1_picker_hrs->TabIndex = 9;
 		this->listing_contractor1_picker_hrs->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-		this->listing_contractor1_picker_hrs->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_length_adjusted);
+		this->listing_contractor1_picker_hrs->ValueChanged += gcnew System::EventHandler(this, &Main_Menu::feed_contracts_hrs_adjusted);
 		// 
 		// listing_contractor1_total
 		// 
@@ -1717,15 +1718,15 @@ private:
 
 		else return;
 
-		accepted_listings.push_back(*respectable_listing_ui->listing);
+		active_listings.push_back(*respectable_listing_ui->listing);
 		respectable_listing_ui->ui_group->Enabled = false;
 
-		save(user, USER_SAVEFILE_NAME, accepted_listings);
+		save(user, USER_SAVEFILE_NAME, active_listings);
 		fill_account_listing_interface();
 	}
 
 
-	void feed_contracts_length_adjusted(System::Object^ sender, System::EventArgs^ e)
+	void feed_contracts_hrs_adjusted(System::Object^ sender, System::EventArgs^ e)
 	{
 		NumericUpDown^ source = safe_cast<NumericUpDown^>(sender);
 		Listing_Interface^ respectable_listing_ui;
@@ -1743,16 +1744,16 @@ private:
 	void fill_feed_menu()
 	{
 		listing_contractor1 = get_random_listing(CONTRACTOR_LISTING);
-		contractor1_ui->set_listing(&listing_contractor1, CONTRACTOR_LISTING);
+		contractor1_ui->set_listing(&listing_contractor1);
 
 		listing_contractor2 = get_random_listing(CONTRACTOR_LISTING);
-		contractor2_ui->set_listing(&listing_contractor2, CONTRACTOR_LISTING);
+		contractor2_ui->set_listing(&listing_contractor2);
 
 		listing_customer1 = get_random_listing(CUSTOMER_LISTING);
-		customer1_ui->set_listing(&listing_customer1, CUSTOMER_LISTING);
+		customer1_ui->set_listing(&listing_customer1);
 
 		listing_customer2 = get_random_listing(CUSTOMER_LISTING);
-		customer2_ui->set_listing(&listing_customer2, CUSTOMER_LISTING);
+		customer2_ui->set_listing(&listing_customer2);
 	}
 
 
@@ -1797,7 +1798,7 @@ private:
 
 		Point label_pos(11, 113);
 		label_no_active_contracts->Location = label_pos;
-		if (! accepted_listings.empty())
+		if (! active_listings.empty())
 			label_no_active_contracts->Visible = false;
 		else
 		{
@@ -1864,15 +1865,15 @@ private:
 		if (active_listing1->has(source))
 		{
 			active_listing1->ui_group->Enabled = false;
-			accepted_listings.erase(find(accepted_listings.begin(), accepted_listings.end(), *active_listing1->listing));
+			active_listings.erase(find(active_listings.begin(), active_listings.end(), *active_listing1->listing));
 		}
 		
 		/*else if (active_listing2->has(source))
 			active_listing2->ui_group->Enabled = false;
-			accepted_listings.erase(find(accepted_listings.begin(), accepted_listings.end(), *active_listing2->listing));
+			active_listings.erase(find(active_listings.begin(), active_listings.end(), *active_listing2->listing));
 		}*/
 
-		save(user, USER_SAVEFILE_NAME, accepted_listings);
+		save(user, USER_SAVEFILE_NAME, active_listings);
 	}
 
 	#pragma endregion

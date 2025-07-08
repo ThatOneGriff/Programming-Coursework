@@ -123,7 +123,7 @@ void save(User* user, std::wstring filename/* = L""*/, std::vector<Listing> acti
 
 	for (Listing& listing : active_listings)
 	{
-		savefile_listings << listing.serialize(user) << L'\n';
+		savefile_listings << listing.serialize() << L'\n';
 
 		if ((listing.contractor != user) && (typeid(*listing.contractor) == typeid(Individual)))
 			savefile_individuals << listing.contractor->serialize() << L'\n';
@@ -213,6 +213,7 @@ std::vector<Listing> load_listings(User* user)
 		}
 
 		Listing new_listing(name, total_hrs, payment_hr, contractor, customer);
+		show_info(new_listing.serialize());
 		result.push_back(new_listing);
 	}
 
