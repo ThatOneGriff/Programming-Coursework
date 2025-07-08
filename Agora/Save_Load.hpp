@@ -213,7 +213,6 @@ std::vector<Listing> load_listings(User* user)
 		}
 
 		Listing new_listing(name, total_hrs, payment_hr, contractor, customer);
-		show_info(new_listing.serialize());
 		result.push_back(new_listing);
 	}
 

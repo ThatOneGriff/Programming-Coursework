@@ -32,6 +32,7 @@ public:
 
 			contractor = other.contractor;
 			customer   = other.customer;
+			author	   = other.author;
 		}
 		return *this;
 	}
@@ -45,6 +46,7 @@ public:
 			&& hrs	  == other.hrs
 			&& contractor == other.contractor
 			&& customer   == other.customer
+			&& author	  == other.author
 		);
 	}
 
@@ -58,6 +60,8 @@ public:
 			author = contractor;
 		else if (customer != nullptr)
 			author = customer;
+		else
+			show_error(L"Listing with no users.");
 	}
 
 
