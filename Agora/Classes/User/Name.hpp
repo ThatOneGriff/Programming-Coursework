@@ -45,16 +45,16 @@ public:
 	: Name(_name), surname(_surname), patronym(_patronym)
 	{}
 
-	std::vector<std::wstring> as_vector()
-	{
-		const std::vector<std::wstring> result = {surname, name, patronym};
-		return result;
-	}
-
 	/// ivanov_ivan_ivanovich<...>
 	std::wstring as_filename(const std::wstring& extension = L".txt")
 	{
 		return translit_CtoL(surname) + L'_' + translit_CtoL(name) + L'_' + translit_CtoL(patronym) + extension;
+	}
+
+	std::vector<std::wstring> as_vector()
+	{
+		const std::vector<std::wstring> result = {surname, name, patronym};
+		return result;
 	}
 
 	/// The form that'll appear in interface. Returns 'get_short()'
