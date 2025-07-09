@@ -106,16 +106,16 @@ public:
 	: legal_form(_legal_form), Name(_name)
 	{}
 
-	std::vector<std::wstring> as_vector()
-	{
-		const std::vector<std::wstring> result = {legal_form, name};
-		return result;
-	}
-
 	/// tmyvbabla<...>
 	std::wstring as_filename(const std::wstring& extension = L".txt")
 	{
 		return translit_CtoL(name) + extension;
+	}
+
+	std::vector<std::wstring> as_vector()
+	{
+		const std::vector<std::wstring> result = {legal_form, name};
+		return result;
 	}
 
 	/// The form that'll appear in interface. Returns 'get_full()'

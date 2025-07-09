@@ -67,9 +67,9 @@ public:
 
 	
 	/// Intended only for UI's with variable hour settings!
-	void calculate_and_display_total(const unsigned int hrs)
+	void calculate_and_display_total(const unsigned int _hrs)
 	{
-		listing->hrs = hrs;
+		listing->hrs = _hrs;
 		total->Text = L"Итого, ₽: " + listing->payment_total();
 	}
 
