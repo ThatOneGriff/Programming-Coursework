@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0" version="27.1.5">
   <diagram name="Page-1" id="qLuV-ipt5zHKdrXihvWw">
-    <mxGraphModel dx="2573" dy="2050" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2327" dy="1914" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -162,7 +162,7 @@
         <mxCell id="KzQ03IzXrtYMiFFXgTfP-68" value="+random_job_name: wstring&lt;div&gt;+random_per_hr: uint&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="KzQ03IzXrtYMiFFXgTfP-66">
           <mxGeometry y="80" width="210" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="KzQ03IzXrtYMiFFXgTfP-69" value="Listing_Interface" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;gradientColor=#B9E0A5;" vertex="1" parent="1">
+        <mxCell id="KzQ03IzXrtYMiFFXgTfP-69" value="Listing_Interface" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;gradientColor=none;" vertex="1" parent="1">
           <mxGeometry x="370" y="-660" width="210" height="270" as="geometry" />
         </mxCell>
         <mxCell id="KzQ03IzXrtYMiFFXgTfP-70" value="+ui_group^: GroupBox&lt;div&gt;+name^: Label&lt;/div&gt;&lt;div&gt;+author^: Label&lt;/div&gt;&lt;div&gt;+author_info^: Button&lt;/div&gt;&lt;div&gt;+label_per_hr^: Label&lt;/div&gt;&lt;div&gt;+per_hr^: Label&lt;/div&gt;&lt;div&gt;+label_hrs^: Label&lt;/div&gt;&lt;div&gt;+hrs^: Control&lt;/div&gt;&lt;div&gt;+button^: Button&lt;/div&gt;&lt;div&gt;+total^: Label&lt;/div&gt;&lt;div&gt;+listing*: Listing&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="KzQ03IzXrtYMiFFXgTfP-69">
