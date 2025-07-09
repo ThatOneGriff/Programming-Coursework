@@ -1794,9 +1794,9 @@ private: System::Windows::Forms::Button^ listing_contractor1_button_info;
 		this->BackColor = System::Drawing::SystemColors::Control;
 		this->ClientSize = System::Drawing::Size(684, 517);
 		this->Controls->Add(this->sidebar);
-		this->Controls->Add(this->menu_feed);
 		this->Controls->Add(this->menu_account);
 		this->Controls->Add(this->menu_search);
+		this->Controls->Add(this->menu_feed);
 		this->DoubleBuffered = true;
 		this->Font = (gcnew System::Drawing::Font(L"Roboto", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(204)));
