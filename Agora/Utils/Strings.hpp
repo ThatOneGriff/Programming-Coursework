@@ -27,12 +27,6 @@ std::wstring	to_std_wstring(System::String^ target);
 std::wstring	translit_CtoL(const std::wstring& target);
 
 
-System::String^ operator=(const std::wstring& wstr)
-{
-	return to_dotnet_string(wstr);
-}
-
-
 /// Because 'wstring::erase' simply refused to work.
 std::wstring erase_at(const std::wstring& target, const unsigned int index)
 {
